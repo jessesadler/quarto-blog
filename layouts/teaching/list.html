@@ -35,10 +35,7 @@
                   </h3>
                 {{ end }}
               </a>
-    
-              <p class="post-meta">
-                {{ default (i18n "dateFormat") .Site.Params.dateformat | .Date.Format | i18n "postedOnDate" }}
-              </p>
+
               <div class="post-entry">
                 {{ if .Truncated }}
                   {{ .Summary }}
@@ -59,6 +56,7 @@
             </article>
           {{ end }}
         </div>
+      
         {{ if or (.Paginator.HasPrev) (.Paginator.HasNext) }}
           <ul class="pager main-pager">
             {{ if .Paginator.HasPrev }}

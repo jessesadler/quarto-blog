@@ -16,7 +16,7 @@
             {{- end -}}
           {{ end }}
           {{ if .Site.Params.rss }}
-          <li>
+          <li> <!-- RSS Feed -->
             <a href="{{ "index.xml" | absLangURL }}" title="RSS">
               <span class="fa-stack fa-lg">
                 <i class="fa fa-circle fa-stack-2x"></i>
@@ -25,6 +25,7 @@
             </a>
           </li>
           {{ end }}
+  
         </ul>
         <p class="credits copyright text-muted">
           {{ .Site.Author.name }}
@@ -60,6 +61,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe-ui-default.min.js" integrity="sha256-PWHOlUzc96pMc8ThwRIXPn8yH4NOLu42RQ0b9SpnpFk=" crossorigin="anonymous"></script>
 <script src="/js/load-photoswipe.js"></script>
 {{ end }}
+
 <!-- Google Custom Search Engine -->
 {{ if .Site.Params.gcse }}
 <script>

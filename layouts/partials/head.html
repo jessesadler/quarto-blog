@@ -17,6 +17,7 @@
 {{- with .Site.Params.favicon }}
   <link href='{{ . | absURL }}' rel='icon' type='image/x-icon'/>
 {{- end -}}
+
 <!-- Social Media Tags -->
 {{- with .Params.share_img | default .Params.image | default .Site.Params.logo }}
   <meta property="og:image" content="{{ . | absURL }}" />
@@ -33,8 +34,10 @@
   <meta property="og:url" content="{{ .URL | absLangURL }}" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="{{ .Site.Title }}" />
+
 <!-- Hugo Version number -->
   {{ .Hugo.Generator -}}
+
 <!-- Links and stylesheets -->
   <link rel="canonical" href="{{ .URL | absLangURL }}" />
   <link rel="alternate" href="{{ "index.xml" | absLangURL }}" type="application/rss+xml" title="{{ .Site.Title }}">

@@ -1,6 +1,6 @@
 baseurl = "http://localhost:1313/"
 DefaultContentLanguage = "en"
-title = "Viva los Burros"
+title = "Jesse Sadler"
 theme = "beautifulhugo"
 metaDataFormat = "yaml"
 pygmentsUseClasses = true
@@ -9,13 +9,13 @@ pygmentCodeFences = true
 #googleAnalytics = "XXX"
 
 [Params]
-  subtitle = "European History and other rumblings"
+  subtitle = "A blog about history and digital humanities"
   logo = "img/avatar-icon.png"
   favicon = "img/favicon.ico"
   dateFormat = "January 2, 2006"
   commit = false
   rss = true
-  comments = true
+  comments = false
 #  gcse = "012345678901234567890:abcdefghijk" # Get your code from google.com/cse. Make sure to go to "Look and Feel" and change Layout to "Full Width" and Theme to "Classic"
 
 #[[Params.bigimg]]
