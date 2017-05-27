@@ -3,7 +3,7 @@ author: "Jesse Sadler"
 date: 2017-05-22T16:37:45-07:00
 description: "Course description for History 122D"
 draft: = "false"
-subtitle: "Fall 2016 and Spring 2015"
+subtitle: "Taught: Fall 2016 and Spring 2015"
 title: "Cultural and Intellectual History of Modern Europe, Eighteenth Century"
 ---
 

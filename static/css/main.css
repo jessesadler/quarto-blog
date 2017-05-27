@@ -1,7 +1,7 @@
 /* --- General --- */
 
 body {
-  font-family: 'Avenir Next', 'HelveticaNeue-Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Avenir Next', 'Source Sans Pro', sans-serif;
   font-size: 18px;
   color: #404040;
   position: relative;
@@ -9,7 +9,7 @@ body {
 }
 p {
   line-height: 1.5;
-  margin: 30px 0;
+  margin: 20px 0;
 }
 p a {
   /* text-decoration: underline */
@@ -285,14 +285,14 @@ footer .theme-by {
     font-size: 18px;
   }
   footer .copyright {
-    font-size: 16px;
+    font-size: 14px;
   }
 }
  
 /* --- Post preview --- */
 
 .post-preview {
-  padding: 20px 0;
+  padding: 30px 0;
   border-bottom: 1px solid #eee;
 }
 
@@ -323,7 +323,7 @@ footer .theme-by {
 }
 
 .post-preview .post-title {
-  font-size: 30px;
+  font-size: 35px;
   margin-top: 0;
 }
 .post-preview .post-subtitle {
@@ -339,7 +339,7 @@ footer .theme-by {
 }
 .post-preview .post-meta a,
 .post-heading .post-meta a {
-  color: #404040;
+  color: #ff9600;
   text-decoration: none;
 }
 .post-preview .post-entry {
@@ -374,7 +374,7 @@ footer .theme-by {
 
 @media only screen and (min-width: 768px) {
   .post-preview .post-title {
-    font-size: 36px;
+    font-size: 35px;
   }
 }
 
@@ -422,8 +422,8 @@ footer .theme-by {
     float: left;
   }
 }
-/* --- Post and page headers --- */
 
+/* --- Post and page headers --- */
 .intro-header {
   margin: 80px 0 20px;
   position: relative;
@@ -481,7 +481,7 @@ footer .theme-by {
 }
 .intro-header.big-img .page-heading .page-subheading,
 .intro-header.big-img .post-heading .post-subheading {
-  font-weight: 400;
+  font-weight: 300;
 }
 .intro-header.big-img .page-heading hr {
   box-shadow: 1px 1px 3px #000;
@@ -516,7 +516,7 @@ footer .theme-by {
     font-size: 50px;
   }
   .intro-header .post-heading h1 {
-    font-size: 50px;
+    font-size: 35px;
   }
   .intro-header.big-img .img-desc {
     font-size: 14px;

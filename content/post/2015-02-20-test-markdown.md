@@ -20,6 +20,7 @@ Here's a useless table:
 | Seven | Eight | Six |
 | Two | Three | One |
  
+[Leaflet map](http://localhost:1313/leaflet/exploratory-data.html)
 
 How about a yummy crepe?
 
@@ -27,10 +28,19 @@ How about a yummy crepe?
 
 Here's a code chunk with syntax highlighting:
 
-```javascript
-var foo = function(x) {
-  return(x + 5);
-}
-foo(3)
+```r
+letters <- read_csv("Exploratory Data.csv", col_types = cols(
+  date = col_date(format = "%Y%m%d")))
+locations <- read_rds("locations.rds")
+geo_data <- select(locations, place:lat) # simplify locations data to only necessary variables
+
+geo_letters <- letters %>%
+  inner_join(geo_data, by = c("source" = "place")) %>% 
+  inner_join(geo_data, by = c("destination" = "place"))
+
+geo_letters$ID <-as.character(c(1:nrow(geo_letters))) # create id for each pair
 ```
+
+Here is some `in line code`. You can go to `/Documents/Sites` to get this information.
+
 <!--more-->

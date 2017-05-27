@@ -1,10 +1,8 @@
 ---
 title: About me
-subtitle: ""
-comments: false
 ---
 
-I am historian and coffee lover. I received a Ph.D. in European History from UCLA in 2015.
+I am historian and coffee lover. I received a Ph.D. in European History from UCLA in 2015 and have taught courses on cultural and intellectual history of early modern Europe.
 
 ### Research
 

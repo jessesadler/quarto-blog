@@ -3,7 +3,7 @@ author: Jesse Sadler
 date: 2017-05-22T17:21:57-07:00
 description: ""
 draft: "false"
-subtitle: "Spring 2016"
+subtitle: "Taught: Spring 2016"
 title: "Virtue and Commerce: Republicanism and the Development of the Global Economy"
 ---
 

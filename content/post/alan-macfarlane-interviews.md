@@ -12,6 +12,8 @@ It really is amazing what you can find on Youtube. Looking around for some inter
 
 <!--more-->
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/43BiUVlNy58" frameborder="0" allowfullscreen></iframe>
+
 ### A short list of some of the names that stand out:
  * [Clifford Geertz](http://www.sms.cam.ac.uk/media/1092398)
  * [Eric Hobsbaum](http://www.sms.cam.ac.uk/media/1121594)
