@@ -27,6 +27,20 @@ title: "CV"
 * "Constituting Family in the Dutch Revolt: The Experience of the Van der Meulens," Vijftiende en zestiende eeuwse werkgroup, Universiteit Leiden, 2 December 2011
 * "The Collegiants, a Small Presence in the Republic, a Large Metaphor for the Book," At the Interface of Religion and Cosmopolitanism: *Bernard Picart’s Cérémonies et coutumes religieuses de tous les peuples du monde* (1723–1743) and the European Enlightenment: A conference at the Getty Research Institute and the Clark Library, 6–8 December 2007
 
+### Teaching: Lecturer UCLA
+* Cultural and Intellectual History of Modern Europe, Eighteenth Century (Fall 2016 and Spring 2015)
+* Introduction to Western Civilization: Circa A.D. 843 to circa 1715 (Spring 2016)
+* Virtue and Commerce: Republicanism and the Development of the Global Economy (Spring 2016)
+* Freemasonry, Civil Society, and Democracy in 18th-Century Europe and America (Fall 2015)
+
+### Teaching: Teaching Assistant UCLA
+* Freemasonry, Civil Society, and American Democracy (Instructor of Record) (2011–2014)
+* I, Me, and You: Histories of the Self (Instructor of Record) (Spring 2009)
+* History of Modern Thought (Fall 2008 and Winter 2009)
+* Western Civilization: Circa 843 to Circa 1715 (Spring 2008)
+* Western Civilization: Ancient Civilizations from Prehistory to Circa A.D. 843 (Winter 2008)
+* History of the Near and Middle East (Fall 2007)
+
 ### Academic Service
 * Board Member of American Association of Netherlandic Studies, 2016–Present
 * "Early Modern Dutch Handwriting and Archival Research," leader of workshop on reading early modern manuscripts and archives in The Netherlands and Belgium at AANS International Interdisciplinary Conference, (2012, 2014, and 2016)

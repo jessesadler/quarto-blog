@@ -1,4 +1,4 @@
-baseurl = "http://localhost:1313/"
+baseurl = "http://localhost:1313"
 DefaultContentLanguage = "en"
 title = "Jesse Sadler"
 theme = "beautifulhugo"
@@ -45,8 +45,8 @@ pygmentCodeFences = true
     weight = 2
 
 [[menu.main]]
-    name = "Teaching"
-    url = "/teaching/"
+    name = "Courses"
+    url = "/course/"
     weight = 3
 
 [[menu.main]]
