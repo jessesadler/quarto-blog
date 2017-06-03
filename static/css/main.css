@@ -469,7 +469,8 @@ footer .theme-by {
   font-size: 35px;
 }
 .intro-header .page-heading .page-subheading,
-.intro-header .post-heading .post-subheading {
+.intro-header .post-heading .post-subheading,
+.intro-header .course-heading .course-subheading {
   font-size: 27px;
   line-height: 1.1;
   display: block;

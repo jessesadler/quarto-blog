@@ -9,7 +9,7 @@ pygmentCodeFences = true
 #googleAnalytics = "XXX"
 
 [Params]
-  subtitle = "A blog about history and digital humanities"
+  subtitle = "A blog about early modern history and digital humanities"
   logo = "img/avatar-icon.png"
   favicon = "img/favicon.ico"
   dateFormat = "January 2, 2006"
@@ -31,7 +31,7 @@ pygmentCodeFences = true
 [Author]
   name = "Jesse Sadler"
   email = "jsadler@ucla.edu"
-  twitter = "@vivalosburros"
+  twitter = "vivalosburros"
   github = "jessesadler"
 
 [[menu.main]]
