@@ -8,7 +8,7 @@ tags:
 title: "The Correspondence Network of Daniel van der Meulen, 1578–1591"
 ---
 
-![Daniel van der Meulen Correspondence, 1578–1591](http://localhost:1313/img/ggmap-light-2017-06-02.png)
+![Daniel van der Meulen Correspondence, 1578–1591](https://jessesadler.netlify.com/img/ggmap-light-2017-06-02.png)
 
 ---
 
