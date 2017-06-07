@@ -1,4 +1,4 @@
-baseurl = "https://jessesadler.netlify.com"
+baseurl = "https://jessesadler.com"
 DefaultContentLanguage = "en"
 title = "Jesse Sadler"
 theme = "beautifulhugo"
