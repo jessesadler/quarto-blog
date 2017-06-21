@@ -6,7 +6,7 @@ metaDataFormat = "yaml"
 pygmentsUseClasses = true
 pygmentCodeFences = true
 #disqusShortname = "XXX"
-#googleAnalytics = "XXX"
+googleAnalytics = "UA-101429357-1"
 
 [Params]
   subtitle = "A blog about early modern history and digital humanities"
