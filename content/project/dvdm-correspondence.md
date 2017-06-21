@@ -23,7 +23,7 @@ The large collection of approximately 6,600 letters that Daniel van der Meulen (
 The analysis and visualization for this project is being done with the [R programming language](https://www.r-project.org). The above map of the letters from 1578–1591 provides an example of the visual possibilities. In addition to static maps, the project will also include interactive maps that enable the viewer to investigate the data on their own. An early example of this can be seen below, which uses the [leaflet package](https://rstudio.github.io/leaflet/). Further analysis and visualizations will be described on the blog.
 
 ### Correspondence Network of Daniel van der Meulen, 1578–1591
-<iframe src="/leaflet/leaflet-2017-06-02.html" width="100%" height="500"></iframe>
+<iframe src="/leaflet/leaflet-2017-06-20.html" width="100%" height="500"></iframe>
 
 The contents of this project are very much under development. You can check out the [GitHub page](https://github.com/jessesadler/dvdm-correspondence) to see the development. Below is a partial list of some aspects of the project that are ahead. Feedback on the project is welcome. I can be reached via email, Twitter, or through an issue on GitHub.
 
