@@ -2,9 +2,9 @@
 author: Jesse Sadler
 date: 2017-05-20T14:24:49-07:00
 description: "Course description for History of Freemasonry, civil society, and democracy from the Renaissance to the French Revolution and American Revolution"
-draft: "false"
-subtitle: "Taught: Fall 2015"
+draft: false
 title: "Freemasonry, Civil Society, and Democracy in 18th-Century Europe and America"
+subtitle: "Taught: Fall 2015"
 ---
 
 <!--more-->

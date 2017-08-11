@@ -1,8 +1,10 @@
 ---
-author: "Jesse Sadler"
+author: Jesse Sadler
+date: {{ .Date }}
 description: ""
-draft: "true"
-subtitle: ""
-tags: ["one", "two"]
+draft: true
 title: ""
+subtitle: ""
+tags: 
+- 
 ---

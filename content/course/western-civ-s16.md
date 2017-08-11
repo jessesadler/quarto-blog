@@ -2,9 +2,9 @@
 author: Jesse Sadler
 date: 2017-05-23T14:25:51-07:00
 description: "Course description for Western Civilization course on medieval and early modern Europe"
-draft: "false"
-subtitle: "Taught: Spring 2016"
+draft: false
 title: "Introduction to Western Civilization: Circa A.D. 843 to circa 1715"
+subtitle: "Taught: Spring 2016"
 ---
 
 <!--more-->

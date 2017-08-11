@@ -1,7 +1,7 @@
 ---
-author: "Jesse Sadler"
+author: Jesse Sadler
 description: ""
-draft: "true"
-subtitle: "Taught: "
+draft: true
 title: ""
+subtitle: "Taught: "
 ---

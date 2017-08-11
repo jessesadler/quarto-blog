@@ -2,15 +2,19 @@
 author: Jesse Sadler
 date: 2017-05-27T12:50:02-07:00
 description: "A digital humanities project of an early modern merchant's correspondence network using GIS techniques with R"
-draft: "false"
-subtitle: ""
+draft: false
 tags: 
 title: "The Correspondence Network of Daniel van der Meulen, 1578–1591"
+subtitle: 
 ---
 
 ![Daniel van der Meulen Correspondence, 1578–1591](/img/ggmap-light-2017-06-06.png)
 
 ---
+
+### Visualizations
+* [Interactive leaflet map of the correspondence network](https://jessesadler.com/visualization/leaflet-map/)
+* [Shiny version of the leaflet map that includes real-time filtering of dates](https://jessesadler.shinyapps.io/dvdm-correspondence/)
 
 ### Background to Daniel van der Meulen
 Long-distance trade in the early modern period could not be conducted without correspondence networks and the exchange of letters. Merchants continued to travel in order to manage their affairs, but elite merchants like Daniel van der Meulen rarely if ever travelled with their own goods. Instead of escorting goods from place to place, merchants like Daniel organized and supervised the purchase, transportation, and sale of goods through correspondence with factors spread throughout the trade routes of Europe and beyond. This more sedentary system of exchange enabled the rapid growth of trade on an individual and European-wide basis, but it also necessitated that merchants create and maintain wide networks of competent and trustworthy correspondents willing and able to follow the directions of merchants who might be many hundreds of miles away.
@@ -23,14 +27,11 @@ The large collection of approximately 6,600 letters that Daniel van der Meulen (
 The analysis and visualization for this project is being done with the [R programming language](https://www.r-project.org). The above map of the letters from 1578–1591 provides an example of the visual possibilities. In addition to static maps, the project will also include interactive maps that enable the viewer to investigate the data on their own. An early example of this can be seen below, which uses the [leaflet package](https://rstudio.github.io/leaflet/). Further analysis and visualizations will be described on the blog.
 
 ### Correspondence Network of Daniel van der Meulen, 1578–1591
-<iframe src="/leaflet/leaflet-2017-06-20.html" width="100%" height="500"></iframe>
-
 The contents of this project are very much under development. You can check out the [GitHub page](https://github.com/jessesadler/dvdm-correspondence) to see the development. Below is a partial list of some aspects of the project that are ahead. Feedback on the project is welcome. I can be reached via email, Twitter, or through an issue on GitHub.
 
 ### Future developments
 * Make website dedicated to the analysis and visualization of the correspondence of Daniel van der Meulen
 * Data entry of letters, 1592–1600
-* Create an interactive [Shiny app](http://shiny.rstudio.com) to analyze different aspects of the correspondence network
 * Geographical analysis with the [R Simple Features package](https://cran.r-project.org/web/packages/sf/)
 * Analysis and visualization of more aspects of the data including, distance, number of correspondents, and characteristics of the correspondents
 

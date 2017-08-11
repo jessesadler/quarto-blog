@@ -10,7 +10,6 @@ googleAnalytics = "UA-101429357-1"
 
 [Params]
   subtitle = "A blog about early modern history and digital humanities"
-  logo = "img/avatar-icon.png"
   favicon = "img/favicon.ico"
   dateFormat = "January 2, 2006"
   commit = false

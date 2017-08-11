@@ -1,8 +1,8 @@
 ---
 author: Jesse Sadler
 date: 2017-05-26T17:46:33-07:00
-draft: "false"
-title: "CV"
+draft: false
+title: CV
 ---
 
 ### Education
@@ -17,6 +17,7 @@ title: "CV"
 * "The Collegiants, a Small Presence in the Republic, a Large Metaphor for the Book," in *Bernard Picart and the First Global Vision of Religion* eds. Lynn Hunt, Margaret Jacob, and Wijnand Mijnhardt (Los Angeles: Getty Research Institute, 2010)
 
 ### Presentations
+* "Patriarchy, Succession, and Political Authority in the Dutch Revolt," Kinship and Politics: Undoing the Boundaries, Center for Interdisciplinary Research, University of Bielefeld, 2–7 July 2017
 * "Raising Children Across Religious Boundaries," Childhood, Youth and Religious Minorities in Early Modern Europe, University of Warwick, 14–15 October 2016
 * "Exploring New Markets in the Sixteenth-Century Atlantic," International Conference for Netherlandic Studies, 2–4 June 2016
 * "The Information Networks of Daniel van der Meulen in the Dutch Revolt," Sixteenth Century Society and Conference, 22–25 October 2015

@@ -1,10 +1,10 @@
 ---
-author: "Jesse Sadler"
+author: Jesse Sadler
 date: 2017-05-27T16:37:45-07:00
 description: "Course description for History 122D at UCLA on cultural and intellectual history of 18th-century Europe"
-draft: = "false"
-subtitle: "Taught: Fall 2016 and Spring 2015"
+draft: false
 title: "Cultural and Intellectual History of Modern Europe, Eighteenth Century"
+subtitle: "Taught: Fall 2016 and Spring 2015"
 ---
 
 <!--more-->

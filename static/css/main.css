@@ -7,17 +7,22 @@ body {
   position: relative;
   background: #FFF;
 }
+
 p {
   line-height: 1.5;
   margin: 20px 0;
+  margin-top: 0;
 }
-p a {
-  /* text-decoration: underline */
-  color: #ff9600;
-}
+
 h1,h2,h3,h4,h5,h6 {
   font-weight: 600;
 }
+
+p a {
+  /* text-decoration: underline; */
+  color: #ff9600;
+}
+
 a {
   color: #ff9600;
 }
@@ -25,13 +30,16 @@ a:hover,
 a:focus {
   color: #ffaa00;
 }
+
 blockquote {
   color: #808080;
   /* font-style: italic; */
 }
+
 blockquote p:first-child {
   margin-top: 0;
 }
+
 hr.small {
   max-width: 100px;
   margin: 15px auto;
@@ -118,6 +126,7 @@ img {
   color: #00AFD4;
 }
 
+/*
 .navbar-custom .navbar-brand-logo {
   padding-top: 0;
   -webkit-transition: padding .5s ease-in-out;
@@ -143,13 +152,14 @@ img {
     -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
     -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
     transition: background .5s ease-in-out,padding .5s ease-in-out;
-  }
+  } */
 
   .navbar-custom.top-nav-short {
     padding: 0;
   }
 }
 
+/*
 .navbar-custom .avatar-container {
   opacity: 1;
   position: absolute;
@@ -199,7 +209,7 @@ img {
   .navbar-custom .avatar-container  .avatar-img {
     width: 100%;
   }
-}
+} */
 
 /* Multi-level navigation links */
 .navbar-custom .nav .navlinks-container {
@@ -308,12 +318,23 @@ footer .theme-by {
   border-bottom: 0;
 }
 
+.post-preview p {
+  line-height: 1.5;
+  margin: 20px 0;
+  margin-top: 10;
+}
+
 .post-preview a {
   text-decoration: none;
   color: #404040;
 }
 
 .post-preview p a {
+  text-decoration: none;
+  color: #ff9600;
+}
+
+.post-preview li a {
   text-decoration: none;
   color: #ff9600;
 }
@@ -506,7 +527,7 @@ footer .theme-by {
 }
 @media only screen and (min-width: 768px) {
   .intro-header {
-    margin-top: 130px;
+    margin-top: 100px;
   }
   .intro-header.big-img {
     margin-top: 91px;  /* Full navbar is small navbar + 20px padding on each side when expanded */

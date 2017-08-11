@@ -2,9 +2,9 @@
 author: Jesse Sadler
 date: 2017-05-22T17:21:57-07:00
 description: "Course description for virtue and commerce on republicanism and the development of capitalism"
-draft: "false"
-subtitle: "Taught: Spring 2016"
+draft: false
 title: "Virtue and Commerce: Republicanism and the Development of the Global Economy"
+subtitle: "Taught: Spring 2016"
 ---
 
 <!--more-->

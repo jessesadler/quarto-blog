@@ -4,6 +4,14 @@
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         {{ .Content }}
+        	<!-- Put tags at end of article -->
+              {{ if .Params.tags }}
+                <span class="post-meta">
+                  {{ range .Params.tags }}
+                    #<a href="{{ $.Site.LanguagePrefix }}/tags/{{ . | urlize }}">{{ . }}</a>&nbsp;
+                  {{ end }}
+                </span>
+              {{ end }}
       </article>
 
     </div>
