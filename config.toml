@@ -3,8 +3,8 @@ DefaultContentLanguage = "en"
 title = "Jesse Sadler"
 theme = "beautifulhugo"
 metaDataFormat = "yaml"
-pygmentsUseClasses = true
-pygmentCodeFences = true
+#pygmentsUseClasses = true
+#pygmentCodeFences = true
 #disqusShortname = "XXX"
 googleAnalytics = "UA-101429357-1"
 
