@@ -27,7 +27,7 @@
           {{ range .Paginator.Pages }}
             <article class="post-preview">
               <a href="{{ .Permalink }}">
-                <h2 class="post-title">{{ .Title }}</h2>
+                <h2 class="post-title">{{ .Title | safeHTML }}</h2>
     
                 {{ if .Params.subtitle }}
                   <h3 class="post-subtitle">
