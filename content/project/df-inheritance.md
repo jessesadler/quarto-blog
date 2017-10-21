@@ -3,7 +3,7 @@ author: Jesse Sadler
 date: 2017-10-19T16:38:18-07:00
 description: "A Digital Humanities project on the account books of the estate of an early modern merchant using R"
 draft: false
-title: "The Estate of Jan della Faille de Oude,<br/> 1582–1594"
+title: "The Estate of Jan della Faille de Oude, 1582–1594"
 subtitle: ""
 ---
 
