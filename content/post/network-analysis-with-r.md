@@ -18,7 +18,7 @@ This post begins with a short introduction to the basic vocabulary of network an
 
 <!--more-->
 
-## Network Analysis: Nodes and Edges
+## Network Analysis: Nodes and Edges {#nodes-edges}
 The two primary aspects of networks are a multitude of separate entities and the connections between them. The vocabulary can be a bit technical and even inconsistent between different disciplines, packages, and software. The entities are referred to as **nodes** or **vertices** of a graph, while the connections are **edges** or **links**. In this post I will mainly use the nomenclature of nodes and edges except when discussing packages that use different vocabulary.
 
 The network analysis packages need data to be in a particular form to create the special type of object used by each package. The object classes for `network`, `igraph`, and `tidygraph` are all based on adjacency matrices, also known as sociomatrices.[^2] An [adjacency matrix](https://en.wikipedia.org/wiki/Adjacency_matrix) is a square matrix in which the column and row names are the nodes of the network. Within the matrix a 1 indicates that there is a connection between the nodes, and a 0 indicates no connection. Adjacency matrices implement a very different data structure than data frames and do not fit within the [tidyverse](http://www.tidyverse.org) workflow that I have used in my previous posts. Helpfully, the specialized network objects can also be created from an edge-list data frame, which do fit in the tidyverse workflow. In this post I will stick to the data analysis techniques of the tidyverse to create edge lists, which will then be converted to the specific object classes for `network`, `igraph`, and `tidygraph`.
@@ -64,7 +64,7 @@ Compare this to an adjacency matrix with the same data.
     ## 3 0 1 0 0
     ## 4 1 0 0 0
 
-## Creating edge and node lists
+## Creating edge and node lists {#creating-edges-nodes}
 To create network objects from the database of letters received by Daniel van der Meulen in 1585 I will make both an edge list and a node list. This will necessitate the use of the [dplyr](http://dplyr.tidyverse.org) package to manipulate the data frame of letters sent to Daniel and split it into two data frames ot [tibbles](http://r4ds.had.co.nz/tibbles.html) with the structure of edge and node lists. In this case, the nodes will be the cities from which Daniel's correspondents sent him letters and the cities in which he received them. The node list will contain a "label" column, containing the names of the cities. The edge list will also have an attribute column that will show the amount of letters sent between each pair of cities. The workflow to create these objects will be similar to that I have used in my [brief introduction to R](https://jessesadler.com/post/excel-vs-r/) and in [geocoding with R](https://jessesadler.com/post/geocoding-with-r/). If you would like to follow along, you can find the data used in this post and the R script used on [GitHub](https://github.com/jessesadler/intro-to-r).
 
 The first step is to load the `tidyverse` library to import and manipulate the data. Printing out the `letters` data frame shows that it contains four columns: "writer", "source", "destination", and "date". In this example, we will only deal with the "source" and "destination" columns.
@@ -91,7 +91,7 @@ letters
     ## 10 Meulen, Andries van der Antwerp       Delft 1585-01-28
     ## # ... with 104 more rows
 
-### Node list
+### Node list {#node-list}
 The workflow to create a node list is similar to the one I used to get the [list of cities in order to geocode the data](https://jessesadler.com/post/geocoding-with-r/#preparing-data) in a previous post. We want to get the distinct cities from both the "source" and "destination" columns and then join the information from these columns together. In the example below, I slightly change the commands from those I used in the previous post to have the name for the columns with the city names be the same for both the `sources` and `destinations` data frames to simplify the `full_join()` function. I rename the column with the city names as "label" to adopt the vocabulary used by network analysis packages.
 
 ``` {.r}
@@ -158,8 +158,7 @@ nodes
     ## 12    12 Middelburg
     ## 13    13     Bremen
 
-### Edge list
-
+### Edge list {#edge-list}
 Creating an edge list is similar to the above, but it is complicated by the need to deal with two ID columns instead of one. We also want to create a weight column that will note the amount of letters sent between each set of nodes. To accomplish this I will use the same `group_by()` and `summarise()` workflow that I have [discussed in previous posts](https://jessesadler.com/post/excel-vs-r/#the-pipe). The difference here is that we want to group the data frame by two columns — "source" and "destination" — instead of just one. Previously, I have named the column that counts the number of observations per group "count", but here I adopt the nomenclature of network analysis and call it "weight". The final command in the pipeline removes the grouping for the data frame instituted by the `group_by()` function. This makes it easier to manipulate the resulting `per_route` data frame unhindered.[^5]
 
 ``` {.r}
@@ -229,10 +228,10 @@ edges
 
 The `edges` data frame does not look very impressive; it is three columns of integers. However, `edges` combined with `nodes` provides us with all of the information necessary to create network objects with the `network`, `igraph`, and `tidygraph` packages.
 
-## Creating network objects
+## Creating network objects {#network-objects}
 The network object classes for `network`, `igraph`, and `tidygraph` are all closely related. It is possible to translate between a `network` object and an `igraph` object. However, it is best to keep the two packages and their objects separate. In fact, the capabilities of `network` and `igraph` overlap to such an extent that it is best practice to have only one of the packages loaded at a time. I will begin by going over the `network` package and then move to the `igraph` and `tidygraph` packages.
 
-### network
+### network {#network-package}
 
 ``` {.r}
 library(network)
@@ -291,7 +290,7 @@ plot(routes_network, vertex.cex = 3, mode = "circle")
 
 <img src="/img/network-analysis-with-r/network-circle-plot.png" height = "400"/>
 
-### igraph
+### igraph {#igraph-package}
 Let's now move on to discuss the `igraph` package. First, we need to clean up the environment in R by removing the `network` package so that it does not interfere with the `igraph` commands. We might as well also remove `routes_network` since we will not longer be using it. The `network` package can be removed with the `detach()` function, and `routes_network` is removed with `rm()`.[^7] After this, we can safely load `igraph`.
 
 ``` {.r}
@@ -336,7 +335,7 @@ plot(routes_igraph, layout = layout_with_graphopt, edge.arrow.size = 0.2)
 
 <img src="/img/network-analysis-with-r/igraph-graphopt-plot.png" height = "400"/>
 
-### tidygraph and ggraph
+### tidygraph and ggraph {#tidygraph-ggraph}
 The `tidygraph` and `ggraph` packages are newcomers to the network analysis landscape, but together the two packages provide real advantages over the `network` and `igraph` packages. `tidygraph` and `ggraph` represent an attempt to [bring network analysis into the tidyverse workflow](http://www.data-imaginist.com/2017/Introducing-tidygraph/). [`tidygraph`](https://cran.r-project.org/web/packages/tidygraph/index.html) provides a way to create a network object that more closely resembles a [tibble or data frame](http://r4ds.had.co.nz/tibbles.html). This makes it possible to use many of the `dplyr` functions to manipulate network data. [`ggraph`](https://cran.r-project.org/web/packages/ggraph/index.html) gives a way to plot network graphs using the conventions and power of `ggplot2`. In other words, `tidygraph` and `ggraph` allow you to deal with network objects in a manner that is more consistent with the commands used for working with tibbles and data frames. However, the true promise of `tidygraph` and `ggraph` is that they leverage the power of `igraph`. This means that you sacrifice few of the network analysis capabilities of `igraph` by using `tidygraph` and `ggraph`.
 
 We need to start as always by loading the necessary packages.
@@ -475,7 +474,7 @@ ggraph(routes_igraph, layout = "linear") +
 
 <img src="/img/network-analysis-with-r/ggraph-arc.png" height = "450"/>
 
-## Interactive network graphs with `visNetwork` and `networkD3`
+## Interactive network graphs with `visNetwork` and `networkD3` {#visnetwork-network}
 The [htmlwidgets](http://www.htmlwidgets.org) set of packages makes it possible to use R to create interactive JavaScript visualizations. Here, I will show how to make graphs with the [`visNetwork`](http://datastorm-open.github.io/visNetwork/) and [`networkD3`](http://christophergandrud.github.io/networkD3/) packages. These two packages use different JavaScript libraries to create their graphs. `visNetwork` uses [vis.js](http://visjs.org/), while `networkD3` uses the popular [d3 visualization library](http://d3js.org/) to make its graphs. One difficulty in working with both `visNetwork` and `networkD3` is that they expect edge lists and node lists to use specific nomenclature. The above data manipulation conforms to the basic structure for `visNetwork`, but some work will need to be done for `networkD3`. Despite this inconvenience, both packages possess a wide range of graphing capabilities and both can work with `igraph` objects and layouts.
 
 ``` {.r}
@@ -483,14 +482,14 @@ library(visNetwork)
 library(networkD3)
 ```
 
-### visNetwork
+### visNetwork {#visnetwork-package}
 The `visNetwork()` function uses a nodes list and edges list to create an interactive graph. The nodes list must include an "id" column, and the edge list must have "from" and "to" columns. The function also plots the labels for the nodes, using the names of the cities from the "label" column in the node list. The resulting graph is fun to play around with. You can move the nodes and the graph will use an algorithm to keep the nodes properly spaced. You can also zoom in and out on the plot and move it around to re-center it.
 
 ``` {.r}
 visNetwork(nodes, edges)
 ```
 
-<iframe src="/img/network-analysis-with-r/visNetwork-simple.html" width = "100%" height = "500"></iframe>
+<iframe src="/img/network-analysis-with-r/visnetwork-simple.html" width = "100%" height = "500"></iframe>
 
 `visNetwork` can use `igraph` layouts, providing a large variety of possible layouts. In addition, you can use `visIgraph()` to plot an `igraph` object directly. Here, I will stick with the `nodes` and `edges` workflow and use an `igraph` layout to customize the graph. I will also add a variable to change the width of the edge as we did with `ggraph`. `visNetwork()` uses column names from the edge and node lists to plot network attributes instead of arguments within the function call. This means that it is necessary to do some data manipulation to get a "width" column in the edge list. The width attribute for `visNetwork()` does not scale the values, so we have to do this manually. Both of these actions can be done with the `mutate()` function and some simple arithmetic. Here, I create a new column in `edges` and scale the weight values by dividing by 5. Adding 1 to the result provides a way to create a minimum width.
 
@@ -506,9 +505,9 @@ visNetwork(nodes, edges) %>%
   visEdges(arrows = "middle")
 ```
 
-<iframe src="/img/network-analysis-with-r/visNetwork-edgewidth.html" width = "100%" height = "500"></iframe>
+<iframe src="/img/network-analysis-with-r/visnetwork-edgewidth.html" width = "100%" height = "500"></iframe>
 
-### networkD3
+### networkD3 {#networkd3-package}
 A little more work is necessary to prepare the data to create a `networkD3` graph. To make a `networkD3` graph with a edge and node list requires that the IDs be a series of numeric integers that begin with 0. Currently, the node IDs for our data begin with 1, and so we have to do a bit of data manipulation. It is possible to renumber the nodes by subtracting 1 from the ID columns in the `nodes` and `edges` data frames. Once again, this can be done with the `mutate()` function. The goal is to recreate the current columns, while subtracting 1 from each ID. The `mutate()` function works by creating a new column, but we can have it replace a column by giving the new column the same name as the old column. Here, I name the new data frames with a d3 suffix to distinguish them from the previous `nodes` and `edges` data frames.
 
 ``` {.r}
@@ -535,7 +534,7 @@ sankeyNetwork(Links = edges_d3, Nodes = nodes_d3, Source = "from", Target = "to"
 
 <iframe src="/img/network-analysis-with-r/d3-sankey-diagram.html" width = "100%" height = "500"></iframe>
 
-## Further reading on Network Analysis
+## Further reading on Network Analysis {#further-reading}
 This post has attempted to give a general introduction to creating and plotting network type objects in R using the `network`, `igraph`, `tidygraph`, and `ggraph` packages for static plots and `visNetwork` and `networkD3` for interactive plots. I have presented this information from the position of a non-specialist in network theory. I have only covered a very small percentage of the network analysis capabilities of R. In particular, I have not discussed the statistical analysis of networks. Happily, there is a plethora of resources on network analysis in general and in R in particular.
 
 The best introduction to networks that I have found for the uninitiated is [Katya Ognyanova's Network Visualization with R](http://kateto.net/network-visualization). This presents both a helpful introduction to the visual aspects of networks and a more in depth tutorial on creating network plots in R. Ognyanova primarily uses `igraph`, but she also introduces interactive networks.
