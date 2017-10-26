@@ -470,7 +470,7 @@ The examples above only display a small fraction of the analysis and visualizati
 
 [^12]: There are many resources on learning `ggplot`. Chapter 3 of [Grolemund and Wickham, *R for Data Science*](http://r4ds.had.co.nz/data-visualisation.html) is a good place to start. Another invaluable resource for ggplot that is still under development is [Kieran Healy’s *Data Visualization for Social Science*](http://socviz.co/)
 
-[^13]: Remember that a data frame is essentially a table. To be more precise, in this case, the `read_csv()` function produces a [tibble](http://tibble.tidyverse.org), which is a special kind of data frame.
+[^13]: Remember that a data frame is essentially a table. To be more precise, in this case, the `read_csv()` function produces a [tibble](http://r4ds.had.co.nz/tibbles.html), which is a special kind of data frame.
 
 [^14]: One advantage of tibbles over default data frames is that tibbles are smart about printing out a subset of the data to the console instead of all of the content. The latter approach becomes messy when data frames have hundreds or thousands of rows.
 

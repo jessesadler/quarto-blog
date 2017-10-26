@@ -15,7 +15,8 @@ subtitle:
 ---
 
 ### Visualizations
-* [Interactive leaflet map of the correspondence network](https://jessesadler.com/visualization/leaflet-map/)
+* [Interactive leaflet map of the correspondence network](https://jessesadler.com/visualization/leaflet-map)
+* [Sankey diagram of the correspondence network](https://jessesadler.com/visualization/sankey-diagram/)
 * [Shiny version of the leaflet map that includes real-time filtering of dates](https://jessesadler.shinyapps.io/dvdm-correspondence/)
 
 ### Background to Daniel van der Meulen
