@@ -215,7 +215,7 @@ We can look at what the map looks like by calling the `ggmap()` function.
 ggmap(map)
 ```
 
-<img src="/img/geocoding-with-r/google-map.png" height="500" />
+<img src="/img/geocoding-with-r/google-map.png" />
 
 Given the historical nature of the data, some of the normal features of a Google Map are problematic. The modern road system obviously did not exist in the sixteenth century, nor are the modern political boundaries useful for the data. In the below command, I change the aesthetics of the original map using the color argument and turn off features of the map by using commands from the [Google Maps API](https://developers.google.com/maps/documentation/staticmaps/).
 
@@ -232,7 +232,7 @@ ggmap(bw_map) +
   geom_point(data = locations, aes(x = lon, y = lat))
 ```
 
-<img src="/img/geocoding-with-r/locations-map.png" height="500" />
+<img src="/img/geocoding-with-r/locations-map.png" />
 
 The resulting map is rather sparse and does not provide much information, but it gives a good starting point from which to build a more informative map.
 
@@ -293,19 +293,19 @@ I now have the necessary data to create a map that will distinguish between the 
 Creating a quality visualization with `ggplot` involves iteration. Because the different parts of the plot are all written out in code, aspects can be added, subtracted, or modified until a good balance is found. Let's start by creating a basic map using the `geo_per_source` and `geo_per_destination` data. The structure of the command is similar to that used to make the first map, but now that I am using information from two data frames, I need to use two `geom_point()` functions. There is also a small change to the `ggmap()` function to have the map take up the entire plotting area so that the longitude and latitude scales do not show. The only change to the `geom_point()` function is the addition of different colors for the two sets of points. This makes it easier to distinguish between places from which Daniel's correspondents sent letters and places where he received them. Notice that the argument for the color of the points is placed outside of the `aes()` function. This makes all of the points plotted from each data frame a single color as opposed to mapping a change in color to a variable within the data. In this instance, I chose to specify color by name, but it is also possible to use rgb values, hex values, or a number of different color palettes.[^11]
 
 ``` {.r}
-ggmap(bw_map, extent = "device") +
+ggmap(bw_map) +
   geom_point(data = geo_per_destination,
              aes(x = lon, y = lat), color = "red") +
   geom_point(data = geo_per_source,
              aes(x = lon, y = lat), color = "purple")
 ```
 
-<img src="/img/geocoding-with-r/data-map1.png" height="500" />
+<img src="/img/geocoding-with-r/data-map1.png" height="600" />
 
 This plot is much better than what we started with, but it still has a couple of issues. In the first place, it does not communicate any information about the quantity of letters. In addition, because the points are opaque, it is not clear that letters were both sent from and to Haarlem. The former issue can be rectified by using the size argument within the `aes()` function. This will tell `ggplot` to vary the size of each of the points in proportion to the count column. By default, the size aesthetic creates a legend to indicate the scale used. In the `ggmap()` function I place the legend in the top right corner of the map since there are no data points there. The latter issue is solved by adding an alpha argument to the two `geom_point()` functions. This argument is placed outside of the `aes()` function, because it is an aspect we want to apply to all points. [Alpha](https://www.w3schools.com/css/css3_colors.asp) describes the translucency of an object and takes values between 1 (opaque) and 0 (translucent).
 
 ``` {.r}
-ggmap(bw_map, extent = "device", legend = "topright") +
+ggmap(bw_map) +
   geom_point(data = geo_per_destination,
              aes(x = lon, y = lat, size = count),
              color = "red", alpha = 0.5) +
@@ -314,7 +314,7 @@ ggmap(bw_map, extent = "device", legend = "topright") +
              color = "purple", alpha = 0.5)
 ```
 
-<img src="/img/geocoding-with-r/data-map2.png" height="500" />
+<img src="/img/geocoding-with-r/data-map2.png" height="600" />
 
 The above map is more informative, but it is hardly a finished product. For instance, there is no explanation for the differences in the color of the points, the smallest points are not easy to see, and there are no labels to indicate the names of the cities. Let's deal with these issues one at a time to create a more fully fleshed out map. This will serve as an opportunity to demonstrate both the flexibility and complexity of `ggplot` code.[^12]
 
@@ -331,7 +331,7 @@ library(ggrepel)
 ```
 
 ``` {.r}
-ggmap(bw_map, extent = "device", legend = "topright") +
+ggmap(bw_map) +
   geom_point(data = geo_per_destination,
              aes(x = lon, y = lat, size = count, color = "Destination"), 
              alpha = 0.5) +
@@ -347,7 +347,7 @@ ggmap(bw_map, extent = "device", legend = "topright") +
   guides(color = guide_legend(override.aes = list(size = 6)))
 ```
 
-<img src="/img/geocoding-with-r/data-map3.png" height="550" />
+<img src="/img/geocoding-with-r/data-map3.png" height="600" />
 
 ## Conclusion {#concluding}
 The above map demonstrates the geographic spread of Daniel van der Meulen’s correspondence in 1585 and shows the relative significance of the location of his correspondents and the different places in which he received letters throughout the year. More important than the details of the map for the purposes of this post is the process by which it was created. One interesting feature that I would like to emphasize in concluding is that the map uses data from three different data frames or tables: `geo_per_destination`, `geo_per_source`, and `locations`. All three of these data frames derive from the original `letters` data, while they in turn were the product of yet more data frames. By my count, running the commands contained in this post leads to the creation of 12 different data frame like objects. The below diagram outlines the workflow. The ability to split, subset, transform, and then join newly created tables in a variety of ways is a very powerful and flexible workflow. Because the data frames can be recreated by running the code, there is minimal overhead in managing them, especially in comparison to creating tables within spreadsheets. In this case, I would only recommend that the `locations` data frame be saved for easy access in other R scripts and sessions. The other objects can be created on demand, or even more can be added, while the individual aspects of the map can be endlessly tweaked using the power of `ggplot`.
