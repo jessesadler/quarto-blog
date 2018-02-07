@@ -3,8 +3,8 @@ DefaultContentLanguage = "en"
 title = "Jesse Sadler"
 theme = "beautifulhugo"
 metaDataFormat = "yaml"
-#pygmentsUseClasses = true
-#pygmentCodeFences = true
+pygmentsUseClasses = true
+pygmentCodeFences = true
 #disqusShortname = "XXX"
 googleAnalytics = "UA-101429357-1"
 
@@ -15,6 +15,11 @@ googleAnalytics = "UA-101429357-1"
   commit = false
   rss = true
   comments = false
+  highlightjs = true
+  highlightjsVersion = "9.11.0"
+  highlightjsCDN = "https://cdn.bootcss.com"
+  highlightjsLang = ["r", "yaml"]
+  highlightjsTheme = "rainbow"
 #  gcse = "012345678901234567890:abcdefghijk" # Get your code from google.com/cse. Make sure to go to "Look and Feel" and change Layout to "Full Width" and Theme to "Classic"
 
 #[[Params.bigimg]]
@@ -62,4 +67,3 @@ googleAnalytics = "UA-101429357-1"
     name = "Tags"
     url = "tags"
     weight = 6
-
