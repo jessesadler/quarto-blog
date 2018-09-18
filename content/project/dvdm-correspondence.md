@@ -15,9 +15,9 @@ subtitle:
 ---
 
 ### Visualizations
-* [Interactive leaflet map of the correspondence network](https://jessesadler.com/visualization/leaflet-map)
-* [Sankey diagram of the correspondence network](https://jessesadler.com/visualization/sankey-diagram/)
-* [Shiny version of the leaflet map that includes real-time filtering of dates](https://jessesadler.shinyapps.io/dvdm-correspondence/)
+- [Interactive leaflet map of the correspondence network](https://jessesadler.com/visualization/leaflet-map)
+- [Sankey diagram of the correspondence network](https://jessesadler.com/visualization/sankey-diagram/)
+- [Shiny version of the leaflet map that includes real-time filtering of dates](https://jessesadler.shinyapps.io/dvdm-correspondence/)
 
 ### Background to Daniel van der Meulen
 Long-distance trade in the early modern period could not be conducted without correspondence networks and the exchange of letters. Merchants continued to travel in order to manage their affairs, but elite merchants rarely if ever travelled with their own goods. Instead of escorting goods from place to place, merchants organized and supervised the purchase, transportation, and sale of goods through correspondence with factors spread throughout the trade routes of Europe and beyond. This more sedentary system of exchange enabled the rapid growth of trade on an individual and European-wide basis, but it also necessitated that merchants create and maintain wide networks of competent and trustworthy correspondents willing and able to follow the directions of merchants who might be many hundreds of miles away.
