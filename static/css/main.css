@@ -110,7 +110,10 @@ img::-moz-selection {
 
 img {
   display: block;
-  margin: auto;
+  margin-top: 0px;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
   max-width: 100%;
 }
 
@@ -659,6 +662,7 @@ footer .theme-by {
 
 table {
   padding: 0;
+   margin: 25px auto; 25px;
 }
 table tr {
   background-color: #ffffff;

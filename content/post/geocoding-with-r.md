@@ -5,9 +5,7 @@ description: "Tutorial on geocoding and mapping historical data with ggmap"
 draft: false
 title: "Geocoding with R"
 subtitle: "Using ggmap to geocode and map historical data"
-tags: 
-- dh-2.0
-- r
+tags: ["r", "gis", "dh-2.0"]
 ---
 
 In the [previous post](https://jessesadler.com/post/excel-vs-r/) I discussed some reasons to use [R](https://www.r-project.org) instead of Excel to analyze and visualize data and provided a brief introduction to the R programming language. That post used an example of letters sent to the sixteenth-century merchant [Daniel van der Meulen](https://jessesadler.com/project/dvdm-correspondence/) in 1585. One aspect missing from the analysis was a geographical visualization of the data. This post will provide an introduction to geocoding and mapping location data using the [ggmap](https://cran.r-project.org/web/packages/ggmap/index.html) package for R, which enables the creation of maps with [ggplot](http://ggplot2.tidyverse.org). There are a number of websites that can help geocode location data and even create maps.[^1] You could also use a full-scale geographic information systems (GIS) application such as [QGIS](https://qgis.org) or [ArcGIS](https://esri.com). However, an active developer community has made it possible to complete a full range of geographic analysis from geocoding data to the creation of publication-ready maps with R.[^2] Geocoding and mapping data with R instead of a web or GIS application brings the general advantages of using a programming language in analyzing and visualizing data. With R, you can write the code once and use it over and over, while also providing a record of all your steps in the creation of a map.[^3]
@@ -184,8 +182,7 @@ With the data in the correct format, a simple call to the `mapview()` function c
 ``` {.r}
 mapview(locations_sf)
 ```
-
-<iframe src="/img/geocoding-with-r/locations-mapview.html" width="100%" height="500"></iframe>
+{{< htmlwidget src="/img/geocoding-with-r/locations-mapview.html" >}}
 
 I can now save the locations data using the `readr` package and a function similar to that used to load data. I will use the `write_csv()` function to save the data as a csv file. Here, I save the `locations` tibble, but you could also save the other forms of the locations data. The second argument tells the function where to save the csv and what to call the file. Here, I place the file in the same folder as the “correspondence-data-1585.csv” and name the file “locations.csv”.
 
@@ -215,7 +212,7 @@ We can look at what the map looks like by calling the `ggmap()` function.
 ggmap(map)
 ```
 
-<img src="/img/geocoding-with-r/google-map.png" />
+{{< figure src="/img/geocoding-with-r/google-map.png" >}}
 
 Given the historical nature of the data, some of the normal features of a Google Map are problematic. The modern road system obviously did not exist in the sixteenth century, nor are the modern political boundaries useful for the data. In the below command, I change the aesthetics of the original map using the color argument and turn off features of the map by using commands from the [Google Maps API](https://developers.google.com/maps/documentation/staticmaps/).
 
@@ -232,7 +229,7 @@ ggmap(bw_map) +
   geom_point(data = locations, aes(x = lon, y = lat))
 ```
 
-<img src="/img/geocoding-with-r/locations-map.png" />
+{{< figure src="/img/geocoding-with-r/locations-map.png" >}}
 
 The resulting map is rather sparse and does not provide much information, but it gives a good starting point from which to build a more informative map.
 
@@ -300,7 +297,7 @@ ggmap(bw_map) +
              aes(x = lon, y = lat), color = "purple")
 ```
 
-<img src="/img/geocoding-with-r/data-map1.png" height="600" />
+{{< figure src="/img/geocoding-with-r/data-map1.png" height="600">}}
 
 This plot is much better than what we started with, but it still has a couple of issues. In the first place, it does not communicate any information about the quantity of letters. In addition, because the points are opaque, it is not clear that letters were both sent from and to Haarlem. The former issue can be rectified by using the size argument within the `aes()` function. This will tell `ggplot` to vary the size of each of the points in proportion to the count column. By default, the size aesthetic creates a legend to indicate the scale used. In the `ggmap()` function I place the legend in the top right corner of the map since there are no data points there. The latter issue is solved by adding an alpha argument to the two `geom_point()` functions. This argument is placed outside of the `aes()` function, because it is an aspect we want to apply to all points. [Alpha](https://www.w3schools.com/css/css3_colors.asp) describes the translucency of an object and takes values between 1 (opaque) and 0 (translucent).
 
@@ -314,7 +311,7 @@ ggmap(bw_map) +
              color = "purple", alpha = 0.5)
 ```
 
-<img src="/img/geocoding-with-r/data-map2.png" height="600" />
+{{< figure src="/img/geocoding-with-r/data-map2.png" height="600" >}}
 
 The above map is more informative, but it is hardly a finished product. For instance, there is no explanation for the differences in the color of the points, the smallest points are not easy to see, and there are no labels to indicate the names of the cities. Let's deal with these issues one at a time to create a more fully fleshed out map. This will serve as an opportunity to demonstrate both the flexibility and complexity of `ggplot` code.[^12]
 
@@ -347,12 +344,12 @@ ggmap(bw_map) +
   guides(color = guide_legend(override.aes = list(size = 6)))
 ```
 
-<img src="/img/geocoding-with-r/data-map3.png" height="600" />
+{{< figure src="/img/geocoding-with-r/data-map3.png" height="600" >}}
 
 ## Conclusion {#concluding}
 The above map demonstrates the geographic spread of Daniel van der Meulen’s correspondence in 1585 and shows the relative significance of the location of his correspondents and the different places in which he received letters throughout the year. More important than the details of the map for the purposes of this post is the process by which it was created. One interesting feature that I would like to emphasize in concluding is that the map uses data from three different data frames or tables: `geo_per_destination`, `geo_per_source`, and `locations`. All three of these data frames derive from the original `letters` data, while they in turn were the product of yet more data frames. By my count, running the commands contained in this post leads to the creation of 12 different data frame like objects. The below diagram outlines the workflow. The ability to split, subset, transform, and then join newly created tables in a variety of ways is a very powerful and flexible workflow. Because the data frames can be recreated by running the code, there is minimal overhead in managing them, especially in comparison to creating tables within spreadsheets. In this case, I would only recommend that the `locations` data frame be saved for easy access in other R scripts and sessions. The other objects can be created on demand, or even more can be added, while the individual aspects of the map can be endlessly tweaked using the power of `ggplot`.
 
-<img src="/img/geocoding-with-r/workflow-diagram.png" height="450" />
+{{< figure src="/img/geocoding-with-r/workflow-diagram.png" height="450" >}}
 
 [^1]: Geocoding can be done with websites such as [geonames](http://www.geonames.org) and the service provided by [Texas A&M](http://geoservices.tamu.edu/Services/Geocode/). There are also a number of [options for creating maps on the web](http://crln.acrl.org/index.php/crlnews/article/view/16772/18314).
 

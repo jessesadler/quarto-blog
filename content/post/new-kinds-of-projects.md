@@ -5,8 +5,7 @@ description: "Learning to code to create digital humanities projects"
 draft: false
 title: "New kinds of Projects: DH 2.0 and Coding"
 subtitle: ""
-tags: 
-- dh-2.0
+tags: ["dh-2.0"]
 ---
 
 In the process of learning about how I could use digital technologies to better organize my research, I quickly started to think about how I might extend these skills to produce new kinds of outputs.[^1] I was familiar with the concept of digital humanities, but the step from an internal process of organizing research and writing to production seemed both too nebulous and difficult. Digital humanities also seemed to concentrate on the visual. This was intriguing, but did not present itself as the most pressing need for a graduate student who was writing a dissertation on sibling relations among 16th-century merchants. It took years for me to move from what I am calling DH 1.0 to DH 2.0, to move from research methodology to making what could properly be termed digital humanities projects. This post presents an introduction to how I eventually took this step and why I decided to learn to code instead of other available solutions.[^2]

@@ -8,7 +8,7 @@ title: "The Correspondence Network of Daniel van der Meulen, 1578–1591"
 subtitle: 
 ---
 
-<img src="/img/ggmap-light-2017-06-06.png" height="400" />
+{{< figure src="/img/ggmap-light-2017-06-06.png" height="400" >}}
 
 <!--more-->
 

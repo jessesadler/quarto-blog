@@ -5,9 +5,7 @@ description: "An introduction to how to use R with examples of dplyr and ggplot2
 draft: false
 title: "Excel vs R: A Brief Introduction to R"
 subtitle: "With examples using dplyr and ggplot"
-tags: 
-- dh-2.0
-- r
+tags: ["r", "dh-2.0"]
 ---
 
 Quantitative research often begins with the humble process of counting. Historical documents are never as plentiful as a historian would wish, but counting words, material objects, court cases, etc. can lead to a better understanding of the sources and the subject under study. When beginning the process of counting, the first instinct is to open a spreadsheet. The end result might be the production of tables and charts created in the very same spreadsheet document. In this post, I want to show why this spreadsheet-centric workflow is problematic and recommend the use of a programming language such as [R](https://www.r-project.org) as an alternative for both analyzing and visualizing data. There is no doubt that the learning curve for R is much steeper than producing one or two charts in a spreadsheet. However, there are real long-term advantages to learning a dedicated data analysis tool like R. Such advice to learn a programming language can seem both daunting and vague, especially [if you do not really understand what it means to code](https://jessesadler.com/post/new-kinds-of-projects/). For this reason, after discussing why it is preferable to analyze data with R instead of a spreadsheet program, this post provides a brief introduction to R, as well as an example of analysis and visualization of historical data with R.[^1]
@@ -260,7 +258,7 @@ ggplot(data = per_source) +
   labs(x = NULL, y = "Letters written")
 ```
 
-<img src="/img/excel-vs-r/per_source.png" height="500" />
+{{< figure src="/img/excel-vs-r/per_source.png" height="500" >}}
 
 One part of the above code that might be a bit difficult to figure out is `stat = "identity"`. This needs to be called, because the code to create the `per_source` data frame actually did more work than necessary. `stat = "identity"` tells `geom_bar()` to set the height of the bars to the exact number in the count column. However, with `geom_bar()` only the x-axis needs to be specified. The y value is then calculated automatically based on the x value. Therefore, the below code, which uses the original `letters` data frame, could produce the exact same graph. Because of this, it is little trouble to change the variable for the x-axis to writers and get a completely new graph. Notice the change in the data and the deletion of the y variable and `stat`. One problem with the correspondents data is the length of the names. Therefore, this command makes changes to the `theme()` function. The arguments in the function are used to place the correspondent names at a ninety degree angle so that they do not overlap.
 
@@ -271,7 +269,7 @@ ggplot(data = letters) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
 ```
 
-<img src="/img/excel-vs-r/per_correspondent.png" height="600" />
+{{< figure src="/img/excel-vs-r/per_correspondent.png" height="600" >}}
 
 ## Working with dates {#dates}
 Now, let's investigate the dates column. Dealing with dates is often tricky. To facilitate this analysis we need to load the `lubridate` package. [lubridate](http://lubridate.tidyverse.org/) is another package created by Hadley Wickham, which fits into the tidyverse manner of dealing with data. It is not among the packages loaded with `library(tidyverse)`, and so it is necessary to load it separately.
@@ -340,7 +338,7 @@ ggplot(data = per_month) +
   labs(x = 1585, y = "Letters sent")
 ```
 
-<img src="/img/excel-vs-r/per_month.png" height="500" />
+{{< figure src="/img/excel-vs-r/per_month.png" height="500" >}}
 
 The graph shows a peak in March of 1585 when Antwerp was in an extremely vulnerable position and it was more important than ever that it receive military and monetary assistance from the rebels in Holland. Another peak is reached in August when Antwerp surrendered, forcing Daniel and his family members to go into exile. The letters declined beginning in October, when Daniel left Holland to live in exile with his family in Bremen.
 
@@ -373,7 +371,7 @@ ggplot(data = letters) +
   labs(x = 1585, y = "Letters sent")
 ```
 
-<img src="/img/excel-vs-r/per_wday.png" height="500" />
+{{< figure src="/img/excel-vs-r/per_wday.png" height="500" >}}
 
 Finally, let's see who sent Daniel letters on Sundays. We can use the `filter()` function, which returns rows that match a certain argument. The below code uses the knowledge that without labels, Sunday is equivalent to 1. The code is also written in a slightly different style. Even though only a single function is called, `%>%` is used to pipe the data frame into the function, which cleans up the function call slightly.
 
@@ -428,7 +426,7 @@ ggplot(data = correspondent_month) +
   labs(x = 1585, y = "Letters sent", fill = "Correspondents")
 ```
 
-<img src="/img/excel-vs-r/correspondent_month.png" height="500"/>
+{{< figure src="/img/excel-vs-r/correspondent_month.png" height="500" >}}
 
 A bar graph is only one of many different geoms made available through `ggplot`, so let me finish by using the same information to produce a line graph with points showing the amount of letters each correspondent sent in a month. The structure of the command is slightly different here, because I place the `aes()` function in the `ggplot()` function. This is done because the same aesthetics will be used by both `geom_point()` and `geom_line()`. In the `geom_point()` function I increase the size of all of the points so that they are more clearly visible. The `geom_line()` function adds a new aesthetic for group, which tells the function how to connect the lines.
 
@@ -439,7 +437,7 @@ ggplot(data = correspondent_month, aes(x = month, y = count, color = writer)) +
   labs(x = 1585, y = "Letters sent", color = "Correspondents")
 ```
 
-<img src="/img/excel-vs-r/line_graph.png" height="500" />
+{{< figure src="/img/excel-vs-r/line_graph.png" height="500" >}}
 
 These two graphs provide different ways to visualize the data. Both give a clearer picture of the development of Daniel's correspondence over the course of 1585. Up until September, Andries was Daniel's most signifiant correspondent. After the fall of Antwerp, the two lived together in Bremen, forestalling any need to communicate by correspondence. On the other hand, in the second half of the year, Daniel's correspondence picked up with his brother-in-law, Jacques.
 

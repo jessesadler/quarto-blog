@@ -5,8 +5,7 @@ description: "Exploration of the implementation of simple features standard by t
 draft: false
 title: "An Exploration of Simple Features for R"
 subtitle: "Building sfg, sfc, and sf objects from the sf package"
-tags: 
-- r
+tags: ["r", "gis"]
 ---
 
 My [previous post](https://jessesadler.com/post/gis-with-r-intro/) provided an introduction to the [`sp`](https://cran.r-project.org/web/packages/sp/index.html) and [`sf`](https://cran.r-project.org/web/packages/sf/index.html) packages, showing how the two packages represent spatial data in R. There I discussed the creation of `Spatial` and `sf` objects from data with longitude and latitude values and the process of making maps with the two packages. In this post I will go further into the details of the `sf` package by examining the structure of `sf` objects and how the package implements the [Simple Features open standard](http://www.opengeospatial.org/standards/sfa). It is certainly not necessary to know the ins and outs of `sf` objects and the Simple Features standard to use the package — it has taken me long enough to get my head around much of this — but a better knowledge of the structure and vocabulary of `sf` objects is helpful for understanding the effects of the plethora of `sf` functions. There are a variety of good resources that discuss the structure of `sf` objects. The most comprehensive are the [package vignette Simple Features for R](https://cran.r-project.org/web/packages/sf/vignettes/sf1.html) and the overview in Chapter 2 of the working book [*Geocomputation with R* by Robin Lovelace, Jakub Nowosad, and Jannes Muenchow](https://geocompr.robinlovelace.net/spatial-class.html#sf-classes). This post is based on these sources, as well as my own sleuthing through the code for the `sf` package.
@@ -25,7 +24,7 @@ library(sf)
 
 With this general definition of Simple Features in mind, we can look at how the `sf` package implements the standard through the `sf` class of object.[^3] At its most basic, an `sf` object is a collection of simple features that includes attributes and geometries in the form of a data frame. In other words, it is a data frame (or tibble) with rows of features, columns of attributes, and a special geometry column that contains the spatial aspects of the features. The special geometry column is itself a [list](http://colinfay.me/intro-to-r/lists-and-data-frames.html) of class `sfc`, which is made up of individual objects of class `sfg`. While it is possible to have multiple geometry columns, `sf` objects usually only possess a single geometry column. We can break down the components of an `sf` object by looking at its printed output.[^4]
 
-<img src="/img/simple-feature-objects/sf-object.tiff" height="400" />
+{{< figure src="/img/simple-feature-objects/sf-object.tiff" height="400" >}}
 
 - `sf` object: collection of simple features represented by a data frame
 - attributes: non-geometry variables or columns in the data frame
@@ -138,7 +137,7 @@ plot(multipoint_sfg, main = "MULTIPOINT")
 plot(linestring_sfg, main = "LINESTRING")
 ```
 
-<img src="/img/simple-feature-objects/multipoint-linestring-plot.png" height="300" />
+{{< figure src="/img/simple-feature-objects/multipoint-linestring-plot.png" height="300" >}}
 
 As important as what type of information is contained in `sfg` objects is, what is missing is equally significant in understanding their role within `sf` objects. `sfg` objects consist of a dimension, geometry type, and coordinates, but though they possess spatial aspects, they are not geospatial. `sfg` objects do not possess a [coordinate reference system (CRS)](https://jessesadler.com/post/gis-with-r-intro/#crs). There is nothing within the structure of an `sfg` object to indicate that the X and Y values of the coordinates correspond to longitude and latitude values, much less to the datum of the coordinates. Calculating the distance between `la_sfg` and `amsterdam_sfg` demonstrates the non-geospatial nature of `sfg` objects. The calculation cannot take into account the ellipsoidal shape of Earth, nor that the distance between degrees of longitude decrease as they move towards the poles. Thus, the calculation for `st_distance()` has no direct real-world meaning. In fact, the `st_distance()` function with `sfg` objects returns the same value as the `dist()` function from the `stats` package.
 

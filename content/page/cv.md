@@ -5,6 +5,9 @@ draft: false
 title: CV
 ---
 
+### Current position
+Lecturer, Loyola Marymount University
+
 ### Education
 - Ph.D. History, University of California, Los Angeles, March 2015
 	* Dissertation: Family in Revolt: The Van der Meulen and Della Faille Families in the Dutch Revolt
@@ -13,10 +16,34 @@ title: CV
 - B.A. University of California, San Diego, 2005
 
 ### Publications
+- "Raising Children across Religious Boundaries in the Dutch Revolt," in *Childhood, Youth and Religious Minorities in Early Modern Europe* eds. Lucy Underwood and Tali Berner (New York: Palgrave Macmillan, 2019)
 - "News as a Path to Independence: Merchant Correspondence and the Exchange of News during the Dutch Revolt," in *In Praise of Ordinary People: Early Modern England and the Dutch Republic* eds. Margaret Jacob and Catherine Secretan (New York: Palgrave Macmillan, 2013)
 - "The Collegiants, a Small Presence in the Republic, a Large Metaphor for the Book," in *Bernard Picart and the First Global Vision of Religion* eds. Lynn Hunt, Margaret Jacob, and Wijnand Mijnhardt (Los Angeles: Getty Research Institute, 2010)
 
+### Digital Humanities Projects
+- debkeepr: Analysis of Non-Decimal Currencies and Double-Entry Bookkeeping (R package): https://jessesadler.github.io/debkeepr/
+- The Correspondence Network of Daniel van der Meulen, 1578–1591: https://jessesadler.com/project/dvdm-correspondence
+- The Estate of Jan della Faille de Oude, 1582–1617: https://jessesadler.com/project/df-inheritance/
+
+### Teaching: Lecturer, Loyola Marymount University
+- Europe and the World 1200–1648 (Spring 2019)
+- European Empires, Exploration, and Exchange since 1500 (Fall 2019)
+- Modern World History (Spring 2020)
+
+### Teaching: Lecturer, UCLA
+- Cultural and Intellectual History of Modern Europe, Eighteenth Century (Fall 2016 and Spring 2015)
+- Introduction to Western Civilization: Circa A.D. 843 to circa 1715 (Spring 2016)
+- Virtue and Commerce: Republicanism and the Development of the Global Economy (Spring 2016)
+- Freemasonry, Civil Society, and Democracy in 18th-Century Europe and America (Fall 2015)
+
 ### Presentations
+- "vctrs: Creating custom vector classes with the vctrs package," RStudio Conference, 27–30 January 2020
+- "Learning and Using the tidyverse for Historical Research," RStudio Conference, 15–18 January 2019
+	- Slides: https://github.com/jessesadler/rstudioconf-2019-slides 
+	- Video: https://resources.rstudio.com/rstudio-conf-2019/learning-and-using-the-tidyverse-for-historical-research
+- "Coding for the Humanities," Workshop funded by the Mellon Scholars Program at Hope College, 16 November 2018
+	Slides and code: https://github.com/jessesadler/hope-intro2r
+- "Accounting for Inheritance: Siblings and Early Modern Trade," Hope College, 15 November 2018
 - "Visualizing Partible Inheritance among Early Modern Merchants," International Conference for Netherlandic Studies, 31 May – 2 June 2018
 - "Trust as a Category of Analysis in Early Modern Economic Exchange," Historical Epistemology: Four Generations of Graduate Students Reflect on their Craft, 17–19 May 2018
 - "The Economics and Emotions of Mobility among Early Modern Netherlandish Merchants," Mobility and Early Modernity: Religion, Science, and Commerce in the Seventeenth and Eighteenth Centuries – A Conference in Honor of Margaret Jacob, William Andrews Clark Memorial Library, 13–14 April 2018
@@ -32,24 +59,10 @@ title: CV
 - "The Collegiants, a Small Presence in the Republic, a Large Metaphor for the Book," At the Interface of Religion and Cosmopolitanism: *Bernard Picart’s Cérémonies et coutumes religieuses de tous les peuples du monde* (1723–1743) and the European Enlightenment: A conference at the Getty Research Institute and the Clark Library, 6–8 December 2007
 
 ### Dictionary Entries
-- *Dictionnaire des Pays-Bas au Siècle d’Or: Les Provinces-Unies de l’Union d’Utrecht à la Paix d’Utrecht (1579–1713)* eds. Catherine Secretan and Willem Frijhoff, Forthcoming
+- *Dictionnaire des Pays-Bas au Siècle d’Or*, eds. Catherine Secretan and Willem Frijhoff (Paris: CNRS, 2018)
 	- Franciscus van den Enden
 	- Colligenten
 	- Willem Usselincx
-
-### Teaching: Lecturer, UCLA
-- Cultural and Intellectual History of Modern Europe, Eighteenth Century (Fall 2016 and Spring 2015)
-- Introduction to Western Civilization: Circa A.D. 843 to circa 1715 (Spring 2016)
-- Virtue and Commerce: Republicanism and the Development of the Global Economy (Spring 2016)
-- Freemasonry, Civil Society, and Democracy in 18th-Century Europe and America (Fall 2015)
-
-### Teaching: Teaching Assistant, UCLA
-- Freemasonry, Civil Society, and American Democracy (Instructor of Record) (2011–2014)
-- I, Me, and You: Histories of the Self (Instructor of Record) (Spring 2009)
-- History of Modern Thought (Fall 2008 and Winter 2009)
-- Western Civilization: Circa 843 to Circa 1715 (Spring 2008)
-- Western Civilization: Ancient Civilizations from Prehistory to Circa A.D. 843 (Winter 2008)
-- History of the Near and Middle East (Fall 2007)
 
 ### Academic Service
 - Board Member of American Association of Netherlandic Studies, 2016–Present

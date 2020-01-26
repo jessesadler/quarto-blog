@@ -3,8 +3,7 @@ author: Jesse Sadler
 date: {{ .Date }}
 description: ""
 draft: true
-title: ""
+title: "{{ replace .Name "-" " " | title }}"
 subtitle: ""
-tags: 
-- 
+tags: []
 ---

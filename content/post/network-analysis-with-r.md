@@ -5,9 +5,7 @@ description: "An introduction to network analysis with R for digital humanities 
 draft: false
 title: "Introduction to Network Analysis with R"
 subtitle: "Creating static and interactive network graphs"
-tags: 
-- dh-2.0
-- r
+tags: ["r", "dh-2.0"]
 ---
 
 Over a wide range of fields network analysis has become an increasingly popular tool for scholars to deal with the complexity of the interrelationships between actors of all sorts. The promise of network analysis is the placement of significance on the relationships between actors, rather than seeing actors as isolated entities. The emphasis on complexity, along with the creation of a variety of algorithms to measure various aspects of networks, makes network analysis a central tool for digital humanities.[^1] This post will provide an introduction to working with networks in [R](https://www.r-project.org), using the example of the network of cities in the correspondence of [Daniel van der Meulen](https://jessesadler.com/project/dvdm-correspondence/) in 1585.
@@ -274,7 +272,7 @@ It is now possible to get a rudimentary, if not overly aesthetically pleasing, g
 plot(routes_network, vertex.cex = 3)
 ```
 
-<img src="/img/network-analysis-with-r/network-plot.png" height = "400"/>
+{{< figure src="/img/network-analysis-with-r/network-plot.png" height="400" >}}
 
 The `plot()` function with a `network` object uses the Fruchterman and Reingold algorithm to decide on the placement of the nodes.[^6] You can change the layout algorithm with the `mode` argument. Below, I layout the nodes in a circle. This is not a particularly useful arrangement for this network, but it gives an idea of some of the options available.
 
@@ -282,7 +280,7 @@ The `plot()` function with a `network` object uses the Fruchterman and Reingold 
 plot(routes_network, vertex.cex = 3, mode = "circle")
 ```
 
-<img src="/img/network-analysis-with-r/network-circle-plot.png" height = "400"/>
+{{< figure src="/img/network-analysis-with-r/network-circle-plot.png" height="400" >}}
 
 ### igraph {#igraph-package}
 Let's now move on to discuss the `igraph` package. First, we need to clean up the environment in R by removing the `network` package so that it does not interfere with the `igraph` commands. We might as well also remove `routes_network` since we will not longer be using it. The `network` package can be removed with the `detach()` function, and `routes_network` is removed with `rm()`.[^7] After this, we can safely load `igraph`.
@@ -319,7 +317,7 @@ Just as with the `network` package, we can create a plot with an `igraph` object
 plot(routes_igraph, edge.arrow.size = 0.2)
 ```
 
-<img src="/img/network-analysis-with-r/igraph-plot.png" height = "400"/>
+{{< figure src="/img/network-analysis-with-r/igraph-plot.png" height="400" >}}
 
 Like the `network` graph before, the default of an `igraph` plot is not particularly aesthetically pleasing, but all aspects of the plots can be manipulated. Here, I just want to change the layout of the nodes to use the graphopt algorithm created by [Michael Schmuhl](http://www.schmuhl.org/graphopt/). This algorithm makes it easier to see the relationship between Haarlem, Antwerp, and Delft, which are three of the most signifiant locations in the correspondence network, by spreading them out further.
 
@@ -327,7 +325,7 @@ Like the `network` graph before, the default of an `igraph` plot is not particul
 plot(routes_igraph, layout = layout_with_graphopt, edge.arrow.size = 0.2)
 ```
 
-<img src="/img/network-analysis-with-r/igraph-graphopt-plot.png" height = "400"/>
+{{< figure src="/img/network-analysis-with-r/igraph-graphopt-plot.png" height="400" >}}
 
 ### tidygraph and ggraph {#tidygraph-ggraph}
 The `tidygraph` and `ggraph` packages are newcomers to the network analysis landscape, but together the two packages provide real advantages over the `network` and `igraph` packages. `tidygraph` and `ggraph` represent an attempt to [bring network analysis into the tidyverse workflow](http://www.data-imaginist.com/2017/Introducing-tidygraph/). [`tidygraph`](https://cran.r-project.org/web/packages/tidygraph/index.html) provides a way to create a network object that more closely resembles a [tibble or data frame](http://r4ds.had.co.nz/tibbles.html). This makes it possible to use many of the `dplyr` functions to manipulate network data. [`ggraph`](https://cran.r-project.org/web/packages/ggraph/index.html) gives a way to plot network graphs using the conventions and power of `ggplot2`. In other words, `tidygraph` and `ggraph` allow you to deal with network objects in a manner that is more consistent with the commands used for working with tibbles and data frames. However, the true promise of `tidygraph` and `ggraph` is that they leverage the power of `igraph`. This means that you sacrifice few of the network analysis capabilities of `igraph` by using `tidygraph` and `ggraph`.
@@ -439,7 +437,7 @@ Let's see what a basic `ggraph` plot looks like. The plot begins with `ggraph()`
 ggraph(routes_tidy) + geom_edge_link() + geom_node_point() + theme_graph()
 ```
 
-<img src="/img/network-analysis-with-r/ggraph-basic.png" height = "400"/>
+{{< figure src="/img/network-analysis-with-r/ggraph-basic.png" height="400" >}}
 
 As you can see, the structure of the command is similar to that of `ggplot` with the separate layers added with the `+` sign. The basic `ggraph` plot looks similar to those of `network` and `igraph`, if not even plainer, but we can use similar commands to `ggplot` to create a more informative graph. We can show the "weight" of the edges — or the amount of letters sent along each route — by using width in the `geom_edge_link()` function. To get the width of the line to change according to the weight variable, we place the argument within an `aes()` function. In order to control the maximum and minimum width of the edges, I use `scale_edge_width()` and set a `range`. I choose a relatively small width for the minimum, because there is a significant difference between the maximum and minimum number of letters sent along the routes. We can also label the nodes with the names of the locations since there are relatively few nodes. Conveniently, `geom_node_text()` comes with a repel argument that ensures that the labels do not overlap with the nodes in a manner similar to the [ggrepel package](https://cran.r-project.org/web/packages/ggrepel/index.html). I add a bit of transparency to the edges with the alpha argument. I also use `labs()` to relabel the legend "Letters".
 
@@ -453,7 +451,7 @@ ggraph(routes_tidy, layout = "graphopt") +
   theme_graph()
 ```
 
-<img src="/img/network-analysis-with-r/ggraph-graphopt.png" height = "400"/>
+{{< figure src="/img/network-analysis-with-r/ggraph-graphopt.png" height="400" >}}
 
 In addition to the layout choices provided by `igraph`, `ggraph` also implements its own layouts. For example, you can use `ggraph's` concept of [circularity](http://www.data-imaginist.com/2017/ggraph-introduction-layouts/) to create arc diagrams. Here, I layout the nodes in a horizontal line and have the edges drawn as arcs. Unlike the previous plot, this graph indicates directionality of the edges.[^9] The edges above the horizontal line move from left to right, while the edges below the line move from right to left. Intsead of adding points for the nodes, I just include the label names. I use the same width aesthetic to denote the difference in the weight of each edge. Note that in this plot I use an `igraph` object as the data for the graph, which makes no practical difference.
 
@@ -466,7 +464,7 @@ ggraph(routes_igraph, layout = "linear") +
   theme_graph()
 ```
 
-<img src="/img/network-analysis-with-r/ggraph-arc.png" height = "450"/>
+{{< figure src="/img/network-analysis-with-r/ggraph-arc.png" height="450" >}}
 
 ## Interactive network graphs with `visNetwork` and `networkD3` {#visnetwork-network}
 The [htmlwidgets](http://www.htmlwidgets.org) set of packages makes it possible to use R to create interactive JavaScript visualizations. Here, I will show how to make graphs with the [`visNetwork`](http://datastorm-open.github.io/visNetwork/) and [`networkD3`](http://christophergandrud.github.io/networkD3/) packages. These two packages use different JavaScript libraries to create their graphs. `visNetwork` uses [vis.js](http://visjs.org/), while `networkD3` uses the popular [d3 visualization library](http://d3js.org/) to make its graphs. One difficulty in working with both `visNetwork` and `networkD3` is that they expect edge lists and node lists to use specific nomenclature. The above data manipulation conforms to the basic structure for `visNetwork`, but some work will need to be done for `networkD3`. Despite this inconvenience, both packages possess a wide range of graphing capabilities and both can work with `igraph` objects and layouts.
@@ -482,8 +480,7 @@ The `visNetwork()` function uses a nodes list and edges list to create an intera
 ``` {.r}
 visNetwork(nodes, edges)
 ```
-
-<iframe src="/img/network-analysis-with-r/visnetwork-simple.html" width = "100%" height = "500"></iframe>
+{{< htmlwidget src="/img/network-analysis-with-r/visnetwork-simple.html" >}}
 
 `visNetwork` can use `igraph` layouts, providing a large variety of possible layouts. In addition, you can use `visIgraph()` to plot an `igraph` object directly. Here, I will stick with the `nodes` and `edges` workflow and use an `igraph` layout to customize the graph. I will also add a variable to change the width of the edge as we did with `ggraph`. `visNetwork()` uses column names from the edge and node lists to plot network attributes instead of arguments within the function call. This means that it is necessary to do some data manipulation to get a "width" column in the edge list. The width attribute for `visNetwork()` does not scale the values, so we have to do this manually. Both of these actions can be done with the `mutate()` function and some simple arithmetic. Here, I create a new column in `edges` and scale the weight values by dividing by 5. Adding 1 to the result provides a way to create a minimum width.
 
@@ -499,7 +496,7 @@ visNetwork(nodes, edges) %>%
   visEdges(arrows = "middle")
 ```
 
-<iframe src="/img/network-analysis-with-r/visnetwork-edgewidth.html" width = "100%" height = "500"></iframe>
+{{< htmlwidget src="/img/network-analysis-with-r/visnetwork-edgewidth.html" >}}
 
 ### networkD3 {#networkd3-package}
 A little more work is necessary to prepare the data to create a `networkD3` graph. To make a `networkD3` graph with a edge and node list requires that the IDs be a series of numeric integers that begin with 0. Currently, the node IDs for our data begin with 1, and so we have to do a bit of data manipulation. It is possible to renumber the nodes by subtracting 1 from the ID columns in the `nodes` and `edges` data frames. Once again, this can be done with the `mutate()` function. The goal is to recreate the current columns, while subtracting 1 from each ID. The `mutate()` function works by creating a new column, but we can have it replace a column by giving the new column the same name as the old column. Here, I name the new data frames with a d3 suffix to distinguish them from the previous `nodes` and `edges` data frames.
@@ -517,7 +514,7 @@ forceNetwork(Links = edges_d3, Nodes = nodes_d3, Source = "from", Target = "to",
              opacity = 1, fontSize = 16, zoom = TRUE)
 ```
 
-<iframe src="/img/network-analysis-with-r/d3-force-network.html" width = "100%" height = "500"></iframe>
+{{< htmlwidget src="/img/network-analysis-with-r/d3-force-network.html" >}}
 
 One of the main benefits of `networkD3` is that it implements a [d3-styled Sankey diagram](https://bost.ocks.org/mike/sankey/). A Sankey diagram is a good fit for the letters sent to Daniel in 1585. There are not too many nodes in the data, making it easier to visualize the flow of letters. Creating a Sankey diagram uses the `sankeyNetwork()` function, which takes many of the same arguments as `forceNetwork()`. This graph does not require a group argument, and the only other change is the addition of a "unit." This provides a label for the values that pop up in a tool tip when your cursor hovers over a diagram element.[^10]
 
@@ -526,7 +523,7 @@ sankeyNetwork(Links = edges_d3, Nodes = nodes_d3, Source = "from", Target = "to"
               NodeID = "label", Value = "weight", fontSize = 16, unit = "Letter(s)")
 ```
 
-<iframe src="/img/network-analysis-with-r/d3-sankey-diagram.html" width = "100%" height = "500"></iframe>
+{{< htmlwidget src="/img/network-analysis-with-r/d3-sankey-diagram.html" >}}
 
 ## Further reading on Network Analysis {#further-reading}
 This post has attempted to give a general introduction to creating and plotting network type objects in R using the `network`, `igraph`, `tidygraph`, and `ggraph` packages for static plots and `visNetwork` and `networkD3` for interactive plots. I have presented this information from the position of a non-specialist in network theory. I have only covered a very small percentage of the network analysis capabilities of R. In particular, I have not discussed the statistical analysis of networks. Happily, there is a plethora of resources on network analysis in general and in R in particular.

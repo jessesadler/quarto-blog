@@ -7,7 +7,7 @@ title: "The Estate of Jan della Faille de Oude, 1582–1617"
 subtitle: ""
 ---
 
-<img src="/img/jdo-estate-overview.png" height="450" />
+{{< figure src="/img/jdo-estate-overview.png" height="400" >}}
 
 <!--more-->
 

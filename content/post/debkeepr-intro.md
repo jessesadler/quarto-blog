@@ -5,9 +5,7 @@ description: "Introducing the debkeepr, an R package for the analysis of non-dec
 draft: false
 title: "Introducing debkeepr"
 subtitle: "An R package for the analysis of non-decimal currencies"
-tags: 
-- r
-- debkeepr
+tags: ["r", "debkeepr"]
 ---
 
 After an extensive period of iteration and a long but rewarding process of learning about package development, I am pleased to announce the release of my first R package. The package is called [debkeepr](http://jessesadler.github.io/debkeepr/), and it derives directly from my historical [research on early modern merchants](https://www.jessesadler.com/project/df-inheritance/). `debkeepr` provides an interface for working with non-decimal currencies that use the tripartite system of pounds, shillings, and pence that was used throughout Europe in the medieval and early modern periods. The package includes functions to apply arithmetic and financial operations to single or multiple values and to analyze account books that use [double-entry bookkeeping](https://en.wikipedia.org/wiki/Double-entry_bookkeeping_system) with the latter providing the basis for the name of `debkeepr`. In a later post I plan to write about the package development process, but here I want to discuss the motivation behind the creation of the package and provide some examples for how `debkeepr` can help those who encounter non-decimal currencies in their research.
@@ -29,7 +27,7 @@ The pounds, shillings, and pence system complicates even relatively [simple arit
 
 The economic historian encounters the difficulties of handling non-decimal currencies in two main contexts. In reading through documents that may or may not be primarily economic in nature, the researcher comes across sets of values that need to be manipulated to better understand their meaning. A common case is the discovery of values that need to be added together to see if they are equivalent to a value in another document, or there may be values in one currency that have to be converted to another currency for comparison. The second context in which historians confront non-decimal monetary values is in explicitly economic documents such as entire account books that may contain hundreds or thousands of transactions. In both contexts the researcher is often stuck performing arithmetic calculations by hand just as merchants and bookkeepers had to do in the past. I do not know how many pages of scratched out calculations I went through in my own research on the estate of Jan della Faille de Oude, a wealthy merchant from Antwerp who died in 1582.
 
-<img src="/img/debkeepr-intro/math-scratchpad.jpg" height="400" />
+{{< figure src="/img/debkeepr-intro/math-scratchpad.jpg" height="400" >}}
 
 The tripartite and non-decimal nature of pounds, shillings, and pence values presents particular difficulties for the analysis of large sets of accounts. A first instinct of the researcher is to place the transactions from an account book into a table or data base to better understand these large groups of data, but how should the pounds, shillings, and pence values be entered? Should they be placed into three separate variables or brought together somehow into one, and how should the arithmetic be performed? So long as there is no clear way to handle one, not to mention multiple, non-decimal currency within a data base, the use of digital tools to investigate and analyze historical accounts books will be hindered.
 
@@ -51,7 +49,7 @@ In the rest of this post I want to quickly highlight how `debkeepr` can assist h
 
 At the heart of `debkeepr` is the ability to normalize pounds, shillings, and pence values to specified non-decimal unit bases in the process or making various calculations. Even in the simplest case of addition, `debkeepr` makes the process easier and less error prone. Let’s use an example from the image below that shows arithmetic on a scratch piece of paper dealing with trade between Holland and the Barbary coast in the 1590s.[^3] On the top right four values in the money of account of pounds Flemish are added together.
 
-<img src="/img/debkeepr-intro/barbary-scratchpad.jpg" height="400" />
+{{< figure src="/img/debkeepr-intro/barbary-scratchpad.jpg" height="400" >}}
 
 | pounds| shillings| pence|
 |------:|---------:|-----:|
@@ -102,7 +100,7 @@ deb_sum(lsd_values)
 
 Multiplication and division of pounds, shillings, and pence values were equally frequent calculations, but they are more complex to do by hand. Bookkeeping and merchant manuals often included rules for the multiplication and division of compound values such as pounds, shillings, and pence. The article on arithmetic in the third edition of the [*Encyclopedia Britannica*, printed in 1797](http://onlinebooks.library.upenn.edu/webbin/metabook?id=britannica3), provides a good example of how to do [compound unit arithmetic](https://en.wikipedia.org/wiki/Arithmetic#Compound_unit_arithmetic). `debkeepr` greatly simplifies this process.
 
-<img src="/img/debkeepr-intro/lsd-multiplication.png" height="400" />
+{{< figure src="/img/debkeepr-intro/lsd-multiplication.png" height="400" >}}
 
 ``` {.r}
 # Multiply £15 3s. 8d. sterling by 32
@@ -122,7 +120,7 @@ deb_multiply(c(17, 3, 8), x = 75)
 
 The examples for division in the *Encyclopedia Britannica* include the division of pounds, shillings, and pence, as well as the division of weight measured in terms of hundredweight, quarters, and pounds. A hundredweight consisted of four quarters and there were 28 pounds (or two stones) in a quarter. While `debkeepr` was created with pounds, shillings, and pence values in mind, the measurement of weight in terms of hundredweight can be integrated by altering the bases argument. This example even serves to show a mistake in the printing in the *Encyclopedia*, as the answer is shown as 15 cwt. 2 q. 21 lb., but it should actually be 22 lb. Checking the long division at the bottom of the calculation, 22 goes into 44 twice not once. Notice too that the division of £465 12s. 8d. ends with a remainder of 8 even though this is not included in the answer provided. This remainder leads to the decimal in the pence unit in the answer provided by `deb_divide()`. Setting the `round` argument to 0 would convert the pence unit to a whole number.
 
-<img src="/img/debkeepr-intro/lsd-division.png" height="500" />
+{{< figure src="/img/debkeepr-intro/lsd-division.png" height="400" >}}
 
 ``` {.r}
 # Divide £465 12s. 8d. sterling by 72
@@ -245,7 +243,7 @@ ggplot(data = dafforne_summary) +
   theme_light()
 ```
 
-<img src="/img/debkeepr-intro/account-summary-1.png" height="500" />
+{{< figure src="/img/debkeepr-intro/account-summary-1.png" height="500" >}}
 
 ## `debkeepr` and reproducibility
 
@@ -257,4 +255,4 @@ The above plot only scratches the surface of the possibilities for exploring and
 
 [^3]: This scratch piece of paper comes from the archive of Daniël van der Meulen en Hester de la Faille, zijn vrouw, 1550-1648 at Erfgoed Leiden en Omstreken. You can access the original [here](https://www.erfgoedleiden.nl/collecties/archieven/archievenoverzicht/scans/NL-LdnRAL-0096/7.23).
 
-[^4]: This means that the default value of `c(20, 12)` does not need to be altered for the `bases` argument, though it is included in some of the below examples for the purposes of transparency.
+[^4]: This means that the default value of `c(20, 12)` does not need to be altered for the `bases` argument, though it is included in some of the below examples for transparency.

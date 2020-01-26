@@ -5,13 +5,12 @@ description: ""
 draft: false
 title: "Sankey Diagram of Daniel van der Meulen's Correspondence Network, 1578–1591"
 subtitle: ""
-tags: 
-- visualization
+tags: ["visualization"]
 ---
 
 [Sankey diagram](https://bost.ocks.org/mike/sankey/) of the correspondence network of Daniel van der Meulen, 1578–1591. This diagram uses the [networkD3 package](http://christophergandrud.github.io/networkD3/) 
 
-<iframe src="/visualizations/sankey-diagram-2017-10-25.html" width="100%" height="550"></iframe>
+{{< htmlwidget src="/visualizations/sankey-diagram-2017-10-25.html" >}}
 
 Hover over the city nodes or their connections to see the number of letters for each entity. Open the diagram in a new window to see a larger graph.
 

@@ -5,21 +5,20 @@ description: "Creating great circles with R with sp and sf packages"
 draft: false
 title: "Great Circles with R"
 subtitle: "Three methods with sp and sf"
-tags: 
-- dh-2.0
-- r
+tags: ["r", "gis", "dh-2.0"]
 ---
 
 In 1569 the Flemish cartographer and mathematician [Gerardus Mercator](https://en.wikipedia.org/wiki/Gerardus_Mercator) published a new world map under the title "New and more complete representation of the terrestrial globe properly adapted for use in navigation." The title of the map points to Mercator's main claim for its usefulness, which he expounded upon in the map's legends. Mercator presented his map as not only an accurate representation of the known world, but also as a particularly useful map for the purposes of navigation. As described in the [third legend](https://en.wikipedia.org/wiki/Mercator_1569_world_map#legend3), Mercator aimed to maintain conformity to the shape of land masses even towards the poles and to have straight lines on the map accurately represent directionality. To achieve his goals Mercator used a [projection](https://www.vox.com/world/2016/12/2/13817712/map-projection-mercator-globe) in which lines of longitude and latitude were made perpendicular at all values by increasing the distance between degrees of latitude as they reach the pole.[^1] Mercator's projection had the benefit that straight lines drawn on the map are rhumb lines, lines of constant bearing that pass every degree of longitude at the same angle. Theoretically this simplified oceanic navigation; a ship captain could draw a straight line from one port to another, calculate the bearing, and maintain that bearing along the voyage. However, 16th-century navigators used magnetic courses and not longitude and latitude values as Mercator's map assumed.[^2] An [accurate means to measure longitude](https://en.wikipedia.org/wiki/History_of_longitude#Problem_of_longitude) at sea was only discovered in the second half of the 18th century with the development of the sextant and later the marine chronometer.[^3]
 
 World Map by Gerardus Mercator, 1569
-<img src="/img/great-circles-sp-sf/Mercator-1569.png" height="500" />
+
+{{< figure src="/img/great-circles-sp-sf/Mercator-1569.png" height="500" >}}
 
 The Mercator projection was designed with certain uses in mind. Mercator's emphasis on perpendicular lines of longitude and latitude and the equivalence of straight lines and rhumb lines were meant to simplify navigation and have recently proved useful for [online mapping services](https://en.wikipedia.org/wiki/Web_Mercator). However, the stretching of latitudes towards the poles [distorts the size of land masses](https://www.youtube.com/watch?v=OH1bZ0F3zVU), making those closer to the poles appear larger than those near the equator. The stress on rhumb lines in Mercator's map also highlights the difference between lines of constant bearing ([rhumb or loxodrome lines](https://en.wikipedia.org/wiki/Rhumb_line)) and the shortest distance between two points ([great circles](https://en.wikipedia.org/wiki/Great-circle_distance)). Due to Earth's ellipsoidal nature, the shortest distance between two points is not necessarily a straight line. For instance, to fly from Los Angeles to Amsterdam, one would not want to fly in a straight line of constant bearing at 78 degrees. Instead, you would want to make an arc to the north to take advantage of the ellipsoidal shape of the Earth. By flying along the great circle from Los Angeles to Amsterdam one would travel 1120 kilometers less than flying along the rhumb line.
 
 <!--more-->
 
-<img src="/img/great-circles-sp-sf/great-circle-rhumb-line.pdf" height="500" />
+{{< figure src="/img/great-circles-sp-sf/great-circle-rhumb-line.pdf" height="500" >}}
 
 ## Great circles with R {#great-circles}
 In [Geocoding with R](https://jessesadler.com/post/geocoding-with-r/) and [Introduction to GIS with R](https://jessesadler.com/post/gis-with-r-intro/) I demonstrated different ways to make maps that showed the sources and destinations of letters sent to the sixteenth-century merchant Daniel van der Meulen in 1585. This post will show how to create great circle lines to connect the sources and destinations of the letters. There are a number of resources on making great circles with R, and each resource uses slightly different methods.[^4] The diversity of methods to get the same or similar result is both one of the more interesting and one of the more frustrating parts of coding. Here, I will show how to create great circles as a `SpatialLinesDataFrame` from the [`sp`](https://cran.r-project.org/web/packages/sp/) package, as well as two different methods using the [`sf`](https://cran.r-project.org/web/packages/sf/) package. The results of the three methods will be very similar, and the ability to convert between objects used by the `sp` and `sf` packages means that they can be used interchangeably. However, showing multiple methods will help to explicate the process of creating lines from longitude and latitude data and turning them into great circles. You can find the data and the R script that goes along with this post on [GitHub](https://github.com/jessesadler/intro-to-r).
@@ -145,7 +144,7 @@ plot(countries_sp, col = gray(0.8), border = gray(0.7),
 plot(routes_sl, col = "dodgerblue", add = TRUE)
 ```
 
-<img src="/img/great-circles-sp-sf/routes-sl-map-1.png" height="500" />
+{{< figure src="/img/great-circles-sp-sf/routes-sl-map-1.png" height="500" >}}
 
 At this point, the output is not hugely informative. However, we can confirm that the process of making great circles worked by observing the curvatures of the lines. Notice that the amount of curvature differs according to distance and the bearing of the line.
 
@@ -169,7 +168,7 @@ plot(routes_sldf,
      add = TRUE)
 ```
 
-<img src="/img/great-circles-sp-sf/routes-sldf-map-1.png" height="500" />
+{{< figure src="/img/great-circles-sp-sf/routes-sldf-map-1.png" height="500" >}}
 
 ## Great circles with `sf` {#sf}
 There is no straightforward way, no single function, to create great circles from longitude and latitude data with the `sf` package that is reminiscent of `gcIntermediate()`. With `sf` the creation of great circles is a two-step process. First, we need to create lines or objects with a geometry of `LINESTRING`, and then it will be possible to convert the straight line into a great circle with `st_segmentize()`. The first transformation is the trickier of the two. As I have [shown previously](https://jessesadler.com/post/gis-with-r-intro/#sf), you can create an `sf` object with `POINT` geometry through the `st_as_sf()` function, but there is no equivalent function for creating lines. Here, I will show two different methods for creating lines and then great circles with `sf`. The first method will convert the `routes` data to an `sf` object of `POINT` geometry and take advantage of the `sf` package's ability to use `dplyr` functions to create lines through a `group_by()` and `summarise()` pipeline. The second method vectorizes the creation of a single `LINESTRING` feature through a for loop. The resulting `sf` object of great circles will be essentially identical.
@@ -327,7 +326,7 @@ ggplot() +
   theme_minimal()
 ```
 
-<img src="/img/great-circles-sp-sf/rhumb-v-great-circle-map-1.png" height="600" />
+{{< figure src="/img/great-circles-sp-sf/rhumb-v-great-circle-map-1.png" height="600" >}}
 
 We can also compare the output of `gcIntermediate` and `st_segmentize()`. The use of a maximum length of a segment by `st_segmentize()` instead of the number of segments is the main differentiation between `st_segmentize()` and `gcIntermediate()`. The exact coordinates along which the great circles are drawn will necessarily differ between the two functions. In practice, the differences are likely to be unimportant, and in a map like the one we are creating here, the differences between the two sets of great circles will be imperceptible. The limited extent of the difference between the two functions can be seen by plotting `routes_sldf` and `routes_sf_tidy` on the same interactive map using the [`mapview`](https://cran.r-project.org/web/packages/mapview/index.html) package. This makes it possible to zoom in on the lines and see where they do differ, such as the line between Venice and Haarlem. The differences that are visible are on the scale of meters, and this is without optimizing the alignment for the choices of the number of segments and maximum length of a segment.
 
@@ -339,7 +338,7 @@ mapview(routes_sldf, color = "magenta") +
   mapview(routes_sf_tidy, color = "black")
 ```
 
-<iframe src="/img/great-circles-sp-sf/geosphere-v-segmentize.html" width = "100%" height = "500"></iframe>
+{{< htmlwidget src="/img/great-circles-sp-sf/geosphere-v-segmentize.html" >}}
 
 ## Great circles with `sf`: for loop method {#sf-loop}
 The above method for creating great circles using `sf` highlights the integration of `sf` into the tidyverse, but there are always more than one path to answer a question with code. As I learned more about `sf` objects, I got interested in more directly creating an `sf` object with a geometry type of `LINESTRING` from longitude and latitude data. As with the tidy method, the biggest challenge came from creating `LINESTRING` features and not in turning rhumb lines into great circles. The method I came up with essentially vectorizes the creation of a single `LINESTRING` feature through the use of a for loop. This uses a similar step-by-step creation of an `sf` object — from an `sfg`, to an `sfc` object, and then to an `sf` object — that I have shown in [Exploration of Simple Features for R](https://jessesadler.com/post/simple-feature-objects/).[^16]
@@ -476,7 +475,7 @@ ggplot() +
   theme_minimal()
 ```
 
-<img src="/img/great-circles-sp-sf/great-circles-sf-1.png" height="600" />
+{{< figure src="/img/great-circles-sp-sf/great-circles-sf-1.png" height="600" >}}
 
 ## Resources {#resources}
 - Great circles with `sp`

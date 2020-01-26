@@ -5,9 +5,7 @@ description: "Introduction to GIS with R through the sp and sf packages"
 draft: false
 title: "Introduction to GIS with R"
 subtitle: "Spatial data with the sp and sf packages"
-tags: 
-- dh-2.0
-- r
+tags: ["r", "dh-2.0"]
 ---
 
 The geographic visualization of data makes up one of the major branches of the Digital Humanities toolkit. There are a plethora of tools that can visualize geographic information from full-scale GIS applications such as [ArcGIS](https://www.esri.com) and [QGIS](https://qgis.org) to web-based tools like [Google maps](http://maps.google.com) to any number of programing languages. There are advantages and disadvantages to these different types of tools. Using a command-line interface [has a steep learning curve](https://jessesadler.com/post/excel-vs-r/), but it has the benefit of enabling approaches to analysis and visualization that are customizable, transparent, and reproducible.[^1] My own interest in coding and [R](https://www.r-project.org) began with my desire to dip my toes into [geographic information systems (GIS)](https://en.wikipedia.org/wiki/Geographic_information_system) and create maps of an early modern correspondence network. The goal of this post is to introduce the basic landscape of working with spatial data in R from the perspective of a non-specialist. Since the early 2000s, an active community of R developers has built a wide variety of packages to enable R to interface with geographic data. The extent of the geographic capabilities of R is readily apparent from the many packages listed in the [CRAN task view for spatial data](https://cran.r-project.org/web/views/Spatial.html).[^2]
@@ -422,7 +420,7 @@ box()
 title(main = "Correspondence of Daniel van der Meulen, 1585")
 ```
 
-<img src="/img/gis-with-r-intro/points_spdf-plot-1.png" height="600" />
+{{< figure src="/img/gis-with-r-intro/points_spdf-plot-1.png" height="600" >}}
 
 Ok, we have points, but we do not have a map. We can add a background map with a separate call to the `plot()` function that contains `add = TRUE`. One nice aspect of using the base plotting methods with `Spatial` objects is that even though the coastline map we are using is a world map, adding it to our previous plot properly scales the map to the geographical extent of the data from the first plotting function. The only other change is to make the color of the coastlines black with the `col` parameter. This needs to be done, because we changed the color palette above. If we did not make this change, the coastlines would be drawn in dark orchid.
 
@@ -465,7 +463,8 @@ legend("right", legend = pointsize,
 # Title for the map
 title(main = "Correspondence of Daniel van der Meulen, 1585")
 ```
-<img src="/img/gis-with-r-intro/coast_sp-plot-1.png" height="600" />
+
+{{< figure src="/img/gis-with-r-intro/coast_sp-plot-1.png" height="600" >}}
 
 The resulting map is maybe a bit sparse, but it provides all the necessary information on the locations and magnitude of Daniel's correspondence in 1585. One change that we might want to make is to color in the land to distinguish more clearly between land and water and to add some color to the plot. This cannot be done with our `SpatialLines` of the coastlines, which does not have a geometric interior that could be filled. Instead we need to use a `SpatialPolygons` object such as `countries_sp`. To make this second map we can reuse many of the parameters from our first map, but we do need to make one significant change to the plotting workflow. Because we want to fill in the land area of the map, we need to plot the background map before plotting the points. Otherwise the background map will cover the points. However, this disturbs the automatic subsetting of the world map that occurred in the first plot. We can get around this by changing the bounding box of `countries_sp` (`countries_sp@bbox`) to match that of `points_spdf` with the `bbox()` function.
 
@@ -511,7 +510,7 @@ legend("right",
 title(main = "Correspondence of Daniel van der Meulen, 1585")
 ```
 
-<img src="/img/gis-with-r-intro/countries_sp-plot-1.png" height="600" />
+{{< figure src="/img/gis-with-r-intro/countries_sp-plot-1.png" height="600" >}}
 
 The above maps along with the creation of `Spatial` objects and the use of maps from outside sources demonstrates the value of the `sp` package. The above examples only show the basics of working with different kinds of `Spatial` objects and does not take advantage of any of the spatial transformations or calculations that using `sp` enables. However, the R GIS community is increasingly moving towards the `sf` package. The `sf` package provides almost all of the [capabilities of `sp`](https://github.com/r-spatial/sf/wiki/migrating), but it uses objects that are easier to work with than the S4-style classes of `sp`. The next section will replicate the workflow of creating and mapping spatial points data using `sf` methods, which will serve to illuminate the differences between the two packages.
 
@@ -682,7 +681,7 @@ countries_sf %>%
   plot(key.pos = NULL, graticule = TRUE, main = "South America")
 ```
 
-<img src="/img/gis-with-r-intro/sa-countries-1.png" height="600" />
+{{< figure src="/img/gis-with-r-intro/sa-countries-1.png" height="600" >}}
 
 ## Mapping with `sf` and `ggplot2` {#mapping-sf}
 Returning to the example of the correspondence of Daniel van der Meulen, it would be possible to use `sf` to recreate the base R plots made with the `sp` package. However, another advantage of `sf` is that it works with `ggplot2`, and so I will concentrate on making maps using the `ggplot2` system similar to those I made with `ggmap` in [a previous post](https://www.jessesadler.com/post/geocoding-with-r/#mapping-data). `ggplot2` implements the plotting of `sf` objects through the creation of a specific geom, `geom_sf()`. `geom_sf()` is only available in versions of `ggplot2` that are greater than 2.2.1, which is the current CRAN version. Therefore, you need to download the development version of `ggplot2` with `devtools::install_github("tidyverse/ggplot2")` to plot `sf` objects.
@@ -703,7 +702,7 @@ ggplot() +
   coord_sf(xlim = c(-1, 14), ylim = c(44, 55))
 ```
 
-<img src="/img/gis-with-r-intro/ggplot-demo-1.png" height="600" />
+{{< figure src="/img/gis-with-r-intro/ggplot-demo-1.png" height="600" >}}
 
 The map created by `ggplot2` shows the same information as the base plots. It includes legends by default so that we do not need to build them up from scratch, though with `geom_sf()` we do need to use `show.legend = "point"` to format the legends properly. The aesthetics of this map are quite different from the base plots and serves to show the defaults that come with the use of `geom_sf()` in `ggplot2`. The defaults for `geom_sf()` use the iconic `ggplot` gray background, but instead of the usual white grid lines, graticules for the longitude and latitude are shown. Notice that the tick marks for the plot are correctly labeled in units of degrees longitude and latitude and that the axes are not labeled, as the context makes clear that the x-axis is latitude and the y-axis is longitude — at least if you remember which one is which.
 
@@ -734,7 +733,7 @@ ggplot() +
   theme_minimal()
 ```
 
-<img src="/img/gis-with-r-intro/ggplot-coastline-1.png" height="600" />
+{{< figure src="/img/gis-with-r-intro/ggplot-coastline-1.png" height="600" >}}
 
 The result is a map that is much cleaner, and because of the points are labeled, more informative. We can reuse the thematic tweaks to create a plot with the countries background map to make it possible to fill in the land area as we did above. I will use the same gray scale for the colors to fill the polygons and for the lines of the polygons. The other change that I make in this plot is to use the `theme_bw()`, which adds a border around the plot.
 
@@ -759,7 +758,7 @@ ggplot() +
   theme_bw()
 ```
 
-<img src="/img/gis-with-r-intro/ggplot-countries-1.png" height="600" />
+{{< figure src="/img/gis-with-r-intro/ggplot-countries-1.png" height="600" >}}
 
 ## Conclusion
 This post has only scraped the surface of the power of the `sp` and `sf` packages and the more general GIS capabilities of R. My goal with this post has been to provide an understanding of the nature of spatial data, how `sp` and `sf` implement the creation of spatial objects in R, and some of the consequences of the implementation details for modifying and plotting `Spatial` and `sf` objects. `sp` and its complimentary packages have long provided a foundation to make R a viable GIS platform. The recent development of the `sf` package has modernized the implementation of spatial data in R and made it possible to integrate spatial data into the tidyverse and `ggplot2` plotting system. `sf` has made it easier to work with spatial data in R by minimizing the distinction between spatial data and other forms of data you might deal with in R. There still remain uses for the `sp` package, and I think it is helpful to see the distinction between the two packages to better understand both, but `sf` is clearly the future for the representation of geographic vector data in R.
