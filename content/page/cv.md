@@ -21,9 +21,9 @@ Lecturer, Loyola Marymount University
 - "The Collegiants, a Small Presence in the Republic, a Large Metaphor for the Book," in *Bernard Picart and the First Global Vision of Religion* eds. Lynn Hunt, Margaret Jacob, and Wijnand Mijnhardt (Los Angeles: Getty Research Institute, 2010)
 
 ### Digital Humanities Projects
-- debkeepr: Analysis of Non-Decimal Currencies and Double-Entry Bookkeeping (R package): https://jessesadler.github.io/debkeepr/
-- The Correspondence Network of Daniel van der Meulen, 1578–1591: https://jessesadler.com/project/dvdm-correspondence
-- The Estate of Jan della Faille de Oude, 1582–1617: https://jessesadler.com/project/df-inheritance/
+- [debkeepr: Analysis of Non-Decimal Currencies and Double-Entry Bookkeeping](https://jessesadler.github.io/debkeepr/) (R package)
+- [The Correspondence Network of Daniel van der Meulen, 1578–1591](https://jessesadler.com/project/dvdm-correspondence)
+- [The Estate of Jan della Faille de Oude, 1582–1617](https://jessesadler.com/project/df-inheritance/)
 
 ### Teaching: Lecturer, Loyola Marymount University
 - Europe and the World 1200–1648 (Spring 2019)
@@ -38,11 +38,12 @@ Lecturer, Loyola Marymount University
 
 ### Presentations
 - "vctrs: Creating custom vector classes with the vctrs package," RStudio Conference, 27–30 January 2020
+	- [Slides](/slides/RStudio2020.pdf)
 - "Learning and Using the tidyverse for Historical Research," RStudio Conference, 15–18 January 2019
-	- Slides: https://github.com/jessesadler/rstudioconf-2019-slides 
-	- Video: https://resources.rstudio.com/rstudio-conf-2019/learning-and-using-the-tidyverse-for-historical-research
+	- [Slides](/slides/RStudio2019.pdf)
+	- [Video](https://resources.rstudio.com/rstudio-conf-2019/learning-and-using-the-tidyverse-for-historical-research)
 - "Coding for the Humanities," Workshop funded by the Mellon Scholars Program at Hope College, 16 November 2018
-	Slides and code: https://github.com/jessesadler/hope-intro2r
+	- [Slides and code](https://github.com/jessesadler/hope-intro2r)
 - "Accounting for Inheritance: Siblings and Early Modern Trade," Hope College, 15 November 2018
 - "Visualizing Partible Inheritance among Early Modern Merchants," International Conference for Netherlandic Studies, 31 May – 2 June 2018
 - "Trust as a Category of Analysis in Early Modern Economic Exchange," Historical Epistemology: Four Generations of Graduate Students Reflect on their Craft, 17–19 May 2018
