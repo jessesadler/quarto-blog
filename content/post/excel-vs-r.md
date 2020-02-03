@@ -5,7 +5,7 @@ description: "An introduction to how to use R with examples of dplyr and ggplot2
 draft: false
 title: "Excel vs R: A Brief Introduction to R"
 subtitle: "With examples using dplyr and ggplot"
-tags: ["r", "dh-2.0"]
+tags: ["r", "digitalhumanities"]
 ---
 
 Quantitative research often begins with the humble process of counting. Historical documents are never as plentiful as a historian would wish, but counting words, material objects, court cases, etc. can lead to a better understanding of the sources and the subject under study. When beginning the process of counting, the first instinct is to open a spreadsheet. The end result might be the production of tables and charts created in the very same spreadsheet document. In this post, I want to show why this spreadsheet-centric workflow is problematic and recommend the use of a programming language such as [R](https://www.r-project.org) as an alternative for both analyzing and visualizing data. There is no doubt that the learning curve for R is much steeper than producing one or two charts in a spreadsheet. However, there are real long-term advantages to learning a dedicated data analysis tool like R. Such advice to learn a programming language can seem both daunting and vague, especially [if you do not really understand what it means to code](https://jessesadler.com/post/new-kinds-of-projects/). For this reason, after discussing why it is preferable to analyze data with R instead of a spreadsheet program, this post provides a brief introduction to R, as well as an example of analysis and visualization of historical data with R.[^1]

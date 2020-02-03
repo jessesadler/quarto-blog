@@ -5,7 +5,6 @@ description: "A reflection on the first year writing this blog on digital humani
 draft: false
 title: "One Year Anniversary"
 subtitle: "Some reflections"
-tags: 
 ---
 
 It was a year ago today that I launched this website with a post [introducing myself](https://jessesadler.com/post/by-way-of-introduction/) and the goals for the blog. When I launched the site, I was at the beginning of teaching myself about digital humanities and how to code in R. Building this [Hugo site](http://gohugo.io) was part of my learning process. I learned about the command line, Git, and GitHub, not to mention a bit of HTML and CSS to get the website up and going. I also wanted to share my progress and provide information for others who might want to go down a similar path. Over the past year I have gone from a coding newbie to actively working on [two digital humanities projects](https://www.jessesadler.com/project/) and closing in on the launch of my first [R package](https://github.com/jessesadler/debkeepr) that makes it easier to work with historical non-decimal currencies.

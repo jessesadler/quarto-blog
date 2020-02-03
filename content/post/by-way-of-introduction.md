@@ -4,8 +4,6 @@ date: 2017-06-06T17:38:54-07:00
 description: "An introduction to the website on history and digital humanities"
 draft: false
 title: "By Way of Introduction"
-subtitle: 
-tags: 
 ---
 
 In this introductory post I want to lay out the reasons for the creation of this website, to discuss some content that I will be looking to create, and to set some goals for the site. First though, I should first introduce myself. I am a historian of early modern Europe. My research investigates merchant families and the social basis of trade, politics, and religion. Specifically, I have worked in the archives of the Van der Meulens and Della Failles, two merchant families from Antwerp involved in European-wide trade at the end of the sixteenth century. I am currently working on a manuscript that argues for the significance of sibling relationships and inheritance in the development of early modern capitalism. In addition, I am working on some [digital humanities](http://www.cdh.ucla.edu) projects using the two archives.

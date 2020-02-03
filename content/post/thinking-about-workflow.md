@@ -5,7 +5,7 @@ description: "Personal history on why I started to think about how I do research
 draft: false
 title: "Thinking about Workflow: DH 1.0"
 subtitle: 
-tags: ["dh-1.0"]
+tags: ["digitalhumanities"]
 ---
 
 In the spring of 2011, I was in the middle of doing research for my dissertation. I had recently returned from my second extended trip to the archives in the Netherlands and Belgium and had accumulated a ton of notes. I knew that technology had drastically altered the possibilities for research, but the fundamentals of my own workflow were hardly different than they had been when I began undergrad in the early 2000s. Sure, I used the internet to watch Netflix, but the basic tools—centered on the Microsoft Office Suite—were essentially the same. One day, I gave in to the nagging feeling that I was not getting enough out of my computer, that there were better ways of doing things. I started to poke around the internet to see if I could find ways to improve my workflow. What started as a distraction soon turned into a months-long project on finding better tools for conducting research. I quickly realized that the actual process of getting work done, doing research and writing papers, is little discussed in graduate school. Early career graduate students are so busy reading, writing, and generally trying to keep up, that the process of how to do the work is easily pushed to the background. Since then, I have tried to think critically and systematically about my workflow and have often discussed this with others.

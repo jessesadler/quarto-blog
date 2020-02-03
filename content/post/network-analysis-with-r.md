@@ -5,7 +5,7 @@ description: "An introduction to network analysis with R for digital humanities 
 draft: false
 title: "Introduction to Network Analysis with R"
 subtitle: "Creating static and interactive network graphs"
-tags: ["r", "dh-2.0"]
+tags: ["r"]
 ---
 
 Over a wide range of fields network analysis has become an increasingly popular tool for scholars to deal with the complexity of the interrelationships between actors of all sorts. The promise of network analysis is the placement of significance on the relationships between actors, rather than seeing actors as isolated entities. The emphasis on complexity, along with the creation of a variety of algorithms to measure various aspects of networks, makes network analysis a central tool for digital humanities.[^1] This post will provide an introduction to working with networks in [R](https://www.r-project.org), using the example of the network of cities in the correspondence of [Daniel van der Meulen](https://jessesadler.com/project/dvdm-correspondence/) in 1585.

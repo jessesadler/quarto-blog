@@ -5,7 +5,7 @@ description: "Introduction to GIS with R through the sp and sf packages"
 draft: false
 title: "Introduction to GIS with R"
 subtitle: "Spatial data with the sp and sf packages"
-tags: ["r", "dh-2.0"]
+tags: ["r", "gis"]
 ---
 
 The geographic visualization of data makes up one of the major branches of the Digital Humanities toolkit. There are a plethora of tools that can visualize geographic information from full-scale GIS applications such as [ArcGIS](https://www.esri.com) and [QGIS](https://qgis.org) to web-based tools like [Google maps](http://maps.google.com) to any number of programing languages. There are advantages and disadvantages to these different types of tools. Using a command-line interface [has a steep learning curve](https://jessesadler.com/post/excel-vs-r/), but it has the benefit of enabling approaches to analysis and visualization that are customizable, transparent, and reproducible.[^1] My own interest in coding and [R](https://www.r-project.org) began with my desire to dip my toes into [geographic information systems (GIS)](https://en.wikipedia.org/wiki/Geographic_information_system) and create maps of an early modern correspondence network. The goal of this post is to introduce the basic landscape of working with spatial data in R from the perspective of a non-specialist. Since the early 2000s, an active community of R developers has built a wide variety of packages to enable R to interface with geographic data. The extent of the geographic capabilities of R is readily apparent from the many packages listed in the [CRAN task view for spatial data](https://cran.r-project.org/web/views/Spatial.html).[^2]
