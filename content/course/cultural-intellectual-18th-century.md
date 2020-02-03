@@ -9,7 +9,7 @@ subtitle: "Taught: Fall 2016 and Spring 2015"
 
 <!--more-->
 
-![](/img/south-seas-img.jpg)
+![](/img/views-of-the-south-seas.jpg)
 
 This course investigates the historical roots of modernity through an examination of the cultural and intellectual developments associated with the Enlightenment in the eighteenth century. The Enlightenment remains both influential and controversial in the 21st century. Enlightenment thinkers developed a science of man that exposed all aspects of society to the light of reason and criticism. They gave birth to the ideals of democracy, equality, and the concept of human rights that first found voice in the American and French Revolutions. However, critics of the Enlightenment contend that these ideals implicitly excluded individuals based on gender and race and that the Enlightenment’s emphasis on reason led to the development of Imperialism and Western hegemony. Embracing this complicated legacy, this course places eighteenth-century thinkers in the context of the development of commercial society, the beginnings of globalization, and debates on the outbreak and consequences of the French Revolution.
 
