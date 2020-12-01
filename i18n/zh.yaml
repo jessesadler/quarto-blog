@@ -2,7 +2,7 @@
 - id: dateFormat
   translation: "January 2, 2006"
 - id: postedOnDate
-  translation: "发表于 {{ .Count }}"
+  translation: "发表于 {{ . }}"
 - id: translationsLabel
   translation: "其它语言: "
 - id: translationsSeparator

@@ -27,7 +27,7 @@ In [Geocoding with R](https://jessesadler.com/post/geocoding-with-r/) and [Intro
 
 Let's start by loading the packages and data that we will use to make the great circles. To wrangle the data into the correct formats I will use the [`tidyverse`](http://tidyverse.org). We need to load the `sp` and `geosphere` packages to make a `SpatialLinesDataFrame` of great circles and the `sf` package for the latter two methods. Internally, `st_segmentize()` uses the `lwgeom` package, but we will not use the package directly, and so while it is necessary to have `lwgeom` installed, we do not need to load it. Lastly, I will use the `rnaturalearth` package to provide some background maps. The data that I will be using is again the letters sent to Daniel van der Meulen in 1585 along with the latitude and longitude values of the cities within his correspondence network at this time. We can also load the countries map from `rnaturalearth` as both a `Spatial` and `sf` object. As of the writing of this post, `sf` objects can only be plotted with the development version of `ggplot2`, which you can get through GitHub: `devtools::install_github("tidyverse/ggplot2")`.
 
-``` {.r}
+```r
 # Load packages
 library(tidyverse)
 library(sp)
@@ -47,7 +47,7 @@ countries_sf <- ne_countries(scale = "medium", returnclass = "sf")
 ## Preparing the data {#preparing-data}
 The basis for all three methods of creating great circles is a data frame of routes — a data frame with a single row for each unique connection between a source and a destination — which we can then join to the longitude and latitude values in the `locations` data frame. The `letters` data contains 114 rows with each row containing a letter. We can calculate the number of letters sent along each unique route with a `group_by()` and `count()` pipeline in which we group the letters that have the same source and destination. We then want to `ungroup()` the data frame to prevent the group attribute from interfering with any code further down the line. The final step is to arrange the rows by the count column, which has been named "n" by `count()`. This ensures that the routes with more letters sent across them will be drawn later in the plot, making them more visible in the maps.
 
-``` {.r}
+```r
 # Create data frame of routes and count for letters per route
 routes <- letters %>%
   group_by(source, destination) %>% 
@@ -57,26 +57,25 @@ routes <- letters %>%
 
 # Print routes
 routes
+#> # A tibble: 15 x 3
+#>    source    destination     n
+#>    <chr>     <chr>       <int>
+#>  1 Amsterdam Bremen          1
+#>  2 Antwerp   Middelburg      1
+#>  3 Dordrecht Haarlem         1
+#>  4 Emden     Bremen          1
+#>  5 Haarlem   Middelburg      1
+#>  6 Haarlem   The Hague       1
+#>  7 Hamburg   Bremen          1
+#>  8 Het Vlie  Bremen          1
+#>  9 Lisse     Delft           1
+#> 10 Antwerp   The Hague       2
+#> 11 Haarlem   Bremen          2
+#> 12 Venice    Haarlem         2
+#> 13 Antwerp   Haarlem         5
+#> 14 Haarlem   Delft          26
+#> 15 Antwerp   Delft          68
 ```
-
-    ## # A tibble: 15 x 3
-    ##    source    destination     n
-    ##    <chr>     <chr>       <int>
-    ##  1 Amsterdam Bremen          1
-    ##  2 Antwerp   Middelburg      1
-    ##  3 Dordrecht Haarlem         1
-    ##  4 Emden     Bremen          1
-    ##  5 Haarlem   Middelburg      1
-    ##  6 Haarlem   The Hague       1
-    ##  7 Hamburg   Bremen          1
-    ##  8 Het Vlie  Bremen          1
-    ##  9 Lisse     Delft           1
-    ## 10 Antwerp   The Hague       2
-    ## 11 Haarlem   Bremen          2
-    ## 12 Venice    Haarlem         2
-    ## 13 Antwerp   Haarlem         5
-    ## 14 Haarlem   Delft          26
-    ## 15 Antwerp   Delft          68
 
 The `routes` data shows that there are 15 unique source to destination combinations within the `letters` data. A glimpse at `routes` shows that the majority of letters that Daniel received in 1585 — 68 letters — were sent from Antwerp to Delft, while a sizable number of letters were sent from Haarlem to Delft.[^6] Daniel received letters along other routes much less frequently. With the routes identified, and already possessing the longitude and latitude of the end points for the routes in the `locations` data frame, we can now move on to creating the great circles between these sets of points.
 
@@ -85,7 +84,7 @@ Let's start by creating great circles as a `SpatialLinesDataFrame` from the `sp`
 
 The `gcIntermediate()` function provides one of the easiest methods for transforming coordinates data into spatial lines. A single step creates a `SpatialLines` object and calculates the great circle. As we will see below, the `sf` methods split these into two steps. The `gcIntermediate()` function takes two sets of longitude and latitude coordinates, one for the beginning point of the line and one for the end point. The coordinates can be supplied in the form of either a data frame or a matrix. Here, I will supply the coordinates in a data frame, since our longitude and latitude values are already in this format. We can identify the longitude and latitude values for the sources of the routes by joining `locations` to `routes` by the "source" column. Since we only want the longitude and latitude values for the `gcIntermediate()` function, we `select()` the "lon" and "lat" columns — the names of the columns that contain longitude and latitude values — creating a `sources_tbl` with two columns and the same amount of rows as the `routes` data. Joining `locations` to `routes` by "destination" creates an equivalent `destinations_tbl`.
 
-``` {.r}
+```r
 # tibble of longitude and latitude values of sources
 sources_tbl <- routes %>% 
   left_join(locations, by = c("source" = "place")) %>% 
@@ -99,7 +98,7 @@ destinations_tbl <- routes %>%
 
 The next step is to decide on the number of segments for the line and the type of output we want. In this example, I choose 50 breaks, which is more than enough for the routes that we are drawing. The end result will actually have 52 segments, because I want to include the start and end points within the line by setting the `addStartEnd` to `TRUE`.[^7] Lastly, in order to have the output be a `Spatial` object, we need to set the `sp` argument to `TRUE`.[^8]
 
-``` {.r}
+```r
 # Great circles as a SpatialLines object
 routes_sl <- gcIntermediate(sources_tbl, destinations_tbl, 
                             n = 50, addStartEnd = TRUE, 
@@ -108,32 +107,25 @@ routes_sl <- gcIntermediate(sources_tbl, destinations_tbl,
 
 Let's investigate the object that we have created with the `gcIntermediate()` function. You will not want to print `routes_sl` to the console, as this will print out fifteen matrices with 52 rows each, but we can use other methods to look at the object. `routes_sl` is a `Spatial` object of class `SpatialLines`. The different forms of data within `Spatial` objects are [contained in slots](https://jessesadler.com/post/gis-with-r-intro/#overview-spsf), which can be identified with `slotNames()`. The `lines` slot contains the coordinates of the routes produced by `gcIntermediate()`. The `gcIntermediate()` function also added a coordinate reference system and set it to longitude and latitude coordinates on the WGS84 ellipsoid, equivalent to [EPSG 4326](https://epsg.io/4326).
 
-``` {.r}
+```r
 # Class of routes_sl
 class(routes_sl)
-```
+#> [1] "SpatialLines"
+#> attr(,"package")
+#> [1] "sp"
 
-    ## [1] "SpatialLines"
-    ## attr(,"package")
-    ## [1] "sp"
-
-``` {.r}
 # Slots in routes_sl
 slotNames(routes_sl)
-```
+#> [1] "lines"       "bbox"        "proj4string"
 
-    ## [1] "lines"       "bbox"        "proj4string"
-
-``` {.r}
 # CRS of routes_sl
 routes_sl@proj4string
+#> CRS arguments: +proj=longlat +ellps=WGS84
 ```
-
-    ## CRS arguments: +proj=longlat +ellps=WGS84
 
 The inclusion of a coordinate reference system makes `routes_sl` a truly geospatial object that can be plotted on our background map, though it does not yet possess any attribute data about the names of the locations or the number of letters sent along each route.
 
-``` {.r}
+```r
 # Make bbox of countries_sp the same as routes_sl
 countries_sp@bbox <- bbox(routes_sl)
 
@@ -150,14 +142,14 @@ At this point, the output is not hugely informative. However, we can confirm tha
 
 We can add the attribute data for the lines and create a `SpatialLinesDataFrame` object by combining `routes_sl` and the `routes` data frame through the `SpatialLinesDataFrame()` function. There is no need to worry about linking the lines data to the correct row in `routes`, because `routes_sl` contains a lines ID attribute that corresponds to the row numbers of `sources_tbl` and `destinations_tbl`, which were derived from `routes`.[^9]
 
-``` {.r}
+```r
 # Great circles as a SpatialLinesDataFrame object
 routes_sldf <- SpatialLinesDataFrame(routes_sl, data = routes)
 ```
 
 The result of `SpatialLinesDataFrame()` is a complete `Spatial` object that contains a CRS, attribute data in the `data` slot, and great circle lines in the `lines` slot. It is now possible to plot `routes_sldf` and distinguish the lines by the number of letters sent along each route. The easiest way to show this in a base plot is by adjusting the line width of the great circles by a chosen formula. In this case, I take the square route of the number of letters and add 0.25 to get the maximum and minimum line width to a reasonable size.
 
-``` {.r}
+```r
 # Map with SpatialLinesDataFrame object
 par(mar = c(1, 1, 3, 1))
 plot(countries_sp, col = gray(0.8), border = gray(0.7),
@@ -180,7 +172,7 @@ Once I identified the problem, I could find a solution in the form of the functi
 
 Let's see how this works in practice. Before we begin though, we need to make a slight change to `routes` to add an "id" column. This will enable us to keep track of the relationship between the sources and destinations and will be used later to group the routes together. We can do this with the very helpful `rowid_to_column()` function from the `tibble` package, which even places the "id" column at the start of the data frame.
 
-``` {.r}
+```r
 # Create id column to routes
 routes_id <- rowid_to_column(routes, var = "id")
 ```
@@ -189,71 +181,69 @@ With this done, the first step is to transform `routes_id` into a "long" format 
 
 In our example, we want to turn the "source" and "destination" variables or columns into values that identify whether a place is a source or destination. Here, I choose to name the `key` "type" and the `value` "place", which aligns with the nomenclature used in the `locations` data. To make the function work properly, we need to choose the right columns for `gather()` to work upon. In this case, there are two possibilities. We can either tell `gather()` to use the "source" and "destination" columns or to leave "id" and "n" alone with a `-` before these column names. Here, I do the former.[^12]
 
-``` {.r}
+```r
 # Transform routes to long format
 routes_long <- routes_id %>% 
   gather(key = "type", value = "place", source, destination)
 
 # Print routes_long
 routes_long
+#> # A tibble: 30 x 4
+#>       id     n type   place    
+#>    <int> <int> <chr>  <chr>    
+#>  1     1     1 source Amsterdam
+#>  2     2     1 source Antwerp  
+#>  3     3     1 source Dordrecht
+#>  4     4     1 source Emden    
+#>  5     5     1 source Haarlem  
+#>  6     6     1 source Haarlem  
+#>  7     7     1 source Hamburg  
+#>  8     8     1 source Het Vlie 
+#>  9     9     1 source Lisse    
+#> 10    10     2 source Antwerp  
+#> # ... with 20 more rows
 ```
-
-    ## # A tibble: 30 x 4
-    ##       id     n type   place    
-    ##    <int> <int> <chr>  <chr>    
-    ##  1     1     1 source Amsterdam
-    ##  2     2     1 source Antwerp  
-    ##  3     3     1 source Dordrecht
-    ##  4     4     1 source Emden    
-    ##  5     5     1 source Haarlem  
-    ##  6     6     1 source Haarlem  
-    ##  7     7     1 source Hamburg  
-    ##  8     8     1 source Het Vlie 
-    ##  9     9     1 source Lisse    
-    ## 10    10     2 source Antwerp  
-    ## # ... with 20 more rows
 
 Because we performed the `gather()` function on two columns, `routes_long` possesses twice as many rows as `routes`. `routes_long` has two new columns corresponding to the names we gave them in the `key` and `values` arguments, while the "id" and "n" values have essentially been doubled such that the same values are associated with both a source and destination "type". Now that we have a single column with place names, we can add the longitude and latitude values of the places through a left join.
 
-``` {.r}
+```r
 # Add coordinate values
 routes_long_geo <- left_join(routes_long, locations, by = "place")
 ```
 
 With `routes_long_geo` we now have the data in the correct format to create an `sf` object with `POINT` geometry and a CRS through the `st_as_sf()` function. Let's create the object and then see what it looks like.
 
-``` {.r}
+```r
 # Convert coordinate data to sf object
 routes_long_sf <- st_as_sf(routes_long_geo, coords = c("lon", "lat"), crs = 4326)
 
 # Print routes_long_sf
 routes_long_sf
+#> Simple feature collection with 30 features and 4 fields
+#> geometry type:  POINT
+#> dimension:      XY
+#> bbox:           xmin: 3.610998 ymin: 45.44085 xmax: 12.31552 ymax: 53.55108
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#> # A tibble: 30 x 5
+#>       id     n type   place                geometry
+#>    <int> <int> <chr>  <chr>             <POINT [°]>
+#>  1     1     1 source Amsterdam (4.895168 52.37022)
+#>  2     2     1 source Antwerp   (4.402464 51.21945)
+#>  3     3     1 source Dordrecht  (4.690093 51.8133)
+#>  4     4     1 source Emden       (7.20601 53.3594)
+#>  5     5     1 source Haarlem   (4.646219 52.38739)
+#>  6     6     1 source Haarlem   (4.646219 52.38739)
+#>  7     7     1 source Hamburg   (9.993682 53.55108)
+#>  8     8     1 source Het Vlie      (5.183333 53.3)
+#>  9     9     1 source Lisse     (4.557483 52.25793)
+#> 10    10     2 source Antwerp   (4.402464 51.21945)
+#> # ... with 20 more rows
 ```
-
-    ## Simple feature collection with 30 features and 4 fields
-    ## geometry type:  POINT
-    ## dimension:      XY
-    ## bbox:           xmin: 3.610998 ymin: 45.44085 xmax: 12.31552 ymax: 53.55108
-    ## epsg (SRID):    4326
-    ## proj4string:    +proj=longlat +datum=WGS84 +no_defs
-    ## # A tibble: 30 x 5
-    ##       id     n type   place                geometry
-    ##    <int> <int> <chr>  <chr>             <POINT [°]>
-    ##  1     1     1 source Amsterdam (4.895168 52.37022)
-    ##  2     2     1 source Antwerp   (4.402464 51.21945)
-    ##  3     3     1 source Dordrecht  (4.690093 51.8133)
-    ##  4     4     1 source Emden       (7.20601 53.3594)
-    ##  5     5     1 source Haarlem   (4.646219 52.38739)
-    ##  6     6     1 source Haarlem   (4.646219 52.38739)
-    ##  7     7     1 source Hamburg   (9.993682 53.55108)
-    ##  8     8     1 source Het Vlie      (5.183333 53.3)
-    ##  9     9     1 source Lisse     (4.557483 52.25793)
-    ## 10    10     2 source Antwerp   (4.402464 51.21945)
-    ## # ... with 20 more rows
 
 From this point on, we are able to use `sf`'s `dplyr` integration to convert from a `POINT` geometry to `MULTIPOINT` and then `LINESTRING`. We can perform the former by grouping `routes_long_sf` by the "id" column and summarizing the points into a `MULTIPOINT` geometry.[^13] The `sf` implementation of `summarise()` includes a `do.union` argument. With `do.union` set to `TRUE`, the default, `summarise()` will try to resolve internal boundaries, but it can also change the order of points. Therefore, we will set `do.union` to `FALSE`, which uses `st_combine()` to more simply combine geometries in a manner similar to `c ()`. The latter transformation from `MULTIPOINT` to `LINESTRING` involves `st_cast()` and takes advantage of the fact that internally `MULTIPOINT` and `LINESTRING` are derived from the same type of data, making it possible to convert back and forth between the two geometries without any loss of data. Here I will do all of this in a single pipeline, though you could do it step-by-step to see the multiple conversions that are taking place.
 
-``` {.r}
+```r
 # Convert POINT geometry to MULTIPOINT, then LINESTRING
 routes_lines <- routes_long_sf %>% 
   group_by(id) %>% 
@@ -262,37 +252,36 @@ routes_lines <- routes_long_sf %>%
 
 # Print routes_lines
 routes_lines
+#> Simple feature collection with 15 features and 1 field
+#> geometry type:  LINESTRING
+#> dimension:      XY
+#> bbox:           xmin: 3.610998 ymin: 45.44085 xmax: 12.31552 ymax: 53.55108
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#> First 10 features:
+#>    id                       geometry
+#> 1   1 LINESTRING (4.895168 52.370...
+#> 2   2 LINESTRING (4.402464 51.219...
+#> 3   3 LINESTRING (4.690093 51.813...
+#> 4   4 LINESTRING (7.20601 53.3594...
+#> 5   5 LINESTRING (4.646219 52.387...
+#> 6   6 LINESTRING (4.646219 52.387...
+#> 7   7 LINESTRING (9.993682 53.551...
+#> 8   8 LINESTRING (5.183333 53.3, ...
+#> 9   9 LINESTRING (4.557483 52.257...
+#> 10 10 LINESTRING (4.402464 51.219...
 ```
-
-    ## Simple feature collection with 15 features and 1 field
-    ## geometry type:  LINESTRING
-    ## dimension:      XY
-    ## bbox:           xmin: 3.610998 ymin: 45.44085 xmax: 12.31552 ymax: 53.55108
-    ## epsg (SRID):    4326
-    ## proj4string:    +proj=longlat +datum=WGS84 +no_defs
-    ## First 10 features:
-    ##    id                       geometry
-    ## 1   1 LINESTRING (4.895168 52.370...
-    ## 2   2 LINESTRING (4.402464 51.219...
-    ## 3   3 LINESTRING (4.690093 51.813...
-    ## 4   4 LINESTRING (7.20601 53.3594...
-    ## 5   5 LINESTRING (4.646219 52.387...
-    ## 6   6 LINESTRING (4.646219 52.387...
-    ## 7   7 LINESTRING (9.993682 53.551...
-    ## 8   8 LINESTRING (5.183333 53.3, ...
-    ## 9   9 LINESTRING (4.557483 52.257...
-    ## 10 10 LINESTRING (4.402464 51.219...
 
 We have successfully created an `sf` object with lines. In addition to the change in geometry type, we can see that the number of rows has been halved and returned to the original length of `routes_id`. However, in doing this, we lost the data on the name of the source and destination of the lines, as well as the number of letters sent along the route. This occurred when we grouped `routes_long_sf` by the "id" column, leaving other non-geometry columns to be silently dropped. We can re-add the attribute data by joining `routes_lines` to the original `routes_id` data frame, using the "id" column to perform the join. This work flow of grouping and then joining by "id" is why we needed to create the column in the first place.
 
-``` {.r}
+```r
 # Join sf object with attributes data
 routes_lines <- left_join(routes_lines, routes_id, by = "id")
 ```
 
 Now that the geometry of the `sf` object is `LINESTRING`, creating a great circle with `st_segmentize()` is straight forward. The only decision you have to make is the maximum distance for the length of a segment. The maximum distance argument can either be the number of meters for the maximum segment or an object from the [`units`](https://cran.r-project.org/web/packages/units/index.html) package, which makes it possible to use a more sensible unit for this argument such as kilometers.[^14] In this case, I will use the `set_units` function from the `units` package and set the maximum length to 20 kilometers.[^15]
 
-``` {.r}
+```r
 # Convert rhumb lines to great circles
 routes_sf_tidy <- routes_lines %>% 
   st_segmentize(units::set_units(20, km))
@@ -300,22 +289,18 @@ routes_sf_tidy <- routes_lines %>%
 
 With `routes_sf_tidy` we have reached our goal, an `sf` object with great circle lines. We can confirm the changes made by `st_segmentize()` both visually and by looking at the number of coordinates or points in `routes_sf_tidy` compared to `routes_lines`. Where `routes_lines` has 30 set of coordinates — two for each line — `routes_sf_tidy` has `nrow(st_coordinates(routes_sf_tidy))` as a result of `st_segmentize()`.
 
-``` {.r}
+```r
 # Compare number of points in routes_lines and routes_sf_tidy
 nrow(st_coordinates(routes_lines))
-```
+#> [1] 30
 
-    ## [1] 30
-
-``` {.r}
 nrow(st_coordinates(routes_sf_tidy))
+#> [1] 156
 ```
-
-    ## [1] 156
 
 We can visualize the difference between the rhumb lines of `routes_lines` and the great circles of `routes_sf_tidy` by plotting them on the same map. Because the lines in this example are relatively short, the differences will be fairly minimal and even imperceptible in some cases. Here, I plot the great circles in black on top of the rhumb lines in magenta to highlight where the differences are visible. The most perceptible difference is the route from Venice to Haarlem. The magenta rhumb lines are also partially visible in the routes to Bremen. Routes over shorter distances such as those between Antwerp and Zeeland or Holland are more similar and the appearance of the magenta rhumb lines are less perceptible.
 
-``` {.r}
+```r
 # Rhumb lines vs great circles
 ggplot() +
   geom_sf(data = countries_sf, fill = gray(0.8), color = gray(0.7)) +
@@ -330,7 +315,7 @@ ggplot() +
 
 We can also compare the output of `gcIntermediate` and `st_segmentize()`. The use of a maximum length of a segment by `st_segmentize()` instead of the number of segments is the main differentiation between `st_segmentize()` and `gcIntermediate()`. The exact coordinates along which the great circles are drawn will necessarily differ between the two functions. In practice, the differences are likely to be unimportant, and in a map like the one we are creating here, the differences between the two sets of great circles will be imperceptible. The limited extent of the difference between the two functions can be seen by plotting `routes_sldf` and `routes_sf_tidy` on the same interactive map using the [`mapview`](https://cran.r-project.org/web/packages/mapview/index.html) package. This makes it possible to zoom in on the lines and see where they do differ, such as the line between Venice and Haarlem. The differences that are visible are on the scale of meters, and this is without optimizing the alignment for the choices of the number of segments and maximum length of a segment.
 
-``` {.r}
+```r
 # Interactive comparison of gcIntermediate and st_segmentize
 library(mapview)
 
@@ -345,18 +330,17 @@ The above method for creating great circles using `sf` highlights the integratio
 
 Let's start by building a single feature with a geometry of `LINESTRING` using coordinates from Venice and Haarlem to outline the process. The `st_linestring()` function takes a matrix of two or more sets of coordinates to create an `sfg` object with a geometry of class `LINESTRING`. We can construct the matrix of coordinates by row binding two vectors — created using `c()` — of the longitude and latitude values for Venice and Haarlem.
 
-``` {.r}
+```r
 # Create a line between Venice and Haarlem
 st_linestring(rbind(c(12.315515, 45.44085), c(4.646219, 52.38739)))
+#> LINESTRING (12.315515 45.44085, 4.646219 52.38739)
 ```
-
-    ## LINESTRING (12.315515 45.44085, 4.646219 52.38739)
 
 It is this process that we want to repeat for each of the 15 routes found in `routes`. A first instinct might be to create a matrix of the coordinates of all of the routes, but this results in a single line connecting the coordinates. Instead, what we need to do is create 15 matrices that each contain the coordinates for the source and destination of a single route. In other words, we want to take the longitude and latitude of both the source and destination from the first row of `routes`, bind them together into a 2x2 matrix, and then repeat the process for the second row and so forth. This is the realm of the [for loop](http://r4ds.had.co.nz/iteration.html#for-loops).
 
 Before getting into the mechanics of the for loop, we have to get the data into a format that is similar to the vectors used to create the line between the coordinates of Venice and Haarlem. A similar workflow to that we used above to prepare the data for the `gcIntermediate()` function gets us what we are looking for. In this case though, we need matrices of source coordinates and destination coordinates. We could either transform `sources_tbl` and `destinations_tbl` into matrices with `as.matrix()` or rerun the code used to create them and use `as.matrix()` at the end of the pipeline. Here, I do the latter for greater transparency.
 
-``` {.r}
+```r
 # Matrix of longitude and latitude values of sources
 sources_m <- routes %>% 
   left_join(locations, by = c("source" = "place")) %>% 
@@ -380,7 +364,7 @@ However, we do not want to run this code, as it would create a single `sfg` obje
 
 Putting the above together, we get a complete for loop that creates `linestrings_sfg`, a list of 15 `sfg` objects.
 
-``` {.r}
+```r
 # Create empty list object of length equal to number of routes
 linestrings_sfg <- vector(mode = "list", length = nrow(routes))
 
@@ -392,79 +376,75 @@ for (i in 1:nrow(routes)) {
 
 We can check that the for loop worked by looking at the contents of one value from the list with `[[]]` subsetting.
 
-``` {.r}
+```r
 # geometry of a single route
 linestrings_sfg[[2]]
+#> LINESTRING (4.402464 51.21945, 3.610998 51.4988)
 ```
-
-    ## LINESTRING (4.402464 51.21945, 3.610998 51.4988)
 
 The next step is to create an `sfc` object by transforming the list of `sfg` objects into a geometry column with `st_sfc()`. An `sfc` object is referred to as a geometry set and is itself a list. It is at this step that the lines become geospatial through the addition of a CRS. At this point, we can also convert the rhumb lines to great circles by using `st_segmentize()` in the same manner as above in the pipeline.
 
-``` {.r}
+```r
 # sfc object of great circles
 linestrings_sfc <- st_sfc(linestrings_sfg, crs = 4326) %>% 
   st_segmentize(units::set_units(20, km))
 
 # Print linestrings_sfc
 linestrings_sfc
+#> Geometry set for 15 features 
+#> geometry type:  LINESTRING
+#> dimension:      XY
+#> bbox:           xmin: 3.610998 ymin: 45.44085 xmax: 12.31552 ymax: 53.55108
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#> First 5 geometries:
+#> LINESTRING (4.895168 52.37022, 5.169919 52.4250...
+#> LINESTRING (4.402464 51.21945, 4.205503 51.2897...
+#> LINESTRING (4.690093 51.8133, 4.67923 51.95682,...
+#> LINESTRING (7.20601 53.3594, 7.473398 53.3142, ...
+#> LINESTRING (4.646219 52.38739, 4.495801 52.2610...
 ```
-
-    ## Geometry set for 15 features 
-    ## geometry type:  LINESTRING
-    ## dimension:      XY
-    ## bbox:           xmin: 3.610998 ymin: 45.44085 xmax: 12.31552 ymax: 53.55108
-    ## epsg (SRID):    4326
-    ## proj4string:    +proj=longlat +datum=WGS84 +no_defs
-    ## First 5 geometries:
-    ## LINESTRING (4.895168 52.37022, 5.169919 52.4250...
-    ## LINESTRING (4.402464 51.21945, 4.205503 51.2897...
-    ## LINESTRING (4.690093 51.8133, 4.67923 51.95682,...
-    ## LINESTRING (7.20601 53.3594, 7.473398 53.3142, ...
-    ## LINESTRING (4.646219 52.38739, 4.495801 52.2610...
 
 `linestrings_sfc` is a fully geospatial object. The truncated print out of the coordinates for the first five features indicates that the lines have been segmentized and turned into great circles. The final step is to add the attribute data and convert the `sfc` object to a `sf` object with `st_sf()` and the `routes` data. The `st_sf()` function effectively adds `linestrings_sfc` to `routes` as a geometry column and converts the whole object to class `sf` and `data.frame`. Because we have not done anything to rearrange the rows of `routes` the data will line up correctly.
 
-``` {.r}
+```r
 # Create sf object from data frame and sfc geometry set
 routes_sf <- st_sf(routes, geometry = linestrings_sfc)
 
 # Print routes_sf
 routes_sf
+#> Simple feature collection with 15 features and 3 fields
+#> geometry type:  LINESTRING
+#> dimension:      XY
+#> bbox:           xmin: 3.610998 ymin: 45.44085 xmax: 12.31552 ymax: 53.55108
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#> First 10 features:
+#>       source destination n                       geometry
+#> 1  Amsterdam      Bremen 1 LINESTRING (4.895168 52.370...
+#> 2    Antwerp  Middelburg 1 LINESTRING (4.402464 51.219...
+#> 3  Dordrecht     Haarlem 1 LINESTRING (4.690093 51.813...
+#> 4      Emden      Bremen 1 LINESTRING (7.20601 53.3594...
+#> 5    Haarlem  Middelburg 1 LINESTRING (4.646219 52.387...
+#> 6    Haarlem   The Hague 1 LINESTRING (4.646219 52.387...
+#> 7    Hamburg      Bremen 1 LINESTRING (9.993682 53.551...
+#> 8   Het Vlie      Bremen 1 LINESTRING (5.183333 53.3, ...
+#> 9      Lisse       Delft 1 LINESTRING (4.557483 52.257...
+#> 10   Antwerp   The Hague 2 LINESTRING (4.402464 51.219...
 ```
-
-    ## Simple feature collection with 15 features and 3 fields
-    ## geometry type:  LINESTRING
-    ## dimension:      XY
-    ## bbox:           xmin: 3.610998 ymin: 45.44085 xmax: 12.31552 ymax: 53.55108
-    ## epsg (SRID):    4326
-    ## proj4string:    +proj=longlat +datum=WGS84 +no_defs
-    ## First 10 features:
-    ##       source destination n                       geometry
-    ## 1  Amsterdam      Bremen 1 LINESTRING (4.895168 52.370...
-    ## 2    Antwerp  Middelburg 1 LINESTRING (4.402464 51.219...
-    ## 3  Dordrecht     Haarlem 1 LINESTRING (4.690093 51.813...
-    ## 4      Emden      Bremen 1 LINESTRING (7.20601 53.3594...
-    ## 5    Haarlem  Middelburg 1 LINESTRING (4.646219 52.387...
-    ## 6    Haarlem   The Hague 1 LINESTRING (4.646219 52.387...
-    ## 7    Hamburg      Bremen 1 LINESTRING (9.993682 53.551...
-    ## 8   Het Vlie      Bremen 1 LINESTRING (5.183333 53.3, ...
-    ## 9      Lisse       Delft 1 LINESTRING (4.557483 52.257...
-    ## 10   Antwerp   The Hague 2 LINESTRING (4.402464 51.219...
 
 Though they were produced using very different methods, `routes_sf_tidy` and `routes_sf` are identical objects apart from the presence of an "id" column in `routes_sf_tidy`.
 
-``` {.r}
+```r
 # Show routes_sf_tidy and routes_sf are equivalent
 select(routes_sf_tidy, -id) %>% 
   all.equal(routes_sf)
+#> [1] TRUE
 ```
-
-    ## [1] TRUE
 
 Now that we have attribute and spatial data for the great circles of the routes of the letters received by Daniel in 1585, we can create a map that uses color to distinguish the amount of letters sent along each route. Because they are essentially identical, you could use either `routes_sf_tidy` or `routes_sf` to create this map. The code to create a `ggplot2` map using `geom_sf()` is very similar to that made above to compare `routes_lines` and `routes_sf_tidy`. In this case, though, we want the color of the lines to differ according to the "n" variable. In addition, I change the color palette used for the lines to the [viridis palette](https://cran.r-project.org/web/packages/viridis/index.html) on a continuous scale, hence the `_c` at the end of the function. I also label the color legend as "Letters".
 
-``` {.r}
+```r
 # ggplot2 of great cirlce routes
 ggplot() +
   geom_sf(data = countries_sf, fill = gray(0.8), color = gray(0.7)) +

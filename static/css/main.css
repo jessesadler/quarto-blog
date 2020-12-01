@@ -32,6 +32,7 @@ a:focus {
   color: #ffaa00;
 }
 
+/* --- Inline code --- */
 code {
 	font-family: "Source Code Pro", Menlo, monospace;
     padding: 2px 4px;
@@ -42,14 +43,18 @@ code {
 }
 
 
-/* --- Code blocks --- */
+/* --- Code blocks that do not use chroma --- */
 
 pre {
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+pre code {
+  font-family: "Source Code Pro", Menlo, monospace;
   font-size: 14px;
   line-height: 1.5em;
-  background: #f8f8f8;
-}
-pre code {
+  /* --- do not wrap code --- */
   overflow: auto;
   word-wrap: normal;
   white-space: pre;

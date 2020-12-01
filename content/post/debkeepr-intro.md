@@ -12,7 +12,7 @@ After an extensive period of iteration and a long but rewarding process of learn
 
 You can install `debkeepr` from GitHub right now with [devtools](https://github.com/hadley/devtools), and I am planning to submit the package to CRAN soon. Feedback is always welcome and any bug reports or feature requests can be made on [GitHub](https://github.com/jessesadler/debkeepr/issues).
 
-``` {.r}
+```r
 # install.packages("devtools")
 devtools::install_github("jessesadler/debkeepr")
 ```
@@ -64,28 +64,24 @@ At the heart of `debkeepr` is the ability to normalize pounds, shillings, and pe
 - Do the addition with `debkeepr` by supplying numeric vectors of length three.
 - Create an object of class `lsd` and proceed with the addition.
 
-``` {.r}
+```r
 library(debkeepr)
 
 # Normalize £235 51s. 8d.
 deb_normalize(c(235, 51, 8), bases = c(20, 12))
-```
+#>       l  s d
+#> [1] 237 11 8
 
-    ##       l  s d
-    ## [1] 237 11 8
 
-``` {.r}
 # Addition of values with debkeepr
 deb_sum(c(74, 10, 0),
         c(26, 8, 8),
         c(107, 14, 0),
         c(28, 19, 0))
-```
+#>       l  s d
+#> [1] 237 11 8
 
-    ##       l  s d
-    ## [1] 237 11 8
 
-``` {.r}
 # Create lsd object from list of vectors, then do addition
 lsd_values <- deb_as_lsd(list(c(74, 10, 0),
                               c(26, 8, 8),
@@ -93,50 +89,41 @@ lsd_values <- deb_as_lsd(list(c(74, 10, 0),
                               c(28, 19, 0)),
                          bases = c(20, 12))
 deb_sum(lsd_values)
+#>       l  s d
+#> [1] 237 11 8
 ```
-
-    ##       l  s d
-    ## [1] 237 11 8
 
 Multiplication and division of pounds, shillings, and pence values were equally frequent calculations, but they are more complex to do by hand. Bookkeeping and merchant manuals often included rules for the multiplication and division of compound values such as pounds, shillings, and pence. The article on arithmetic in the third edition of the [*Encyclopedia Britannica*, printed in 1797](http://onlinebooks.library.upenn.edu/webbin/metabook?id=britannica3), provides a good example of how to do [compound unit arithmetic](https://en.wikipedia.org/wiki/Arithmetic#Compound_unit_arithmetic). `debkeepr` greatly simplifies this process.
 
 {{< figure src="/img/debkeepr-intro/lsd-multiplication.png" height="400" >}}
 
-``` {.r}
+```r
 # Multiply £15 3s. 8d. sterling by 32
 deb_multiply(c(15, 3, 8), x = 32)
-```
+#>       l  s d
+#> [1] 485 17 4
 
-    ##       l  s d
-    ## [1] 485 17 4
-
-``` {.r}
 # Multiply £17 3s. 8d. sterling by 75
 deb_multiply(c(17, 3, 8), x = 75)
+#>        l  s d
+#> [1] 1288 15 0
 ```
-
-    ##        l  s d
-    ## [1] 1288 15 0
 
 The examples for division in the *Encyclopedia Britannica* include the division of pounds, shillings, and pence, as well as the division of weight measured in terms of hundredweight, quarters, and pounds. A hundredweight consisted of four quarters and there were 28 pounds (or two stones) in a quarter. While `debkeepr` was created with pounds, shillings, and pence values in mind, the measurement of weight in terms of hundredweight can be integrated by altering the bases argument. This example even serves to show a mistake in the printing in the *Encyclopedia*, as the answer is shown as 15 cwt. 2 q. 21 lb., but it should actually be 22 lb. Checking the long division at the bottom of the calculation, 22 goes into 44 twice not once. Notice too that the division of £465 12s. 8d. ends with a remainder of 8 even though this is not included in the answer provided. This remainder leads to the decimal in the pence unit in the answer provided by `deb_divide()`. Setting the `round` argument to 0 would convert the pence unit to a whole number.
 
 {{< figure src="/img/debkeepr-intro/lsd-division.png" height="400" >}}
 
-``` {.r}
+```r
 # Divide £465 12s. 8d. sterling by 72
 deb_divide(c(465, 12, 8), x = 72)
-```
+#>     l s       d
+#> [1] 6 9 4.11111
 
-    ##     l s       d
-    ## [1] 6 9 4.11111
-
-``` {.r}
 # Divide 345 hundredweight 1 quarter 8 lbs by 22
 deb_divide(c(345, 1, 8), x = 22, bases = c(4, 28))
+#>      l s  d
+#> [1] 15 2 22
 ```
-
-    ##      l s  d
-    ## [1] 15 2 22
 
 These examples replicate answers already provided, but they serve to demonstrate the gains in both speed and accuracy for these common calculations. Further examples, including the use of `debkeepr` to convert between currencies that may or may not have different bases for the shillings and pence units, can be found in both [Getting Started with debkeepr](https://jessesadler.github.io/debkeepr/articles/debkeepr.html) and the [Transactions in Richard Dafforne's Journal vignette](https://jessesadler.github.io/debkeepr/articles/transactions.html).
 
@@ -144,65 +131,60 @@ These examples replicate answers already provided, but they serve to demonstrate
 
 As a way of providing example data of pounds, shillings, and pence values in a data frame, `debkeepr` includes data from the example journal and ledger in Dafforne’s *Merchant’s Mirrour* from 1660. `dafforne_transactions` has 177 transactions between 46 accounts from the journal. Each transaction has a creditor and debtor account, showing where each transactional value came from and where it went to, the date of the transaction, and the value in pounds sterling contained in an `lsd` list column. Extra details include the pages on which the transaction can be found in Dafforne’s journal and ledger and a short description of the transaction. A PDF copy of the journal is [available for download](https://github.com/jessesadler/debkeepr/blob/master/data-raw/dafforne-journal.pdf) if you want to see what the original source looks like. The [raw data](https://github.com/jessesadler/debkeepr/tree/master/data-raw) from which `dafforne_transactions` derives also demonstrates the process of entering pounds, shillings, and pence units into three separate columns to create the data base and then using `deb_lsd_gather()` to transform these variables into an `lsd` list column.
 
-``` {.r}
+```r
 # Transactions from the Dafforne's example journal
 dafforne_transactions
+#> # A tibble: 177 x 8
+#>       id credit debit date       lsd    journal ledger description        
+#>    <dbl>  <int> <int> <date>     <S3: >   <int> <chr>  <chr>              
+#>  1     1      2     1 1633-01-01 1000,…       1 1/1    Various coins of g…
+#>  2     2      2     3 1633-01-01 477, …       1 1/1    60 Leeds dozens at…
+#>  3     3      2     4 1633-01-01 55, 0…       1 2/1    5 barrels that rem…
+#>  4     4      2     5 1633-01-01 240, …       1 2/1    For 800 French cro…
+#>  5     5      2     6 1633-01-01 229, …       1 2/1    2290 guilders rema…
+#>  6     6      2     8 1633-01-01 3, 17…       1 3/1    Expenses for the r…
+#>  7     7      7     2 1633-01-01 150, …       1 1/2    Ready money from J…
+#>  8     8      9    11 1633-01-04 360, …       1 4/3    100 Leeds dozens s…
+#>  9     9      1     9 1633-01-04 144, …       2 3/1    For 2/5 of the 100…
+#> 10    10      5    10 1633-01-04 120, …       2 3/2    400 French crowns …
+#> # ... with 167 more rows
 ```
-
-    ## # A tibble: 177 x 8
-    ##       id credit debit date       lsd    journal ledger description        
-    ##    <dbl>  <int> <int> <date>     <S3: >   <int> <chr>  <chr>              
-    ##  1     1      2     1 1633-01-01 1000,…       1 1/1    Various coins of g…
-    ##  2     2      2     3 1633-01-01 477, …       1 1/1    60 Leeds dozens at…
-    ##  3     3      2     4 1633-01-01 55, 0…       1 2/1    5 barrels that rem…
-    ##  4     4      2     5 1633-01-01 240, …       1 2/1    For 800 French cro…
-    ##  5     5      2     6 1633-01-01 229, …       1 2/1    2290 guilders rema…
-    ##  6     6      2     8 1633-01-01 3, 17…       1 3/1    Expenses for the r…
-    ##  7     7      7     2 1633-01-01 150, …       1 1/2    Ready money from J…
-    ##  8     8      9    11 1633-01-04 360, …       1 4/3    100 Leeds dozens s…
-    ##  9     9      1     9 1633-01-04 144, …       2 3/1    For 2/5 of the 100…
-    ## 10    10      5    10 1633-01-04 120, …       2 3/2    400 French crowns …
-    ## # ... with 167 more rows
 
 The [Analysis of Richard Dafforne’s Journal and Ledger vignette](https://jessesadler.github.io/debkeepr/articles/ledger.html) provides a fuller breakdown of the data, but here I would like to show how to get a summary of the 46 accounts in the books and create a plot using [ggplot2](https://ggplot2.tidyverse.org). One side effect of the use of a list column to represent pounds, shillings, and pence values is that it cannot be used for the purposes of plotting. However, this issue is overcome by the robust support for [decimalization](https://jessesadler.github.io/debkeepr/reference/index.html#section-decimalization) in `debkeepr`. Pounds, shillings, and pence values can be decimalized to any of the three units and returned to their original form when desired. For the purposes of plotting, the most useful workflow is to transform the `lsd` list column to decimalized pounds.
 
 `debkeepr` has a [set of functions](https://jessesadler.github.io/debkeepr/reference/index.html#section-transaction-data-frames) meant to deal with data frames that mimic the form of a journal used for double-entry bookkeeping such as `dafforne_transactions`. The 177 transactions and 46 accounts in `dafforne_transactions` are more than enough to lose track of which accounts were most significant to the bookkeeper’s trade. Here, I will use `deb_account_summary()` to calculate the total credit or amount each account sent, total debit or amount each account received, and the current value of the account at the closing of the books. While `deb_account_summary()` gives a nice overview of the entire set of account books, it is also possible to focus on a single account with `deb_account()`.
 
-``` {.r}
+```r
 # Summary of all accounts in Dafforne's example journal
 deb_account_summary(df = dafforne_transactions)
-```
+#> # A tibble: 46 x 4
+#>    account_id credit       debit        current     
+#>         <int> <S3: lsd>    <S3: lsd>    <S3: lsd>   
+#>  1          1 1956, 10, 11 2903, 13, 0  -947, -2, -1
+#>  2          2 2006, 3, 9   150, 0, 0    1856, 3, 9  
+#>  3          3 570, 0, 0    570, 0, 0    0, 0, 0     
+#>  4          4 75, 0, 8     75, 0, 8     0, 0, 0     
+#>  5          5 813, 3, 0    813, 3, 0    0, 0, 0     
+#>  6          6 568, 1, 11   869, 2, 7    -301, 0, -8 
+#>  7          7 2958, 18, 10 2958, 18, 10 0, 0, 0     
+#>  8          8 1580, 10, 0  1580, 10, 0  0, 0, 0     
+#>  9          9 1744, 1, 4   1744, 1, 4   0, 0, 0     
+#> 10         10 606, 2, 6    606, 2, 6    0, 0, 0     
+#> # ... with 36 more rows
 
-    ## # A tibble: 46 x 4
-    ##    account_id credit       debit        current     
-    ##         <int> <S3: lsd>    <S3: lsd>    <S3: lsd>   
-    ##  1          1 1956, 10, 11 2903, 13, 0  -947, -2, -1
-    ##  2          2 2006, 3, 9   150, 0, 0    1856, 3, 9  
-    ##  3          3 570, 0, 0    570, 0, 0    0, 0, 0     
-    ##  4          4 75, 0, 8     75, 0, 8     0, 0, 0     
-    ##  5          5 813, 3, 0    813, 3, 0    0, 0, 0     
-    ##  6          6 568, 1, 11   869, 2, 7    -301, 0, -8 
-    ##  7          7 2958, 18, 10 2958, 18, 10 0, 0, 0     
-    ##  8          8 1580, 10, 0  1580, 10, 0  0, 0, 0     
-    ##  9          9 1744, 1, 4   1744, 1, 4   0, 0, 0     
-    ## 10         10 606, 2, 6    606, 2, 6    0, 0, 0     
-    ## # ... with 36 more rows
-
-``` {.r}
 # Summary of the cash account in Dafforne's example journal
 deb_account(df = dafforne_transactions, account_id = 1)
+#> # A tibble: 3 x 2
+#>   relation lsd         
+#>   <chr>    <S3: lsd>   
+#> 1 credit   1956, 10, 11
+#> 2 debit    2903, 13, 0 
+#> 3 current  -947, -2, -1
 ```
-
-    ## # A tibble: 3 x 2
-    ##   relation lsd         
-    ##   <chr>    <S3: lsd>   
-    ## 1 credit   1956, 10, 11
-    ## 2 debit    2903, 13, 0 
-    ## 3 current  -947, -2, -1
 
 To plot the summary of the accounts in the journal and ledger the `lsd` list columns have to be converted to decimalized pounds, which is done with `deb_lsd_l()` and `dplyr::mutate_if()`. From this information, we can create a line range plot in which the upper limit is represented by the total credit, the lower limit by the total debit, and the current value by a point. Blue points show accounts that have been balanced by the end of the books and are therefore closed, while black points represent the values for accounts that remain open.
 
-``` {.r}
+```r
 library(dplyr)
 library(ggplot2)
 
@@ -211,24 +193,21 @@ library(ggplot2)
   deb_account_summary() %>% 
   mutate_if(deb_is_lsd, deb_lsd_l) %>% 
   mutate(debit = -debit))
-```
+#> # A tibble: 46 x 4
+#>    account_id credit   debit current
+#>         <int>  <dbl>   <dbl>   <dbl>
+#>  1          1 1957.  -2904.    -947.
+#>  2          2 2006.   -150     1856.
+#>  3          3  570    -570        0 
+#>  4          4   75.0   -75.0      0 
+#>  5          5  813.   -813.       0 
+#>  6          6  568.   -869.    -301.
+#>  7          7 2959.  -2959.       0 
+#>  8          8 1580.  -1580.       0 
+#>  9          9 1744.  -1744.       0 
+#> 10         10  606.   -606.       0 
+#> # ... with 36 more rows
 
-    ## # A tibble: 46 x 4
-    ##    account_id credit   debit current
-    ##         <int>  <dbl>   <dbl>   <dbl>
-    ##  1          1 1957.  -2904.    -947.
-    ##  2          2 2006.   -150     1856.
-    ##  3          3  570    -570        0 
-    ##  4          4   75.0   -75.0      0 
-    ##  5          5  813.   -813.       0 
-    ##  6          6  568.   -869.    -301.
-    ##  7          7 2959.  -2959.       0 
-    ##  8          8 1580.  -1580.       0 
-    ##  9          9 1744.  -1744.       0 
-    ## 10         10  606.   -606.       0 
-    ## # ... with 36 more rows
-
-``` {.r}
 # Plot summary of accounts
 ggplot(data = dafforne_summary) + 
   geom_linerange(aes(x = account_id, ymin = debit, ymax = credit)) + 

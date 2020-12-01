@@ -2,7 +2,7 @@
 - id: dateFormat
   translation: "January 2, 2006"
 - id: postedOnDate
-  translation: "Posted on {{ .Count }}"
+  translation: "Posted on {{ . }}"
 - id: translationsLabel
   translation: "Other languages: "
 - id: translationsSeparator

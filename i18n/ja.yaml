@@ -2,7 +2,7 @@
 - id: dateFormat
   translation: "2006年1月2日"
 - id: postedOnDate
-  translation: "{{ .Count }}に投稿"
+  translation: "{{ . }}に投稿"
 - id: translationsLabel
   translation: "翻訳："
 - id: translationsSeparator

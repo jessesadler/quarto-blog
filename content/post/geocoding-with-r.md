@@ -17,69 +17,62 @@ This post will merely scratch the surface of the mapping capabilities of R and w
 ## Preparing the data with `dplyr` {#preparing-data}
 In this example, I will use the same database of letters sent to Daniel van der Meulen in 1585 as I did in the previous post. You can find the data and the R script that goes along with this tutorial on [GitHub](https://github.com/jessesadler/intro-to-r). Before getting into the database of letters and figuring out how to geocode the locations found in the data, it is necessary to set up the environment in R by loading the libraries that we will be using. Here, I load both the `tidyverse` library to import and manipulate the data and the `ggmap` library to do the actual geocoding and mapping.
 
-``` {.r}
+```r
 library(tidyverse)
 library(ggmap)
 ```
 
 As in the previous post, the data is loaded through the `read_csv()` function from the `readr` package. It is best to keep the names of objects consistent across scripts. Therefore, I name the object `letters` with the assignment operator. Printing out the contents reveals the that `letters` is a [tibble](http://tibble.tidyverse.org) with 114 letters and four columns.
 
-``` {.r}
+```r
 letters <- read_csv("data/correspondence-data-1585.csv")
 letters
+#> # A tibble: 114 x 4
+#>                     writer  source destination       date
+#>                      <chr>   <chr>       <chr>     <date>
+#>  1 Meulen, Andries van der Antwerp       Delft 1585-01-03
+#>  2 Meulen, Andries van der Antwerp     Haarlem 1585-01-09
+#>  3 Meulen, Andries van der Antwerp     Haarlem 1585-01-11
+#>  4 Meulen, Andries van der Antwerp       Delft 1585-01-12
+#>  5 Meulen, Andries van der Antwerp     Haarlem 1585-01-12
+#>  6 Meulen, Andries van der Antwerp       Delft 1585-01-17
+#>  7 Meulen, Andries van der Antwerp       Delft 1585-01-22
+#>  8 Meulen, Andries van der Antwerp       Delft 1585-01-23
+#>  9    Della Faille, Marten Antwerp     Haarlem 1585-01-24
+#> 10 Meulen, Andries van der Antwerp       Delft 1585-01-28
+#> # ... with 104 more rows
 ```
-
-    ## # A tibble: 114 x 4
-    ##                     writer  source destination       date
-    ##                      <chr>   <chr>       <chr>     <date>
-    ##  1 Meulen, Andries van der Antwerp       Delft 1585-01-03
-    ##  2 Meulen, Andries van der Antwerp     Haarlem 1585-01-09
-    ##  3 Meulen, Andries van der Antwerp     Haarlem 1585-01-11
-    ##  4 Meulen, Andries van der Antwerp       Delft 1585-01-12
-    ##  5 Meulen, Andries van der Antwerp     Haarlem 1585-01-12
-    ##  6 Meulen, Andries van der Antwerp       Delft 1585-01-17
-    ##  7 Meulen, Andries van der Antwerp       Delft 1585-01-22
-    ##  8 Meulen, Andries van der Antwerp       Delft 1585-01-23
-    ##  9    Della Faille, Marten Antwerp     Haarlem 1585-01-24
-    ## 10 Meulen, Andries van der Antwerp       Delft 1585-01-28
-    ## # ... with 104 more rows
 
 To do the actual geocoding of the locations I will be using the `mutate_geocode()` function from the `ggmap` package. To geocode a number of locations at one time, the function requires a data frame with a column containing the locations we would like to geocode. The goal, then, is to get a data frame with a column that contains all of the distinct locations found in the `letters` data frame. In the [introduction to R](https://jessesadler.com/post/excel-vs-r/#new-dataframes) post I used the `distinct()` function to get data frames with the unique sources and destinations. We can rerun that code here and look at the results.
 
-``` {.r}
+```r
 sources <- distinct(letters, source)
 destinations <- distinct(letters, destination)
-```
 
-``` {.r}
 sources
-```
+#> # A tibble: 9 x 1
+#>      source
+#>       <chr>
+#> 1   Antwerp
+#> 2   Haarlem
+#> 3 Dordrecht
+#> 4    Venice
+#> 5     Lisse
+#> 6  Het Vlie
+#> 7   Hamburg
+#> 8     Emden
+#> 9 Amsterdam
 
-    ## # A tibble: 9 x 1
-    ##      source
-    ##       <chr>
-    ## 1   Antwerp
-    ## 2   Haarlem
-    ## 3 Dordrecht
-    ## 4    Venice
-    ## 5     Lisse
-    ## 6  Het Vlie
-    ## 7   Hamburg
-    ## 8     Emden
-    ## 9 Amsterdam
-
-``` {.r}
 destinations
+#> # A tibble: 5 x 1
+#>   destination
+#>         <chr>
+#> 1       Delft
+#> 2     Haarlem
+#> 3   The Hague
+#> 4  Middelburg
+#> 5      Bremen
 ```
-
-    ## # A tibble: 5 x 1
-    ##   destination
-    ##         <chr>
-    ## 1       Delft
-    ## 2     Haarlem
-    ## 3   The Hague
-    ## 4  Middelburg
-    ## 5      Bremen
 
 A glance at the two data frames shows that neither provide exactly what I are looking for. Neither the `sources` nor the `destinations` data frames include all of the locations that we want to geocode. It would be possible to geocode both the `sources` and `destinations` data frames, but this would place the geocoded information in two different data frames, which is less than ideal. Instead, we can join the two data frames together using the [join functions in dplyr](http://r4ds.had.co.nz/relational-data.html). Coming from the world of spreadsheets, the join functions are a revelation, opening up seemingly endless possibilities for data manipulation.
 
@@ -87,78 +80,75 @@ The `dplyr` package includes a number of functions to join two data frames toget
 
 Using `sources` as the left and `destinations` as the right data frames, a `left_join()` creates a new object with 9 rows, an `inner_join()` results in only one row, and a `full_join()` contains 13 observations. Thus, the `full_join()` is what we are looking for. The `full_join()` function — like the other join functions — takes three arguments: the two data frames to join and the key column by which they are to be joined. In this case, some extra work needs to be done to the identify the key columns. The key columns are the only columns in the two data frames, but because they have different names, it is necessary to declare that they are equivalent. This is done with the help of the concatenate or combine function, `c()`.[^5] The below command creates a new data frame that I have called `cities`, which brings together the "source" column with the "destination" column and therefore contains all of the locations found in the `letters` data frame.
 
-``` {.r}
+```r
 cities <- full_join(sources, destinations, by = c("source" = "destination"))
 cities
+#> # A tibble: 13 x 1
+#>        source
+#>         <chr>
+#>  1    Antwerp
+#>  2    Haarlem
+#>  3  Dordrecht
+#>  4     Venice
+#>  5      Lisse
+#>  6   Het Vlie
+#>  7    Hamburg
+#>  8      Emden
+#>  9  Amsterdam
+#> 10      Delft
+#> 11  The Hague
+#> 12 Middelburg
+#> 13     Bremen
 ```
-
-    ## # A tibble: 13 x 1
-    ##        source
-    ##         <chr>
-    ##  1    Antwerp
-    ##  2    Haarlem
-    ##  3  Dordrecht
-    ##  4     Venice
-    ##  5      Lisse
-    ##  6   Het Vlie
-    ##  7    Hamburg
-    ##  8      Emden
-    ##  9  Amsterdam
-    ## 10      Delft
-    ## 11  The Hague
-    ## 12 Middelburg
-    ## 13     Bremen
 
 Printing out the `cities` data frame shows that there are 13 distinct locations in the `letters` data. However, the structure of the `cities` object is less than ideal. The name of the column is "source," which was taken over from the `sources` data frame, but this is not an accurate description of the data in the column. This can be fixed with the help of `rename()`, which uses the structure of `new_name = old_name`. Here, I change the name of the “source” column to "place" and then print out the first two rows with the `head()` function to show the change in the column name. Notice that using the `cities` object within the `rename()` function and using the same name for the result overwrites the original object with the new one. Alternatively, you could name the new object a different name such as `cities1`.[^6]
 
-``` {.r}
+```r
 cities <- rename(cities, place = source)
 head(cities, n = 2)
+#> # A tibble: 2 x 1
+#>     place
+#>     <chr>
+#> 1 Antwerp
+#> 2 Haarlem
 ```
-
-    ## # A tibble: 2 x 1
-    ##     place
-    ##     <chr>
-    ## 1 Antwerp
-    ## 2 Haarlem
 
 ## Geocoding with `ggmap` {#geocoding}
 We now have an object with the basic structure needed to geocode the locations. However, if you run `mutate_geocode()` on the `cities` object as it is, you will receive an error. The error is a good example of a common frustration with coding. Computers are picky, and because humans also write flawed code, bugs exist, making computers picky in odd ways. In this case, we are running into a problem in which the `mutate_geocode()` function will not work on tibbles. As noted in my previous post, [tibbles](http://r4ds.had.co.nz/tibbles.html) are a special kind of data frame used by the `tidyverse` set of packages. It is usually easier to work with tibbles in the [tidyverse](https://www.tidyverse.org) workflow, but here it is necessary to convert the tibble to a standard data frame object with `as.data.frame()`. I give the result a new name to distinguish it from the `cities` tibble.
 
-``` {.r}
+```r
 cities_df <- as.data.frame(cities)
 ```
 
 The locations data from the letters sent to Daniel is now ready to be geocoded. The `mutate_geocode()` function uses [Google Maps](https://maps.google.com) to find the longitude and latitude of each location. The two necessary arguments are the data frame and the name of the column with the location data. The function can be used to find more information about each location, including the country and region, but here I just have the function return the longitude and latitude data. The function will query Google Maps, and so you must have an internet connection. This makes running the command relatively slow, especially if your data contains a large amount of locations. There is also a limit of 2,500 queries per day, so you may have to find other methods if you are geocoding thousands of locations.
 
-``` {.r}
+```r
 locations_df <- mutate_geocode(cities_df, place)
 ```
 
 Because `mutate_geocode()` necessitates an internet connection, is somewhat slow to run, and has a daily limit, it is not something that you want to do all the time. It is a good idea to save the results by writing the object out to a csv file. Before doing this, however, we should inspect the data and make sure everything is correct. Let's start by printing out the `locations_df` object and see what we have.
 
-``` {.r}
+```r
 locations_df
+#>         place       lon      lat
+#> 1     Antwerp  4.402464 51.21945
+#> 2     Haarlem  4.646219 52.38739
+#> 3   Dordrecht  4.690093 51.81330
+#> 4      Venice 12.315515 45.44085
+#> 5       Lisse  4.557483 52.25793
+#> 6    Het Vlie  5.183333 53.30000
+#> 7     Hamburg  9.993682 53.55108
+#> 8       Emden  7.206010 53.35940
+#> 9   Amsterdam  4.895168 52.37022
+#> 10      Delft  4.357068 52.01158
+#> 11  The Hague  4.300700 52.07050
+#> 12 Middelburg  3.610998 51.49880
+#> 13     Bremen  8.801694 53.07930
 ```
-
-    ##         place       lon      lat
-    ## 1     Antwerp  4.402464 51.21945
-    ## 2     Haarlem  4.646219 52.38739
-    ## 3   Dordrecht  4.690093 51.81330
-    ## 4      Venice 12.315515 45.44085
-    ## 5       Lisse  4.557483 52.25793
-    ## 6    Het Vlie  5.183333 53.30000
-    ## 7     Hamburg  9.993682 53.55108
-    ## 8       Emden  7.206010 53.35940
-    ## 9   Amsterdam  4.895168 52.37022
-    ## 10      Delft  4.357068 52.01158
-    ## 11  The Hague  4.300700 52.07050
-    ## 12 Middelburg  3.610998 51.49880
-    ## 13     Bremen  8.801694 53.07930
 
 At a quick glance, the result looks like what we would expect. `locations_df` is a data frame with three columns called "place,” "lon,” and "lat" with the latter two representing longitude and latitude of the location named in the first column. One thing that we might want to change, though this step is not necessary, is to convert the data frame back to a tibble, which can be done with the `as_tibble()` function.
 
-``` {.r}
+```r
 locations <- as_tibble(locations_df)
 ```
 
@@ -166,27 +156,27 @@ A quick look at the values of the longitude and latitude columns in the `locatio
 
 One way to check that the geocoding was done correctly is to map the locations with the [mapview](https://cran.r-project.org/web/packages/mapview/index.html) package. Using `mapview` requires converting the `locations` tibble to yet another format. This is done with the [simple features](https://cran.r-project.org/web/packages/sf/) package, which brings us to the world of GIS with R. The first step is to load the `sf` and `mapview` packages.
 
-``` {.r}
+```r
 library(sf)
 library(mapview)
 ```
 
 I will not get into the details of the `sf` package and type of objects that it creates here, but the function to transform the `locations` tibble into an `sf` object is understandable even without knowing the details. The function to make an `sf` object takes three main arguments. The first two are the data frame to be converted and the columns that contain the geographic data. This second argument uses the `c()` function to combine the "lon" and "lat" columns. The third argument determines the [coordinate reference system (crs)](https://en.wikipedia.org/wiki/Spatial_reference_system) for the data. Here, I indicate that I want the longitude and latitude to be plotted using the World Geographic System 1984 projection, which is referenced as [European Petroleum Survey Group (EPSG)](http://wiki.gis.com/wiki/index.php/European_Petroleum_Survey_Group) 4326. Geographic jargon aside, what matters at this stage is that EPSG 4326 is the projection used by web maps such as Google Maps.[^8]
 
-``` {.r}
+```r
 locations_sf <- st_as_sf(locations, coords = c("lon", "lat"), crs = 4326)
 ```
 
 With the data in the correct format, a simple call to the `mapview()` function creates an interactive map with all the locations plotted as points. You can click on a point to see its name and compare it to the locations on the map. With this data, the accuracy of the location only needs to be at the city level. The location within the city is not relevant. Inspecting the data from the map shows that all of the locations were correctly geocoded.
 
-``` {.r}
+```r
 mapview(locations_sf)
 ```
 {{< htmlwidget src="/img/geocoding-with-r/locations-mapview.html" >}}
 
 I can now save the locations data using the `readr` package and a function similar to that used to load data. I will use the `write_csv()` function to save the data as a csv file. Here, I save the `locations` tibble, but you could also save the other forms of the locations data. The second argument tells the function where to save the csv and what to call the file. Here, I place the file in the same folder as the “correspondence-data-1585.csv” and name the file “locations.csv”.
 
-``` {.r}
+```r
 write_csv(locations, "data/locations.csv")
 ```
 
@@ -195,20 +185,17 @@ Now that we have successfully geocoded the locations from which Daniel's corresp
 
 The `get_map()` function can access data from three different map providers: [Google Maps](http://maps.google.com), [Open Street Maps](http://www.openstreetmap.org), and [Stamen Maps](http://maps.stamen.com/). In this example, I will use Google Maps and the `get_googlemap()` function. The challenge with the `get_map()` function is downloading a map with a zoom level and location that shows all of the data with minimal extra space. We need two pieces of information to do this for `get_googlemap()`: a location for the center of the map and a zoom level between 1 and 21.[^10] Figuring out the best center and zoom level for a map may take some trial and error. However, the work that we have already done can help to make an educated first guess. We can rerun `mapview(locations_sf)` and look at the details provided by the map. The map produced by `mapview()` shows the longitude and latitude at your cursor position and tells the zoom level of the map. We can use the cursor to guess a good center of the map or zoom in to find a city, which we can then geocode. After a couple of tries, I found that Mannheim, Germany works as a good center for a map with a zoom level of 6. I can get the coordinates of Mannheim with the generic `geocode()` function and then place the coordinates into the `get_googlemap()` function. The only alteration that needs to be made is to glue together the longitude and latitude values into one object with the concatenate function, `c()`.
 
-``` {.r}
+```r
 geocode("mannheim")
-```
+#>        lon      lat
+#> 1 8.466039 49.48746
 
-    ##        lon      lat
-    ## 1 8.466039 49.48746
-
-``` {.r}
 map <- get_googlemap(center = c(8.4, 49.5), zoom = 6)
 ```
 
 We can look at what the map looks like by calling the `ggmap()` function.
 
-``` {.r}
+```r
 ggmap(map)
 ```
 
@@ -216,7 +203,7 @@ ggmap(map)
 
 Given the historical nature of the data, some of the normal features of a Google Map are problematic. The modern road system obviously did not exist in the sixteenth century, nor are the modern political boundaries useful for the data. In the below command, I change the aesthetics of the original map using the color argument and turn off features of the map by using commands from the [Google Maps API](https://developers.google.com/maps/documentation/staticmaps/).
 
-``` {.r}
+```r
 bw_map <- get_googlemap(center = c(8.4, 49.5), zoom = 6,
   color = "bw",
   style = "feature:road|visibility:off&style=element:labels|visibility:off&style=feature:administrative|visibility:off")
@@ -224,7 +211,7 @@ bw_map <- get_googlemap(center = c(8.4, 49.5), zoom = 6,
 
 Now let's see what the map looks like, but this time let's add the location data. This is done using the normal `ggplot` functions. Here, I want to add points for each place in the `locations` data that we created above. The `aes()` function within `geom_point()` tells `ggplot` that the x-axis corresponds to the longitude and the y-axis to the latitude of each place.
 
-``` {.r}
+```r
 ggmap(bw_map) +
   geom_point(data = locations, aes(x = lon, y = lat))
 ```
@@ -238,7 +225,7 @@ The above map used the `locations` data to plot Daniel van der Meulen's correspo
 
 As a reminder, to create the `per_source` and `per_destination` objects I will use the `group_by()` and `summarise()` workflow. This groups the data by one or more defined variables and creates a new column that counts the number of unique observations from the variable(s). Below, I make `per_source` and `per_destination` data frames and print out the `per_destination` object to show its form.
 
-``` {.r}
+```r
 per_source <- letters %>% 
   group_by(source) %>% 
   summarise(count = n()) %>% 
@@ -248,48 +235,41 @@ per_destination <- letters %>%
   group_by(destination) %>% 
   summarise(count = n()) %>% 
   arrange(desc(count))
-```
 
-``` {.r}
 per_destination
+#> # A tibble: 5 x 2
+#>   destination count
+#>         <chr> <int>
+#> 1       Delft    95
+#> 2     Haarlem     8
+#> 3      Bremen     6
+#> 4   The Hague     3
+#> 5  Middelburg     2
 ```
-
-    ## # A tibble: 5 x 2
-    ##   destination count
-    ##         <chr> <int>
-    ## 1       Delft    95
-    ## 2     Haarlem     8
-    ## 3      Bremen     6
-    ## 4   The Hague     3
-    ## 5  Middelburg     2
 
 The `per_source` and `per_destination` data frames are in the basic structure that we want, but we need to add longitude and latitude columns to both of the objects so that they can be plotted on our map. Here, I will use a `left_join()`. As noted above, a `left_join()` only keeps the observations from the first data frame in the function. In other words, the result of a `left_join()` will have the same number of rows as the original left data frame, while adding the longitude and latitude columns from the `locations` data frame. The data frames will be joined by the columns containing the name of the cities. Because these "key" columns have different names, it is again necessary to denote their equivalency with `c()`. Below, I print out the newly created `geo_per_destination` data frame to show its structure.
 
-``` {.r}
+```r
 geo_per_source <- left_join(per_source, locations, by = c("source" = "place"))
-
 geo_per_destination <- left_join(per_destination, locations, by = c("destination" = "place"))
-```
 
-``` {.r}
 geo_per_destination
+#> # A tibble: 5 x 4
+#>   destination count      lon      lat
+#>         <chr> <int>    <dbl>    <dbl>
+#> 1       Delft    95 4.357068 52.01158
+#> 2     Haarlem     8 4.646219 52.38739
+#> 3      Bremen     6 8.801694 53.07930
+#> 4   The Hague     3 4.300700 52.07050
+#> 5  Middelburg     2 3.610998 51.49880
 ```
-
-    ## # A tibble: 5 x 4
-    ##   destination count      lon      lat
-    ##         <chr> <int>    <dbl>    <dbl>
-    ## 1       Delft    95 4.357068 52.01158
-    ## 2     Haarlem     8 4.646219 52.38739
-    ## 3      Bremen     6 8.801694 53.07930
-    ## 4   The Hague     3 4.300700 52.07050
-    ## 5  Middelburg     2 3.610998 51.49880
 
 I now have the necessary data to create a map that will distinguish between the sources of the letters and their destinations and will allow me to show the quantities of letters sent from and received in each location.
 
 ## Mapping the data {#mapping-data}
 Creating a quality visualization with `ggplot` involves iteration. Because the different parts of the plot are all written out in code, aspects can be added, subtracted, or modified until a good balance is found. Let's start by creating a basic map using the `geo_per_source` and `geo_per_destination` data. The structure of the command is similar to that used to make the first map, but now that I am using information from two data frames, I need to use two `geom_point()` functions. There is also a small change to the `ggmap()` function to have the map take up the entire plotting area so that the longitude and latitude scales do not show. The only change to the `geom_point()` function is the addition of different colors for the two sets of points. This makes it easier to distinguish between places from which Daniel's correspondents sent letters and places where he received them. Notice that the argument for the color of the points is placed outside of the `aes()` function. This makes all of the points plotted from each data frame a single color as opposed to mapping a change in color to a variable within the data. In this instance, I chose to specify color by name, but it is also possible to use rgb values, hex values, or a number of different color palettes.[^11]
 
-``` {.r}
+```r
 ggmap(bw_map) +
   geom_point(data = geo_per_destination,
              aes(x = lon, y = lat), color = "red") +
@@ -301,7 +281,7 @@ ggmap(bw_map) +
 
 This plot is much better than what we started with, but it still has a couple of issues. In the first place, it does not communicate any information about the quantity of letters. In addition, because the points are opaque, it is not clear that letters were both sent from and to Haarlem. The former issue can be rectified by using the size argument within the `aes()` function. This will tell `ggplot` to vary the size of each of the points in proportion to the count column. By default, the size aesthetic creates a legend to indicate the scale used. In the `ggmap()` function I place the legend in the top right corner of the map since there are no data points there. The latter issue is solved by adding an alpha argument to the two `geom_point()` functions. This argument is placed outside of the `aes()` function, because it is an aspect we want to apply to all points. [Alpha](https://www.w3schools.com/css/css3_colors.asp) describes the translucency of an object and takes values between 1 (opaque) and 0 (translucent).
 
-``` {.r}
+```r
 ggmap(bw_map) +
   geom_point(data = geo_per_destination,
              aes(x = lon, y = lat, size = count),
@@ -323,11 +303,9 @@ In changing the background map from the default Google Map, I took out the city 
 
 The final touches to the map can be made by ensuring that all of the elements are clearly noted. [Labels for the plot itself](http://r4ds.had.co.nz/graphics-for-communication.html#label) can be made with the `labs()` function. For this plot, I will add a descriptive title and change the labels for the two legends. By default, `ggplot` uses the name of the indicated column as the label for the legend. This is shown in the above map, where the size of the point is labeled as "count." The default label can be replaced with a more informative one by indicating the aesthetic to be changed. Here, I will rename the size aesthetic as "Letters." In addition, I chose not to have a label for the color aesthetic, which is indicated by "NULL". Finally, I altered the size of the points drawn in the color legend to a larger size. [This is done with the `guides()` function](http://r4ds.had.co.nz/graphics-for-communication.html#legend-layout), which changes the scales of different aspects of the plot. In this case, I use the `override.aes` argument to have the red and purple points in the legend be drawn at `size = 6`.
 
-``` {.r}
+```r
 library(ggrepel)
-```
 
-``` {.r}
 ggmap(bw_map) +
   geom_point(data = geo_per_destination,
              aes(x = lon, y = lat, size = count, color = "Destination"), 

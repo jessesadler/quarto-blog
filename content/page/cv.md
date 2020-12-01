@@ -39,6 +39,7 @@ Lecturer, Loyola Marymount University
 ### Presentations
 - "vctrs: Creating custom vector classes with the vctrs package," RStudio Conference, 27–30 January 2020
 	- [Slides](/slides/RStudio2020.pdf)
+	- [Video](https://resources.rstudio.com/rstudio-conf-2020/vctrs-creating-custom-vector-classes-with-the-vctrs-package-jesse-sadler)
 - "Learning and Using the tidyverse for Historical Research," RStudio Conference, 15–18 January 2019
 	- [Slides](/slides/RStudio2019.pdf)
 	- [Video](https://resources.rstudio.com/rstudio-conf-2019/learning-and-using-the-tidyverse-for-historical-research)
