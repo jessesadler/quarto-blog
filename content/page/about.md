@@ -2,7 +2,7 @@
 title: About me
 ---
 
-I'm currently a lecturer at Loyola Marymount University in Los Angeles. I am an early modern historian interested in the social and familial basis of politics, religion, and trade. I received a Ph.D. in European History from UCLA in 2015 and have taught courses on cultural and intellectual history of early modern Europe and the Atlantic.
+I am an early modern historian interested in the social and familial basis of politics, religion, and trade. I received a Ph.D. in European History from UCLA in 2015 and have taught courses on cultural and intellectual history of early modern Europe and the Atlantic.
 
 ### Research
 

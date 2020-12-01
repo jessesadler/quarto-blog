@@ -2,16 +2,16 @@
 author: Jesse Sadler
 date: 2017-05-26T17:46:33-07:00
 draft: false
-title: CV
+title: Jesse Sadler – CV
 ---
 
 ### Current position
-Lecturer, Loyola Marymount University
+Lecturer, Virginia Tech
 
 ### Education
 - Ph.D. History, University of California, Los Angeles, March 2015
-	* Dissertation: Family in Revolt: The Van der Meulen and Della Faille Families in the Dutch Revolt
-	* Dissertation Committee: Margaret Jacob (Chair), David Sabean, Teofilo Ruiz, and Peter Arnade
+	- Dissertation: Family in Revolt: The Van der Meulen and Della Faille Families in the Dutch Revolt
+	- Dissertation Committee: Margaret Jacob (Chair), David Sabean, Teofilo Ruiz, and Peter Arnade
 - M.A. University of California, Los Angeles, 2008
 - B.A. University of California, San Diego, 2005
 
@@ -20,10 +20,8 @@ Lecturer, Loyola Marymount University
 - "News as a Path to Independence: Merchant Correspondence and the Exchange of News during the Dutch Revolt," in *In Praise of Ordinary People: Early Modern England and the Dutch Republic* eds. Margaret Jacob and Catherine Secretan (New York: Palgrave Macmillan, 2013)
 - "The Collegiants, a Small Presence in the Republic, a Large Metaphor for the Book," in *Bernard Picart and the First Global Vision of Religion* eds. Lynn Hunt, Margaret Jacob, and Wijnand Mijnhardt (Los Angeles: Getty Research Institute, 2010)
 
-### Digital Humanities Projects
-- [debkeepr: Analysis of Non-Decimal Currencies and Double-Entry Bookkeeping](https://jessesadler.github.io/debkeepr/) (R package)
-- [The Correspondence Network of Daniel van der Meulen, 1578–1591](https://jessesadler.com/project/dvdm-correspondence)
-- [The Estate of Jan della Faille de Oude, 1582–1617](https://jessesadler.com/project/df-inheritance/)
+### Teaching: Lecturer, Virginia Tech
+- The Renaissance (Spring 2021)
 
 ### Teaching: Lecturer, Loyola Marymount University
 - Europe and the World 1200–1648 (Spring 2019)
@@ -35,6 +33,14 @@ Lecturer, Loyola Marymount University
 - Introduction to Western Civilization: Circa A.D. 843 to circa 1715 (Spring 2016)
 - Virtue and Commerce: Republicanism and the Development of the Global Economy (Spring 2016)
 - Freemasonry, Civil Society, and Democracy in 18th-Century Europe and America (Fall 2015)
+
+### Digital Humanities Projects
+- [The Correspondence Network of Daniel van der Meulen, 1578–1591](https://jessesadler.com/project/dvdm-correspondence)
+- [The Estate of Jan della Faille de Oude, 1582–1617](https://jessesadler.com/project/df-inheritance/)
+
+### R packages
+- [debkeepr: Analysis of Non-Decimal Currencies and Double-Entry Bookkeeping](https://jessesadler.github.io/debkeepr/)
+- [opencage](https://github.com/ropensci/opencage)
 
 ### Presentations
 - "vctrs: Creating custom vector classes with the vctrs package," RStudio Conference, 27–30 January 2020
