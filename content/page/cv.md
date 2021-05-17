@@ -43,6 +43,10 @@ Lecturer, Virginia Tech
 - [opencage](https://github.com/ropensci/opencage)
 
 ### Presentations
+- "Analyzing and Visualizing Double-Entry Bookkeeping: A Digital History Methodology," Renaissance Society of America, April 2021
+	- [Slides](/slides/rsa2021.pdf)
+- "'How pleasant it is for brethren to dwell together in unity:' Family and Exile in the Dutch Revolt," 6–8 April 2021
+- "Solving Niche Historical Problems with Digital Humanities," Cal State Chico Digital Humanities Series, 24 February 2021
 - "vctrs: Creating custom vector classes with the vctrs package," RStudio Conference, 27–30 January 2020
 	- [Slides](/slides/RStudio2020.pdf)
 	- [Video](https://resources.rstudio.com/rstudio-conf-2020/vctrs-creating-custom-vector-classes-with-the-vctrs-package-jesse-sadler)
