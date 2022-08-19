@@ -5,13 +5,9 @@ draft: false
 title: Jesse Sadler – CV
 ---
 
-### Current position
-Lecturer, Virginia Tech
-
 ### Education
 - Ph.D. History, University of California, Los Angeles, March 2015
 	- Dissertation: Family in Revolt: The Van der Meulen and Della Faille Families in the Dutch Revolt
-	- Dissertation Committee: Margaret Jacob (Chair), David Sabean, Teofilo Ruiz, and Peter Arnade
 - M.A. University of California, Los Angeles, 2008
 - B.A. University of California, San Diego, 2005
 
@@ -24,15 +20,23 @@ Lecturer, Virginia Tech
 - The Renaissance (Spring 2021)
 
 ### Teaching: Lecturer, Loyola Marymount University
-- Europe and the World 1200–1648 (Spring 2019)
-- European Empires, Exploration, and Exchange since 1500 (Fall 2019)
+- Revolution in Modern Europe (Fall 2021)
 - Modern World History (Spring 2020)
+- European Empires, Exploration, and Exchange since 1500 (Fall 2019)
+- Europe and the World 1200–1648 (Spring 2019)
 
 ### Teaching: Lecturer, UCLA
 - Cultural and Intellectual History of Modern Europe, Eighteenth Century (Fall 2016 and Spring 2015)
 - Introduction to Western Civilization: Circa A.D. 843 to circa 1715 (Spring 2016)
 - Virtue and Commerce: Republicanism and the Development of the Global Economy (Spring 2016)
 - Freemasonry, Civil Society, and Democracy in 18th-Century Europe and America (Fall 2015)
+
+### Teaching: Carpentries workshops
+- Carpentries Lesson Maintainer for R for Social Scientists, 2022–Present
+- Plotting and Programming in Python, Virginia Tech, 11–12 August 2022
+- R for Reproducible Research, Virginia Tech, 4–5 August 2022
+- Software Carpentry with R, Virginia Tech, 3–4 August 2021
+- R for Reproducible Scientific Analysis, Virginia Tech, 9–10 August 2021
 
 ### Digital Humanities Projects
 - [The Correspondence Network of Daniel van der Meulen, 1578–1591](https://jessesadler.com/project/dvdm-correspondence)
@@ -42,7 +46,13 @@ Lecturer, Virginia Tech
 - [debkeepr: Analysis of Non-Decimal Currencies and Double-Entry Bookkeeping](https://jessesadler.github.io/debkeepr/)
 - [opencage](https://github.com/ropensci/opencage)
 
+### Editor
+- Co-editor with Marsely L. Kehoe, *Dutch Crossing: Select papers from the XIXth Biennial Interdisciplinary Conference on Netherlandic Studies* 43, no. 3 (2019)
+
 ### Presentations
+- "Rough Estimation: Inheritance, Accounting, and Sibling Rivalry in an Early Modern Merchant Family," Low Countries History Seminar, 15 October 2021
+	- [Video](https://www.youtube.com/watch?v=qHTXnYiNC5c)
+	- [Slides](/slides/lchs2021.pdf)
 - "Analyzing and Visualizing Double-Entry Bookkeeping: A Digital History Methodology," Renaissance Society of America, April 2021
 	- [Slides](/slides/rsa2021.pdf)
 - "'How pleasant it is for brethren to dwell together in unity:' Family and Exile in the Dutch Revolt," 6–8 April 2021

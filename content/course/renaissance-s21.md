@@ -17,5 +17,5 @@ Throughout the five sections primary sources, secondary literature, and the lect
 
 This course was taught in Spring 2021 during the Covid-19 pandemic and was conducted remotely. Lectures were delivered by video and there was a 50-minute discussion each week over Zoom.
 
-#### [Syllabus PDF](/img/Sadler-vt-3334-syllabus-s21.pdf)
+#### [Syllabus PDF](/img/Sadler-vt-3334-syllabus-S21.pdf)
 
