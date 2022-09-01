@@ -2,17 +2,18 @@ project:
   type: website
 
 website:
-  title: "jessesadler"
+  title: "A Rogue Historian"
   navbar:
+    title: "Jesse Sadler"
     right:
       - about.qmd
       - icon: github
-        href: https://github.com/
+        href: https://github.com/jessesadler
       - icon: twitter
-        href: https://twitter.com
+        href: https://twitter.com/vivalosburros
 format:
   html:
-    theme: cosmo
+    theme: litera
     css: styles.css
 
 
