@@ -1,3 +1,6 @@
 public/
 .gitignore
 .DS_Store
+.Rproj.user
+
+/.quarto/
