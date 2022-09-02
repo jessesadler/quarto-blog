@@ -1,8 +1,8 @@
 ---
 title: "Excel vs R: A Brief Introduction to R"
+subtitle: "With examples using dplyr and ggplot2"
 date: "2017-10-02"
 description: "Why R, and specifically the tidyverse, is better than Excel for data analysis and visualization"
-subtitle: "With examples using dplyr and ggplot2"
 categories: ["rstats", "digitalhumanities"]
 ---
 

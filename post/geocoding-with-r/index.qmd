@@ -1,0 +1,9 @@
+---
+title: "Geocoding with R"
+subtitle: "Using ggmap to geocode and map historical data"
+date: "2017-10-13"
+description: "Tutorial on geocoding and mapping historical data with ggmap"
+tags: ["rstats", "rspatial"]
+---
+
+
