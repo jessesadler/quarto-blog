@@ -4,9 +4,10 @@ project:
 website:
   title: "A Rogue Historian"
   navbar:
-    title: "Jesse Sadler"
+    title: "A Rogue Historian"
     right:
-      - about.qmd
+      - text: "About"
+        file: about.qmd
       - icon: github
         href: https://github.com/jessesadler
       - icon: twitter
