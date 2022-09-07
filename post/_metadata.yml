@@ -9,3 +9,8 @@ title-block-banner: true
 
 # Default author
 author: Jesse Sadler
+
+# Default for table of contents
+toc: true
+toc-title: Table of contents
+toc-location: left
