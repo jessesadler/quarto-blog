@@ -19,7 +19,7 @@ Between the variety of ellipsoidal models, the vast array of global and local da
 
 Spatial data with a defined CRS can represent either vector or raster data. Vector data is based on points — which can be connected to form lines and polygons — that are located within a coordinate reference system.  Raster data, on the other hand, consists of values within a grid system. For example, a road map is a vector data and a map using satellite imagery is raster data made up of pixels on a grid. `sp` has capabilities to work with both vector and raster data, while  `sf` and the simple features standard on which it is based only deals with vector data. This post will only discuss vector data, which is more widely used in the Humanities and Social Sciences.
 
-## Overview of `sp` and `sf` packages {overview-spsf}
+## Overview of `sp` and `sf` packages {#overview-spsf}
 The complexity that comes with the identification and translation between the thousands of different coordinate reference systems makes it impossible for standard R objects such as data frames to properly represent spatial data. In addition, the best way to represent coordinates — in one or two columns — and the representation of more complex objects such as lines and polygons create problems for how to store spatial data. These shortcomings can be seen with geocoded data that contains longitude and latitude values in a data frame like that I created in [geocoding with R](https://jessesadler.com/post/geocoding-with-r/). Most geocoded data created through [Google Maps or other geocoding sites ](https://gis.stackexchange.com/questions/48949/epsg-3857-or-4326-for-googlemaps-openstreetmap-and-leaflet) provides coordinates in longitude and latitude values using the WGS84 ellipsoid and thus contains a CRS equivalent to the Proj.4 argument `+proj=longlat +datum=WGS84` or EPSG 4326. However, this information about the CRS is implicit and not contained anywhere within the data frame itself.
 
 Due to the inadequacies of normal data frame objects to represent the variety of features of spatial data, the `sp` and `sf` packages both define their own classes of objects to store spatial data. From a beginner's perspective, the main differences between the `sp` and `sf` packages derive from the manner by which `sp` and `sf` classes store information about CRS, distinguish between points, lines, and polygons, and how they connect this spatial data to non-spatial data stored in a data frame.
@@ -27,7 +27,7 @@ Due to the inadequacies of normal data frame objects to represent the variety of
 The `sp` package uses what are known as [S4](https://bookdown.org/rdpeng/RProgDA/object-oriented-programming.html#s4) classes in R to represent spatial data. S4 objects are made up of **slots** that store different types of well-defined data. The slots can be accessed with the `@` symbol in the form of `object@slot`. The foundational `sp` class is the `Spatial` class, which has ten subclasses differentiated by the slots they contain. To get a better idea of what this all looks like, we can use the `getClass()` function, but first we have to load the `sp` package.[^7]
 
 ```{r}
-#| label = "sp classes"
+#| label: sp-class
 # Load the sp package
 library(sp)
 
@@ -38,7 +38,7 @@ getClass("Spatial")
 The output lists the different `Spatial` classes and shows that the basis for all `Spatial` objects is the `bbox` and `proj4string` slots. The `proj4string` provides the CRS for an object through a Proj.4 definition, while the `bbox` slot provides a matrix of the minimum and maximum coordinates for the object. The `Spatial` subclasses add slots to the foundational slots of `bbox` and `proj4string` for the type of geometric data — points, lines, polygons, and grid for raster — and whether the object contains attribute data in the form of a data frame. We can see this from the slots in the `SpatialPoints` and the `SpatialPointsDataFrame` classes.
 
 ```{r}
-#| label = "sp slots names"
+#| label: sp-slots
 # slots for SpatialPoints class
 slotNames("SpatialPoints")
 
@@ -58,7 +58,8 @@ With this basic introduction to spatial data and the `sp` and `sf` packages out 
 The first thing that we need to do is get information about the number of letters sent from and received in each city and join this non-spatial data with the longitude and latitude information that was created in the [geocoding with R](https://jessesadler.com/post/geocoding-with-r/) post. This will provide the necessary components to create spatial points object in both `sp` and `sf`. You can find the data and the R script that goes along with this example on [GitHub](https://github.com/jessesadler/intro-to-r). Let's start by loading the necessary packages and the two files containing data on the letters and the location of the cities in the letters data.
 
 ```{r}
-#| label = "packages and data"
+#| label: load
+#| message: false
 # Load the packages
 library(tidyverse)
 library(sp)
@@ -75,7 +76,7 @@ The `letters` data frame contains 114 rows of letters with columns representing 
 We can get the number of letters sent from and received in each location by using `count()`, which is a shortcut for `group_by() %>% summarise(n = n())`. This provides us with a count column, but we also want to structure the data frames for source and destination in the same way. Therefore, I rename the column containing the city information to "place." Doing this removes information about whether the observation is a source or destination, and so I add in this data with `add_column()`, creating a "type" column.
 
 ```{r}
-#| label = "prepare data"
+#| label: prepare-data
 # Letters per source
 sources <- letters %>% 
   count(source) %>% 
@@ -92,7 +93,7 @@ destinations <- letters %>%
 At this point, you can use either `rbind()` or `full_join()` to bind the rows of `sources` and `destinations` together to create a `letters_data` data frame that contains the non-spatial data we will be using. In addition, we need to make a small but important change to the type of data in the "type" column to make it possible to differentiate between the sources and destinations in the base R plots created below. We can transform the "type" column to a factor using `mutate()` and `as_factor()` from the [`forcats`](http://forcats.tidyverse.org) package. This changes the way that R represents the data behind the scenes such that "source" and "destination" can be represented by numeric integers, which is necessary for working with colors in base R plots.[^9]
 
 ```{r}
-#| label = "letters_data"
+#| label: letters-data
 # Bind the rows of the two data frames
 # and change type column to factor
 letters_data <- rbind(sources, destinations) %>% 
@@ -102,7 +103,7 @@ letters_data <- rbind(sources, destinations) %>%
 Let's look at the result. We can see that the data is in the format that we are looking for and that the "type" column has been correctly transformed into factors.
 
 ```{r}
-#| label = "print letters_data"
+#| label: print-letters-data
 # Print letters_data
 letters_data
 ```
@@ -110,7 +111,7 @@ letters_data
 Having created the data for the number of letters sent from and received in each location, we now need to add the longitude and latitude of the cities. We can do this with a left join with the `locations` data frame, using the "place" column as the key to link the two data frames.
 
 ```{r}
-#| label = "geocode data"
+#| label: geocode-data
 # Join letters_data to locations
 geo_data <- left_join(letters_data, locations, by = "place")
 
@@ -124,7 +125,7 @@ The result is a data frame with 14 rows and 5 columns that give the number of le
 The creation of a `Spatial` object involves providing data for the slots expected for each subclass. Creating a `SpatialPoints` object requires data for the `coords` and `proj4string` slots.[^10] The information for the `coords` slot can be filled by a data frame of the longitude and latitude values from `geo_data`. This can be done by creating a new data frame that only contains the "lon" and "lat" columns of `geo_data`. As noted above, the CRS for our data is implicitly longitude and latitude values on the WGS84 ellipsoid, which we can identify through the `CRS()` function containing a proj.4 argument. We can either specify the specific projection and datum arguments with `+proj=longlat +datum=WGS84` or use the EPSG code with `+init=epsg:4326`.
 
 ```{r}
-#| label = "points_sp"
+#| label: points_sp
 # Create data frame of only longitude and latitude values
 coords <- select(geo_data, lon, lat)
 
@@ -136,7 +137,7 @@ points_sp <- SpatialPoints(coords = coords,
 Printing out our newly created `SpatialPoints` object does not make for particularly exciting reading. We see the coordinates, which are now in matrix form, and the CRS of the object. We can get a better insight into the structure of the object with the `str()` command, even if the output is a bit off-putting at first. This shows the three slots for the `SpatialPoints` object and the values contained within the slots.
 
 ```{r}
-#| label = "print SpatialPoints"
+#| label: print-SpatialPoints
 # Print SpatialPoints object
 points_sp
 
@@ -147,7 +148,7 @@ str(points_sp)
 We have now successfully created a `Spatial` object. However, `points_sp` does not contain any of the non-spatial data that was created in preparing the data. We can attach this non-spatial data to the `Spatial` data by creating a `SpatialPointsDataFrame` object. This is done in the same manner as a `SpatialPoints` object but also includes filling the `data` slot with the `letters_data` data frame.[^11] Because the data in both the `coords` and `data` slots derived from the same source, the coordinates and non-spatial data will be correctly aligned by row number.
 
 ```{r}
-#| label = "points_spdf"
+#| label: points-spdf
 # Create SpatialPointsDataFrame object
 points_spdf <- SpatialPointsDataFrame(coords = coords,
                                       data = letters_data,  
@@ -157,7 +158,7 @@ points_spdf <- SpatialPointsDataFrame(coords = coords,
 Printing out `points_spdf` shows a result not dramatically different from printing out the `geo_data` data frame. However, inspecting the structure of the object shows that it has a very different composition.
 
 ```{r}
-#| label = "print SpatialPointsDataFrame"
+#| label: print-SpatialPointsDataFrame
 # Print out SpatialPointsDataFrame
 points_spdf
 
@@ -168,7 +169,7 @@ str(points_spdf)
 The nature of a `SpatialPointsDataFrame` object means that they cannot be manipulated in the same way as a normal data frame. You can access the data frame as you would any of the other slots in a `Spatial` object with the `points_spdf@data` notation. However, if you want to make changes to the `points_spdf` through an aspect of the `data` slot, you cannot use `dplyr` commands. Instead, you need to use base R methods, which can be a bit more convoluted. For instance, if you want to get the observations of places in which Daniel either received or was sent a certain number of letters you would use `@data` to access the data frame, `[]` to subset, and `$` to access the column that you want to subset. You can see an example of this below, creating a `SpatialPointsDataFrame` that contains the three locations in which "n" is greater than 10 and simply printing out the result to demonstrate the workflow.
 
 ```{r}
-#| label = "sp slots"
+#| label: access-sp-slots
 # Access the data frame of a SpatialPointsDataFrame
 points_spdf@data
 
@@ -179,7 +180,7 @@ points_spdf[points_spdf@data$n > 10, ]
 To make a map with the `SpatialPoints` objects of the correspondence of Daniel, we need to get a background map of western Europe to provide geographical context. There are a number of R packages that provide access to various maps which can be read in as `Spatial` data. Here, I will make use of the `rnaturalearth` package to get access to a map of the coastlines of the world and another for the countries in the world.[^12] This will create two different kinds of `Spatial` objects. Because both maps contain non-spatial attribute data, they will be of class `SpatialLinesDataFrame` and `SpatialpolygonsDataFrame`.
 
 ```{r}
-#| label = "rnatural earth sp maps"
+#| label: rnaturalearth-sp-maps
 # Get coastal and country world maps as Spatial objects
 coast_sp <- ne_coastline(scale = "medium")
 countries_sp <- ne_countries(scale = "medium")
@@ -188,7 +189,7 @@ countries_sp <- ne_countries(scale = "medium")
 Not only are `coast_sp` and `countries_sp` useful for mapping the points data, they also provide an opportunity to look at the structure of more complex `Spatial` objects. Printing out either object fills up the entire console with an overflow of information. Instead, we can get an idea of the structure of the two objects with the `str()` command. To ensure that we do not overloaded with information with this command, I will only show the first two levels, which shows information about the slots but not on the data within the slots.
 
 ```{r}
-#| label = "look at sp background maps"
+#| label: sp-background-maps
 # Structure of SpatialLinesDataFrame
 str(coast_sp, max.level = 2)
 
@@ -201,7 +202,7 @@ The output from `str()` shows that `coast_sp` and `countries_sp` are mainly dist
 The last thing that we should do before plotting the points on our background maps is to make sure that our objects all have the same CRS. If `points_spdf` and `coast_sp` have different CRSs, the points will not be correctly plotted. We can check this with either the `proj4string()` function or printing out the `proj4string` slot. Checking this shows that all of the `Spatial` objects are using geographic coordinates on the WSG84 ellipsoid, enabling us to move forward with plotting.
 
 ```{r}
-#| label = "check CRS"
+#| label: check-CRS
 # Check CRS of Spatial objects
 coast_sp@proj4string
 proj4string(countries_sp)
@@ -224,7 +225,7 @@ Modifying the color and size of these circles is a bit trickier. The color of th
 The `cex` parameter is used to modify the size of the points that will be plotted. We can set the size of the points to `points_spdf$n`, but first we need to make some modifications. We do not want the point sizes to be the actual value in the "n" column. A point with `cex = 95` — the maximum number of letters in the data — would create a point larger then the plot. Therefore, we need to adjust the minimum and maximum size of the points according to some formula. This could be done in a variety of ways, but here I choose the formula `sqrt(points_spdf$n)/2 + 0.25`, which reduces the minimum `cex` to 0.75 and the maximum to a bit over 5. The other additions that I make are to add a box around the plot with `box()` and a title with `title()` in separate commands. These two commands decorate the plot and provides and example of the way that layers can be added to a base plot. Let's see how this looks.
 
 ```{r}
-#| label = "points_spdf-plot"
+#| label: points-spdf-plot
 # Create a new color palette to distinguish source and destination
 palette(alpha(c("darkorchid", "darkorange"), 0.7))
 # Set margins for bottom, left, top, and right of plot
@@ -251,7 +252,7 @@ Creating a legend for the distinction between sources and destinations uses data
 The legend to relate the size of the points to the number of letters sent from or received in each location is a bit more difficult to create, as we do not yet have all the necessary components for the legend. A legend for the size of the points will possess three or four points of different sizes and the number of letters they represent. `ggplot2` does this creation automatically, but with base plots you have to choose the number and size of the points yourself. This means we need to make our own data for the legend, which I do here by creating a `pointsize` vector that will be used to show the size of points representing 1, 50, and 100 letters.[^14] Once this is done, the creation of the legend is fairly straightforward. The key is to remember to make the point sizes for our vector of numbers equal to the points on the map by applying the same formula and using the same `pch`. A title for the legend makes it clearer that the map represents letters.[^15]
 
 ```{r}
-#| label = "coast_sp-plot"
+#| label: coast-sp-plot
 # Pointsize vector for legend
 pointsize <- c(1, 50, 100)
 par(mar = c(1, 1, 3, 1))
@@ -288,7 +289,7 @@ title(main = "Correspondence of Daniel van der Meulen, 1585")
 The resulting map is maybe a bit sparse, but it provides all the necessary information on the locations and magnitude of Daniel's correspondence in 1585. One change that we might want to make is to color in the land to distinguish more clearly between land and water and to add some color to the plot. This cannot be done with our `SpatialLines` of the coastlines, which does not have a geometric interior that could be filled. Instead we need to use a `SpatialPolygons` object such as `countries_sp`. To make this second map we can reuse many of the parameters from our first map, but we do need to make one significant change to the plotting workflow. Because we want to fill in the land area of the map, we need to plot the background map before plotting the points. Otherwise the background map will cover the points. However, this disturbs the automatic subsetting of the world map that occurred in the first plot. We can get around this by changing the bounding box of `countries_sp` (`countries_sp@bbox`) to match that of `points_spdf` with the `bbox()` function.
 
 ```{r}
-#| label = "bbox for countries_sp"
+#| label: countries-sp-bbox
 # Make bounding box for countries_sp match
 # bounding box of points_spdf
 countries_sp@bbox <- bbox(points_spdf)
@@ -297,7 +298,7 @@ countries_sp@bbox <- bbox(points_spdf)
 Once the countries map is properly limited to the extent of the points, we can reuse most of the parameters from the first map. The only difference from the previous plot other than placing the background map first in the plotting order is the choice of colors for `countries_sp`. For a `SpatialPolygons` object the `col` parameter adjusts the fill color for the polygons, and the `border` parameter modifies the color of the lines of the polygons. Using a map with modern country boundaries is clearly anachronistic for plotting letters from 1585, but the boundaries do help to contextualize the locations. If you want to obscure the country borders completely, you can make the `col` and `border` parameters the same color. In this case, I will use the `gray()` function, which enables you to choose a gray level from 0 to 1 with 0 representing black and 1 for white.
 
 ```{r}
-#| label = "countries_sp-plot"
+#| label: countries-sp-plot
 par(mar = c(1, 1, 3, 1))
 
 # Plot countries map and color with grays
@@ -337,7 +338,7 @@ The above maps along with the creation of `Spatial` objects and the use of maps 
 As I noted above, an `sf` object is a data-frame-like object that contains a special geometry column that is of class `sfc`. The geometry column stores the spatial forms of data such as the CRS, coordinates, and type of geometric object. The creation of an `sf` object with a geometry column of class `sfc_POINT` is similar to creating a `SpatialPointsDataFrame`, but it can be done in a single step with a data frame that contains longitude and latitude columns. The `st_as_sf()` function uses a vector of the coordinate columns for the `coords` argument and either a EPSG code or a Proj.4 definition for the `crs`.
 
 ```{r}
-#| label = "points_sf"
+#| label: points-sf
 # Create sf object with geo_data data frame and CRS
 points_sf <- st_as_sf(geo_data, coords = c("lon", "lat"), crs = 4326)
 ```
@@ -345,7 +346,7 @@ points_sf <- st_as_sf(geo_data, coords = c("lon", "lat"), crs = 4326)
 The `class()` function shows that `points_sf` is an `sf` object that is an extension of a `data.frame`, and in this case is an extension of `tbl_df`, because `geo_data` is a [tibble](http://r4ds.had.co.nz/tibbles.html). Printing `points_sf` results in an output similar to that of a tibble or data frame with additional information about the spatial aspects of the data provided by the "geometry" column. The information about the geometry shows the type of geometrical object, dimension, bounding box, and the CRS in both EPSG and proj.4 format when possible.
 
 ```{r}
-#| label = "print points_sf"
+#| label: print-points-sf
 # Getting the class of an sf object shows that it is based on tibble and data frame.
 class(points_sf)
 
@@ -356,7 +357,7 @@ points_sf
 You can inspect the class of the geometry column itself by using `$` to subset the geometry column. Or you can directly access information about the spatial data in the "geometry" column with the `st_geometry()` function.
 
 ```{r}
-#| label = "geometry of points_sf"
+#| label: geometry-points-sf
 # Class of the geometry or sfc column
 class(points_sf$geometry)
 
@@ -368,7 +369,7 @@ st_geometry(points_sf)
 Having already loaded the Natural Earth coastline and countries maps as `Spatial` objects, there are two possibilities for getting the same data as `sf` objects. The `sf` package provides a method for converting from `Spatial` classes to `sf` with the `st_as_sf()` function that was used above to create an `sf` object from a data frame. It is useful to know that you can easily convert an object from `Spatial` to `sf` and back, but you will obviously not always have `Spatial` objects already created. The `rnaturalearth` package enables you to create `sf` objects with the `returnclass = "sf"` argument. Here, I will use the latter method.[^16]
 
 ```{r}
-#| label = "rnatural earth maps sf"
+#| label: rnaturalearth-sf-maps
 # Get coastal and country world maps as sf objects
 coast_sf <- ne_coastline(scale = "medium", returnclass = "sf")
 countries_sf <- ne_countries(scale = "medium", returnclass = "sf")
@@ -377,7 +378,7 @@ countries_sf <- ne_countries(scale = "medium", returnclass = "sf")
 The data-frame-like nature of `sf` objects makes working with spatial data more transparent and in-line with other data workflows compared to the `sp` package. For starters, it is more reasonable to print out `sf` objects to the console, though the size of `coast_sf` and `countries_sf` makes this less than ideal. However, a big advantage of `sf` over `sp` is that you can easily peruse the contents of an object with the `View()` command or clicking on the object in the Environment pane in RStudio. With the `View()` command an `sf` object looks like any other data frame instead of a list of lists like a `Spatial` object. This makes it much easier to get an overview of the data that you are working with. Let's print out the first six rows, or features in the `sf` vocabulary, of `coast_sf` with the `head()` function to give an idea of what the object looks like. The structure of the output is similar to that of `points_sf` with a data frame containing a geometry column and information about the geometry of the object. In this case, we can see that `coast_sf` is of class `MULTILINESTRING`.
 
 ```{r}
-#| label = "print coast_sf"
+#| label: print-coast-sf
 # Print first six rows of coast_sf
 head(coast_sf)
 ```
@@ -385,7 +386,7 @@ head(coast_sf)
 Unlike `Spatial` objects that use slots to distinguish the classes, all `sf` objects can generally be treated as data frames when wrangling the data. The only difference in the structure of `points_sf` compared to `coast_sf` or `countries_sf` is the class of the geometry column. This makes it possible to use workflows from the tidyverse. For instance, returning the subset of locations from `points_sf` that have a "n" greater than 10, as I showed above with `points_spdf`, can be done with `dplyr`'s `filter()` function.
 
 ```{r}
-#| label = "filter sf"
+#| label: filter-sf
 # Subset of locations with "n" greater than 10
 filter(points_sf, n > 10)
 ```
@@ -393,7 +394,7 @@ filter(points_sf, n > 10)
 The advantages of using `dplyr` to manipulate spatial objects is more apparent when working with complex objects such as `countries_sf` and using the pipe (`%>%`) to link commands. For example, if you want to look at the countries in South America, you can much more easily navigate the 241 rows and 63 columns of non-spatial data in the `sf` version of the countries world map than the `sp` version. Printing out the names of the columns with `colnames()` shows that we can filter countries in South America through the "continent" column. We can simplify the non-spatial data by selecting only the "name" column to identify the countries. Even more impressively, it is possible to combine data wrangling commands with spatial transformations such as changing the CRS of the object with `st_transform()`. As a demonstration, I can change the CRS of the subset of `countries_sf` to use the [Mollweide projection](https://en.wikipedia.org/wiki/Mollweide_projection), which prioritizes accuracy of area over shape and angle. The result of the pipeline of commands is a legible `sf` object with 13 rows for the countries in South America with a new CRS. Note that because there is no EPSG code for the Mollweide projection the `epsg` of the new object is `NA`, but the `proj4string` is changed to `+proj=moll`. Notice too that the coordinates have been changed from degrees to meters.
 
 ```{r}
-#| label = "South American countries"
+#| label: South-American-countries
 # South American countries with new CRS
 countries_sf %>% 
   filter(continent == "South America") %>% 
@@ -404,8 +405,7 @@ countries_sf %>%
 We can even visualize this transformation of `countries_sf` by piping directly to a base `plot()` command. Like `sp`, `sf` has its own plotting methods, which differ slightly from the base plotting system.[^17] The changes to the defaults that I make here are to remove the automatically created legend of country names with `key.pos = NULL` and provide a title for the plot. I also add graticules, or grid lines along longitude and latitude, to more clearly show the effects of the change in projection. Before making the map, we need to return the color palette to its default settings to prevent the borders of the countries from being drawn in dark orchid.
 
 ```{r}
-#| label = "sa-countries",
-#| fig.asp = 1
+#| label: sa-countries-plot
 # Return to default palette
 palette("default")
 
@@ -427,7 +427,7 @@ There are some oddities in using `geom_sf()` compared to other geoms due to the 
 Let's start by creating a simple plot using `ggplot2` with `points_sf` and `coast_sf`. Note the explicit vocabulary to identify the `sf` objects as the data and the use of `show.legend = "point"` for the legend. Otherwise the plot recreates the basic structure of the above base R plots by mapping the aesthetics of `color` to the "type" variable and `size` to "n". Some transparency is added to all of the points with the `alpha` argument. The last change is to subset the geographic region of the plot, and thus of `coast_sf` to a chosen bounding box with `coord_sf()`. You can experiment with different values for `xlim` and `ylim` to see what works best.
 
 ```{r}
-#| label = "ggplot-demo"
+#| label: ggplot-demo-plot
 ggplot() + 
   geom_sf(data = coast_sf) + 
   geom_sf(data = points_sf,
@@ -444,7 +444,7 @@ The basic structure of what we want is present in the above map, but we can impr
 Further changes to the non-data aspects of the map can be made through the [theme system used by `ggplot2`](http://r4ds.had.co.nz/graphics-for-communication.html). We can alter the look of the map by choosing a different built in theme, changing individual elements of the aesthetics, or a combination of the two. You can play around with the theming system to create the look you want. In this case, I will make changes to the theme and to individual aspects of the plot. Changing the theme to `theme_minimal()` changes the background to white, but it also adds axes labels, which we will want to remove. The labels for the axes, legends, and plot as a whole can be modified within the `labs()` function. To remove the labeling of the axes for the plot I set the `x` and `y` labels to `NULL`. I also change the labels for the legends to give a more descriptive name to the size legend and use title case for the color legend. The last change I make is to increase the size of the points within the color legend with the `guides()` function, increasing the size of the points to 6.
 
 ```{r}
-#| label = "ggplot-coastline"
+#| label: ggplot-coastline-plot
 # Load ggrepel package
 library(ggrepel)
 
@@ -468,7 +468,7 @@ ggplot() +
 The result is a map that is much cleaner, and because of the points are labeled, more informative. We can reuse the thematic tweaks to create a plot with the countries background map to make it possible to fill in the land area as we did above. I will use the same gray scale for the colors to fill the polygons and for the lines of the polygons. The other change that I make in this plot is to use the `theme_bw()`, which adds a border around the plot.
 
 ```{r}
-#| label = "ggplot-countries"
+#| label: ggplot-countries-plot
 ggplot() + 
   geom_sf(data = countries_sf,
           fill = gray(0.8), color = gray(0.7)) + 

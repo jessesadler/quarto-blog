@@ -1,6 +1,7 @@
 ---
 title: "Introducing debkeepr"
 subtitle: "An R package for the analysis of non-decimal currencies"
+description: "Introduction to debkeepr, a package for analyzing historical non-decimal currencies such as pounds, shillings, and pence."
 date: "2018-09-18"
 categories:
   - rstats
@@ -20,13 +21,13 @@ devtools::install_github("jessesadler/debkeepr")
 
 The system of expressing monetary values in the form of pounds, shillings, and pence dates back to the Carolingian Empire and the change from the use of gold coins that derived from the late Roman Empire to silver pennies that had taken place by the eighth century. Needing ways to count larger quantities of the new silver [denarius](https://en.wikipedia.org/wiki/Denarius), people began to define a [solidus](https://en.wikipedia.org/wiki/Solidus_(coin)), originally a gold coin introduced by the Emperor Constantine, as a unit of account equivalent to 12 denarii. For even larger valuations, the denarius was further defined in relation to a pound or [libra](https://en.wikipedia.org/wiki/French_livre) of silver. Though the actual number of coins struck from a pound of silver differed over time, the rate of 240 coins lasted long enough to create the custom of counting coins in dozens (solidi) and scores of dozens (librae). The [librae, solidi, and denarii (lsd)](https://en.wikipedia.org/wiki/%C2%A3sd) monetary system was translated into various European languages, and though the ratios between the three units often differed by region and period, the basic structure of the system remained in place until decimalization began following the French Revolution.[^1]
 
-<!--more-->
-
 The pounds, shillings, and pence system complicates even relatively [simple arithmetic operations](https://en.wikipedia.org/wiki/Arithmetic#Compound_unit_arithmetic). Especially in our decimalized world, manipulating values that are made up of three different units in which two of the units are non-decimal quickly becomes cumbersome. The principles of grade school arithmetic come running back, as the practice of addition and carrying over values to the next unit gains new relevancy. Calculations with pounds, shillings, and pence values are further complicated when dealing with more than one currency or [money of account](https://en.wikipedia.org/wiki/Unit_of_account), particularly if one or more of the currencies used bases for the shillings and pence units that differed from the common bases of 20 shillings to a pound and 12 pence to a shilling.
 
 The economic historian encounters the difficulties of handling non-decimal currencies in two main contexts. In reading through documents that may or may not be primarily economic in nature, the researcher comes across sets of values that need to be manipulated to better understand their meaning. A common case is the discovery of values that need to be added together to see if they are equivalent to a value in another document, or there may be values in one currency that have to be converted to another currency for comparison. The second context in which historians confront non-decimal monetary values is in explicitly economic documents such as entire account books that may contain hundreds or thousands of transactions. In both contexts the researcher is often stuck performing arithmetic calculations by hand just as merchants and bookkeepers had to do in the past. I do not know how many pages of scratched out calculations I went through in my own research on the estate of Jan della Faille de Oude, a wealthy merchant from Antwerp who died in 1582.
 
-![](img/math-scratchpad.jpg){#fig-scratchpad height="400px" fig-align="center"}
+::: {.column-margin}
+![Scratchpad: Doing math by hand](img/math-scratchpad.jpg){#fig-scratchpad height="400px"}
+:::
 
 The tripartite and non-decimal nature of pounds, shillings, and pence values presents particular difficulties for the analysis of large sets of accounts. A first instinct of the researcher is to place the transactions from an account book into a table or data base to better understand these large groups of data, but how should the pounds, shillings, and pence values be entered? Should they be placed into three separate variables or brought together somehow into one, and how should the arithmetic be performed? So long as there is no clear way to handle one, not to mention multiple, non-decimal currency within a data base, the use of digital tools to investigate and analyze historical accounts books will be hindered.
 
@@ -48,14 +49,16 @@ In the rest of this post I want to quickly highlight how `debkeepr` can assist h
 
 At the heart of `debkeepr` is the ability to normalize pounds, shillings, and pence values to specified non-decimal unit bases in the process or making various calculations. Even in the simplest case of addition, `debkeepr` makes the process easier and less error prone. Let’s use an example from the image below that shows arithmetic on a scratch piece of paper dealing with trade between Holland and the Barbary coast in the 1590s.[^3] On the top right four values in the money of account of pounds Flemish are added together.
 
-![](img/barbary-scratchpad.jpg){#fig-barbary}
+![A scratchpad from the archive of Daniel van der Meulen](img/barbary-scratchpad.jpg){#fig-barbary}
 
+::: {layout-ncol=2}
 | pounds| shillings| pence|
 |------:|---------:|-----:|
 |     74|        10|     0|
 |     26|         8|     8|
 |    107|        14|     0|
 |     28|        19|     0|
+:::
 
 `debkeepr` provides multiple means to add together values of pounds Flemish, which used the standard bases of 20 shillings per pound and 12 pence per shilling.[^4]
 
@@ -94,8 +97,6 @@ deb_sum(lsd_values)
 
 Multiplication and division of pounds, shillings, and pence values were equally frequent calculations, but they are more complex to do by hand. Bookkeeping and merchant manuals often included rules for the multiplication and division of compound values such as pounds, shillings, and pence. The article on arithmetic in the third edition of the [*Encyclopedia Britannica*, printed in 1797](http://onlinebooks.library.upenn.edu/webbin/metabook?id=britannica3), provides a good example of how to do [compound unit arithmetic](https://en.wikipedia.org/wiki/Arithmetic#Compound_unit_arithmetic). `debkeepr` greatly simplifies this process.
 
-![](img/lsd-multiplication.png){#fig-multiplication height="400" fig-align="center"}
-
 ```r
 # Multiply £15 3s. 8d. sterling by 32
 deb_multiply(c(15, 3, 8), x = 32)
@@ -108,9 +109,11 @@ deb_multiply(c(17, 3, 8), x = 75)
 #> [1] 1288 15 0
 ```
 
-The examples for division in the *Encyclopedia Britannica* include the division of pounds, shillings, and pence, as well as the division of weight measured in terms of hundredweight, quarters, and pounds. A hundredweight consisted of four quarters and there were 28 pounds (or two stones) in a quarter. While `debkeepr` was created with pounds, shillings, and pence values in mind, the measurement of weight in terms of hundredweight can be integrated by altering the bases argument. This example even serves to show a mistake in the printing in the *Encyclopedia*, as the answer is shown as 15 cwt. 2 q. 21 lb., but it should actually be 22 lb. Checking the long division at the bottom of the calculation, 22 goes into 44 twice not once. Notice too that the division of £465 12s. 8d. ends with a remainder of 8 even though this is not included in the answer provided. This remainder leads to the decimal in the pence unit in the answer provided by `deb_divide()`. Setting the `round` argument to 0 would convert the pence unit to a whole number.
+::: {.column-margin}
+![Multiplication in *Encyclopedia Britannica*](img/lsd-multiplication.png){#fig-multiplication height="350"}
+:::
 
-![](img/lsd-division.png){#fig-division height="400px" fig-align="center"}
+The examples for division in the *Encyclopedia Britannica* include the division of pounds, shillings, and pence, as well as the division of weight measured in terms of hundredweight, quarters, and pounds. A hundredweight consisted of four quarters and there were 28 pounds (or two stones) in a quarter. While `debkeepr` was created with pounds, shillings, and pence values in mind, the measurement of weight in terms of hundredweight can be integrated by altering the bases argument. This example even serves to show a mistake in the printing in the *Encyclopedia*, as the answer is shown as 15 cwt. 2 q. 21 lb., but it should actually be 22 lb. Checking the long division at the bottom of the calculation, 22 goes into 44 twice not once. Notice too that the division of £465 12s. 8d. ends with a remainder of 8 even though this is not included in the answer provided. This remainder leads to the decimal in the pence unit in the answer provided by `deb_divide()`. Setting the `round` argument to 0 would convert the pence unit to a whole number.
 
 ```r
 # Divide £465 12s. 8d. sterling by 72
@@ -123,6 +126,10 @@ deb_divide(c(345, 1, 8), x = 22, bases = c(4, 28))
 #>      l s  d
 #> [1] 15 2 22
 ```
+
+::: {.column-margin}
+![Division in *Encyclopedia Britannica*](img/lsd-division.png){#fig-division height="400px"}
+:::
 
 These examples replicate answers already provided, but they serve to demonstrate the gains in both speed and accuracy for these common calculations. Further examples, including the use of `debkeepr` to convert between currencies that may or may not have different bases for the shillings and pence units, can be found in both [Getting Started with debkeepr](https://jessesadler.github.io/debkeepr/articles/debkeepr.html) and the [Transactions in Richard Dafforne's Journal vignette](https://jessesadler.github.io/debkeepr/articles/transactions.html).
 

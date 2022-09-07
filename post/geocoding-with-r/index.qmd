@@ -3,7 +3,9 @@ title: "Geocoding with R"
 subtitle: "Using ggmap to geocode and map historical data"
 date: "2017-10-13"
 description: "Tutorial on geocoding and mapping historical data with ggmap"
-tags: ["rstats", "rspatial"]
+categories:
+  - rstats
+  - rspatial
 ---
 
 In the [previous post](https://jessesadler.com/post/excel-vs-r/) I discussed some reasons to use [R](https://www.r-project.org) instead of Excel to analyze and visualize data and provided a brief introduction to the R programming language. That post used an example of letters sent to the sixteenth-century merchant [Daniel van der Meulen](https://jessesadler.com/project/dvdm-correspondence/) in 1585. One aspect missing from the analysis was a geographical visualization of the data. This post will provide an introduction to geocoding and mapping location data using the [ggmap](https://cran.r-project.org/web/packages/ggmap/index.html) package for R, which enables the creation of maps with [ggplot](http://ggplot2.tidyverse.org). There are a number of websites that can help geocode location data and even create maps.[^1] You could also use a full-scale geographic information systems (GIS) application such as [QGIS](https://qgis.org) or [ArcGIS](https://esri.com). However, an active developer community has made it possible to complete a full range of geographic analysis from geocoding data to the creation of publication-ready maps with R.[^2] Geocoding and mapping data with R instead of a web or GIS application brings the general advantages of using a programming language in analyzing and visualizing data. With R, you can write the code once and use it over and over, while also providing a record of all your steps in the creation of a map.[^3]

@@ -1,8 +1,9 @@
 ---
 title: "My Approach to Digital Humanities"
-description: "My approach and thought process to learning the tools of Digital Humanities while in the midst of this process in 2017"
+description: "My approach to learning the tools of Digital Humanities while in the midst of this process in 2017"
 date: "2017-08-18"
-categories: ["digitalhumanities"]
+categories:
+  - digitalhumanities
 ---
 
 Digital humanities holds the promise of increasing the means by which scholars are able to analyze and present data. Though some sentiments about the significance of digital humanities might be overblown, there is no doubt that [the more ways we have to analyze sources the better](http://dh-r.lincolnmullen.com/introduction.html). Learning a variety of the tools that make up the rather nebulous universe of digital humanities is like learning a new language. It opens up new possibilities that were previously closed or necessitated the expertise of others. This frames digital humanities as a collection of skills rather than a means to a predetermined end. I have adopted this perspective in learning about the possibilities opened by digital humanities and working on a [digital humanities project](https://jessesadler.com/project/dvdm-correspondence/). I am hardly the first person to take these steps, but I hope that by explaining my thought process I can set a basis for future posts on digital humanities.

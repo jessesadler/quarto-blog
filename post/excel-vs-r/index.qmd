@@ -2,8 +2,11 @@
 title: "Excel vs R: A Brief Introduction to R"
 subtitle: "With examples using dplyr and ggplot2"
 date: "2017-10-02"
-description: "Why R, and specifically the tidyverse, is better than Excel for data analysis and visualization"
-categories: ["rstats", "digitalhumanities"]
+description: "Why use R, and specifically the tidyverse, in the place of Excel for data analysis and visualization"
+categories:
+  - rstats
+  - digitalhumanities
+  - tidyverse
 ---
 
 Quantitative research often begins with the humble process of counting. Historical documents are never as plentiful as a historian would wish, but counting words, material objects, court cases, etc. can lead to a better understanding of the sources and the subject under study. When beginning the process of counting, the first instinct is to open a spreadsheet. The end result might be the production of tables and charts created in the very same spreadsheet document. In this post, I want to show why this spreadsheet-centric workflow is problematic and recommend the use of a programming language such as [R](https://www.r-project.org) as an alternative for both analyzing and visualizing data. There is no doubt that the learning curve for R is much steeper than producing one or two charts in a spreadsheet. However, there are real long-term advantages to learning a dedicated data analysis tool like R. Such advice to learn a programming language can seem both daunting and vague, especially [if you do not really understand what it means to code](https://jessesadler.com/post/new-kinds-of-projects/). For this reason, after discussing why it is preferable to analyze data with R instead of a spreadsheet program, this post provides a brief introduction to R, as well as an example of analysis and visualization of historical data with R.[^1]
@@ -28,21 +31,21 @@ R is an open-source programming language, which can be [freely downloaded](https
 In either R or RStudio, the command line or **console** is where all of the action takes place. It is here that you enter and run the code. The foundation of working in R is the process of creating and manipulating objects of various sorts. **Objects** are assigned names with the assignment operator `<-`. Thus, if I want to assign the name x the value of 5, I write `x <- 5` into the console and press return.
 
 ```{r}
-#| label = "assignment operator"
+#| label: assignment operator
 x <- 5
 ```
 
 Nothing is printed when this operation is run, but now, if I type `x` into the console and hit return, the value of x will be printed. Alternatively, I could have explicitly called for the object `x` to be printed with the command `print(x)`. The result is the same with either method.[^8]
 
 ```{r}
-#| label = "print x"
+#| label: print
 x
 ```
 
 The power of R comes with the manipulation of objects through the use of functions. **Functions** take in objects, possibly with a list of arguments to specify how the function works, and return another object. The objects and instructions for the functions are included within parentheses following the function name, and all instructions are separated by a comma.[^9] You can think of objects as nouns and functions as verbs. A simple example with the `sum()` function demonstrates how functions work. `sum()` does exactly what you would think. It takes a series of objects and returns their sum. You can see the function's documentation by entering `?sum()` on the console.[^10] The result of the `sum()` function can either be immediately printed to the console, or it can be saved by assigning it a name. Below, I assign the result of `x + 10` a name and then in a second command print out the value of the newly created object.
 
 ```{r}
-#| label = "sum"
+#| label: sum
 y <- sum(x, 10)
 y
 ```
@@ -50,7 +53,7 @@ y
 The flexibility of coding enables objects to be redefined endlessly. If a mistake is made or the data changes, the command can be rerun with the new values. For instance, if the value of `x` changes from 5 to 15 in the data, I can simply change the code for creating the `x` object and reassign the value of `x`. Below, I do this and then rerun the same `sum()` command, but this time I print the result directly to the console instead of assigning it to the object `y`.
 
 ```{r}
-#| label = "reassign object"
+#| label: reassignment
 x <- 15
 sum(x, 10)
 ```
@@ -70,17 +73,17 @@ With this basic overview of R out of the way, let’s move on to an example of a
 Before doing anything with the data, it is necessary to set up our environment in R. This means loading the packages that we will be using with the `library()` command. To begin we only need to load the `tidyverse` package, which includes the individual packages that I will use for the analysis.
 
 ```{r}
-#| label = "load tidyverse",
-#| message = FALSE
+#| label: load-tidyverse
+#| message: false
 library(tidyverse)
 ```
 
 Once this is done, it is possible to use the functions from the tidyverse packages, beginning with reading our data into R with the `read_csv()` function. The code below takes a [csv file](https://en.wikipedia.org/wiki/Comma-separated_values) from a location on my computer and loads it into R as a data frame, while saving the object under the name `letters`.[^13] The code can be read as "create a data frame object called `letters` from the csv file named `correspondence-data-1585.csv`."
 
 ```{r}
-#| label = "clean-data",
-#| eval = FALSE,
-#| include = FALSE
+#| label: clean-data
+#| eval: false
+#| include: false
 # Script for creating clean data that was then saved to data
 # Not run here
 letters1585 <- read_csv("data/dvdm-correspondence-1591.csv") %>% 
@@ -89,8 +92,8 @@ letters1585 <- read_csv("data/dvdm-correspondence-1591.csv") %>%
 ```
 
 ```{r}
-#| label = "load data",
-#| message = FALSE
+#| label: load-data
+#| message: false
 letters <- read_csv("data/correspondence-data-1585.csv")
 ```
 
@@ -99,7 +102,7 @@ Even before anything has been done to manipulate the data, we are already in a b
 Let's start by taking a look at the data itself by printing out a subset of the data to the console, which can be done by typing the name of the object into the console.[^14]
 
 ```{r}
-#| label = "letters_tibble"
+#| label: letters-tibble
 letters
 ```
 
@@ -109,28 +112,28 @@ This tells us that `letters` is a [tibble](http://r4ds.had.co.nz/tibbles.html), 
 Now that we have an idea of the basic structure of the data, it is possible to begin to analyze it. A simple question that is fairly difficult to answer in Excel — at least I do not know how to do it other than by hand — is how many different people wrote letters to Daniel during this period. The below gives a list of the writers of letters. The code is a good demonstration of basic structure of `dplyr` functions. The function `distinct()` takes a data frame, followed by the name of the column that I am interested in, returning a new data frame object with one column, which consists of the unique values from the original column.
 
 ```{r}
-#| label = "distinct writers"
+#| label: writers
 distinct(letters, writer)
 ```
 
 Because I did not assign the output a name, the results simply printed to the console. Saving the object requires the use of the assignment operator and choosing a memorable name. With this relatively simple operation I have created my first new data frame, which I can now refer to and further manipulate by calling to `writers`.
 
 ```{r}
-#| label = "save distinct writers"
+#| label: save-writers
 writers <- distinct(letters, writer)
 ```
 
 Printing out the object shows that there are `r nrow(writers)` people who sent Daniel letters in 1585, but another way to get this information is to run the `nrow()` function, which returns the number of rows in a data frame. It is possible to run the function on either the `writers` data frame, or to use the command that created the `writers` data frame. Let's do the latter and print the result to the console. If you happen to forget the number of correspondents, the command can be typed again.
 
 ```{r}
-#| label = "nrow distinct writers"
+#| label: nr-writers
 nrow(distinct(letters, writer))
 ```
 
 Once we run the commands and see that they produce results that are what we would expect from the data, it is possible to both save the commands in a script and also to reuse their structure for other pieces of information. For example, we can learn the locations from which Daniel's correspondents sent letters and the locations in which he received letters by reusing the `distinct()` function and changing the column name to be manipulated.
 
 ```{r}
-#| label = "distinct sources and locations"
+#| label: sources-locations
 distinct(letters, source)
 distinct(letters, destination)
 ```
@@ -138,7 +141,7 @@ distinct(letters, destination)
 We can save the objects for later use by using the assignment operator and giving the data frames names.
 
 ```{r}
-#| label = "save sources and locations"
+#| label: save-sources-locations
 sources <- distinct(letters, source)
 destinations <- distinct(letters, destination)
 ```
@@ -147,7 +150,7 @@ destinations <- distinct(letters, destination)
 Thus far, I have created data frames with one variable that show the unique values of the different variables, but this has not told us anything about the number of letters sent by each author or from each location. Doing this is more complicated, because it is necessary to chain together a series of functions using the pipe. This is the case for the question of how many letters each correspondent sent. Looking at the `dplyr` verbs listed above you might assume that the `summarise()` function will create a sum of the data. We can use the `summarise()` function to create a new column called count that is filled with the number of observations through the `n()` function. In other words, the code below tells R to summarize the `letters` data frame and place the number of observations in a column called count.
 
 ```{r}
-#| label = "summarise"
+#| label: summarise
 per_correspondent <- summarise(letters, count = n())
 per_correspondent
 ```
@@ -155,22 +158,24 @@ per_correspondent
 Running the command and printing the result shows a result that was not what we hoped. Instead of showing letters per correspondent, the function created a column called count with a single value equal to the amount of rows in the `letters` data frame. However, because the objects that are made in R are ephemeral, we can simply rerun the code after reworking it. This overwrites the old `per_correspondent` object with one that is more useful. In the first attempt there is no notion that the goal is to group the number of letters by writer. This is the task `group_by()` function. To create an object with correspondents in one column and the number of letters they sent in the second column we need to group the `letters` data frame by writer and then summarize the letters within each group, creating the count column while doing so. The last line of the code arranges the table in descending order of letters sent by the newly created count variable. Notice that the `letters` data frame is listed first before any function. This is because the `letters` data frame is piped into each of the functions with the use of the `%>%` command, which can be read as "and then."
 
 ```{r}
-#| label = "per_correspondent_tbl"
+#| label: per-correspondent
 per_correspondent <- letters %>% 
   group_by(writer) %>% 
   summarise(count = n()) %>% 
   arrange(desc(count))
+
 per_correspondent
 ```
 
 Looking at the result, we can see that the above changes produced the kind output we expected. The `group_by()` and `summarise()` functions worked to create a data frame in which each author is listed once. The `count = n()` within the `summarise()` function created a new variable called count that is filled with the number of letters each correspondent sent. A cursory look at the results shows that the vast majority of the letters sent to Daniel were written by his brother Andries and his brother-in-law Jacques della Faille. Andries lived in the besieged city of Antwerp for most of 1585, and Jacques lived in Haarlem, so it will hardly be surprising that if we look at the amount of letters sent from each location that Antwerp and Haarlem dominate. Having written the above code, it is possible to rework it to create a data frame called `per_source`, which is done by replacing the writer column in the `group_by()` function with the source variable.
 
 ```{r}
-#| label = "per_source_tbl"
+#| label: per-source
 per_source <- letters %>% 
   group_by(source) %>% 
   summarise(count = n()) %>% 
   arrange(desc(count))
+
 per_source
 ```
 
@@ -178,7 +183,7 @@ per_source
 While it is nice to have the two above sets of information presented in tables, it is also possible to visualize the newly created data with `ggplot`. The structure of `ggplot` functions is a bit different than that of `dplyr`. Like `dplyr` the functions are linked together, but the linking is done with the `+` symbol instead of `%>%`. With `ggplot` the three main functions are `ggplot()`, one or more `geom_*` function, which informs the type of graphical element to draw, and one or more `aes()` function that sets the aesthetic values of the graph. The designation of the data to use and the `aes()` functions can be placed within either the `ggplot()` function, indicating that they apply to all of the geoms, or they can be placed within individual `geom_*` functions in which case they will only be used for that geom. All this is to say that there are a variety of ways to produce the same visuals. The below code adds an extra function to label the axes with `labs()`.
 
 ```{r}
-#| label = "per_source"
+#| label: per-source-plot
 ggplot(data = per_source) +
   geom_bar(aes(x = source, y = count), stat = "identity") +
   labs(x = NULL, y = "Letters written")
@@ -187,8 +192,8 @@ ggplot(data = per_source) +
 One part of the above code that might be a bit difficult to figure out is `stat = "identity"`. This needs to be called, because the code to create the `per_source` data frame actually did more work than necessary. `stat = "identity"` tells `geom_bar()` to set the height of the bars to the exact number in the count column. However, with `geom_bar()` only the x-axis needs to be specified. The y value is then calculated automatically based on the x value. Therefore, the below code, which uses the original `letters` data frame, could produce the exact same graph. Because of this, it is little trouble to change the variable for the x-axis to writers and get a completely new graph. Notice the change in the data and the deletion of the y variable and `stat`. One problem with the correspondents data is the length of the names. Therefore, this command makes changes to the `theme()` function. The arguments in the function are used to place the correspondent names at a ninety degree angle so that they do not overlap.
 
 ```{r}
-#| label = "per_correspondent",
-#| fig.asp = 1
+#| label: per-correspondent-plot
+#| fig.asp: 1
 ggplot(data = letters) +
   geom_bar(aes(x = writer)) +
   labs(x = NULL, y = "Letters written") +
@@ -199,15 +204,15 @@ ggplot(data = letters) +
 Now, let's investigate the dates column. Dealing with dates is often tricky. To facilitate this analysis we need to load the `lubridate` package. [lubridate](http://lubridate.tidyverse.org/) is another package created by Hadley Wickham, which fits into the tidyverse manner of dealing with data. It is not among the packages loaded with `library(tidyverse)`, and so it is necessary to load it separately.
 
 ```{r}
-#| label = "load lubridate",
-#| message = FALSE
+#| label: lubridate
+#| message: false
 library(lubridate)
 ```
 
 Since the letters in this data set were all received in one year, it would be interesting to see how many letters Daniel received each month. This question is particularly interesting, because in 1585 Daniel's home city of Antwerp was under siege by Spanish troops, and Daniel was serving as a representative for his city to the rebels in Holland. It is also an interesting issue of analysis, because while the `letters` data frame contains information about the month the letters were sent, there is no month column. This prevents us from using the `group_by()` and `summarise()` workflow that we have developed. The answer comes from the `lubridate` package, which includes a function called `month()`. This function extracts the month from a date object, which we know the date column is, because it is identified as such when we have printed the `letters` data frame. The goal is to create a new column called month. This is done through the `dplyr` function `mutate()`, which creates the column and then applies the `month()` function to each of the dates. The remaining code is similar to that used above, but now the column we want to `group_by()` and `summarise()` is the newly created month column.
 
 ```{r}
-#| label = "per_month_nr"
+#| label: per-month-nr
 per_month <- letters %>% 
   mutate(month = month(date)) %>% 
   group_by(month) %>% 
@@ -215,10 +220,10 @@ per_month <- letters %>%
 per_month
 ```
 
-Looking at the result of this code, a problem is immediately apparent. The number of letters per month is as expected, but the months are returned as numbers, which is less than ideal. However, by looking at the documentation for lubridate by typing `?month()` into the console, it is possible to see that what needs to be done is to change the label argument to TRUE from the default of FALSE.
+Looking at the result of this code, a problem is immediately apparent. The number of letters per month is as expected, but the months are returned as numbers, which is less than ideal. However, by looking at the documentation for lubridate by typing `?month()` into the console, it is possible to see that what needs to be done is to change the label argument to TRUE from the default of false.
 
 ```{r}
-#| label = "per_month_tbl"
+#| label: per-month-tbl
 per_month <- letters %>% 
   mutate(month = month(date, label = TRUE)) %>% 
   group_by(month) %>% 
@@ -229,7 +234,7 @@ per_month
 Now that we have the data in a good form we can plot it by making another bar chart.
 
 ```{r}
-#| label = "per_month"
+#| label: per-month-plot
 ggplot(data = per_month) +
   geom_bar(aes(x = month, y = count), stat = "identity") +
   labs(x = 1585, y = "Letters sent")
@@ -240,7 +245,7 @@ The graph shows a peak in March of 1585 when Antwerp was in an extremely vulnera
 As a fun aside, it is also possible to see what day of the week the letters were sent. Luckily, the data comes from 1585, three years after the creation of [Gregorian Calendar](http://en.wikipedia.org/wiki/Gregorian_calendar), and the areas from which the letters were sent had already transitioned to the new calendar. This means that they were using the same calendar as we do now, as opposed to a place like England, which only adopted the Gregorian Calendar in 1752. Therefore, we do not have to worry about adding 10 days to move from the old calendar to the new calendar.
 
 ```{r}
-#| label = "per_wday_tbl"
+#| label: per-wday-tbl
 per_wday <- letters %>% 
   mutate(wday = wday(date, label = TRUE)) %>% 
   group_by(wday) %>% 
@@ -251,7 +256,7 @@ per_wday
 We can even create the chart using the original `letters` data frame and call the `wday()` function within the definition of the x variable.
 
 ```{r}
-#| label = "per_wday"
+#| label: per-wday-plot
 ggplot(data = letters) +
   geom_bar(aes(x = wday(date, label = TRUE))) +
   labs(x = 1585, y = "Letters sent")
@@ -260,15 +265,16 @@ ggplot(data = letters) +
 Finally, let's see who sent Daniel letters on Sundays. We can use the `filter()` function, which returns rows that match a certain argument. The below code uses the knowledge that without labels, Sunday is equivalent to 1. The code is also written in a slightly different style. Even though only a single function is called, `%>%` is used to pipe the data frame into the function, which cleans up the function call slightly.
 
 ```{r}
-#| label = "sunday"
-letters %>% filter(wday(date) == 1)
+#| label: sundays
+letters %>% 
+  filter(wday(date) == 1)
 ```
 
 ## Combining data for correspondents and dates
 The `group_by()` and `summarise()` workflow developed so far results in data frames with two columns and thus only tells us about one variable from the data at a time. We can get a better understanding of Daniel's network by looking into how many letters each writer sent per month, which would involve the creation of a data frame with three columns. One advantage of using code is that it is often relatively simple to take a functioning line of code and tweak it to create a different result. Here, I take the line of code that produced `per_month` and alter it by adding the writer variable to the `group_by` function. Now the code will group the letters written by each correspondent per month and then count them. Notice how the dimensions of the resulting data frame has changed.
 
 ```{r}
-#| label = "correspondent_per_month"
+#| label: correspondent-per-month
 correspondent_month <- letters %>% 
   mutate(month = month(date, label = TRUE)) %>% 
   group_by(writer, month) %>% 
@@ -280,7 +286,7 @@ correspondent_month
 With this new object called `correspondent_month` it is possible to add to the bar chart on letters per month, by filling in the bars with letters per correspondent in each month. The only difference in the code below from the earlier chart is the inclusion of `fill = writer` in `geom_bar()` and then giving it a label in `labs()`.
 
 ```{r}
-#| label = "correspondent_month"
+#| label: correspondent-month-plot
 ggplot(data = correspondent_month) +
   geom_bar(aes(x = month, y = count, fill = writer), stat = "identity") +
   labs(x = 1585, y = "Letters sent", fill = "Correspondents")
@@ -289,8 +295,8 @@ ggplot(data = correspondent_month) +
 A bar graph is only one of many different geoms made available through `ggplot`, so let me finish by using the same information to produce a line graph with points showing the amount of letters each correspondent sent in a month. The structure of the command is slightly different here, because I place the `aes()` function in the `ggplot()` function. This is done because the same aesthetics will be used by both `geom_point()` and `geom_line()`. In the `geom_point()` function I increase the size of all of the points so that they are more clearly visible. The `geom_line()` function adds a new aesthetic for group, which tells the function how to connect the lines.
 
 ```{r}
-#| label = "line_graph",
-#| fig.asp = 0.75
+#| label: line-plot
+#| fig.asp: 0.75
 ggplot(data = correspondent_month, aes(x = month, y = count, color = writer)) + 
   geom_point(size = 3) + 
   geom_line(aes(group = writer)) + 
