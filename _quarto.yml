@@ -6,6 +6,8 @@ website:
   navbar:
     title: "A Rogue Historian"
     right:
+      - file: project.qmd
+      - file: course.qmd
       - text: "About"
         file: about.qmd
       - icon: github
