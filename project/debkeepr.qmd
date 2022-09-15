@@ -1,6 +1,5 @@
 ---
 title: "debkeepr"
-description: "Analysis of Non-Decimal Currencies and Double-Entry Bookkeeping"
 description: "Analysis of historical non-decimal currencies and value systems that use either tripartite or tetrapartite systems such as that of pounds, shillings, and pence."
 # date: "2018-09-18"
 ---
