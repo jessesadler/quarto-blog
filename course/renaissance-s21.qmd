@@ -1,7 +1,7 @@
 ---
 date: "2021-05-17"
 title: "The Italian Renaissance"
-subtitle: "Taught Spring 2021"
+subtitle: "Taught: Spring 2021"
 ---
 
 ![](img/della-catena-map.jpeg)
