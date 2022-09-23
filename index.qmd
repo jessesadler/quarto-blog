@@ -8,6 +8,7 @@ listing:
   image-align: "left"
   sort-ui: false
   filter-ui: false
+  date-format: "D MMMM YYYY"
 page-layout: full
 title-block-banner: false
 ---

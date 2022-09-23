@@ -11,3 +11,6 @@ title-block-banner: false
 toc: true
 toc-title: Table of contents
 toc-location: left
+
+# Date format
+date-format: "D MMMM YYYY"
