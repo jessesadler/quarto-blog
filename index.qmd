@@ -6,10 +6,8 @@ listing:
   type: default
   categories: true
   image-align: "left"
-  image-height: "250px"
   sort-ui: false
   filter-ui: false
-  fields: [title, subtitle, description, date, categories, image]
 page-layout: full
 title-block-banner: false
 ---
