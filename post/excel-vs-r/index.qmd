@@ -3,6 +3,7 @@ title: "Excel vs R: A Brief Introduction to R"
 subtitle: "With examples using dplyr and ggplot2"
 date: "2017-10-02"
 description: "Why use R, and specifically the tidyverse, in the place of Excel for data analysis and visualization"
+image: "correspondent_month.png"
 categories:
   - rstats
   - digitalhumanities

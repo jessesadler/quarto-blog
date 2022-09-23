@@ -3,6 +3,7 @@ title: "Introducing debkeepr"
 subtitle: "An R package for the analysis of non-decimal currencies"
 description: "Introduction to debkeepr, a package for analyzing historical non-decimal currencies such as pounds, shillings, and pence."
 date: "2018-09-18"
+image: "img/barbary-scratchpad.jpg"
 categories:
   - rstats
   - debkeepr

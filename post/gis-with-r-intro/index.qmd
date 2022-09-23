@@ -2,6 +2,7 @@
 title: "Introduction to GIS with R"
 subtitle: "Spatial data with the sp and sf packages"
 date: "2018-02-07"
+image: "sa-countries.png"
 description: "Introduction to GIS with R through the sp and sf packages"
 categories: ["rstats", "rspatial"]
 ---

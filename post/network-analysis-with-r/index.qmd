@@ -3,6 +3,7 @@ title: "Introduction to Network Analysis with R"
 subtitle: "Creating static and interactive network graphs"
 date: "2017-10-25"
 description: "An introduction to network analysis with R for Digital Humanities using the network, igraph, tidygraph, and ggraph packages"
+image: "igraph-graphopt.png"
 categories:
   - rstats
   - network-analysis

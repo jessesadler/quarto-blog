@@ -3,6 +3,7 @@ title: "An Exploration of Simple Features for R"
 subtitle: "Building sfg, sfc, and sf objects from the sf package"
 date: "2018-03-12"
 description: "Exploration of the implementation of simple features standard by the sf package for R"
+image: "img/sf-object.tiff"
 categories:
   - rstats
   - rspatial
