@@ -22,6 +22,4 @@ format:
   html:
     theme: litera
     css: styles.css
-
-
-
+    highlight-style: ayu
