@@ -20,6 +20,6 @@ website:
         href: https://twitter.com/vivalosburros
 format:
   html:
-    theme: litera
+    theme: [litera, styles.scss]
     css: styles.css
     highlight-style: ayu
