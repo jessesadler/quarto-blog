@@ -7,7 +7,6 @@ website:
   navbar:
     title: "Jesse Sadler"
     background: "#ff9600"
-    foreground: "#404040"
     pinned: true
     right:
       - file: project.qmd
