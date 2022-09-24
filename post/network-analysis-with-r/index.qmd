@@ -206,7 +206,10 @@ Just as with the `network` package, we can create a plot with an `igraph` object
 
 ```{r}
 #| label: igraph-plot
-plot(routes_igraph, edge.arrow.size = 0.2)
+plot(routes_igraph,
+     vertex.size = 30,
+     vertex.label.cex = 0.5,
+     edge.arrow.size = 0.8)
 ```
 
 Like the `network` graph before, the default of an `igraph` plot is not particularly aesthetically pleasing, but all aspects of the plots can be manipulated. Here, I just want to change the layout of the nodes to use the graphopt algorithm created by [Michael Schmuhl](http://www.schmuhl.org/graphopt/). This algorithm makes it easier to see the relationship between Haarlem, Antwerp, and Delft, which are three of the most signifiant locations in the correspondence network, by spreading them out further.
@@ -215,7 +218,9 @@ Like the `network` graph before, the default of an `igraph` plot is not particul
 #| label: igraph-graphopt-plot
 plot(routes_igraph,
      layout = layout_with_graphopt,
-     edge.arrow.size = 0.2)
+     vertex.size = 30,
+     vertex.label.cex = 0.5,
+     edge.arrow.size = 0.8)
 ```
 
 ### tidygraph and ggraph
