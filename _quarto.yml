@@ -33,5 +33,4 @@ website:
 format:
   html:
     theme: [litera, styles.scss]
-    css: styles.css
     highlight-style: ayu
