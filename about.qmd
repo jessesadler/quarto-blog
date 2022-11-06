@@ -10,6 +10,9 @@ about:
     - icon: github
       text: Github
       href: https://github.com/jessesadler
+    - icon: card-list
+      text: CV
+      href: sadler-cv.pdf
 ---
 
 I am an early modern historian interested in the social and familial basis of politics, religion, and early modern capitalism. I received a Ph.D. in European History from UCLA in 2015 and have taught courses on cultural and intellectual history of early modern Europe and the Atlantic. My research makes use of the tools of Digital Humanities, particularly through the R programming language. I am interested in making the tools of Data Science and Digital Humanities more widely accessible to help build open and reproducible research across a wide array of fields. Take a look at my [CV](sadler-cv.pdf) if you are interested.

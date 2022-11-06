@@ -17,8 +17,6 @@ website:
         file: slides.qmd
       - text: "About"
         file: about.qmd
-      - text: "CV"
-        file: sadler-cv.pdf
       - icon: github
         href: https://github.com/jessesadler
       - icon: twitter
