@@ -1,0 +1,42 @@
+[
+  {
+    "listing": "/index.html",
+    "items": [
+      "/post/moving-to-quarto/index.html",
+      "/post/debkeepr-intro/index.html",
+      "/post/one-year-reflections/index.html",
+      "/post/great-circles-sp-sf/index.html",
+      "/post/simple-feature-objects/index.html",
+      "/post/gis-with-r-intro/index.html",
+      "/post/network-analysis-with-r/index.html",
+      "/post/geocoding-with-r/index.html",
+      "/post/excel-vs-r/index.html",
+      "/post/my-approach-to-dh/index.html",
+      "/post/new-kinds-of-projects/index.html",
+      "/post/thinking-about-workflow/index.html",
+      "/post/by-way-of-introduction/index.html"
+    ]
+  },
+  {
+    "listing": "/course.html",
+    "items": [
+      "/course/modern-revolution.html",
+      "/course/renaissance-s21.html",
+      "/course/modern-world-history.html",
+      "/course/europe-and-world.html",
+      "/course/european-empires.html",
+      "/course/cultural-intellectual-18th-century.html",
+      "/course/western-civ-s16.html",
+      "/course/virtue-and-commerce-s16.html",
+      "/course/freemasonry-civil-society-democracy.html"
+    ]
+  },
+  {
+    "listing": "/project.html",
+    "items": [
+      "/project/debkeepr.html",
+      "/project/df-inheritance.html",
+      "/project/dvdm-correspondence.html"
+    ]
+  }
+]

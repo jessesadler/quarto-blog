@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="A Digital Humanities project on the account books of the estate of an early modern merchant using R">
+
+<title>A Rogue Historian - The Estate of Jan della Faille de Oude, 1582–1617</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../favicon.ico" rel="icon">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Jesse Sadler</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../project.html">Projects</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../course.html">Courses</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../slides.html">Talks</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html">About</a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jessesadler"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/vivalosburros"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../index.xml"><i class="bi bi-rss" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">The Estate of Jan della Faille de Oude, 1582–1617</h1>
+</div>
+
+<div>
+  <div class="description">
+    A Digital Humanities project on the account books of the estate of an early modern merchant using R
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<p><img src="img/jdo-estate-overview.png" id="fig-sterfhuis" class="img-fluid"></p>
+<section id="the-estate-of-jan-della-faille-de-oude" class="level3">
+<h3 class="anchored" data-anchor-id="the-estate-of-jan-della-faille-de-oude">The Estate of Jan della Faille de Oude</h3>
+<p>As Jan della Faille de Oude lay in sick in bed on the 21st of October, 1582, he dictated his last will and testament to a notary from Antwerp. Though born into a peasant family in the Flemish village of Wevelgem, by the time that Jan de Oude, or Jan the Elder, made his testament, he had risen to become one of the wealthiest merchants in Europe. Through his testament, he sought to direct the manner by which his vast capital would fall to his nine adult children and heirs. According to the laws of Antwerp, Jan de Oude’s estate had to be equally divided among his nine children, which meant that dealing with the estate was first and foremost an issue of accounting.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>The spectacular accumulation of wealth by merchants such as Jan de Oude notwithstanding, inheritance remained the primary means for the transfer and acquisition of capital in early modern Europe. The devolution of property and authority that occurred at the death of a parent tested the bonds of siblings. This was especially the case for the estate of a merchant such as Jan de Oude, whose estate consisted almost entirely of mercantile capital spread throughout Europe. This made the devolution of property a matter of business and accounting acumen. Even in the best circumstances, it could be years before an estate was fully divided among the heirs, leaving the administration of the capital in the hands of the executors of the testament. Almost as soon as Jan de Oude was buried next to his wife, the three sons Jan de Oude chose to act as executors began to disagree with each other and with their other siblings. The siblings continued to argue over the inheritance until the very end of their lives. Only in 1615 — 32 years after their father’s death — did all of the heirs submit themselves to a final arbitration in Antwerp, agreeing that the goods of the estate should be liquidated and disbursed.</p>
+</section>
+<section id="the-sources" class="level3">
+<h3 class="anchored" data-anchor-id="the-sources">The Sources</h3>
+<p>The disagreements between the children of Jan de Oude led to the creation of a plethora of documents that make it possible to follow both the arguments between the siblings and the financial aspects of the estate. This project concentrates on the latter aspect of the inheritance of the Della Faille siblings. It uses the <a href="https://www.r-project.org">R programming language</a> to analyze the accounts of the estate contained in two large ledgers made in 1583 and 1594. The ledgers used <a href="https://en.wikipedia.org/wiki/Double-entry_bookkeeping_system">double-entry bookkeeping</a> to keep track of the accounts and recorded values in terms of the Flemish pound. The first account book of the estate recorded transactions from the date of Jan de Oude’s death on 8 November 1583 until 26 December 1583. The second book follows the estate from the end of the first book until the end of 1594. The books show that the estate of Jan de Oude had a value of over £82,000 Flemish at the time of his death in a period in which a skilled laborer might expect a yearly wage of £45 Flemish. In all, the two ledgers record over 2,100 transactions between 480 separate accounts.</p>
+</section>
+<section id="methodology" class="level3">
+<h3 class="anchored" data-anchor-id="methodology">Methodology</h3>
+<p>This digital humanities project uses R to better understand the nature of the estate of Jan de Oude and the means by which the heirs received their inheritance over a twelve year period. The complexity of the accounts of the estate make a digital approach to analyzing the estate particularly useful. The first step for this project was data entry of the 2,100 transactions from the two books. The data entry process resulted in the creation of two tables that were structured to work with network analysis. The first lists the accounts in the books of the estate along with information pertinent to that account. The second table contains the transactions between accounts. Following the language of double-entry bookkeeping, accounts that received a value are in debt to the account that sent the value. Values of the transactions were recorded in money of account system of Flemish <a href="https://en.wikipedia.org/wiki/£sd">pounds, shillings, and pence</a>.</p>
+<p>Analysis of early modern double-entry bookkeeping with modern statistical software creates specific challenges. In particular, the use the non-decimal monetary system of pounds, shillings, and pence makes even simple addition and subtraction non-trivial. Therefore, before any statistical analysis or visualization could be done, it was necessary to write R functions that could deal with a non-decimal monetary system. These functions have been expanded into a separate project, leading to the creation of the <a href="http://jessesadler.github.io/debkeepr/">debkeepr package</a> to analyze non-decimal currencies that are in the form of pounds, shillings, and pence.</p>
+<p>In addition to the creation of tools to deal with the monetary system of pre-modern Europe, this project uses network analysis and financial tools provided by R to visualize the estate and the inheritance of the Della Faille siblings. The network graph of the estate at the top of this page provides an example of the possibilities. It shows the total value of the 480 accounts found in the ledgers, as well as the total value of the transactions between the accounts. Work is underway on building a website dedicated to the analysis of the estate of Jan de Oude and the inheritance of the Della Faille siblings.</p>
+<p>The contents of this project are under active development. You can check out the <a href="https://github.com/jessesadler/jdo-sterfhuis">GitHub page</a> to see the progress. Feedback on the project is welcome. I can be reached via email, Twitter, or through an issue on GitHub.</p>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1" role="doc-endnote"><p>For a complete discussion of Jan de Oude’s background and trade see Wilfrid Brulez, <em>De Firma Della Faille en de internationale handel van Vlaamse firma’s in de 16e eeuw</em> (Brussels: Paleis der Academièen, 1959).<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.quarto.org">Built with Quarto</a>
+  </li>  
+</ul>
+    </div>   
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/vivalosburros">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jessesadler">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>
