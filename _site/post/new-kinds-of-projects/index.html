@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2017-08-16">
+<meta name="description" content="Moving from organizing research to creating Digital Humanities Projects, or why I decided to learn R">
+
+<title>A Rogue Historian - New kinds of Projects: DH 2.0 and Coding</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../favicon.ico" rel="icon">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Jesse Sadler</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../project.html">Projects</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../course.html">Courses</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../slides.html">Talks</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html">About</a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jessesadler"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/vivalosburros"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../index.xml"><i class="bi bi-rss" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">New kinds of Projects: DH 2.0 and Coding</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">digitalhumanities</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Moving from organizing research to creating Digital Humanities Projects, or why I decided to learn R
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">16 August 2017</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<p>In the process of learning about how I could use digital technologies to better organize my research, I quickly started to think about how I might extend these skills to produce new kinds of outputs.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> I was familiar with the concept of digital humanities, but the step from an internal process of organizing research and writing to production seemed both too nebulous and difficult. Digital humanities also seemed to concentrate on the visual. This was intriguing, but did not present itself as the most pressing need for a graduate student who was writing a dissertation on sibling relations among 16th-century merchants. It took years for me to move from what I am calling DH 1.0 to DH 2.0, to move from research methodology to making what could properly be termed digital humanities projects. This post presents an introduction to how I eventually took this step and why I decided to learn to code instead of other available solutions.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>In reading tech websites and listening to tech podcasts I inevitably came into contact with the question of how to learn to program. A refrain that I heard over and over was that it was best to have a project in mind. Programming, I was told, is not an abstract entity, but something that one does to complete a set of specific tasks. In one sense this advice was encouraging. I had a possible digital humanities project in mind. I wanted to map a correspondence network of the letters found in the <a href="https://www.erfgoedleiden.nl/collecties/archieven/archievenoverzicht/ead/index/zoekterm/meulen/eadid/0096">archive of Daniel van der Meulen</a>. The archive contains approximately 6,600 letters that Daniel received from 1578 to 1600. A chapter of my dissertation analyzes the collection, but the work was all done by hand in spreadsheets. When it came time to visualize the data, I was not able to find the time or energy to do more than make rather simplistic maps on a website and creating some graphs with Numbers. This sufficed for the purposes of the dissertation, but it did not bring me any closer to digital humanities. Alongside the issue of time, I simply did not know what a solution could look like with more sophisticated tools much less with code. Working with data in code seemed interesting and powerful, but I had difficulty moving beyond my naive ideas about coding and digital humanities where there appeared endless possibilities but concrete steps were mysterious and nebulous.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<p>At the <a href="http://historians.org">American Historical Association’s</a> annual meeting in Denver in January of this year I was inspired by a number panels on the use of digital humanities in History, especially by <a href="http://www.colorado.edu/history/henry-lovejoy">Henry Lovejoy’s</a> <a href="http://www.liberatedafricans.org">Liberated Africans Project</a> and <a href="https://cla.auburn.edu/history/people/faculty/kate-craig/">Kate Craig’s</a> discussion of using digital humanities in the classroom.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> These panels motivated me to finally take the initiative to learn more about the tools of digital humanities and think about how I could create a project analyzing and visualizing the correspondence network of Daniel van der Meulen. I started by gathering together information on digital humanities in general. I found a plethora of sources such as <a href="https://www.historians.org/teaching-and-learning/digital-history-resources">AHA’s Digital History Resources</a>, <a href="http://dhresourcesforprojectbuilding.pbworks.com/w/page/69244243/FrontPage">DH Toychest</a>, <a href="http://digitalhumanitiesnow.org">Digital Humanities Now</a>, and <a href="http://programminghistorian.org">The Programming Historian</a>. Most helpful in the early going was reading through <a href="https://www.scribd.com/document/345432425/Introduction-to-Digital-Humanities-Johanna-Drucker">Johanna Drucker’s <em>Introduction to Digital Humanities Course Book: Concepts, Methods, and Tutorials for Students and Instructors</em></a>. This book is based on the Digital Humanities 101 course at UCLA and covers topics from HTML to textual analysis. Most interesting for me were the sections on networks and GIS or Geographical Information Systems.</p>
+<p>My initial research gave me a starting point, but now I actually had to choose a path forward and decide on a tool or set of tools to create the project. I began by playing around with <a href="https://public.tableau.com">Tableau Public</a> and <a href="http://hdlab.stanford.edu/palladio/">Palladio</a>. Both provide more or less ready-made visualizations of spreadsheet data, the former as a desktop application and the latter as a web app. Both were interesting, but they lacked in terms of customization and did little to help me learn about producing visuals. I also tested out <a href="https://gephi.org">Gephi</a>, an open-source application for the visualization of networks. I went through <a href="http://www.martingrandjean.ch">Martin Grandjean’s</a> very helpful <a href="http://www.martingrandjean.ch/gephi-introduction/">Introduction to Network Analysis and Visualization</a>. However, because my project was aimed at producing a geographic representation of a network, I gravitated towards <a href="http://gisgeography.com/mapping-out-gis-software-landscape/">GIS tools</a>. Initially, I was interested in <a href="http://www.qgis.org">QGIS</a>, an open-source GIS application popular among geographers, but I also kept thinking of the possibility of doing something completely different and trying to do the project with code. Having no experience with programming or code, I remained hesitant, but a couple of resources showed me that what I wanted to do was possible through code.</p>
+<p>In getting a sense of digital humanities and digital history I came across the work of <a href="http://lincolnmullen.com">Lincoln Mullen</a>, a historian at George Mason. Lincoln has authored a number of digital history projects using the <a href="https://www.r-project.org">programming language R</a>. R was made by statisticians, but over the twenty years of its existence it has developed into a programming language fully capable of both data analysis and visualization. I read the Introduction to <a href="http://dh-r.lincolnmullen.com">Lincoln Mullen’s <em>Computational Historical Thinking: With Applications in R</em></a>. The book is very much a work in progress, but the introduction was enough to convince me that I could accomplish my goals with R. Further exploring resources on R, I came across <a href="http://www.springer.com/us/book/9783319207018">Taylor Arnold and Lauren Tilton’s <em>Humanities Data in R: Exploring Networks, Geospatial Data, Images, and Text</em></a>.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> This book put all my reservations about learning to code and the possibilities of using R to rest. I was convinced that I needed to dive all the way in and learn R. I knew that it would not be the easiest way to produce a visualization of a correspondence network, but I also began to realize the actual potential of code.</p>
+
+
+
+
+<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1" role="doc-endnote"><p>For more on how I got interested in digital technologies see the below post <a href="https://jessesadler.com/post/thinking-about-workflow/">Thinking about Workflow: DH 1.0</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>In this post I am using both coding and programming in a colloquial manner. By both terms I simply mean the creation of computer code to analyze and visualize data.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>Taking a Digital Humanities course at UCLA was obviously an option, but, at least at the time, enrolling in a class never seemed particularly practical in the middle of writing my dissertation.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p>Both are former colleagues at UCLA.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5" role="doc-endnote"><p>You may be able to download a free copy of <em>Humanities Data in R</em> through your university.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.quarto.org">Built with Quarto</a>
+  </li>  
+</ul>
+    </div>   
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/vivalosburros">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jessesadler">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

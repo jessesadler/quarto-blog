@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2017-10-02">
+<meta name="description" content="Why use R, and specifically the tidyverse, in the place of Excel for data analysis and visualization">
+
+<title>A Rogue Historian - Excel vs R: A Brief Introduction to R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../favicon.ico" rel="icon">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Jesse Sadler</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../project.html">Projects</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../course.html">Courses</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../slides.html">Talks</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html">About</a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jessesadler"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/vivalosburros"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../index.xml"><i class="bi bi-rss" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#a-brief-introduction-to-r" id="toc-a-brief-introduction-to-r" class="nav-link active" data-scroll-target="#a-brief-introduction-to-r">A Brief Introduction to R</a></li>
+  <li><a href="#r-packages-the-tidyverse" id="toc-r-packages-the-tidyverse" class="nav-link" data-scroll-target="#r-packages-the-tidyverse">R Packages: The tidyverse</a></li>
+  <li><a href="#an-example-analyzing-a-correspondence-network" id="toc-an-example-analyzing-a-correspondence-network" class="nav-link" data-scroll-target="#an-example-analyzing-a-correspondence-network">An Example: Analyzing a correspondence network</a></li>
+  <li><a href="#creating-new-data-frames" id="toc-creating-new-data-frames" class="nav-link" data-scroll-target="#creating-new-data-frames">Creating new data frames</a></li>
+  <li><a href="#linking-dplyr-commands-together-with-the-pipe" id="toc-linking-dplyr-commands-together-with-the-pipe" class="nav-link" data-scroll-target="#linking-dplyr-commands-together-with-the-pipe">Linking <code>dplyr</code> commands together with the pipe</a></li>
+  <li><a href="#visualizing-the-data-with-ggplot2" id="toc-visualizing-the-data-with-ggplot2" class="nav-link" data-scroll-target="#visualizing-the-data-with-ggplot2">Visualizing the data with <code>ggplot2</code></a></li>
+  <li><a href="#working-with-dates-lubridate" id="toc-working-with-dates-lubridate" class="nav-link" data-scroll-target="#working-with-dates-lubridate">Working with dates: <code>lubridate</code></a></li>
+  <li><a href="#combining-data-for-correspondents-and-dates" id="toc-combining-data-for-correspondents-and-dates" class="nav-link" data-scroll-target="#combining-data-for-correspondents-and-dates">Combining data for correspondents and dates</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Excel vs R: A Brief Introduction to R</h1>
+<p class="subtitle lead">With examples using dplyr and ggplot2</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">rstats</div>
+    <div class="quarto-category">digitalhumanities</div>
+    <div class="quarto-category">tidyverse</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Why use R, and specifically the tidyverse, in the place of Excel for data analysis and visualization
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2 October 2017</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<p>Quantitative research often begins with the humble process of counting. Historical documents are never as plentiful as a historian would wish, but counting words, material objects, court cases, etc. can lead to a better understanding of the sources and the subject under study. When beginning the process of counting, the first instinct is to open a spreadsheet. The end result might be the production of tables and charts created in the very same spreadsheet document. In this post, I want to show why this spreadsheet-centric workflow is problematic and recommend the use of a programming language such as <a href="https://www.r-project.org">R</a> as an alternative for both analyzing and visualizing data. There is no doubt that the learning curve for R is much steeper than producing one or two charts in a spreadsheet. However, there are real long-term advantages to learning a dedicated data analysis tool like R. Such advice to learn a programming language can seem both daunting and vague, especially <a href="https://jessesadler.com/post/new-kinds-of-projects/">if you do not really understand what it means to code</a>. For this reason, after discussing why it is preferable to analyze data with R instead of a spreadsheet program, this post provides a brief introduction to R, as well as an example of analysis and visualization of historical data with R.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>The draw of the spreadsheet is strong. As I first thought about ways to keep track of and analyze the thousands of letters in the <a href="https://jessesadler.com/project/dvdm-correspondence/">Daniel van der Meulen Archive</a>, I automatically opened up <a href="https://www.apple.com/numbers/">Numbers</a> — the spreadsheet software I use most often — and started to think about what columns I would need to create to document information about the letters. Whether one uses Excel, Numbers, Google Sheets or any other spreadsheet program, the basic structure and capabilities are well known. They all provide more-or-less aesthetically pleasing ways to easily enter data, view subsets of the data, and rearrange the rows based on the values of the various columns. But, of course, spreadsheet programs are more powerful than this, because you can add in your own programatic logic into cells to combine them in seemingly endless ways and produce graphs and charts from the results. The spreadsheet, after all, was <a href="https://en.wikipedia.org/wiki/VisiCalc">the first killer app</a>.</p>
+<p><a href="https://giphy.com/gifs/11qAyKz9AbFEYM/html5">With great power, there must also come great responsibility</a>. Or, in the case of the spreadsheet, with great power there must also come great danger. The danger of the spreadsheet derives from its very structure. The mixture of data entry, analysis, and visualization makes it easy to confuse cells that contain raw data from those that are the product of analysis. The nature of defining programatic logic — such as which cells are to be added together — by mouse clicks means that a mistaken click or drag action can lead to errors or the overwriting of data. You only need to think about the dread of the moment when you go to close a spreadsheet and the program asks whether you would like to save changes. It makes you wonder. Do I want to save? What changes did I make? Because the logic in a spreadsheet is all done through mouse clicks, there is no way to effectively track what changes have been made either in one session or in the production of a chart. Excel mistakes can have wide-ranging consequences, as the controversy around the paper of <a href="https://www.marketplace.org/2013/04/17/economy/excel-mistake-heard-round-world" title="The Excel mistake heard round the world">Carmen Reinhart and Kenneth Rogoff on national debt made clear</a>.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>There are certainly legitimate reasons why people default to using spreadsheets for data analysis instead of using a programming language like R. Spreadsheets are much more inviting and comforting than any programming language could ever be to a newcomer. Learning how to program is intimidating and not something that can be done either quickly or easily. <a href="https://en.wikipedia.org/wiki/Graphical_user_interface">Graphical user interface (GUI)</a> applications are simply less daunting than a <a href="https://en.wikipedia.org/wiki/Command-line_interface">command-line interface</a>. Secondly, spreadsheets are a good tool for data entry, and it is tempting to simply move on to data analysis, keeping everything in the same document. Finally, the interactive nature of spreadsheets and the ability to create charts that change based on inputs is very attractive, even if fully unlocking this potential involves quite complex knowledge about how the program works. The first advantage of spreadsheets over programming is not easily overcome, but the latter two are built on what I believe to be a problematic workflow. Instead of using a couple of monolithic applications — often a office suite of applications — to do everything, I think that it is better to split up the workflow among several applications that <a href="https://en.m.wikipedia.org/wiki/Unix_philosophy">do one thing well</a>.</p>
+<p>Creating a clear division between data entry and analysis is a major reason why analyzing data in a programming language is preferable to spreadsheet software. I still use spreadsheets, but their use is strictly limited to data entry.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> In a spreadsheet program the analysis directly manipulates the only copy of the raw data. In contrast, with R you import the data, creating an object that is a copy of the raw data.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> All manipulations to the data are done on this copy, and the original data are never altered in any way. This means that there is no way to mess up the raw data. Manipulating a copy of the data enables you to more freely experiment. All mistakes are basically inconsequential, even if they can be frustrating. A line of code that fails to produce the expected result can be tweaked and rerun — with the process repeated many times if necessary — until the expected result is returned.</p>
+<p>Working on a copy of the raw data can even simplify the process of data entry. Analyzing tabular data in R results in the creation of multiple objects, which are referred to as <strong>data frames</strong> and can be thought of as equivalent to tables in a spreadsheet.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> The ability to split, subset, and transform the original data set into many different data frames has the benefit of drastically reducing the complexity of data entry. Instead of needing bespoke spreadsheets with multiple interrelated sheets and tables, every piece of data only needs to be entered once and all manipulations can be done in code. The different data frames that are created in the process of analysis do not even have to be saved, because they are so easily reproduced by the script of code.</p>
+<p>The separation of data entry and data analysis severely reduces the potential for mistakes, but maybe even more significantly, the use of code for data analysis enables the creation of <a href="https://cran.r-project.org/web/views/ReproducibleResearch.html">reproducible research</a> that is simply not possible in spreadsheets. Reproducible research has been a <a href="http://science.sciencemag.org/content/348/6242/1403.full">hot button issue in the sciences</a>, but there is no reason why research in the humanities should not strive to be reproducible where possible. With a programming language, the steps of the analysis can be clearly laid out in the code. The <a href="http://r4ds.had.co.nz/workflow-projects.html#what-is-real">“truth” of the analysis is the code</a>, not the objects or visuals that the code creates. Saving analysis in code has the immediate benefit that it can be easily rerun anytime that new data is added. Code can also be applied to a completely new data set in a much more transparent manner than with spreadsheets. The long-term benefit is that with code all analysis is documented instead of being hidden behind mouse clicks. This makes it easier for you to go over your own analyses long after you have finished with it, as well as for others to understand what you did and check for errors.</p>
+<section id="a-brief-introduction-to-r" class="level2">
+<h2 class="anchored" data-anchor-id="a-brief-introduction-to-r">A Brief Introduction to R</h2>
+<p>If you have never read or written any code before, it is difficult to know what the theoretical differences between spreadsheets and coding mean in practice.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> Therefore, I want to provide an example of analyzing and visualizing data in R. I will use the example of letters sent to Daniel van der Meulen in 1585, which is a subset of the data from my project on the <a href="https://jessesadler.com/project/dvdm-correspondence/">correspondence of Daniel van der Meulen</a>. Before getting to the analysis, I will give a very brief introduction to R and define some key terms in order to make it more possible for anyone who has never used R or coded before to follow along. This is not meant to be a full-scale tutorial, so much as an introduction to what code in R looks like.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
+<p>R is an open-source programming language, which can be <a href="https://cloud.r-project.org">freely downloaded</a>. Opening the downloaded program will lead you to a command-line interface devoid of any clues for what a novice should do next. Thankfully, there is a freely available application, or <a href="https://en.wikipedia.org/wiki/Integrated_development_environment">IDE</a>, called <a href="https://www.rstudio.com/products/rstudio">RStudio</a>, which provides a number of features to help write code. It is very much recommended to write your R code in RStudio. RStudio also has a plethora of <a href="https://www.rstudio.com/online-learning/">online tutorials</a> on their website to help you get familiar with both R and the RStudio IDE.</p>
+<p>In either R or RStudio, the command line or <strong>console</strong> is where all of the action takes place. It is here that you enter and run the code. The foundation of working in R is the process of creating and manipulating objects of various sorts. <strong>Objects</strong> are assigned names with the assignment operator <code>&lt;-</code>. Thus, if I want to assign the name x the value of 5, I write <code>x &lt;- 5</code> into the console and press return.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Nothing is printed when this operation is run, but now, if I type <code>x</code> into the console and hit return, the value of x will be printed. Alternatively, I could have explicitly called for the object <code>x</code> to be printed with the command <code>print(x)</code>. The result is the same with either method.<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+</div>
+<p>The power of R comes with the manipulation of objects through the use of functions. <strong>Functions</strong> take in objects, possibly with a list of arguments to specify how the function works, and return another object. The objects and instructions for the functions are included within parentheses following the function name, and all instructions are separated by a comma.<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> You can think of objects as nouns and functions as verbs. A simple example with the <code>sum()</code> function demonstrates how functions work. <code>sum()</code> does exactly what you would think. It takes a series of objects and returns their sum. You can see the function’s documentation by entering <code>?sum()</code> on the console.<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> The result of the <code>sum()</code> function can either be immediately printed to the console, or it can be saved by assigning it a name. Below, I assign the result of <code>x + 10</code> a name and then in a second command print out the value of the newly created object.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">sum</span>(x, <span class="dv">10</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 15</code></pre>
+</div>
+</div>
+<p>The flexibility of coding enables objects to be redefined endlessly. If a mistake is made or the data changes, the command can be rerun with the new values. For instance, if the value of <code>x</code> changes from 5 to 15 in the data, I can simply change the code for creating the <code>x</code> object and reassign the value of <code>x</code>. Below, I do this and then rerun the same <code>sum()</code> command, but this time I print the result directly to the console instead of assigning it to the object <code>y</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">15</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(x, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 25</code></pre>
+</div>
+</div>
+<p>Once you get a command that produces the expected result, you can save the command to an R script. A <strong>script</strong> is a text file with a suffix of .R, which you can save. Thus, you could save the commands to create the objects <code>x</code> and <code>y</code> to a file called <code>my_script.R</code>. The script will then be available to you whenever you want to rerun the code in the console.</p>
+</section>
+<section id="r-packages-the-tidyverse" class="level2">
+<h2 class="anchored" data-anchor-id="r-packages-the-tidyverse">R Packages: The tidyverse</h2>
+<p>Upon download, R comes with a large number of functions, which together are referred to as base R. However, the capabilities of R can be greatly extended through the use of additional packages, which can be downloaded through <a href="https://cran.r-project.org">The Comprehensive R Archive Network (CRAN)</a>. Packages both extend what is possible in R and provide alternative ways to do things possible in base R. This can be confusing, because it means there are often a plethora of ways to do a single operation, but the extension in capability is well worth it. Particularly significant are the packages bundled together in the <code>tidyverse</code> package that were built by <a href="http://hadley.nz">Hadley Wickham</a> and collaborators. The <a href="https://www.tidyverse.org">tidyverse</a> provides a set of linked packages that all use a similar grammar to work with data. The tidyverse is <a href="http://varianceexplained.org/r/teach-tidyverse/">the best place to start if you are new to R</a>.</p>
+<p>The examples below show the ability to analyze and visualize data using the tidyverse packages. The analysis will mainly be done with the <a href="http://dplyr.tidyverse.org">dplyr package</a> and the visualization is done with <a href="http://ggplot2.tidyverse.org">ggplot</a>. The <strong>dplyr</strong> functions all have a similar structure. The main <code>dplyr</code> verbs or functions are <code>filter()</code>, <code>select()</code>, <code>arrange()</code>, <code>mutate()</code>, <code>group_by()</code>, and <code>summarise()</code>. All take a data frame as their first argument. The next set of arguments are the column names on which the function performs its actions. The result of the functions is a new data frame object. The <code>dplyr</code> functions can be linked together, so that it is possible to perform multiple manipulations on a data frame in one command. This is done with the use of the pipe, which in R is <code>%&gt;%</code>.<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a></p>
+<p>The commands needed to produce a <strong>ggplot</strong> graph can be confusing at first, but the advantages of <code>ggplot</code> are that it is based on a <a href="http://vita.had.co.nz/papers/layered-grammar.pdf">grammar of graphics</a>, which provides a systematic way to discuss graphs, and that <code>ggplot</code> comes with good defaults, enabling the creation of nice looking graphs with minimal code. The two main components of <code>ggplot</code> are geoms and the mapping of aesthetics. <strong>Geoms</strong> tell <code>ggplot</code> what kind of visual graphic to make, so there are separate geom functions for bar charts, points, lines, etc. <strong>Aesthetics</strong> tell <code>ggplot</code> which columns of the data to use for placement on the graph and for any other distinguishing aspects of these variables such as size, shape, and color. The graphs below are used to show some of the possibilities of <code>ggplot</code> while staying mainly within the defaults. Publication ready visualizations are possible with <code>ggplot</code>, but this would take more fiddling.<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a></p>
+</section>
+<section id="an-example-analyzing-a-correspondence-network" class="level2">
+<h2 class="anchored" data-anchor-id="an-example-analyzing-a-correspondence-network">An Example: Analyzing a correspondence network</h2>
+<p>With this basic overview of R out of the way, let’s move on to an example of an actual analysis of historical data to see what analysis and visualization in R looks like in practice. The data and an R script with all of the code can be found on <a href="https://github.com/jessesadler/intro-to-r">my GitHub page</a>, if you would like to run the code yourself.</p>
+<p>Before doing anything with the data, it is necessary to set up our environment in R. This means loading the packages that we will be using with the <code>library()</code> command. To begin we only need to load the <code>tidyverse</code> package, which includes the individual packages that I will use for the analysis.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Once this is done, it is possible to use the functions from the tidyverse packages, beginning with reading our data into R with the <code>read_csv()</code> function. The code below takes a <a href="https://en.wikipedia.org/wiki/Comma-separated_values">csv file</a> from a location on my computer and loads it into R as a data frame, while saving the object under the name <code>letters</code>.<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a> The code can be read as “create a data frame object called <code>letters</code> from the csv file named <code>correspondence-data-1585.csv</code>.”</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>letters <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/correspondence-data-1585.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Even before anything has been done to manipulate the data, we are already in a better position than if we kept the data in Excel. Having loaded the data, all further manipulations will be done on the object <code>letters</code>, and no changes will be made to the <code>correspondence-data-1585.csv</code> file. In other words, there is no way to tamper with the database that may have taken hours (or more) to meticulously produce.</p>
+<p>Let’s start by taking a look at the data itself by printing out a subset of the data to the console, which can be done by typing the name of the object into the console.<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>letters</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 114 × 4
+   writer                  source  destination date      
+   &lt;chr&gt;                   &lt;chr&gt;   &lt;chr&gt;       &lt;date&gt;    
+ 1 Meulen, Andries van der Antwerp Delft       1585-01-03
+ 2 Meulen, Andries van der Antwerp Haarlem     1585-01-09
+ 3 Meulen, Andries van der Antwerp Haarlem     1585-01-11
+ 4 Meulen, Andries van der Antwerp Delft       1585-01-12
+ 5 Meulen, Andries van der Antwerp Haarlem     1585-01-12
+ 6 Meulen, Andries van der Antwerp Delft       1585-01-17
+ 7 Meulen, Andries van der Antwerp Delft       1585-01-22
+ 8 Meulen, Andries van der Antwerp Delft       1585-01-23
+ 9 Della Faille, Marten    Antwerp Haarlem     1585-01-24
+10 Meulen, Andries van der Antwerp Delft       1585-01-28
+# … with 104 more rows</code></pre>
+</div>
+</div>
+<p>This tells us that <code>letters</code> is a <a href="http://r4ds.had.co.nz/tibbles.html">tibble</a>, which is a special kind of data frame meant to work well in the tidyverse. Though not necessarily aesthetically pleasing, the basic shape of a table of data is clear.<a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a> The command printed out the first ten rows, while informing us that the complete data set contains 114 rows. Each letter has four pieces of information or variables: the writer of the letter, the place from which it was sent, the place to which it was sent, and the date sent. Below the column headings of writer, source, destination, and date we are informed of the type of data for each variable. This shows that the first three columns consist of character strings (chr), meaning that the data is words, while the last column contains dates, which is discussed in greater detail below.</p>
+</section>
+<section id="creating-new-data-frames" class="level2">
+<h2 class="anchored" data-anchor-id="creating-new-data-frames">Creating new data frames</h2>
+<p>Now that we have an idea of the basic structure of the data, it is possible to begin to analyze it. A simple question that is fairly difficult to answer in Excel — at least I do not know how to do it other than by hand — is how many different people wrote letters to Daniel during this period. The below gives a list of the writers of letters. The code is a good demonstration of basic structure of <code>dplyr</code> functions. The function <code>distinct()</code> takes a data frame, followed by the name of the column that I am interested in, returning a new data frame object with one column, which consists of the unique values from the original column.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">distinct</span>(letters, writer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 1
+   writer                        
+   &lt;chr&gt;                         
+ 1 Meulen, Andries van der       
+ 2 Della Faille, Marten          
+ 3 Della Faille, Jacques         
+ 4 Staten van Brabant            
+ 5 Della Faille, Joris           
+ 6 Eeckeren, Robert van          
+ 7 Anraet, Thomas                
+ 8 Burgemeesters of Antwerp      
+ 9 Wale, Jan de                  
+10 Calvart, Jacques              
+11 Janssen van der Meulen, Peeter
+12 Noirot, Jacques               </code></pre>
+</div>
+</div>
+<p>Because I did not assign the output a name, the results simply printed to the console. Saving the object requires the use of the assignment operator and choosing a memorable name. With this relatively simple operation I have created my first new data frame, which I can now refer to and further manipulate by calling to <code>writers</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>writers <span class="ot">&lt;-</span> <span class="fu">distinct</span>(letters, writer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Printing out the object shows that there are 12 people who sent Daniel letters in 1585, but another way to get this information is to run the <code>nrow()</code> function, which returns the number of rows in a data frame. It is possible to run the function on either the <code>writers</code> data frame, or to use the command that created the <code>writers</code> data frame. Let’s do the latter and print the result to the console. If you happen to forget the number of correspondents, the command can be typed again.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(<span class="fu">distinct</span>(letters, writer))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12</code></pre>
+</div>
+</div>
+<p>Once we run the commands and see that they produce results that are what we would expect from the data, it is possible to both save the commands in a script and also to reuse their structure for other pieces of information. For example, we can learn the locations from which Daniel’s correspondents sent letters and the locations in which he received letters by reusing the <code>distinct()</code> function and changing the column name to be manipulated.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">distinct</span>(letters, source)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 1
+  source   
+  &lt;chr&gt;    
+1 Antwerp  
+2 Haarlem  
+3 Dordrecht
+4 Venice   
+5 Lisse    
+6 Het Vlie 
+7 Hamburg  
+8 Emden    
+9 Amsterdam</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">distinct</span>(letters, destination)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 1
+  destination
+  &lt;chr&gt;      
+1 Delft      
+2 Haarlem    
+3 The Hague  
+4 Middelburg 
+5 Bremen     </code></pre>
+</div>
+</div>
+<p>We can save the objects for later use by using the assignment operator and giving the data frames names.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>sources <span class="ot">&lt;-</span> <span class="fu">distinct</span>(letters, source)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>destinations <span class="ot">&lt;-</span> <span class="fu">distinct</span>(letters, destination)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="linking-dplyr-commands-together-with-the-pipe" class="level2">
+<h2 class="anchored" data-anchor-id="linking-dplyr-commands-together-with-the-pipe">Linking <code>dplyr</code> commands together with the pipe</h2>
+<p>Thus far, I have created data frames with one variable that show the unique values of the different variables, but this has not told us anything about the number of letters sent by each author or from each location. Doing this is more complicated, because it is necessary to chain together a series of functions using the pipe. This is the case for the question of how many letters each correspondent sent. Looking at the <code>dplyr</code> verbs listed above you might assume that the <code>summarise()</code> function will create a sum of the data. We can use the <code>summarise()</code> function to create a new column called count that is filled with the number of observations through the <code>n()</code> function. In other words, the code below tells R to summarize the <code>letters</code> data frame and place the number of observations in a column called count.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>per_correspondent <span class="ot">&lt;-</span> <span class="fu">summarise</span>(letters, <span class="at">count =</span> <span class="fu">n</span>())</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>per_correspondent</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  count
+  &lt;int&gt;
+1   114</code></pre>
+</div>
+</div>
+<p>Running the command and printing the result shows a result that was not what we hoped. Instead of showing letters per correspondent, the function created a column called count with a single value equal to the amount of rows in the <code>letters</code> data frame. However, because the objects that are made in R are ephemeral, we can simply rerun the code after reworking it. This overwrites the old <code>per_correspondent</code> object with one that is more useful. In the first attempt there is no notion that the goal is to group the number of letters by writer. This is the task <code>group_by()</code> function. To create an object with correspondents in one column and the number of letters they sent in the second column we need to group the <code>letters</code> data frame by writer and then summarize the letters within each group, creating the count column while doing so. The last line of the code arranges the table in descending order of letters sent by the newly created count variable. Notice that the <code>letters</code> data frame is listed first before any function. This is because the <code>letters</code> data frame is piped into each of the functions with the use of the <code>%&gt;%</code> command, which can be read as “and then.”</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>per_correspondent <span class="ot">&lt;-</span> letters <span class="sc">%&gt;%</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(writer) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(count))</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>per_correspondent</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 2
+   writer                         count
+   &lt;chr&gt;                          &lt;int&gt;
+ 1 Meulen, Andries van der           63
+ 2 Della Faille, Jacques             31
+ 3 Della Faille, Marten               6
+ 4 Staten van Brabant                 4
+ 5 Noirot, Jacques                    2
+ 6 Wale, Jan de                       2
+ 7 Anraet, Thomas                     1
+ 8 Burgemeesters of Antwerp           1
+ 9 Calvart, Jacques                   1
+10 Della Faille, Joris                1
+11 Eeckeren, Robert van               1
+12 Janssen van der Meulen, Peeter     1</code></pre>
+</div>
+</div>
+<p>Looking at the result, we can see that the above changes produced the kind output we expected. The <code>group_by()</code> and <code>summarise()</code> functions worked to create a data frame in which each author is listed once. The <code>count = n()</code> within the <code>summarise()</code> function created a new variable called count that is filled with the number of letters each correspondent sent. A cursory look at the results shows that the vast majority of the letters sent to Daniel were written by his brother Andries and his brother-in-law Jacques della Faille. Andries lived in the besieged city of Antwerp for most of 1585, and Jacques lived in Haarlem, so it will hardly be surprising that if we look at the amount of letters sent from each location that Antwerp and Haarlem dominate. Having written the above code, it is possible to rework it to create a data frame called <code>per_source</code>, which is done by replacing the writer column in the <code>group_by()</code> function with the source variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>per_source <span class="ot">&lt;-</span> letters <span class="sc">%&gt;%</span> </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(source) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(count))</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>per_source</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 2
+  source    count
+  &lt;chr&gt;     &lt;int&gt;
+1 Antwerp      76
+2 Haarlem      30
+3 Venice        2
+4 Amsterdam     1
+5 Dordrecht     1
+6 Emden         1
+7 Hamburg       1
+8 Het Vlie      1
+9 Lisse         1</code></pre>
+</div>
+</div>
+</section>
+<section id="visualizing-the-data-with-ggplot2" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-the-data-with-ggplot2">Visualizing the data with <code>ggplot2</code></h2>
+<p>While it is nice to have the two above sets of information presented in tables, it is also possible to visualize the newly created data with <code>ggplot</code>. The structure of <code>ggplot</code> functions is a bit different than that of <code>dplyr</code>. Like <code>dplyr</code> the functions are linked together, but the linking is done with the <code>+</code> symbol instead of <code>%&gt;%</code>. With <code>ggplot</code> the three main functions are <code>ggplot()</code>, one or more <code>geom_*</code> function, which informs the type of graphical element to draw, and one or more <code>aes()</code> function that sets the aesthetic values of the graph. The designation of the data to use and the <code>aes()</code> functions can be placed within either the <code>ggplot()</code> function, indicating that they apply to all of the geoms, or they can be placed within individual <code>geom_*</code> functions in which case they will only be used for that geom. All this is to say that there are a variety of ways to produce the same visuals. The below code adds an extra function to label the axes with <code>labs()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> per_source) <span class="sc">+</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> source, <span class="at">y =</span> count), <span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Letters written"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/per-source-plot-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>One part of the above code that might be a bit difficult to figure out is <code>stat = "identity"</code>. This needs to be called, because the code to create the <code>per_source</code> data frame actually did more work than necessary. <code>stat = "identity"</code> tells <code>geom_bar()</code> to set the height of the bars to the exact number in the count column. However, with <code>geom_bar()</code> only the x-axis needs to be specified. The y value is then calculated automatically based on the x value. Therefore, the below code, which uses the original <code>letters</code> data frame, could produce the exact same graph. Because of this, it is little trouble to change the variable for the x-axis to writers and get a completely new graph. Notice the change in the data and the deletion of the y variable and <code>stat</code>. One problem with the correspondents data is the length of the names. Therefore, this command makes changes to the <code>theme()</code> function. The arguments in the function are used to place the correspondent names at a ninety degree angle so that they do not overlap.</p>
+<div class="cell" data-fig.asp="1">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> letters) <span class="sc">+</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> writer)) <span class="sc">+</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Letters written"</span>) <span class="sc">+</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/per-correspondent-plot-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="working-with-dates-lubridate" class="level2">
+<h2 class="anchored" data-anchor-id="working-with-dates-lubridate">Working with dates: <code>lubridate</code></h2>
+<p>Now, let’s investigate the dates column. Dealing with dates is often tricky. To facilitate this analysis we need to load the <code>lubridate</code> package. <a href="http://lubridate.tidyverse.org/">lubridate</a> is another package created by Hadley Wickham, which fits into the tidyverse manner of dealing with data. It is not among the packages loaded with <code>library(tidyverse)</code>, and so it is necessary to load it separately.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Since the letters in this data set were all received in one year, it would be interesting to see how many letters Daniel received each month. This question is particularly interesting, because in 1585 Daniel’s home city of Antwerp was under siege by Spanish troops, and Daniel was serving as a representative for his city to the rebels in Holland. It is also an interesting issue of analysis, because while the <code>letters</code> data frame contains information about the month the letters were sent, there is no month column. This prevents us from using the <code>group_by()</code> and <code>summarise()</code> workflow that we have developed. The answer comes from the <code>lubridate</code> package, which includes a function called <code>month()</code>. This function extracts the month from a date object, which we know the date column is, because it is identified as such when we have printed the <code>letters</code> data frame. The goal is to create a new column called month. This is done through the <code>dplyr</code> function <code>mutate()</code>, which creates the column and then applies the <code>month()</code> function to each of the dates. The remaining code is similar to that used above, but now the column we want to <code>group_by()</code> and <code>summarise()</code> is the newly created month column.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>per_month <span class="ot">&lt;-</span> letters <span class="sc">%&gt;%</span> </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> <span class="fu">month</span>(date)) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(month) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>())</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>per_month</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 2
+   month count
+   &lt;dbl&gt; &lt;int&gt;
+ 1     1    11
+ 2     2    14
+ 3     3    18
+ 4     4     9
+ 5     5    14
+ 6     6     9
+ 7     7     9
+ 8     8    14
+ 9     9    10
+10    10     2
+11    11     1
+12    12     3</code></pre>
+</div>
+</div>
+<p>Looking at the result of this code, a problem is immediately apparent. The number of letters per month is as expected, but the months are returned as numbers, which is less than ideal. However, by looking at the documentation for lubridate by typing <code>?month()</code> into the console, it is possible to see that what needs to be done is to change the label argument to TRUE from the default of false.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>per_month <span class="ot">&lt;-</span> letters <span class="sc">%&gt;%</span> </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> <span class="fu">month</span>(date, <span class="at">label =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(month) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>())</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>per_month</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 2
+   month count
+   &lt;ord&gt; &lt;int&gt;
+ 1 Jan      11
+ 2 Feb      14
+ 3 Mar      18
+ 4 Apr       9
+ 5 May      14
+ 6 Jun       9
+ 7 Jul       9
+ 8 Aug      14
+ 9 Sep      10
+10 Oct       2
+11 Nov       1
+12 Dec       3</code></pre>
+</div>
+</div>
+<p>Now that we have the data in a good form we can plot it by making another bar chart.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> per_month) <span class="sc">+</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> month, <span class="at">y =</span> count), <span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="dv">1585</span>, <span class="at">y =</span> <span class="st">"Letters sent"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/per-month-plot-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The graph shows a peak in March of 1585 when Antwerp was in an extremely vulnerable position and it was more important than ever that it receive military and monetary assistance from the rebels in Holland. Another peak is reached in August when Antwerp surrendered, forcing Daniel and his family members to go into exile. The letters declined beginning in October, when Daniel left Holland to live in exile with his family in Bremen.</p>
+<p>As a fun aside, it is also possible to see what day of the week the letters were sent. Luckily, the data comes from 1585, three years after the creation of <a href="http://en.wikipedia.org/wiki/Gregorian_calendar">Gregorian Calendar</a>, and the areas from which the letters were sent had already transitioned to the new calendar. This means that they were using the same calendar as we do now, as opposed to a place like England, which only adopted the Gregorian Calendar in 1752. Therefore, we do not have to worry about adding 10 days to move from the old calendar to the new calendar.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>per_wday <span class="ot">&lt;-</span> letters <span class="sc">%&gt;%</span> </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">wday =</span> <span class="fu">wday</span>(date, <span class="at">label =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(wday) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>())</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>per_wday</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 2
+  wday  count
+  &lt;ord&gt; &lt;int&gt;
+1 Sun       7
+2 Mon      16
+3 Tue      20
+4 Wed      16
+5 Thu      22
+6 Fri      16
+7 Sat      17</code></pre>
+</div>
+</div>
+<p>We can even create the chart using the original <code>letters</code> data frame and call the <code>wday()</code> function within the definition of the x variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> letters) <span class="sc">+</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">wday</span>(date, <span class="at">label =</span> <span class="cn">TRUE</span>))) <span class="sc">+</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="dv">1585</span>, <span class="at">y =</span> <span class="st">"Letters sent"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/per-wday-plot-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Finally, let’s see who sent Daniel letters on Sundays. We can use the <code>filter()</code> function, which returns rows that match a certain argument. The below code uses the knowledge that without labels, Sunday is equivalent to 1. The code is also written in a slightly different style. Even though only a single function is called, <code>%&gt;%</code> is used to pipe the data frame into the function, which cleans up the function call slightly.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>letters <span class="sc">%&gt;%</span> </span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">wday</span>(date) <span class="sc">==</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 4
+  writer                  source  destination date      
+  &lt;chr&gt;                   &lt;chr&gt;   &lt;chr&gt;       &lt;date&gt;    
+1 Della Faille, Jacques   Haarlem Delft       1585-02-10
+2 Meulen, Andries van der Antwerp Delft       1585-03-31
+3 Meulen, Andries van der Antwerp Delft       1585-04-28
+4 Della Faille, Jacques   Haarlem Delft       1585-05-12
+5 Wale, Jan de            Venice  Haarlem     1585-06-23
+6 Della Faille, Jacques   Haarlem Delft       1585-08-18
+7 Della Faille, Jacques   Haarlem Delft       1585-09-08</code></pre>
+</div>
+</div>
+</section>
+<section id="combining-data-for-correspondents-and-dates" class="level2">
+<h2 class="anchored" data-anchor-id="combining-data-for-correspondents-and-dates">Combining data for correspondents and dates</h2>
+<p>The <code>group_by()</code> and <code>summarise()</code> workflow developed so far results in data frames with two columns and thus only tells us about one variable from the data at a time. We can get a better understanding of Daniel’s network by looking into how many letters each writer sent per month, which would involve the creation of a data frame with three columns. One advantage of using code is that it is often relatively simple to take a functioning line of code and tweak it to create a different result. Here, I take the line of code that produced <code>per_month</code> and alter it by adding the writer variable to the <code>group_by</code> function. Now the code will group the letters written by each correspondent per month and then count them. Notice how the dimensions of the resulting data frame has changed.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>correspondent_month <span class="ot">&lt;-</span> letters <span class="sc">%&gt;%</span> </span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> <span class="fu">month</span>(date, <span class="at">label =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(writer, month) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(count))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'writer'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>correspondent_month</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 34 × 3
+# Groups:   writer [12]
+   writer                  month count
+   &lt;chr&gt;                   &lt;ord&gt; &lt;int&gt;
+ 1 Meulen, Andries van der Mar      12
+ 2 Meulen, Andries van der Jan      10
+ 3 Meulen, Andries van der Feb       9
+ 4 Meulen, Andries van der Jul       8
+ 5 Della Faille, Jacques   Aug       7
+ 6 Della Faille, Jacques   Sep       7
+ 7 Meulen, Andries van der Apr       7
+ 8 Meulen, Andries van der May       7
+ 9 Della Faille, Jacques   May       5
+10 Meulen, Andries van der Jun       5
+# … with 24 more rows</code></pre>
+</div>
+</div>
+<p>With this new object called <code>correspondent_month</code> it is possible to add to the bar chart on letters per month, by filling in the bars with letters per correspondent in each month. The only difference in the code below from the earlier chart is the inclusion of <code>fill = writer</code> in <code>geom_bar()</code> and then giving it a label in <code>labs()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> correspondent_month) <span class="sc">+</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> month, <span class="at">y =</span> count, <span class="at">fill =</span> writer), <span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="dv">1585</span>, <span class="at">y =</span> <span class="st">"Letters sent"</span>, <span class="at">fill =</span> <span class="st">"Correspondents"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/correspondent-month-plot-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>A bar graph is only one of many different geoms made available through <code>ggplot</code>, so let me finish by using the same information to produce a line graph with points showing the amount of letters each correspondent sent in a month. The structure of the command is slightly different here, because I place the <code>aes()</code> function in the <code>ggplot()</code> function. This is done because the same aesthetics will be used by both <code>geom_point()</code> and <code>geom_line()</code>. In the <code>geom_point()</code> function I increase the size of all of the points so that they are more clearly visible. The <code>geom_line()</code> function adds a new aesthetic for group, which tells the function how to connect the lines.</p>
+<div class="cell" data-fig.asp="0.75">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> correspondent_month, <span class="fu">aes</span>(<span class="at">x =</span> month, <span class="at">y =</span> count, <span class="at">color =</span> writer)) <span class="sc">+</span> </span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> </span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> writer)) <span class="sc">+</span> </span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="dv">1585</span>, <span class="at">y =</span> <span class="st">"Letters sent"</span>, <span class="at">color =</span> <span class="st">"Correspondents"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/line-plot-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>These two graphs provide different ways to visualize the data. Both give a clearer picture of the development of Daniel’s correspondence over the course of 1585. Up until September, Andries was Daniel’s most signifiant correspondent. After the fall of Antwerp, the two lived together in Bremen, forestalling any need to communicate by correspondence. On the other hand, in the second half of the year, Daniel’s correspondence picked up with his brother-in-law, Jacques.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>The examples above only display a small fraction of the analysis and visualization capabilities of R. More fully developed visualizations with a larger set of the data used here can be seen on the <a href="https://www.jessesadler.com/project/">the Projects page of this website</a>, including an <a href="https://jessesadler.shinyapps.io/dvdm-correspondence/">interactive map of the letters that can be filtered by date</a>. Going from no coding experience to the production of visualizations in R is by no means easy, though there is an ever-growing set of resources designed to make the process as easy as possible. This post is part of my attempt to add to these resources from the perspective of a historian. In future posts I will build on the foundation provided here. In particular, the above analysis did not take advantage of the geographic nature of the data. I will discuss the process of geocoding the data and mapping it in an upcoming post.</p>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1" role="doc-endnote"><p>This post concentrates on the basic aspects of data analysis and visualization using the popular <a href="http://dplyr.tidyverse.org">dplyr</a> and <a href="http://ggplot2.tidyverse.org">ggplot</a> packages for R. In future posts, I will discuss more aspects of R.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p><a href="https://simplystatistics.org/2016/02/12/not-so-standard-deviations-episode-9-spreadsheet-drama/">Episode 9 of the Not So Standard Deviations podcast</a> has a good discussion of Excel vs R, which helped me think through my own thoughts on this subject.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>My workflow is to enter data into Numbers, export it into a csv file, and then analyze with R. I have found data entry directly into csv too clunky, and so spreadsheets still have a place in my life.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p>There are a variety of different data types in R, but in this post I will concentrate on tabular data, or data frames, because that is the form of data derived from spreadsheet and most used within the humanities and social sciences.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5" role="doc-endnote"><p>See the explanation and examples below on how objects in R are created and manipulated.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6" role="doc-endnote"><p>This was the position that I was in only a couple of months ago.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7" role="doc-endnote"><p>If you are interested in learning how to use R, two good places to start are <a href="http://r4ds.had.co.nz">Garrett Grolemund and Hadley Wickham, <em>R for Data Science</em></a> and <a href="https://bookdown.org/rdpeng/rprogdatascience/">Roger Peng, <em>R Programming for Data Science</em></a>. Both are available for free and cover the topics that I discuss here in much greater detail.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8" role="doc-endnote"><p>Do not worry about the <code>[1]</code> in the printed output. This merely informs us that this is the first number in the object <code>x</code>. Behind the scenes in R <code>x</code> is not simply a number but a vector of numbers of length one.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9" role="doc-endnote"><p>A common frustration when learning to code is how persnickety computers are about typos and grammar. If a command does not work, it is likely because there is a typo somewhere.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10" role="doc-endnote"><p>If you want to know how a function works or what arguments are necessary to run the function, you can always access a function’s documentation with <code>?function_name()</code>. The documentation for many functions tend to be jargon heavy, but most also contain examples of how to use the function.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11" role="doc-endnote"><p>The best resource for learning about these <code>dplyr</code> functions is Chapter 5 of <a href="http://r4ds.had.co.nz/transform.html">Grolemund and Wickham, <em>R for Data Science</em></a>.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12" role="doc-endnote"><p>There are many resources on learning <code>ggplot</code>. Chapter 3 of <a href="http://r4ds.had.co.nz/data-visualisation.html">Grolemund and Wickham, <em>R for Data Science</em></a> is a good place to start. Another invaluable resource for ggplot that is still under development is <a href="http://socviz.co/">Kieran Healy’s <em>Data Visualization for Social Science</em></a><a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn13" role="doc-endnote"><p>Remember that a data frame is essentially a table. To be more precise, in this case, the <code>read_csv()</code> function produces a <a href="http://tibble.tidyverse.org">tibble</a>, which is a special kind of data frame.<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn14" role="doc-endnote"><p>One advantage of tibbles over default data frames is that tibbles are smart about printing out a subset of the data to the console instead of all of the content. The latter approach becomes messy when data frames have hundreds or thousands of rows.<a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn15" role="doc-endnote"><p>RStudio comes with its own viewer, enabling you to view the contents of data frames in a manner that replicates the experience of a spreadsheet.<a href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.quarto.org">Built with Quarto</a>
+  </li>  
+</ul>
+    </div>   
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/vivalosburros">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jessesadler">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

@@ -1,0 +1,38 @@
+project:
+  type: website
+
+website:
+  title: "A Rogue Historian"
+  site-url: "https://www.jessesadler.com"
+  description: "Personal website of Jesse Sadler"
+  favicon: favicon.ico
+  navbar:
+    title: "Jesse Sadler"
+    background: "#ff9600"
+    pinned: true
+    right:
+      - file: project.qmd
+      - file: course.qmd
+      - text: "Talks"
+        file: slides.qmd
+      - text: "About"
+        file: about.qmd
+      - icon: github
+        href: https://github.com/jessesadler
+      - icon: twitter
+        href: https://twitter.com/vivalosburros
+      - icon: rss
+        href: index.xml
+  page-footer:
+    left:
+      - href: https://www.quarto.org
+        text: Built with Quarto
+    right:
+      - icon: twitter
+        href: https://twitter.com/vivalosburros
+      - icon: github
+        href: https://github.com/jessesadler
+format:
+  html:
+    theme: [litera, styles.scss]
+    highlight-style: ayu

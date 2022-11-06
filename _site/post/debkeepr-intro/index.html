@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2018-09-18">
+<meta name="description" content="Introduction to debkeepr, a package for analyzing historical non-decimal currencies such as pounds, shillings, and pence.">
+
+<title>A Rogue Historian - Introducing debkeepr</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../favicon.ico" rel="icon">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="floating nav-fixed slimcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Jesse Sadler</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../project.html">Projects</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../course.html">Courses</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../slides.html">Talks</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html">About</a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jessesadler"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/vivalosburros"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../index.xml"><i class="bi bi-rss" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#pounds-shillings-and-pence-lsd-monetary-systems" id="toc-pounds-shillings-and-pence-lsd-monetary-systems" class="nav-link active" data-scroll-target="#pounds-shillings-and-pence-lsd-monetary-systems">Pounds, shillings, and pence: lsd monetary systems</a></li>
+  <li><a href="#debkeepr" id="toc-debkeepr" class="nav-link" data-scroll-target="#debkeepr"><code>debkeepr</code></a>
+  <ul class="collapse">
+  <li><a href="#vignettes" id="toc-vignettes" class="nav-link" data-scroll-target="#vignettes">Vignettes</a></li>
+  </ul></li>
+  <li><a href="#arithmetic-with-debkeepr" id="toc-arithmetic-with-debkeepr" class="nav-link" data-scroll-target="#arithmetic-with-debkeepr">Arithmetic with <code>debkeepr</code></a></li>
+  <li><a href="#analysis-of-account-books" id="toc-analysis-of-account-books" class="nav-link" data-scroll-target="#analysis-of-account-books">Analysis of account books</a></li>
+  <li><a href="#debkeepr-and-reproducibility" id="toc-debkeepr-and-reproducibility" class="nav-link" data-scroll-target="#debkeepr-and-reproducibility"><code>debkeepr</code> and reproducibility</a></li>
+  </ul>
+</nav>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Introducing debkeepr</h1>
+<p class="subtitle lead">An R package for the analysis of non-decimal currencies</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">rstats</div>
+    <div class="quarto-category">debkeepr</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Introduction to debkeepr, a package for analyzing historical non-decimal currencies such as pounds, shillings, and pence.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">18 September 2018</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<p>After an extensive period of iteration and a long but rewarding process of learning about package development, I am pleased to announce the release of my first R package. The package is called <a href="http://jessesadler.github.io/debkeepr/">debkeepr</a>, and it derives directly from my historical <a href="https://www.jessesadler.com/project/df-inheritance/">research on early modern merchants</a>. <code>debkeepr</code> provides an interface for working with non-decimal currencies that use the tripartite system of pounds, shillings, and pence that was used throughout Europe in the medieval and early modern periods. The package includes functions to apply arithmetic and financial operations to single or multiple values and to analyze account books that use <a href="https://en.wikipedia.org/wiki/Double-entry_bookkeeping_system">double-entry bookkeeping</a> with the latter providing the basis for the name of <code>debkeepr</code>. In a later post I plan to write about the package development process, but here I want to discuss the motivation behind the creation of the package and provide some examples for how <code>debkeepr</code> can help those who encounter non-decimal currencies in their research.</p>
+<p>You can install <code>debkeepr</code> from GitHub right now with <a href="https://github.com/hadley/devtools">devtools</a>, and I am planning to submit the package to CRAN soon. Feedback is always welcome and any bug reports or feature requests can be made on <a href="https://github.com/jessesadler/debkeepr/issues">GitHub</a>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("devtools")</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"jessesadler/debkeepr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="pounds-shillings-and-pence-lsd-monetary-systems" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="pounds-shillings-and-pence-lsd-monetary-systems">Pounds, shillings, and pence: lsd monetary systems</h2>
+<p>The system of expressing monetary values in the form of pounds, shillings, and pence dates back to the Carolingian Empire and the change from the use of gold coins that derived from the late Roman Empire to silver pennies that had taken place by the eighth century. Needing ways to count larger quantities of the new silver <a href="https://en.wikipedia.org/wiki/Denarius">denarius</a>, people began to define a <a href="https://en.wikipedia.org/wiki/Solidus_(coin)">solidus</a>, originally a gold coin introduced by the Emperor Constantine, as a unit of account equivalent to 12 denarii. For even larger valuations, the denarius was further defined in relation to a pound or <a href="https://en.wikipedia.org/wiki/French_livre">libra</a> of silver. Though the actual number of coins struck from a pound of silver differed over time, the rate of 240 coins lasted long enough to create the custom of counting coins in dozens (solidi) and scores of dozens (librae). The <a href="https://en.wikipedia.org/wiki/%C2%A3sd">librae, solidi, and denarii (lsd)</a> monetary system was translated into various European languages, and though the ratios between the three units often differed by region and period, the basic structure of the system remained in place until decimalization began following the French Revolution.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>The pounds, shillings, and pence system complicates even relatively <a href="https://en.wikipedia.org/wiki/Arithmetic#Compound_unit_arithmetic">simple arithmetic operations</a>. Especially in our decimalized world, manipulating values that are made up of three different units in which two of the units are non-decimal quickly becomes cumbersome. The principles of grade school arithmetic come running back, as the practice of addition and carrying over values to the next unit gains new relevancy. Calculations with pounds, shillings, and pence values are further complicated when dealing with more than one currency or <a href="https://en.wikipedia.org/wiki/Unit_of_account">money of account</a>, particularly if one or more of the currencies used bases for the shillings and pence units that differed from the common bases of 20 shillings to a pound and 12 pence to a shilling.</p>
+<p>The economic historian encounters the difficulties of handling non-decimal currencies in two main contexts. In reading through documents that may or may not be primarily economic in nature, the researcher comes across sets of values that need to be manipulated to better understand their meaning. A common case is the discovery of values that need to be added together to see if they are equivalent to a value in another document, or there may be values in one currency that have to be converted to another currency for comparison. The second context in which historians confront non-decimal monetary values is in explicitly economic documents such as entire account books that may contain hundreds or thousands of transactions. In both contexts the researcher is often stuck performing arithmetic calculations by hand just as merchants and bookkeepers had to do in the past. I do not know how many pages of scratched out calculations I went through in my own research on the estate of Jan della Faille de Oude, a wealthy merchant from Antwerp who died in 1582.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<div id="fig-scratchpad" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/math-scratchpad.jpg" height="400" class="figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure 1: Scratchpad: Doing math by hand</figcaption><p></p>
+</figure>
+</div>
+</div></div><p>The tripartite and non-decimal nature of pounds, shillings, and pence values presents particular difficulties for the analysis of large sets of accounts. A first instinct of the researcher is to place the transactions from an account book into a table or data base to better understand these large groups of data, but how should the pounds, shillings, and pence values be entered? Should they be placed into three separate variables or brought together somehow into one, and how should the arithmetic be performed? So long as there is no clear way to handle one, not to mention multiple, non-decimal currency within a data base, the use of digital tools to investigate and analyze historical accounts books will be hindered.</p>
+</section>
+<section id="debkeepr" class="level2">
+<h2 class="anchored" data-anchor-id="debkeepr"><code>debkeepr</code></h2>
+<p><code>debkeepr</code> seeks to overcome these issues and integrate non-decimal pounds, shillings, and pence values into the decimalized environment of R, opening the vast analytical and visual capabilities of R to historical monies of account. <code>debkeepr</code> accomplishes this through the creation of the <code>lsd</code> class and functions intended to work with this new class of object in R. The <code>lsd</code> class unifies the separate pounds, shillings, and pence units into a numeric vector of length three and tracks the non-decimal bases for the shillings and pence units through a <code>bases</code> attribute. <code>lsd</code> objects are stored as <a href="http://r4ds.had.co.nz/vectors.html#lists">lists</a>, making it possible for a single object to contain multiple pounds, shillings, and pence values and to implement <code>lsd</code> objects as list columns in a data frame or <a href="https://tibble.tidyverse.org">tibble</a>. The <code>lsd</code> class is intended to both minimize the difficulty historians encounter in one-off calculations and provide a consistent means for the exploration and analysis of large sets of accounts.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>I have set up a <a href="http://jessesadler.github.io/debkeepr/">pkgdown site for <code>debkeepr</code></a>, and you can find the source code on <a href="https://github.com/jessesadler/debkeepr">GitHub</a>. The package includes three vignettes, two of which deal with data from the practice journal and ledger from Richard Dafforne’s <em>The Merchant’s Mirrour, Or Directions for the Perfect Ordering and Keeping of His Accounts</em> (London, 1660), a bookkeeping manual that was printed throughout the seventeenth century. Data frames for the transactions and accounts from this set of account books are also included with the package.</p>
+<section id="vignettes" class="level3">
+<h3 class="anchored" data-anchor-id="vignettes">Vignettes</h3>
+<ul>
+<li><a href="https://jessesadler.github.io/debkeepr/articles/debkeepr.html">Getting Started with debkeepr vignette</a>: An in depth overview of <code>debkeepr</code>’s functions and their use in various contexts.</li>
+<li><a href="https://jessesadler.github.io/debkeepr/articles/transactions.html">Transactions in Richard Dafforne’s Journal vignette</a>: Examples of financial and arithmetic calculations dealing with various currencies taken from the example journal in Richard Dafforne’s <em>Merchant’s Mirrour</em> (1660).</li>
+<li><a href="https://jessesadler.github.io/debkeepr/articles/ledger.html">Analysis of Richard Dafforne’s Journal and Ledger vignette</a>: An analysis of the example journal and ledger in Dafforne’s <em>Merchant’s Mirrour</em> using the <code>dafforne_transactions</code> and <code>dafforne_accounts</code> data provided in <code>debkeepr</code>.</li>
+</ul>
+<p>In the rest of this post I want to quickly highlight how <code>debkeepr</code> can assist historians in handling pounds, shillings, and and pence values in both one-off calculations and in the context of an entire account book. The vignettes go into much greater detail than will be done here.</p>
+</section>
+</section>
+<section id="arithmetic-with-debkeepr" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="arithmetic-with-debkeepr">Arithmetic with <code>debkeepr</code></h2>
+<p>At the heart of <code>debkeepr</code> is the ability to normalize pounds, shillings, and pence values to specified non-decimal unit bases in the process or making various calculations. Even in the simplest case of addition, <code>debkeepr</code> makes the process easier and less error prone. Let’s use an example from the image below that shows arithmetic on a scratch piece of paper dealing with trade between Holland and the Barbary coast in the 1590s.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> On the top right four values in the money of account of pounds Flemish are added together.</p>
+<div id="fig-barbary" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/barbary-scratchpad.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure 2: A scratchpad from the archive of Daniel van der Meulen</figcaption><p></p>
+</figure>
+</div>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: right;">pounds</th>
+<th style="text-align: right;">shillings</th>
+<th style="text-align: right;">pence</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">74</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">107</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p><code>debkeepr</code> provides multiple means to add together values of pounds Flemish, which used the standard bases of 20 shillings per pound and 12 pence per shilling.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+<ul>
+<li>Add the separate units by hand and then normalize.</li>
+<li>Do the addition with <code>debkeepr</code> by supplying numeric vectors of length three.</li>
+<li>Create an object of class <code>lsd</code> and proceed with the addition.</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(debkeepr)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Normalize £235 51s. 8d.</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">deb_normalize</span>(<span class="fu">c</span>(<span class="dv">235</span>, <span class="dv">51</span>, <span class="dv">8</span>), <span class="at">bases =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">12</span>))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       l  s d</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 237 11 8</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Addition of values with debkeepr</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">deb_sum</span>(<span class="fu">c</span>(<span class="dv">74</span>, <span class="dv">10</span>, <span class="dv">0</span>),</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(<span class="dv">26</span>, <span class="dv">8</span>, <span class="dv">8</span>),</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(<span class="dv">107</span>, <span class="dv">14</span>, <span class="dv">0</span>),</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(<span class="dv">28</span>, <span class="dv">19</span>, <span class="dv">0</span>))</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       l  s d</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 237 11 8</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Create lsd object from list of vectors, then do addition</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>lsd_values <span class="ot">&lt;-</span> <span class="fu">deb_as_lsd</span>(<span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">74</span>, <span class="dv">10</span>, <span class="dv">0</span>),</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">c</span>(<span class="dv">26</span>, <span class="dv">8</span>, <span class="dv">8</span>),</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">c</span>(<span class="dv">107</span>, <span class="dv">14</span>, <span class="dv">0</span>),</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">c</span>(<span class="dv">28</span>, <span class="dv">19</span>, <span class="dv">0</span>)),</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>                         <span class="at">bases =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">12</span>))</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="fu">deb_sum</span>(lsd_values)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       l  s d</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 237 11 8</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Multiplication and division of pounds, shillings, and pence values were equally frequent calculations, but they are more complex to do by hand. Bookkeeping and merchant manuals often included rules for the multiplication and division of compound values such as pounds, shillings, and pence. The article on arithmetic in the third edition of the <a href="http://onlinebooks.library.upenn.edu/webbin/metabook?id=britannica3"><em>Encyclopedia Britannica</em>, printed in 1797</a>, provides a good example of how to do <a href="https://en.wikipedia.org/wiki/Arithmetic#Compound_unit_arithmetic">compound unit arithmetic</a>. <code>debkeepr</code> greatly simplifies this process.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Multiply £15 3s. 8d. sterling by 32</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">deb_multiply</span>(<span class="fu">c</span>(<span class="dv">15</span>, <span class="dv">3</span>, <span class="dv">8</span>), <span class="at">x =</span> <span class="dv">32</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       l  s d</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 485 17 4</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Multiply £17 3s. 8d. sterling by 75</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">deb_multiply</span>(<span class="fu">c</span>(<span class="dv">17</span>, <span class="dv">3</span>, <span class="dv">8</span>), <span class="at">x =</span> <span class="dv">75</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        l  s d</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1288 15 0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<div id="fig-multiplication" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/lsd-multiplication.png" height="350" class="figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure 3: Multiplication in <em>Encyclopedia Britannica</em></figcaption><p></p>
+</figure>
+</div>
+</div></div><p>The examples for division in the <em>Encyclopedia Britannica</em> include the division of pounds, shillings, and pence, as well as the division of weight measured in terms of hundredweight, quarters, and pounds. A hundredweight consisted of four quarters and there were 28 pounds (or two stones) in a quarter. While <code>debkeepr</code> was created with pounds, shillings, and pence values in mind, the measurement of weight in terms of hundredweight can be integrated by altering the bases argument. This example even serves to show a mistake in the printing in the <em>Encyclopedia</em>, as the answer is shown as 15 cwt. 2 q. 21 lb., but it should actually be 22 lb. Checking the long division at the bottom of the calculation, 22 goes into 44 twice not once. Notice too that the division of £465 12s. 8d. ends with a remainder of 8 even though this is not included in the answer provided. This remainder leads to the decimal in the pence unit in the answer provided by <code>deb_divide()</code>. Setting the <code>round</code> argument to 0 would convert the pence unit to a whole number.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Divide £465 12s. 8d. sterling by 72</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">deb_divide</span>(<span class="fu">c</span>(<span class="dv">465</span>, <span class="dv">12</span>, <span class="dv">8</span>), <span class="at">x =</span> <span class="dv">72</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     l s       d</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 6 9 4.11111</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Divide 345 hundredweight 1 quarter 8 lbs by 22</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">deb_divide</span>(<span class="fu">c</span>(<span class="dv">345</span>, <span class="dv">1</span>, <span class="dv">8</span>), <span class="at">x =</span> <span class="dv">22</span>, <span class="at">bases =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">28</span>))</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      l s  d</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 15 2 22</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<div id="fig-division" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/lsd-division.png" height="400" class="figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure 4: Division in <em>Encyclopedia Britannica</em></figcaption><p></p>
+</figure>
+</div>
+</div></div><p>These examples replicate answers already provided, but they serve to demonstrate the gains in both speed and accuracy for these common calculations. Further examples, including the use of <code>debkeepr</code> to convert between currencies that may or may not have different bases for the shillings and pence units, can be found in both <a href="https://jessesadler.github.io/debkeepr/articles/debkeepr.html">Getting Started with debkeepr</a> and the <a href="https://jessesadler.github.io/debkeepr/articles/transactions.html">Transactions in Richard Dafforne’s Journal vignette</a>.</p>
+</section>
+<section id="analysis-of-account-books" class="level2">
+<h2 class="anchored" data-anchor-id="analysis-of-account-books">Analysis of account books</h2>
+<p>As a way of providing example data of pounds, shillings, and pence values in a data frame, <code>debkeepr</code> includes data from the example journal and ledger in Dafforne’s <em>Merchant’s Mirrour</em> from 1660. <code>dafforne_transactions</code> has 177 transactions between 46 accounts from the journal. Each transaction has a creditor and debtor account, showing where each transactional value came from and where it went to, the date of the transaction, and the value in pounds sterling contained in an <code>lsd</code> list column. Extra details include the pages on which the transaction can be found in Dafforne’s journal and ledger and a short description of the transaction. A PDF copy of the journal is <a href="https://github.com/jessesadler/debkeepr/blob/master/data-raw/dafforne-journal.pdf">available for download</a> if you want to see what the original source looks like. The <a href="https://github.com/jessesadler/debkeepr/tree/master/data-raw">raw data</a> from which <code>dafforne_transactions</code> derives also demonstrates the process of entering pounds, shillings, and pence units into three separate columns to create the data base and then using <code>deb_lsd_gather()</code> to transform these variables into an <code>lsd</code> list column.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transactions from the Dafforne's example journal</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>dafforne_transactions</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 177 x 8</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       id credit debit date       lsd    journal ledger description        </span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dbl&gt;  &lt;int&gt; &lt;int&gt; &lt;date&gt;     &lt;S3: &gt;   &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;              </span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1     1      2     1 1633-01-01 1000,…       1 1/1    Various coins of g…</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2     2      2     3 1633-01-01 477, …       1 1/1    60 Leeds dozens at…</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3     3      2     4 1633-01-01 55, 0…       1 2/1    5 barrels that rem…</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4     4      2     5 1633-01-01 240, …       1 2/1    For 800 French cro…</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5     5      2     6 1633-01-01 229, …       1 2/1    2290 guilders rema…</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6     6      2     8 1633-01-01 3, 17…       1 3/1    Expenses for the r…</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7     7      7     2 1633-01-01 150, …       1 1/2    Ready money from J…</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8     8      9    11 1633-01-04 360, …       1 4/3    100 Leeds dozens s…</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9     9      1     9 1633-01-04 144, …       2 3/1    For 2/5 of the 100…</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10    10      5    10 1633-01-04 120, …       2 3/2    400 French crowns …</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 167 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <a href="https://jessesadler.github.io/debkeepr/articles/ledger.html">Analysis of Richard Dafforne’s Journal and Ledger vignette</a> provides a fuller breakdown of the data, but here I would like to show how to get a summary of the 46 accounts in the books and create a plot using <a href="https://ggplot2.tidyverse.org">ggplot2</a>. One side effect of the use of a list column to represent pounds, shillings, and pence values is that it cannot be used for the purposes of plotting. However, this issue is overcome by the robust support for <a href="https://jessesadler.github.io/debkeepr/reference/index.html#section-decimalization">decimalization</a> in <code>debkeepr</code>. Pounds, shillings, and pence values can be decimalized to any of the three units and returned to their original form when desired. For the purposes of plotting, the most useful workflow is to transform the <code>lsd</code> list column to decimalized pounds.</p>
+<p><code>debkeepr</code> has a <a href="https://jessesadler.github.io/debkeepr/reference/index.html#section-transaction-data-frames">set of functions</a> meant to deal with data frames that mimic the form of a journal used for double-entry bookkeeping such as <code>dafforne_transactions</code>. The 177 transactions and 46 accounts in <code>dafforne_transactions</code> are more than enough to lose track of which accounts were most significant to the bookkeeper’s trade. Here, I will use <code>deb_account_summary()</code> to calculate the total credit or amount each account sent, total debit or amount each account received, and the current value of the account at the closing of the books. While <code>deb_account_summary()</code> gives a nice overview of the entire set of account books, it is also possible to focus on a single account with <code>deb_account()</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary of all accounts in Dafforne's example journal</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">deb_account_summary</span>(<span class="at">df =</span> dafforne_transactions)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 46 x 4</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    account_id credit       debit        current     </span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         &lt;int&gt; &lt;S3: lsd&gt;    &lt;S3: lsd&gt;    &lt;S3: lsd&gt;   </span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1          1 1956, 10, 11 2903, 13, 0  -947, -2, -1</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2          2 2006, 3, 9   150, 0, 0    1856, 3, 9  </span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3          3 570, 0, 0    570, 0, 0    0, 0, 0     </span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4          4 75, 0, 8     75, 0, 8     0, 0, 0     </span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5          5 813, 3, 0    813, 3, 0    0, 0, 0     </span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6          6 568, 1, 11   869, 2, 7    -301, 0, -8 </span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7          7 2958, 18, 10 2958, 18, 10 0, 0, 0     </span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8          8 1580, 10, 0  1580, 10, 0  0, 0, 0     </span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9          9 1744, 1, 4   1744, 1, 4   0, 0, 0     </span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10         10 606, 2, 6    606, 2, 6    0, 0, 0     </span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 36 more rows</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary of the cash account in Dafforne's example journal</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="fu">deb_account</span>(<span class="at">df =</span> dafforne_transactions, <span class="at">account_id =</span> <span class="dv">1</span>)</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 x 2</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   relation lsd         </span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;    &lt;S3: lsd&gt;   </span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 credit   1956, 10, 11</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 debit    2903, 13, 0 </span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 current  -947, -2, -1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To plot the summary of the accounts in the journal and ledger the <code>lsd</code> list columns have to be converted to decimalized pounds, which is done with <code>deb_lsd_l()</code> and <code>dplyr::mutate_if()</code>. From this information, we can create a line range plot in which the upper limit is represented by the total credit, the lower limit by the total debit, and the current value by a point. Blue points show accounts that have been balanced by the end of the books and are therefore closed, while black points represent the values for accounts that remain open.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare account summary for plotting</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>(dafforne_summary <span class="ot">&lt;-</span> dafforne_transactions <span class="sc">%&gt;%</span> </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">deb_account_summary</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(deb_is_lsd, deb_lsd_l) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">debit =</span> <span class="sc">-</span>debit))</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 46 x 4</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    account_id credit   debit current</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         &lt;int&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1          1 1957.  -2904.    -947.</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2          2 2006.   -150     1856.</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3          3  570    -570        0 </span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4          4   75.0   -75.0      0 </span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5          5  813.   -813.       0 </span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6          6  568.   -869.    -301.</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7          7 2959.  -2959.       0 </span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8          8 1580.  -1580.       0 </span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9          9 1744.  -1744.       0 </span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10         10  606.   -606.       0 </span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 36 more rows</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot summary of accounts</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> dafforne_summary) <span class="sc">+</span> </span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">x =</span> account_id, <span class="at">ymin =</span> debit, <span class="at">ymax =</span> credit)) <span class="sc">+</span> </span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> account_id, <span class="at">y =</span> current,</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> <span class="fu">if_else</span>(current <span class="sc">==</span> <span class="dv">0</span>, <span class="st">"Closed"</span>, <span class="st">"Open"</span>))) <span class="sc">+</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">Open =</span> <span class="st">"black"</span>, <span class="at">Closed =</span> <span class="st">"blue"</span>)) <span class="sc">+</span> </span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">dollar_format</span>(<span class="at">prefix =</span> <span class="st">"£"</span>)) <span class="sc">+</span> </span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Accounts"</span>,</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Pounds sterling"</span>,</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Status"</span>,</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Summary of the accounts in Dafforne's ledger"</span>) <span class="sc">+</span> </span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fig-summary" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/account-summary-1.png" height="500" class="figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="debkeepr-and-reproducibility" class="level2">
+<h2 class="anchored" data-anchor-id="debkeepr-and-reproducibility"><code>debkeepr</code> and reproducibility</h2>
+<p>The above plot only scratches the surface of the possibilities for exploring and analyzing account books that use pounds, shillings, and pence values with <code>debkeepr</code>. Yet, what I think is the most significant about <code>debkeepr</code> is not any one plot, time saving feature, or type of analysis, but rather the possibility of using the <a href="http://ropensci.github.io/reproducibility-guide/">practices of reproducible research</a> in the context of historical economic data that takes the form of pounds, shillings, and pence values. Individual calculations are easier to track and validate when written in code rather than scrawled out on a scratch piece of paper or entered into a calculator. Even more importantly, <code>debkeepr</code> provides a workflow for entering data from account books into a data base, <a href="http://vita.had.co.nz/papers/tidy-data.html">tidying the data</a> by transforming separate pounds, shillings, and pence variables into an <code>lsd</code> list column, and then exploring, analyzing, and visualizing the data in ways that integrate with the <a href="https://www.tidyverse.org">tidyverse</a> and more general practices of data analysis in R. It is my hope that <code>debkeepr</code> can help bring to light crucial and interesting social interactions that are buried in economic manuscripts, making these stories accessible to a wider audience.</p>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1" role="doc-endnote"><p>For more information about the development of the system of pounds, shillings, and pence and medieval monetary systems more generally see Peter Spufford, <em>Money and its Use in Medieval Europe</em> (Cambridge: Cambridge University Press, 1988).<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>For a more in depth discussion of <code>lsd</code> objects and a step-by-step overview of how to create and work with them see <a href="https://jessesadler.github.io/debkeepr/articles/debkeepr.html">Getting Started with debkeepr</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>This scratch piece of paper comes from the archive of Daniël van der Meulen en Hester de la Faille, zijn vrouw, 1550-1648 at Erfgoed Leiden en Omstreken. You can access the original <a href="https://www.erfgoedleiden.nl/collecties/archieven/archievenoverzicht/scans/NL-LdnRAL-0096/7.23">here</a>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p>This means that the default value of <code>c(20, 12)</code> does not need to be altered for the <code>bases</code> argument, though it is included in some of the below examples for transparency.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.quarto.org">Built with Quarto</a>
+  </li>  
+</ul>
+    </div>   
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/vivalosburros">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jessesadler">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

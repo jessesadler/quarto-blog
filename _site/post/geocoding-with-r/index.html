@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2017-10-13">
+<meta name="description" content="Tutorial on geocoding and mapping historical data with ggmap">
+
+<title>A Rogue Historian - Geocoding with R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../favicon.ico" rel="icon">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Jesse Sadler</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../project.html">Projects</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../course.html">Courses</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../slides.html">Talks</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html">About</a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jessesadler"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/vivalosburros"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../index.xml"><i class="bi bi-rss" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#preparing-data" id="toc-preparing-data" class="nav-link active" data-scroll-target="#preparing-data">Preparing the data with <code>dplyr</code></a></li>
+  <li><a href="#geocoding" id="toc-geocoding" class="nav-link" data-scroll-target="#geocoding">Geocoding with <code>ggmap</code></a></li>
+  <li><a href="#mapping" id="toc-mapping" class="nav-link" data-scroll-target="#mapping">Mapping with <code>ggmap</code></a></li>
+  <li><a href="#adding-data" id="toc-adding-data" class="nav-link" data-scroll-target="#adding-data">Adding data with <code>dplyr</code></a></li>
+  <li><a href="#mapping-data" id="toc-mapping-data" class="nav-link" data-scroll-target="#mapping-data">Mapping the data</a></li>
+  <li><a href="#concluding" id="toc-concluding" class="nav-link" data-scroll-target="#concluding">Conclusion</a></li>
+  </ul>
+</nav>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Geocoding with R</h1>
+<p class="subtitle lead">Using ggmap to geocode and map historical data</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">rstats</div>
+    <div class="quarto-category">rspatial</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Tutorial on geocoding and mapping historical data with ggmap
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">13 October 2017</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<p>In the <a href="https://jessesadler.com/post/excel-vs-r/">previous post</a> I discussed some reasons to use <a href="https://www.r-project.org">R</a> instead of Excel to analyze and visualize data and provided a brief introduction to the R programming language. That post used an example of letters sent to the sixteenth-century merchant <a href="https://jessesadler.com/project/dvdm-correspondence/">Daniel van der Meulen</a> in 1585. One aspect missing from the analysis was a geographical visualization of the data. This post will provide an introduction to geocoding and mapping location data using the <a href="https://cran.r-project.org/web/packages/ggmap/index.html">ggmap</a> package for R, which enables the creation of maps with <a href="http://ggplot2.tidyverse.org">ggplot</a>. There are a number of websites that can help geocode location data and even create maps.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> You could also use a full-scale geographic information systems (GIS) application such as <a href="https://qgis.org">QGIS</a> or <a href="https://esri.com">ArcGIS</a>. However, an active developer community has made it possible to complete a full range of geographic analysis from geocoding data to the creation of publication-ready maps with R.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Geocoding and mapping data with R instead of a web or GIS application brings the general advantages of using a programming language in analyzing and visualizing data. With R, you can write the code once and use it over and over, while also providing a record of all your steps in the creation of a map.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<p>This post will merely scratch the surface of the mapping capabilities of R and will not enter into the domain of the more complex specific geographic packages available for R.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> Instead, it will build on the <a href="http://dplyr.tidyverse.org">dplyr</a> and <a href="http://ggplot2.tidyverse.org">ggplot</a> skills discussed in <a href="https://jessesadler.com/post/excel-vs-r/">my brief introduction to R</a>. The example of geocoding and mapping with R will also provide another opportunity to show the advantages of coding. In particular, geocoding is a good example of how code can simplify the workflow for entering data. Instead of dealing with separate spreadsheets to store information about the letters and geographic information, coding makes it possible to create the geographic information directly from the letters data. The code to find the longitude and latitude of locations can be saved as a R script and rerun if new data is added to ensure that the information is always kept up to date.</p>
+<section id="preparing-data" class="level2">
+<h2 class="anchored" data-anchor-id="preparing-data">Preparing the data with <code>dplyr</code></h2>
+<p>In this example, I will use the same database of letters sent to Daniel van der Meulen in 1585 as I did in the previous post. You can find the data and the R script that goes along with this tutorial on <a href="https://github.com/jessesadler/intro-to-r">GitHub</a>. Before getting into the database of letters and figuring out how to geocode the locations found in the data, it is necessary to set up the environment in R by loading the libraries that we will be using. Here, I load both the <code>tidyverse</code> library to import and manipulate the data and the <code>ggmap</code> library to do the actual geocoding and mapping.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggmap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>As in the previous post, the data is loaded through the <code>read_csv()</code> function from the <code>readr</code> package. It is best to keep the names of objects consistent across scripts. Therefore, I name the object <code>letters</code> with the assignment operator. Printing out the contents reveals the that <code>letters</code> is a <a href="http://tibble.tidyverse.org">tibble</a> with 114 letters and four columns.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>letters <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/correspondence-data-1585.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>letters</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 114 x 4</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                     writer  source destination       date</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                      &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt;     &lt;date&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Meulen, Andries van der Antwerp       Delft 1585-01-03</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 Meulen, Andries van der Antwerp     Haarlem 1585-01-09</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Meulen, Andries van der Antwerp     Haarlem 1585-01-11</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 Meulen, Andries van der Antwerp       Delft 1585-01-12</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 Meulen, Andries van der Antwerp     Haarlem 1585-01-12</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 Meulen, Andries van der Antwerp       Delft 1585-01-17</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 Meulen, Andries van der Antwerp       Delft 1585-01-22</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Meulen, Andries van der Antwerp       Delft 1585-01-23</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9    Della Faille, Marten Antwerp     Haarlem 1585-01-24</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Meulen, Andries van der Antwerp       Delft 1585-01-28</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 104 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To do the actual geocoding of the locations I will be using the <code>mutate_geocode()</code> function from the <code>ggmap</code> package. To geocode a number of locations at one time, the function requires a data frame with a column containing the locations we would like to geocode. The goal, then, is to get a data frame with a column that contains all of the distinct locations found in the <code>letters</code> data frame. In the <a href="https://jessesadler.com/post/excel-vs-r/#new-dataframes">introduction to R</a> post I used the <code>distinct()</code> function to get data frames with the unique sources and destinations. We can rerun that code here and look at the results.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sources <span class="ot">&lt;-</span> <span class="fu">distinct</span>(letters, source)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>destinations <span class="ot">&lt;-</span> <span class="fu">distinct</span>(letters, destination)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>sources</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 9 x 1</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      source</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       &lt;chr&gt;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1   Antwerp</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2   Haarlem</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Dordrecht</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4    Venice</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5     Lisse</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  Het Vlie</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7   Hamburg</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8     Emden</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9 Amsterdam</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>destinations</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 x 1</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   destination</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         &lt;chr&gt;</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1       Delft</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     Haarlem</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3   The Hague</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  Middelburg</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5      Bremen</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>A glance at the two data frames shows that neither provide exactly what I are looking for. Neither the <code>sources</code> nor the <code>destinations</code> data frames include all of the locations that we want to geocode. It would be possible to geocode both the <code>sources</code> and <code>destinations</code> data frames, but this would place the geocoded information in two different data frames, which is less than ideal. Instead, we can join the two data frames together using the <a href="http://r4ds.had.co.nz/relational-data.html">join functions in dplyr</a>. Coming from the world of spreadsheets, the join functions are a revelation, opening up seemingly endless possibilities for data manipulation.</p>
+<p>The <code>dplyr</code> package includes a number of functions to join two data frames together to create a single data frame. The join functions use overlapping columns of data contained in both data frames, called keys, to match up the data. There are three join functions that are used most often. The <code>left_join()</code> keeps all observations from the left, or first, data frame, while dropping all rows from the right, or second, data frame that do not have a match in the left data frame. The <code>inner_join()</code> only keeps rows that contain matching keys in both data frames. Conversely, the <code>full_join()</code> brings together all rows from both the left and right data frames. The differences between these functions may not be immediately apparent, but you can experiment with them to see the variety of outputs they create.</p>
+<p>Using <code>sources</code> as the left and <code>destinations</code> as the right data frames, a <code>left_join()</code> creates a new object with 9 rows, an <code>inner_join()</code> results in only one row, and a <code>full_join()</code> contains 13 observations. Thus, the <code>full_join()</code> is what we are looking for. The <code>full_join()</code> function — like the other join functions — takes three arguments: the two data frames to join and the key column by which they are to be joined. In this case, some extra work needs to be done to the identify the key columns. The key columns are the only columns in the two data frames, but because they have different names, it is necessary to declare that they are equivalent. This is done with the help of the concatenate or combine function, <code>c()</code>.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> The below command creates a new data frame that I have called <code>cities</code>, which brings together the “source” column with the “destination” column and therefore contains all of the locations found in the <code>letters</code> data frame.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cities <span class="ot">&lt;-</span> <span class="fu">full_join</span>(sources, destinations, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"source"</span> <span class="ot">=</span> <span class="st">"destination"</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>cities</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 13 x 1</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        source</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         &lt;chr&gt;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1    Antwerp</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2    Haarlem</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3  Dordrecht</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4     Venice</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5      Lisse</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6   Het Vlie</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7    Hamburg</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8      Emden</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  Amsterdam</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10      Delft</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11  The Hague</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12 Middelburg</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13     Bremen</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Printing out the <code>cities</code> data frame shows that there are 13 distinct locations in the <code>letters</code> data. However, the structure of the <code>cities</code> object is less than ideal. The name of the column is “source,” which was taken over from the <code>sources</code> data frame, but this is not an accurate description of the data in the column. This can be fixed with the help of <code>rename()</code>, which uses the structure of <code>new_name = old_name</code>. Here, I change the name of the “source” column to “place” and then print out the first two rows with the <code>head()</code> function to show the change in the column name. Notice that using the <code>cities</code> object within the <code>rename()</code> function and using the same name for the result overwrites the original object with the new one. Alternatively, you could name the new object a different name such as <code>cities1</code>.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cities <span class="ot">&lt;-</span> <span class="fu">rename</span>(cities, <span class="at">place =</span> source)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cities, <span class="at">n =</span> <span class="dv">2</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 x 1</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     place</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     &lt;chr&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Antwerp</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Haarlem</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="geocoding" class="level2">
+<h2 class="anchored" data-anchor-id="geocoding">Geocoding with <code>ggmap</code></h2>
+<p>We now have an object with the basic structure needed to geocode the locations. However, if you run <code>mutate_geocode()</code> on the <code>cities</code> object as it is, you will receive an error. The error is a good example of a common frustration with coding. Computers are picky, and because humans also write flawed code, bugs exist, making computers picky in odd ways. In this case, we are running into a problem in which the <code>mutate_geocode()</code> function will not work on tibbles. As noted in my previous post, <a href="http://r4ds.had.co.nz/tibbles.html">tibbles</a> are a special kind of data frame used by the <code>tidyverse</code> set of packages. It is usually easier to work with tibbles in the <a href="https://www.tidyverse.org">tidyverse</a> workflow, but here it is necessary to convert the tibble to a standard data frame object with <code>as.data.frame()</code>. I give the result a new name to distinguish it from the <code>cities</code> tibble.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>cities_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(cities)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The locations data from the letters sent to Daniel is now ready to be geocoded. The <code>mutate_geocode()</code> function uses <a href="https://maps.google.com">Google Maps</a> to find the longitude and latitude of each location. The two necessary arguments are the data frame and the name of the column with the location data. The function can be used to find more information about each location, including the country and region, but here I just have the function return the longitude and latitude data. The function will query Google Maps, and so you must have an internet connection. This makes running the command relatively slow, especially if your data contains a large amount of locations. There is also a limit of 2,500 queries per day, so you may have to find other methods if you are geocoding thousands of locations.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>locations_df <span class="ot">&lt;-</span> <span class="fu">mutate_geocode</span>(cities_df, place)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Because <code>mutate_geocode()</code> necessitates an internet connection, is somewhat slow to run, and has a daily limit, it is not something that you want to do all the time. It is a good idea to save the results by writing the object out to a csv file. Before doing this, however, we should inspect the data and make sure everything is correct. Let’s start by printing out the <code>locations_df</code> object and see what we have.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>locations_df</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         place       lon      lat</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     Antwerp  4.402464 51.21945</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     Haarlem  4.646219 52.38739</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3   Dordrecht  4.690093 51.81330</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4      Venice 12.315515 45.44085</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5       Lisse  4.557483 52.25793</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6    Het Vlie  5.183333 53.30000</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7     Hamburg  9.993682 53.55108</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8       Emden  7.206010 53.35940</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9   Amsterdam  4.895168 52.37022</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10      Delft  4.357068 52.01158</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11  The Hague  4.300700 52.07050</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12 Middelburg  3.610998 51.49880</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13     Bremen  8.801694 53.07930</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>At a quick glance, the result looks like what we would expect. <code>locations_df</code> is a data frame with three columns called “place,” “lon,” and “lat” with the latter two representing longitude and latitude of the location named in the first column. One thing that we might want to change, though this step is not necessary, is to convert the data frame back to a tibble, which can be done with the <code>as_tibble()</code> function.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>locations <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(locations_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>A quick look at the values of the longitude and latitude columns in the <code>locations</code> data would seem to indicate that the geocoding process occurred correctly. All of the longitude and latitude values are within a reasonable range given the cities in the data. However, because the data given to the Google Maps query consisted of only the names of the cities, it is always worth double checking the returned values. As anyone who has ever used Google Maps before knows, it is possible that the query could return the location of a different place that has the same name.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
+<p>One way to check that the geocoding was done correctly is to map the locations with the <a href="https://cran.r-project.org/web/packages/mapview/index.html">mapview</a> package. Using <code>mapview</code> requires converting the <code>locations</code> tibble to yet another format. This is done with the <a href="https://cran.r-project.org/web/packages/sf/">simple features</a> package, which brings us to the world of GIS with R. The first step is to load the <code>sf</code> and <code>mapview</code> packages.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mapview)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>I will not get into the details of the <code>sf</code> package and type of objects that it creates here, but the function to transform the <code>locations</code> tibble into an <code>sf</code> object is understandable even without knowing the details. The function to make an <code>sf</code> object takes three main arguments. The first two are the data frame to be converted and the columns that contain the geographic data. This second argument uses the <code>c()</code> function to combine the “lon” and “lat” columns. The third argument determines the <a href="https://en.wikipedia.org/wiki/Spatial_reference_system">coordinate reference system (crs)</a> for the data. Here, I indicate that I want the longitude and latitude to be plotted using the World Geographic System 1984 projection, which is referenced as <a href="http://wiki.gis.com/wiki/index.php/European_Petroleum_Survey_Group">European Petroleum Survey Group (EPSG)</a> 4326. Geographic jargon aside, what matters at this stage is that EPSG 4326 is the projection used by web maps such as Google Maps.<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>locations_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(locations, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"lon"</span>, <span class="st">"lat"</span>), <span class="at">crs =</span> <span class="dv">4326</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>With the data in the correct format, a simple call to the <code>mapview()</code> function creates an interactive map with all the locations plotted as points. You can click on a point to see its name and compare it to the locations on the map. With this data, the accuracy of the location only needs to be at the city level. The location within the city is not relevant. Inspecting the data from the map shows that all of the locations were correctly geocoded.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapview</span>(locations_sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<iframe width="750" height="350" src="img/locations-mapview.html">
+</iframe>
+<p>I can now save the locations data using the <code>readr</code> package and a function similar to that used to load data. I will use the <code>write_csv()</code> function to save the data as a csv file. Here, I save the <code>locations</code> tibble, but you could also save the other forms of the locations data. The second argument tells the function where to save the csv and what to call the file. Here, I place the file in the same folder as the “correspondence-data-1585.csv” and name the file “locations.csv”.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(locations, <span class="st">"data/locations.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="mapping" class="level2">
+<h2 class="anchored" data-anchor-id="mapping">Mapping with <code>ggmap</code></h2>
+<p>Now that we have successfully geocoded the locations from which Daniel’s correspondents sent letters and in which Daniel received them, we can move on to the task of plotting the locations on a map with <code>ggmap</code>.<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> <code>ggmap</code> is essentially an extension of <code>ggplot</code>. It enables you to plot a map as the background of a <code>ggplot</code> graph. The two main plotting features of <code>ggmap</code> are the <code>get_map()</code> function, which downloads a map from a specified map provider, and the <code>ggmap()</code> function that plots the downloaded map on a <code>ggplot</code> plot. Once a map is downloaded and plotted, it is then possible to use the normal grammar of <code>gglot</code> to visually represent that data on the map.</p>
+<p>The <code>get_map()</code> function can access data from three different map providers: <a href="http://maps.google.com">Google Maps</a>, <a href="http://www.openstreetmap.org">Open Street Maps</a>, and <a href="http://maps.stamen.com/">Stamen Maps</a>. In this example, I will use Google Maps and the <code>get_googlemap()</code> function. The challenge with the <code>get_map()</code> function is downloading a map with a zoom level and location that shows all of the data with minimal extra space. We need two pieces of information to do this for <code>get_googlemap()</code>: a location for the center of the map and a zoom level between 1 and 21.<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> Figuring out the best center and zoom level for a map may take some trial and error. However, the work that we have already done can help to make an educated first guess. We can rerun <code>mapview(locations_sf)</code> and look at the details provided by the map. The map produced by <code>mapview()</code> shows the longitude and latitude at your cursor position and tells the zoom level of the map. We can use the cursor to guess a good center of the map or zoom in to find a city, which we can then geocode. After a couple of tries, I found that Mannheim, Germany works as a good center for a map with a zoom level of 6. I can get the coordinates of Mannheim with the generic <code>geocode()</code> function and then place the coordinates into the <code>get_googlemap()</code> function. The only alteration that needs to be made is to glue together the longitude and latitude values into one object with the concatenate function, <code>c()</code>.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">geocode</span>(<span class="st">"mannheim"</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        lon      lat</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 8.466039 49.48746</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>map <span class="ot">&lt;-</span> <span class="fu">get_googlemap</span>(<span class="at">center =</span> <span class="fu">c</span>(<span class="fl">8.4</span>, <span class="fl">49.5</span>), <span class="at">zoom =</span> <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We can look at what the map looks like by calling the <code>ggmap()</code> function.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggmap</span>(map)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fig-map" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/google-map.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>Given the historical nature of the data, some of the normal features of a Google Map are problematic. The modern road system obviously did not exist in the sixteenth century, nor are the modern political boundaries useful for the data. In the below command, I change the aesthetics of the original map using the color argument and turn off features of the map by using commands from the <a href="https://developers.google.com/maps/documentation/staticmaps/">Google Maps API</a>.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>bw_map <span class="ot">&lt;-</span> <span class="fu">get_googlemap</span>(<span class="at">center =</span> <span class="fu">c</span>(<span class="fl">8.4</span>, <span class="fl">49.5</span>), <span class="at">zoom =</span> <span class="dv">6</span>,</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> <span class="st">"bw"</span>,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">style =</span> <span class="st">"feature:road|visibility:off&amp;style=element:labels|visibility:off&amp;style=feature:administrative|visibility:off"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now let’s see what the map looks like, but this time let’s add the location data. This is done using the normal <code>ggplot</code> functions. Here, I want to add points for each place in the <code>locations</code> data that we created above. The <code>aes()</code> function within <code>geom_point()</code> tells <code>ggplot</code> that the x-axis corresponds to the longitude and the y-axis to the latitude of each place.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggmap</span>(bw_map) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> locations, <span class="fu">aes</span>(<span class="at">x =</span> lon, <span class="at">y =</span> lat))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fig-locations" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/locations-map.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>The resulting map is rather sparse and does not provide much information, but it gives a good starting point from which to build a more informative map.</p>
+</section>
+<section id="adding-data" class="level2">
+<h2 class="anchored" data-anchor-id="adding-data">Adding data with <code>dplyr</code></h2>
+<p>The above map used the <code>locations</code> data to plot Daniel van der Meulen’s correspondence in 1585, but because it did not use the <code>letters</code> data, the map could not tell us anything about the number of letters sent from or received in each location. Visualizing this information is a two-step process. Firstly, it is necessary to find out how many letters were sent from and received in each location. Because we need to distinguish between sent and received locations, this data will be contained in two data frames. To do this, we can reuse the <code>per_source</code> and <code>per_destination</code> code discussed in the <a href="https://jessesadler.com/post/excel-vs-r/##the-pipe">previous post</a>, which summarizes the amount of letters sent from and to each location. Secondly, we have to join the longitude and latitude information from the <code>locations</code> data frame to the <code>per_source</code> and <code>per_destination</code> data frames.</p>
+<p>As a reminder, to create the <code>per_source</code> and <code>per_destination</code> objects I will use the <code>group_by()</code> and <code>summarise()</code> workflow. This groups the data by one or more defined variables and creates a new column that counts the number of unique observations from the variable(s). Below, I make <code>per_source</code> and <code>per_destination</code> data frames and print out the <code>per_destination</code> object to show its form.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>per_source <span class="ot">&lt;-</span> letters <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(source) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(count))</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>per_destination <span class="ot">&lt;-</span> letters <span class="sc">%&gt;%</span> </span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(destination) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(count))</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>per_destination</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 x 2</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   destination count</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         &lt;chr&gt; &lt;int&gt;</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1       Delft    95</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     Haarlem     8</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3      Bremen     6</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4   The Hague     3</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  Middelburg     2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <code>per_source</code> and <code>per_destination</code> data frames are in the basic structure that we want, but we need to add longitude and latitude columns to both of the objects so that they can be plotted on our map. Here, I will use a <code>left_join()</code>. As noted above, a <code>left_join()</code> only keeps the observations from the first data frame in the function. In other words, the result of a <code>left_join()</code> will have the same number of rows as the original left data frame, while adding the longitude and latitude columns from the <code>locations</code> data frame. The data frames will be joined by the columns containing the name of the cities. Because these “key” columns have different names, it is again necessary to denote their equivalency with <code>c()</code>. Below, I print out the newly created <code>geo_per_destination</code> data frame to show its structure.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>geo_per_source <span class="ot">&lt;-</span> <span class="fu">left_join</span>(per_source, locations, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"source"</span> <span class="ot">=</span> <span class="st">"place"</span>))</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>geo_per_destination <span class="ot">&lt;-</span> <span class="fu">left_join</span>(per_destination, locations, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"destination"</span> <span class="ot">=</span> <span class="st">"place"</span>))</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>geo_per_destination</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 x 4</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   destination count      lon      lat</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         &lt;chr&gt; &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1       Delft    95 4.357068 52.01158</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     Haarlem     8 4.646219 52.38739</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3      Bremen     6 8.801694 53.07930</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4   The Hague     3 4.300700 52.07050</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  Middelburg     2 3.610998 51.49880</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>I now have the necessary data to create a map that will distinguish between the sources of the letters and their destinations and will allow me to show the quantities of letters sent from and received in each location.</p>
+</section>
+<section id="mapping-data" class="level2">
+<h2 class="anchored" data-anchor-id="mapping-data">Mapping the data</h2>
+<p>Creating a quality visualization with <code>ggplot</code> involves iteration. Because the different parts of the plot are all written out in code, aspects can be added, subtracted, or modified until a good balance is found. Let’s start by creating a basic map using the <code>geo_per_source</code> and <code>geo_per_destination</code> data. The structure of the command is similar to that used to make the first map, but now that I am using information from two data frames, I need to use two <code>geom_point()</code> functions. There is also a small change to the <code>ggmap()</code> function to have the map take up the entire plotting area so that the longitude and latitude scales do not show. The only change to the <code>geom_point()</code> function is the addition of different colors for the two sets of points. This makes it easier to distinguish between places from which Daniel’s correspondents sent letters and places where he received them. Notice that the argument for the color of the points is placed outside of the <code>aes()</code> function. This makes all of the points plotted from each data frame a single color as opposed to mapping a change in color to a variable within the data. In this instance, I chose to specify color by name, but it is also possible to use rgb values, hex values, or a number of different color palettes.<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggmap</span>(bw_map) <span class="sc">+</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> geo_per_destination,</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> lon, <span class="at">y =</span> lat), <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> geo_per_source,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> lon, <span class="at">y =</span> lat), <span class="at">color =</span> <span class="st">"purple"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fig-data1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/data-map1.png" class="img-fluid figure-img" width="600"></p>
+</figure>
+</div>
+<p>This plot is much better than what we started with, but it still has a couple of issues. In the first place, it does not communicate any information about the quantity of letters. In addition, because the points are opaque, it is not clear that letters were both sent from and to Haarlem. The former issue can be rectified by using the size argument within the <code>aes()</code> function. This will tell <code>ggplot</code> to vary the size of each of the points in proportion to the count column. By default, the size aesthetic creates a legend to indicate the scale used. In the <code>ggmap()</code> function I place the legend in the top right corner of the map since there are no data points there. The latter issue is solved by adding an alpha argument to the two <code>geom_point()</code> functions. This argument is placed outside of the <code>aes()</code> function, because it is an aspect we want to apply to all points. <a href="https://www.w3schools.com/css/css3_colors.asp">Alpha</a> describes the translucency of an object and takes values between 1 (opaque) and 0 (translucent).</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggmap</span>(bw_map) <span class="sc">+</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> geo_per_destination,</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> lon, <span class="at">y =</span> lat, <span class="at">size =</span> count),</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> geo_per_source,</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> lon, <span class="at">y =</span> lat, <span class="at">size =</span> count),</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"purple"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fig-data2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/data-map2.png" class="img-fluid figure-img" width="600"></p>
+</figure>
+</div>
+<p>The above map is more informative, but it is hardly a finished product. For instance, there is no explanation for the differences in the color of the points, the smallest points are not easy to see, and there are no labels to indicate the names of the cities. Let’s deal with these issues one at a time to create a more fully fleshed out map. This will serve as an opportunity to demonstrate both the flexibility and complexity of <code>ggplot</code> code.<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a></p>
+<p>The different colors for sent and received locations are not defined in a legend in the previous plot, because <code>ggplot</code> only creates a legend for arguments within an <code>aes()</code> function. Even though the color does not change within the data for each <code>geom_point()</code> function, it is possible to place the color in the <code>aes()</code> function when used in tandem with <code>scale_color_manual()</code>. Inside the <code>aes()</code> function the color is associated with a name that will appear in the legend. The actual color to be used is defined in a separate <code>scale_color_manual()</code> function with the values argument.<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a></p>
+<p>A similar type of scale function also makes it possible to manually control the minimum and maximum size of the points drawn by the <code>size = count</code> argument within the <code>aes()</code> functions. For this last plot, I decided to make the minimum size of the point 2 and the maximum size 9. The range of the sizes for points is a good example of a plot element that you can play around with, trying out different sizes until you find one that works. Note too, that the best sizes of plot elements will also depend on the format in which the finished plot will be presented.</p>
+<p>In changing the background map from the default Google Map, I took out the city labels, but this makes it difficult to know which cities are represented by the different points. The plot only contains fourteen points, making it possible to label each point without too much clutter. In <code>ggplot</code>, <a href="http://r4ds.had.co.nz/graphics-for-communication.html#annotations">labels are geoms</a>; they are distinct elements placed on a plot with separate geom functions. Labeling points can be done with either <code>geom_text()</code> or <code>geom_label()</code>. <code>geom_text()</code> places text at the indicated position, while <code>geom_label()</code> places the text within a white text box. In addition to x and y coordinates, the two geoms require a <code>label</code> argument, which indicates the variable that should be used for the text. By default <code>geom_text()</code> and <code>geom_label()</code> are placed exactly on the x and y coordinates given by the data. It is possible to nudge the placement of the labels with the <code>nudge_x</code> and <code>nudge_y</code> arguments. However, instead of using these, I will take advantage of the <code>geom_text_repel()</code> function from the <code>ggrepel</code> package. This package automatically chooses the placement of individual labels to ensure that they do not overlap. Note too that I use the <code>locations</code> data frame for the data of the geom, since <code>locations</code> contains the longitude and latitude of each point on the map.</p>
+<p>The final touches to the map can be made by ensuring that all of the elements are clearly noted. <a href="http://r4ds.had.co.nz/graphics-for-communication.html#label">Labels for the plot itself</a> can be made with the <code>labs()</code> function. For this plot, I will add a descriptive title and change the labels for the two legends. By default, <code>ggplot</code> uses the name of the indicated column as the label for the legend. This is shown in the above map, where the size of the point is labeled as “count.” The default label can be replaced with a more informative one by indicating the aesthetic to be changed. Here, I will rename the size aesthetic as “Letters.” In addition, I chose not to have a label for the color aesthetic, which is indicated by “NULL”. Finally, I altered the size of the points drawn in the color legend to a larger size. <a href="http://r4ds.had.co.nz/graphics-for-communication.html#legend-layout">This is done with the <code>guides()</code> function</a>, which changes the scales of different aspects of the plot. In this case, I use the <code>override.aes</code> argument to have the red and purple points in the legend be drawn at <code>size = 6</code>.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggmap</span>(bw_map) <span class="sc">+</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> geo_per_destination,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> lon, <span class="at">y =</span> lat, <span class="at">size =</span> count, <span class="at">color =</span> <span class="st">"Destination"</span>), </span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> geo_per_source,</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> lon, <span class="at">y =</span> lat, <span class="at">size =</span> count, <span class="at">color =</span> <span class="st">"Source"</span>),</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">Destination =</span> <span class="st">"red"</span>, <span class="at">Source =</span> <span class="st">"purple"</span>)) <span class="sc">+</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size_continuous</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">9</span>)) <span class="sc">+</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">data =</span> locations, <span class="fu">aes</span>(<span class="at">x =</span> lon, <span class="at">y =</span> lat, <span class="at">label =</span> place)) <span class="sc">+</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Correspondence of Daniel van der Meulen, 1585"</span>,</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">size =</span> <span class="st">"Letters"</span>,</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">6</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fig-data3" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/data-map3.png" class="img-fluid figure-img" width="600"></p>
+</figure>
+</div>
+</section>
+<section id="concluding" class="level2">
+<h2 class="anchored" data-anchor-id="concluding">Conclusion</h2>
+<p>The above map demonstrates the geographic spread of Daniel van der Meulen’s correspondence in 1585 and shows the relative significance of the location of his correspondents and the different places in which he received letters throughout the year. More important than the details of the map for the purposes of this post is the process by which it was created. One interesting feature that I would like to emphasize in concluding is that the map uses data from three different data frames or tables: <code>geo_per_destination</code>, <code>geo_per_source</code>, and <code>locations</code>. All three of these data frames derive from the original <code>letters</code> data, while they in turn were the product of yet more data frames. By my count, running the commands contained in this post leads to the creation of 12 different data frame like objects. The below diagram outlines the workflow. The ability to split, subset, transform, and then join newly created tables in a variety of ways is a very powerful and flexible workflow. Because the data frames can be recreated by running the code, there is minimal overhead in managing them, especially in comparison to creating tables within spreadsheets. In this case, I would only recommend that the <code>locations</code> data frame be saved for easy access in other R scripts and sessions. The other objects can be created on demand, or even more can be added, while the individual aspects of the map can be endlessly tweaked using the power of <code>ggplot</code>.</p>
+<p><img src="img/workflow-diagram.png" class="img-fluid"></p>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1" role="doc-endnote"><p>Geocoding can be done with websites such as <a href="http://www.geonames.org">geonames</a> and the service provided by <a href="http://geoservices.tamu.edu/Services/Geocode/">Texas A&amp;M</a>. There are also a number of <a href="http://crln.acrl.org/index.php/crlnews/article/view/16772/18314">options for creating maps on the web</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>See the Introduction of <a href="https://bookdown.org/robinlovelace/geocompr/">Robin Lovelace, Jakub Nowosad, and Jannes Meunchow, <em>Geocomputation with R</em></a> for a good overview of the GIS capabilities of R.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p><a href="https://www.cdrc.ac.uk/wp-content/uploads/2016/04/AS_EstablishingAFrameworkforOpenGIS.pdf">Alex David Singleton, Seth Spielman, and Chris Brunsdon, “Establishing a Framework for Open Geographic Information Science,”</a> <em>International Journal of Geographical Information Science</em>, 30 (2016): 1507-1521.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p>A full list of geographic packages for R can be found at <a href="https://cran.r-project.org/web/views/Spatial.html">R Packages for the Analysis of Spatial Data</a>. In future posts I will discuss some of these packages and their capabilities.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5" role="doc-endnote"><p>In this command the quotations around “source” and “destination” are necessary. They tell the function that these are strings of characters.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6" role="doc-endnote"><p>It is good practice to stay away from overwriting objects until you know whether the code works. However, if you mess up, it is always possible to recreate the original object by rerunning the code that created it.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7" role="doc-endnote"><p>For instance, geocoding “Naples” will return the longitude and latitude of Naples, Florida and not Naples, Italy.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8" role="doc-endnote"><p>If you want to get an idea of how an <code>sf</code> object differs from a normal tibble or data frame, you can print out the <code>locations_sf</code> object. This shows that the longitude and latitude columns have been combined into a special type of column called <code>simple_feature</code> and named “geometry”, while additional information about the CRS is also provided.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9" role="doc-endnote"><p>For a fuller discussion of <code>ggmap</code>, see <a href="https://journal.r-project.org/archive/2013-1/kahle-wickham.pdf">David Kahle and Hadley Wickham, “ggmap: Spatial Visualization with ggplot2.”</a><a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10" role="doc-endnote"><p>A zoom level of 1 is the most zoomed out, while 21 is the most zoomed in.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11" role="doc-endnote"><p><a href="https://www.w3schools.com/colors/default.asp">W3 Schools has a good discussion on the use of rgb and hex colors</a>. For the use of colors with <code>ggplot</code>, see Hadley Wickham, <em>ggplot2: Elegant Graphics for Data Analysis</em>, Second edition (Springer, 2016), 133–145. A full list of the named colors available in R can be found <a href="http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf">here</a><a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12" role="doc-endnote"><p>For a full discussion of the powers of <code>ggplot</code>, see <a href="http://www.springer.com/us/book/9783319242750">Wickham, <em>ggplot2</em></a>.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn13" role="doc-endnote"><p>Wickham, <em>ggplot</em>, 142–143.<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.quarto.org">Built with Quarto</a>
+  </li>  
+</ul>
+    </div>   
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/vivalosburros">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jessesadler">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>
