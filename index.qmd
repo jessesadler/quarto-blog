@@ -9,6 +9,7 @@ listing:
   sort-ui: false
   filter-ui: false
   date-format: "D MMMM YYYY"
+  feed: true
 page-layout: full
 title-block-banner: false
 ---

@@ -3,6 +3,8 @@ project:
 
 website:
   title: "A Rogue Historian"
+  site-url: "https://www.jessesadler.com"
+  description: "Personal website of Jesse Sadler"
   favicon: favicon.ico
   navbar:
     title: "Jesse Sadler"
@@ -21,6 +23,8 @@ website:
         href: https://github.com/jessesadler
       - icon: twitter
         href: https://twitter.com/vivalosburros
+      - icon: rss
+        href: index.xml
   page-footer:
     left:
       - href: https://www.quarto.org
