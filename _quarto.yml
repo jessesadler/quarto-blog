@@ -36,3 +36,4 @@ format:
   html:
     theme: [litera, styles.scss]
     highlight-style: ayu
+    include-in-header: plausible.html
