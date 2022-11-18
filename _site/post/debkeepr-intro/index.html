@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.38">
+<meta name="generator" content="quarto-1.2.269">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -13,10 +13,15 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -55,7 +60,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -68,7 +73,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -130,40 +135,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <a class="navbar-brand" href="../../index.html">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Jesse Sadler</span>
-  </a>
+    </a>
+  </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../project.html">Projects</a>
+    <a class="nav-link" href="../../project.html">
+ <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../course.html">Courses</a>
+    <a class="nav-link" href="../../course.html">
+ <span class="menu-text">Courses</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../slides.html">Talks</a>
+    <a class="nav-link" href="../../slides.html">
+ <span class="menu-text">Talks</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html">About</a>
+    <a class="nav-link" href="../../about.html">
+ <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/jessesadler"><i class="bi bi-github" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://twitter.com/vivalosburros"><i class="bi bi-twitter" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="../../index.xml"><i class="bi bi-rss" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -175,7 +186,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
-    <nav id="TOC" role="doc-toc">
+    <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
@@ -222,6 +233,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <p class="date">18 September 2018</p>
     </div>
   </div>
+  
     
   </div>
   
@@ -242,7 +254,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="fig-scratchpad" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="img/math-scratchpad.jpg" height="400" class="figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure 1: Scratchpad: Doing math by hand</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;1: Scratchpad: Doing math by hand</figcaption><p></p>
 </figure>
 </div>
 </div></div><p>The tripartite and non-decimal nature of pounds, shillings, and pence values presents particular difficulties for the analysis of large sets of accounts. A first instinct of the researcher is to place the transactions from an account book into a table or data base to better understand these large groups of data, but how should the pounds, shillings, and pence values be entered? Should they be placed into three separate variables or brought together somehow into one, and how should the arithmetic be performed? So long as there is no clear way to handle one, not to mention multiple, non-decimal currency within a data base, the use of digital tools to investigate and analyze historical accounts books will be hindered.</p>
@@ -267,7 +279,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="fig-barbary" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="img/barbary-scratchpad.jpg" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure 2: A scratchpad from the archive of Daniel van der Meulen</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2: A scratchpad from the archive of Daniel van der Meulen</figcaption><p></p>
 </figure>
 </div>
 <div class="quarto-layout-panel">
@@ -354,7 +366,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="fig-multiplication" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="img/lsd-multiplication.png" height="350" class="figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure 3: Multiplication in <em>Encyclopedia Britannica</em></figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3: Multiplication in <em>Encyclopedia Britannica</em></figcaption><p></p>
 </figure>
 </div>
 </div></div><p>The examples for division in the <em>Encyclopedia Britannica</em> include the division of pounds, shillings, and pence, as well as the division of weight measured in terms of hundredweight, quarters, and pounds. A hundredweight consisted of four quarters and there were 28 pounds (or two stones) in a quarter. While <code>debkeepr</code> was created with pounds, shillings, and pence values in mind, the measurement of weight in terms of hundredweight can be integrated by altering the bases argument. This example even serves to show a mistake in the printing in the <em>Encyclopedia</em>, as the answer is shown as 15 cwt. 2 q. 21 lb., but it should actually be 22 lb. Checking the long division at the bottom of the calculation, 22 goes into 44 twice not once. Notice too that the division of £465 12s. 8d. ends with a remainder of 8 even though this is not included in the answer provided. This remainder leads to the decimal in the pence unit in the answer provided by <code>deb_divide()</code>. Setting the <code>round</code> argument to 0 would convert the pence unit to a whole number.</p>
@@ -372,7 +384,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="fig-division" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="img/lsd-division.png" height="400" class="figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure 4: Division in <em>Encyclopedia Britannica</em></figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;4: Division in <em>Encyclopedia Britannica</em></figcaption><p></p>
 </figure>
 </div>
 </div></div><p>These examples replicate answers already provided, but they serve to demonstrate the gains in both speed and accuracy for these common calculations. Further examples, including the use of <code>debkeepr</code> to convert between currencies that may or may not have different bases for the shillings and pence units, can be found in both <a href="https://jessesadler.github.io/debkeepr/articles/debkeepr.html">Getting Started with debkeepr</a> and the <a href="https://jessesadler.github.io/debkeepr/articles/transactions.html">Transactions in Richard Dafforne’s Journal vignette</a>.</p>
@@ -473,13 +485,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1" role="doc-endnote"><p>For more information about the development of the system of pounds, shillings, and pence and medieval monetary systems more generally see Peter Spufford, <em>Money and its Use in Medieval Europe</em> (Cambridge: Cambridge University Press, 1988).<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>For a more in depth discussion of <code>lsd</code> objects and a step-by-step overview of how to create and work with them see <a href="https://jessesadler.github.io/debkeepr/articles/debkeepr.html">Getting Started with debkeepr</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3" role="doc-endnote"><p>This scratch piece of paper comes from the archive of Daniël van der Meulen en Hester de la Faille, zijn vrouw, 1550-1648 at Erfgoed Leiden en Omstreken. You can access the original <a href="https://www.erfgoedleiden.nl/collecties/archieven/archievenoverzicht/scans/NL-LdnRAL-0096/7.23">here</a>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4" role="doc-endnote"><p>This means that the default value of <code>c(20, 12)</code> does not need to be altered for the <code>bases</code> argument, though it is included in some of the below examples for transparency.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>For more information about the development of the system of pounds, shillings, and pence and medieval monetary systems more generally see Peter Spufford, <em>Money and its Use in Medieval Europe</em> (Cambridge: Cambridge University Press, 1988).<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>For a more in depth discussion of <code>lsd</code> objects and a step-by-step overview of how to create and work with them see <a href="https://jessesadler.github.io/debkeepr/articles/debkeepr.html">Getting Started with debkeepr</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>This scratch piece of paper comes from the archive of Daniël van der Meulen en Hester de la Faille, zijn vrouw, 1550-1648 at Erfgoed Leiden en Omstreken. You can access the original <a href="https://www.erfgoedleiden.nl/collecties/archieven/archievenoverzicht/scans/NL-LdnRAL-0096/7.23">here</a>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>This means that the default value of <code>c(20, 12)</code> does not need to be altered for the <code>bases</code> argument, though it is included in some of the below examples for transparency.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -523,7 +535,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -551,31 +580,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>

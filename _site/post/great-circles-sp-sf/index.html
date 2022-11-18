@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.38">
+<meta name="generator" content="quarto-1.2.269">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -13,10 +13,15 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -55,7 +60,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -68,7 +73,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -147,40 +152,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <a class="navbar-brand" href="../../index.html">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Jesse Sadler</span>
-  </a>
+    </a>
+  </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../project.html">Projects</a>
+    <a class="nav-link" href="../../project.html">
+ <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../course.html">Courses</a>
+    <a class="nav-link" href="../../course.html">
+ <span class="menu-text">Courses</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../slides.html">Talks</a>
+    <a class="nav-link" href="../../slides.html">
+ <span class="menu-text">Talks</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html">About</a>
+    <a class="nav-link" href="../../about.html">
+ <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/jessesadler"><i class="bi bi-github" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://twitter.com/vivalosburros"><i class="bi bi-twitter" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="../../index.xml"><i class="bi bi-rss" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -192,7 +203,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
-    <nav id="TOC" role="doc-toc">
+    <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
@@ -240,6 +251,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <p class="date">28 March 2018</p>
     </div>
   </div>
+  
     
   </div>
   
@@ -250,7 +262,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="fig-mercator" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="img/Mercator-1569.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure 1: World Map by Gerardus Mercator, 1569</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;1: World Map by Gerardus Mercator, 1569</figcaption><p></p>
 </figure>
 </div>
 <p>The Mercator projection was designed with certain uses in mind. Mercator’s emphasis on perpendicular lines of longitude and latitude and the equivalence of straight lines and rhumb lines were meant to simplify navigation and have recently proved useful for <a href="https://en.wikipedia.org/wiki/Web_Mercator">online mapping services</a>. However, the stretching of latitudes towards the poles <a href="https://www.youtube.com/watch?v=OH1bZ0F3zVU">distorts the size of land masses</a>, making those closer to the poles appear larger than those near the equator. The stress on rhumb lines in Mercator’s map also highlights the difference between lines of constant bearing (<a href="https://en.wikipedia.org/wiki/Rhumb_line">rhumb or loxodrome lines</a>) and the shortest distance between two points (<a href="https://en.wikipedia.org/wiki/Great-circle_distance">great circles</a>). Due to Earth’s ellipsoidal nature, the shortest distance between two points is not necessarily a straight line. For instance, to fly from Los Angeles to Amsterdam, one would not want to fly in a straight line of constant bearing at 78 degrees. Instead, you would want to make an arc to the north to take advantage of the ellipsoidal shape of the Earth. By flying along the great circle from Los Angeles to Amsterdam one would travel 1120 kilometers less than flying along the rhumb line.</p>
@@ -729,26 +741,26 @@ First 10 features:
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1" role="doc-endnote"><p>As Mercator explained in <a href="https://en.wikipedia.org/wiki/Mercator_1569_world_map#legend6">legend 6</a> the distortion of distance is infinite at the poles such that they cannot actually be represented on the map.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>Joaquim Alves Gaspar, “Revisiting the Mercator World Map of 1569: an Assessment of Navigational Accuracy,” <em>The Journal of Navigation</em> 69 (2016): 1183–1196.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3" role="doc-endnote"><p>Roy Iliffe, “Science and the Voyages of Discovery,” in <em>The Cambridge History of Science: Eighteenth-Century Science</em>, ed.&nbsp;Roy Porter (Cambridge: Cambridge University Press, 2003).<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4" role="doc-endnote"><p>See the resources section at the end of the post for a list of posts on creating great circles in R.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5" role="doc-endnote"><p>Previous to <a href="https://github.com/r-spatial/sf/blob/master/NEWS.md">version 0.6</a>, <code>sf</code> also used the <code>geosphere</code> package to calculate distance and create great circles with geographic coordinates. The change to use the <code>lwgeom</code> package, which is an implementation of the <a href="https://github.com/postgis/postgis/tree/svn-trunk/liblwgeom">liblwgeom</a> library, aligns <code>sf</code> with the methods used by <a href="http://postgis.net/">PostGIS</a>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6" role="doc-endnote"><p>This is hardly surprising. Until the fall of 1585, Daniel’s family mainly resided in Antwerp, and he was serving as a representative to the States General, which was meeting at Delft.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn7" role="doc-endnote"><p>You can also set whether you want the line to be broken at the International Date Line, but the argument is superfluous in this case.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn8" role="doc-endnote"><p>Setting <code>sp = FALSE</code>, which is the default, returns a list of matrices containing the latitude and longitude values for the path along the great circle of each route.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn9" role="doc-endnote"><p>Even if you set the <code>Match.ID</code> argument to <code>FALSE</code>, the lines and attribute data would be correctly aligned as long as you do not change the order of the <code>routes</code> data frame after creating <code>sources_tbl</code> and <code>destinations_tbl</code>.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn10" role="doc-endnote"><p>This method is similar to the original workflow shown by <a href="http://www.visibledata.co.uk/blog/2018/02/28/2018-02-28_great-circles-with-sf-and-leaflet/">Martin Hadley in his post on Great circles with sf and leaflet</a>.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn11" role="doc-endnote"><p>For more information on <code>gather()</code> and <code>spread()</code> see <a href="http://r4ds.had.co.nz/tidy-data.html">Wickham, <em>R for Data Science</em>, Chapter 12</a> and <a href="https://github.com/jtr13/codehelp/blob/master/R/gather.md">Joyce Robbins’s excellent tutorial on <code>gather()</code></a>.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn12" role="doc-endnote"><p>It is not necessary to place “type” and “place” in quotations, but doing so more clearly identifies these as strings and not as names of already extant objects.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn13" role="doc-endnote"><p>You do not need to include the geometry column in the <code>group_by()</code> function. <a href="https://jessesadler.com/post/simple-feature-objects/#sf">The geometry column is sticky</a> and will remain attached to the <code>sf</code> object unless explicitly removed.<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn14" role="doc-endnote"><p>The <code>units</code> package is imported along with <code>sf</code>, so if you have <code>sf</code>, you should also have the <code>units</code> package.<a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn15" role="doc-endnote"><p>The equivalent code without the <code>units</code> package would be <code>st_segmentize(routes_lines, 20000)</code>.<a href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn16" role="doc-endnote"><p>See the same <a href="https://jessesadler.com/post/simple-feature-objects/">post</a> for a more in depth treatment of the vocabulary of simple feature objects.<a href="#fnref16" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn17" role="doc-endnote"><p>If you are familiar with for loops in R, you can skip this discussion of the steps to build the for loop.<a href="#fnref17" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>As Mercator explained in <a href="https://en.wikipedia.org/wiki/Mercator_1569_world_map#legend6">legend 6</a> the distortion of distance is infinite at the poles such that they cannot actually be represented on the map.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Joaquim Alves Gaspar, “Revisiting the Mercator World Map of 1569: an Assessment of Navigational Accuracy,” <em>The Journal of Navigation</em> 69 (2016): 1183–1196.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Roy Iliffe, “Science and the Voyages of Discovery,” in <em>The Cambridge History of Science: Eighteenth-Century Science</em>, ed.&nbsp;Roy Porter (Cambridge: Cambridge University Press, 2003).<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>See the resources section at the end of the post for a list of posts on creating great circles in R.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Previous to <a href="https://github.com/r-spatial/sf/blob/master/NEWS.md">version 0.6</a>, <code>sf</code> also used the <code>geosphere</code> package to calculate distance and create great circles with geographic coordinates. The change to use the <code>lwgeom</code> package, which is an implementation of the <a href="https://github.com/postgis/postgis/tree/svn-trunk/liblwgeom">liblwgeom</a> library, aligns <code>sf</code> with the methods used by <a href="http://postgis.net/">PostGIS</a>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>This is hardly surprising. Until the fall of 1585, Daniel’s family mainly resided in Antwerp, and he was serving as a representative to the States General, which was meeting at Delft.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>You can also set whether you want the line to be broken at the International Date Line, but the argument is superfluous in this case.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>Setting <code>sp = FALSE</code>, which is the default, returns a list of matrices containing the latitude and longitude values for the path along the great circle of each route.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>Even if you set the <code>Match.ID</code> argument to <code>FALSE</code>, the lines and attribute data would be correctly aligned as long as you do not change the order of the <code>routes</code> data frame after creating <code>sources_tbl</code> and <code>destinations_tbl</code>.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>This method is similar to the original workflow shown by <a href="http://www.visibledata.co.uk/blog/2018/02/28/2018-02-28_great-circles-with-sf-and-leaflet/">Martin Hadley in his post on Great circles with sf and leaflet</a>.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p>For more information on <code>gather()</code> and <code>spread()</code> see <a href="http://r4ds.had.co.nz/tidy-data.html">Wickham, <em>R for Data Science</em>, Chapter 12</a> and <a href="https://github.com/jtr13/codehelp/blob/master/R/gather.md">Joyce Robbins’s excellent tutorial on <code>gather()</code></a>.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12"><p>It is not necessary to place “type” and “place” in quotations, but doing so more clearly identifies these as strings and not as names of already extant objects.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn13"><p>You do not need to include the geometry column in the <code>group_by()</code> function. <a href="https://jessesadler.com/post/simple-feature-objects/#sf">The geometry column is sticky</a> and will remain attached to the <code>sf</code> object unless explicitly removed.<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn14"><p>The <code>units</code> package is imported along with <code>sf</code>, so if you have <code>sf</code>, you should also have the <code>units</code> package.<a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn15"><p>The equivalent code without the <code>units</code> package would be <code>st_segmentize(routes_lines, 20000)</code>.<a href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn16"><p>See the same <a href="https://jessesadler.com/post/simple-feature-objects/">post</a> for a more in depth treatment of the vocabulary of simple feature objects.<a href="#fnref16" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn17"><p>If you are familiar with for loops in R, you can skip this discussion of the steps to build the for loop.<a href="#fnref17" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -792,7 +804,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -820,31 +849,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>

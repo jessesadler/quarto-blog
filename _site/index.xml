@@ -9,8 +9,105 @@
 <link>https://www.jessesadler.com/index.html</link>
 <atom:link href="https://www.jessesadler.com/index.xml" rel="self" type="application/rss+xml"/>
 <description>Personal website of Jesse Sadler</description>
-<generator>quarto-1.0.38</generator>
-<lastBuildDate>Sat, 05 Nov 2022 04:00:00 GMT</lastBuildDate>
+<generator>quarto-1.2.269</generator>
+<lastBuildDate>Fri, 18 Nov 2022 05:00:00 GMT</lastBuildDate>
+<item>
+  <title>Downloading Twitter data with rtweet</title>
+  <link>https://www.jessesadler.com/post/rtweet/index.html</link>
+  <description><![CDATA[ 
+
+
+
+<p>Last night, the 17th of November, 2022, I, like so many others, was rather gleefully, but also sadly, doom scrolling through Twitter as Elon Musk seemed to be rocketing the social network into the ground at amazing speed.</p>
+<p></p><div id="tweet-14426"></div><script>tweet={"url":"https:\/\/twitter.com\/_inundata\/status\/1593421891439513600","author_name":"Karthik Ram @inundata@mastodon.social","author_url":"https:\/\/twitter.com\/_inundata","html":"\u003Cblockquote class=\"twitter-tweet\" align=\"center\"\u003E\u003Cp lang=\"en\" dir=\"ltr\"\u003ETwitter vibe this evening \u003Ca href=\"https:\/\/t.co\/TxPnf2DGXw\"\u003Epic.twitter.com\/TxPnf2DGXw\u003C\/a\u003E\u003C\/p\u003E&mdash; Karthik Ram @inundata@mastodon.social (@_inundata) \u003Ca href=\"https:\/\/twitter.com\/_inundata\/status\/1593421891439513600?ref_src=twsrc%5Etfw\"\u003ENovember 18, 2022\u003C\/a\u003E\u003C\/blockquote\u003E\n\u003Cscript async src=\"https:\/\/platform.twitter.com\/widgets.js\" charset=\"utf-8\"\u003E\u003C\/script\u003E\n","width":550,"height":null,"type":"rich","cache_age":"3153600000","provider_name":"Twitter","provider_url":"https:\/\/twitter.com","version":"1.0"};document.getElementById("tweet-14426").innerHTML = tweet["html"];</script><p></p>
+<p>It seemed a good time to heed the warning that so many had put out about downloading your twitter data: your tweets, those you follow, your followers, and maybe the Twitter lists that you have created or followed. I knew that much of this could be done with the <a href="https://docs.ropensci.org/rtweet/articles/rtweet.html">rtweet</a> package, and I had seen a few people tweet out ways to get the data, in particular, I had saved Amelia McNamara’s tweet from a week ago.</p>
+<p></p><div id="tweet-36703"></div><script>tweet={"url":"https:\/\/twitter.com\/AmeliaMN\/status\/1591100508298956808","author_name":"Amelia is @amelia@vis.social on Mastodon","author_url":"https:\/\/twitter.com\/AmeliaMN","html":"\u003Cblockquote class=\"twitter-tweet\" align=\"center\"\u003E\u003Cp lang=\"en\" dir=\"ltr\"\u003ESince today could be a good day to grab twitter data, a reminder that you can get your archive from twitter itself: \u003Ca href=\"https:\/\/t.co\/8Wo7nbborh\"\u003Ehttps:\/\/t.co\/8Wo7nbborh\u003C\/a\u003E Or if you&#39;re an \u003Ca href=\"https:\/\/twitter.com\/hashtag\/RStats?src=hash&amp;ref_src=twsrc%5Etfw\"\u003E#RStats\u003C\/a\u003E user and want to grab stuff (e.g. followers) ASAP, try \u007Brtweet\u007D! \u003Ca href=\"https:\/\/t.co\/gTJNb5yoWf\"\u003Ehttps:\/\/t.co\/gTJNb5yoWf\u003C\/a\u003E \u003Ca href=\"https:\/\/t.co\/tj2fZZ01sn\"\u003Epic.twitter.com\/tj2fZZ01sn\u003C\/a\u003E\u003C\/p\u003E&mdash; Amelia is @amelia@vis.social on Mastodon (@AmeliaMN) \u003Ca href=\"https:\/\/twitter.com\/AmeliaMN\/status\/1591100508298956808?ref_src=twsrc%5Etfw\"\u003ENovember 11, 2022\u003C\/a\u003E\u003C\/blockquote\u003E\n\u003Cscript async src=\"https:\/\/platform.twitter.com\/widgets.js\" charset=\"utf-8\"\u003E\u003C\/script\u003E\n","width":550,"height":null,"type":"rich","cache_age":"3153600000","provider_name":"Twitter","provider_url":"https:\/\/twitter.com","version":"1.0"};document.getElementById("tweet-36703").innerHTML = tweet["html"];</script><p></p>
+<p>I followed her script, played around with the functions in <code>rtweet</code> a bit and tried to fit the basics of a script to download most of the important data in one tweet.</p>
+<p></p><div id="tweet-24330"></div><script>tweet={"url":"https:\/\/twitter.com\/vivalosburros\/status\/1593444948841443328","author_name":"Jesse Sadler","author_url":"https:\/\/twitter.com\/vivalosburros","html":"\u003Cblockquote class=\"twitter-tweet\" align=\"center\"\u003E\u003Cp lang=\"en\" dir=\"ltr\"\u003ETwitter data downloaded thanks to rtweet and \u003Ca href=\"https:\/\/twitter.com\/hashtag\/rstats?src=hash&amp;ref_src=twsrc%5Etfw\"\u003E#rstats\u003C\/a\u003E\u003Cbr\u003E\u003Cbr\u003Eget_timeline(“user”, n = inf)\u003Cbr\u003E\u003Cbr\u003Efriends &lt;- get_friends(“user”)\u003Cbr\u003Elookup_users(friends$to_id)\u003Cbr\u003E\u003Cbr\u003Efollowers &lt;- get_followers(“user”)\u003Cbr\u003Elookup_users(followers$from_id)\u003Cbr\u003E\u003Cbr\u003Elists &lt;- lists_users(“user”)\u003Cbr\u003Emap(lists$list_id, lists_members)\u003C\/p\u003E&mdash; Jesse Sadler (@vivalosburros) \u003Ca href=\"https:\/\/twitter.com\/vivalosburros\/status\/1593444948841443328?ref_src=twsrc%5Etfw\"\u003ENovember 18, 2022\u003C\/a\u003E\u003C\/blockquote\u003E\n\u003Cscript async src=\"https:\/\/platform.twitter.com\/widgets.js\" charset=\"utf-8\"\u003E\u003C\/script\u003E\n","width":550,"height":null,"type":"rich","cache_age":"3153600000","provider_name":"Twitter","provider_url":"https:\/\/twitter.com","version":"1.0"};document.getElementById("tweet-24330").innerHTML = tweet["html"];</script><p></p>
+<p>Below, I will expand on the Tweet to show more fully how to download and save your Twitter data. This closely follows <a href="https://gist.github.com/AmeliaMN/c2e75ca0da51232dd2f8200646fd24c5">Amelia’s script</a> but adds a bit of data.</p>
+<section id="getting-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="getting-the-data">Getting the data</h3>
+<p>Let’s get the data of the tweets, followers, those followed, and lists of a single user. Here, I use my own account of <a href="http://twitter.com/vivalosburros"><span class="citation" data-cites="vivalosburros">@vivalosburros</span></a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="co" style="color: #5E5E5E;"># Load rtweet and tidyverse for cleaning and saving data</span></span>
+<span id="cb1-2"><span class="fu" style="color: #4758AB;">library</span>(rtweet)</span>
+<span id="cb1-3"><span class="fu" style="color: #4758AB;">library</span>(tidyverse)</span>
+<span id="cb1-4"></span>
+<span id="cb1-5"><span class="co" style="color: #5E5E5E;"># Authenticate twitter</span></span>
+<span id="cb1-6"><span class="fu" style="color: #4758AB;">auth_setup_default</span>()</span>
+<span id="cb1-7"></span>
+<span id="cb1-8"><span class="co" style="color: #5E5E5E;"># Twitter user name: I use my own name @vivalosburros</span></span>
+<span id="cb1-9">user <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="st" style="color: #20794D;">"vivalosburros"</span></span>
+<span id="cb1-10"></span>
+<span id="cb1-11"><span class="co" style="color: #5E5E5E;"># Your tweets -------------------------------------------------------------</span></span>
+<span id="cb1-12"></span>
+<span id="cb1-13">tweets <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">get_timeline</span>(user, <span class="at" style="color: #657422;">n =</span> <span class="cn" style="color: #8f5902;">Inf</span>)</span>
+<span id="cb1-14"></span>
+<span id="cb1-15"><span class="co" style="color: #5E5E5E;"># Who you follow ----------------------------------------------------------</span></span>
+<span id="cb1-16"></span>
+<span id="cb1-17">friends <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">get_friends</span>(user)</span>
+<span id="cb1-18">friend_screennames <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">lookup_users</span>(friends<span class="sc" style="color: #5E5E5E;">$</span>to_id)</span>
+<span id="cb1-19"></span>
+<span id="cb1-20"><span class="co" style="color: #5E5E5E;"># Followers ---------------------------------------------------------------</span></span>
+<span id="cb1-21"></span>
+<span id="cb1-22">followers <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">get_followers</span>(user)</span>
+<span id="cb1-23">follower_screennames <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">lookup_users</span>(followers<span class="sc" style="color: #5E5E5E;">$</span>from_id)</span>
+<span id="cb1-24"></span>
+<span id="cb1-25"><span class="co" style="color: #5E5E5E;"># Lists -------------------------------------------------------------------</span></span>
+<span id="cb1-26"></span>
+<span id="cb1-27">lists <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">lists_users</span>(user)</span>
+<span id="cb1-28"><span class="co" style="color: #5E5E5E;"># Create a list of tibbles of the different lists you follow</span></span>
+<span id="cb1-29">lists_screenames <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">map</span>(lists<span class="sc" style="color: #5E5E5E;">$</span>list_id, lists_members)</span></code></pre></div>
+</div>
+</section>
+<section id="clean-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="clean-the-data">Clean the data</h3>
+<p>The data we get is returned as tibbles with many columns that have data that might not be all that useful to you. However, you can easily skip this data cleaning step if you just want the raw data. The variables that you are interested in might be different than the ones I have below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><span class="co" style="color: #5E5E5E;"># Select desired columns: Feel free to skip</span></span>
+<span id="cb2-2"></span>
+<span id="cb2-3">tweets <span class="ot" style="color: #003B4F;">&lt;-</span> tweets <span class="sc" style="color: #5E5E5E;">|&gt;</span> </span>
+<span id="cb2-4">  <span class="fu" style="color: #4758AB;">select</span>(created_at<span class="sc" style="color: #5E5E5E;">:</span>full_text, retweet_count<span class="sc" style="color: #5E5E5E;">:</span>retweeted)</span>
+<span id="cb2-5"></span>
+<span id="cb2-6">friend_screennames <span class="ot" style="color: #003B4F;">&lt;-</span> friend_screennames <span class="sc" style="color: #5E5E5E;">|&gt;</span> </span>
+<span id="cb2-7">  <span class="fu" style="color: #4758AB;">select</span>(id<span class="sc" style="color: #5E5E5E;">:</span>url)</span>
+<span id="cb2-8"></span>
+<span id="cb2-9">follower_screennames <span class="ot" style="color: #003B4F;">&lt;-</span> follower_screennames <span class="sc" style="color: #5E5E5E;">|&gt;</span> </span>
+<span id="cb2-10">  <span class="fu" style="color: #4758AB;">select</span>(id<span class="sc" style="color: #5E5E5E;">:</span>url)</span>
+<span id="cb2-11"></span>
+<span id="cb2-12">lists_screenames <span class="ot" style="color: #003B4F;">&lt;-</span> lists_screenames <span class="sc" style="color: #5E5E5E;">|&gt;</span> </span>
+<span id="cb2-13">  <span class="fu" style="color: #4758AB;">map</span>(<span class="sc" style="color: #5E5E5E;">~</span> <span class="fu" style="color: #4758AB;">select</span>(., user_id<span class="sc" style="color: #5E5E5E;">:</span>url))</span></code></pre></div>
+</div>
+</section>
+<section id="saving-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="saving-the-data">Saving the data</h3>
+<p>Now we can save the data in a folder called <code>data/</code> with the <a href="https://readr.tidyverse.org"><code>readr</code></a>. The only tricky part is using <code>walk2()</code> from <a href="https://purrr.tidyverse.org"><code>purrr</code></a> to save the list of tibbles that has the Twitter lists you follow, if you follow more than one.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><span class="co" style="color: #5E5E5E;"># Save the tweets, following, and followers data</span></span>
+<span id="cb3-2"><span class="fu" style="color: #4758AB;">write_csv</span>(tweets, <span class="st" style="color: #20794D;">"data/tweets.csv"</span>)</span>
+<span id="cb3-3"><span class="fu" style="color: #4758AB;">write_csv</span>(friend_screennames, <span class="st" style="color: #20794D;">"data/following.csv"</span>)</span>
+<span id="cb3-4"><span class="fu" style="color: #4758AB;">write_csv</span>(follower_screennames, <span class="st" style="color: #20794D;">"data/followers.csv"</span>)</span>
+<span id="cb3-5"></span>
+<span id="cb3-6"><span class="co" style="color: #5E5E5E;"># Save the list data and name csv with the list name</span></span>
+<span id="cb3-7"></span>
+<span id="cb3-8"><span class="co" style="color: #5E5E5E;"># Get names of lists</span></span>
+<span id="cb3-9">list_names <span class="ot" style="color: #003B4F;">&lt;-</span> lists<span class="sc" style="color: #5E5E5E;">$</span>name</span>
+<span id="cb3-10"><span class="fu" style="color: #4758AB;">walk2</span>(lists_screenames,</span>
+<span id="cb3-11">      list_names,</span>
+<span id="cb3-12">      <span class="sc" style="color: #5E5E5E;">~</span> <span class="fu" style="color: #4758AB;">write_csv</span>(.x, <span class="fu" style="color: #4758AB;">paste0</span>(<span class="st" style="color: #20794D;">"data/list-"</span>, .y, <span class="st" style="color: #20794D;">".csv"</span>)))</span></code></pre></div>
+</div>
+<p>Now you have all your data. All that is left is to watch the ship sink and make fun of billionaires who think they are geniuses 🫡.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>rstats</category>
+  <category>twitter</category>
+  <guid>https://www.jessesadler.com/post/rtweet/index.html</guid>
+  <pubDate>Fri, 18 Nov 2022 05:00:00 GMT</pubDate>
+  <media:content url="https://www.jessesadler.com/post/rtweet/twitter-is-fine.jpg" medium="image" type="image/jpeg"/>
+</item>
 <item>
   <title>Moving to Quarto</title>
   <link>https://www.jessesadler.com/post/moving-to-quarto/index.html</link>
@@ -54,7 +151,7 @@
 <div id="fig-scratchpad" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="https://www.jessesadler.com/post/debkeepr-intro/img/math-scratchpad.jpg" height="400" class="figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure 1: Scratchpad: Doing math by hand</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;1: Scratchpad: Doing math by hand</figcaption><p></p>
 </figure>
 </div>
 </div></div><p>The tripartite and non-decimal nature of pounds, shillings, and pence values presents particular difficulties for the analysis of large sets of accounts. A first instinct of the researcher is to place the transactions from an account book into a table or data base to better understand these large groups of data, but how should the pounds, shillings, and pence values be entered? Should they be placed into three separate variables or brought together somehow into one, and how should the arithmetic be performed? So long as there is no clear way to handle one, not to mention multiple, non-decimal currency within a data base, the use of digital tools to investigate and analyze historical accounts books will be hindered.</p>
@@ -79,7 +176,7 @@
 <div id="fig-barbary" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="https://www.jessesadler.com/post/debkeepr-intro/img/barbary-scratchpad.jpg" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure 2: A scratchpad from the archive of Daniel van der Meulen</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2: A scratchpad from the archive of Daniel van der Meulen</figcaption><p></p>
 </figure>
 </div>
 <div class="quarto-layout-panel">
@@ -166,7 +263,7 @@
 <div id="fig-multiplication" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="https://www.jessesadler.com/post/debkeepr-intro/img/lsd-multiplication.png" height="350" class="figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure 3: Multiplication in <em>Encyclopedia Britannica</em></figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3: Multiplication in <em>Encyclopedia Britannica</em></figcaption><p></p>
 </figure>
 </div>
 </div></div><p>The examples for division in the <em>Encyclopedia Britannica</em> include the division of pounds, shillings, and pence, as well as the division of weight measured in terms of hundredweight, quarters, and pounds. A hundredweight consisted of four quarters and there were 28 pounds (or two stones) in a quarter. While <code>debkeepr</code> was created with pounds, shillings, and pence values in mind, the measurement of weight in terms of hundredweight can be integrated by altering the bases argument. This example even serves to show a mistake in the printing in the <em>Encyclopedia</em>, as the answer is shown as 15 cwt. 2 q. 21 lb., but it should actually be 22 lb. Checking the long division at the bottom of the calculation, 22 goes into 44 twice not once. Notice too that the division of £465 12s. 8d. ends with a remainder of 8 even though this is not included in the answer provided. This remainder leads to the decimal in the pence unit in the answer provided by <code>deb_divide()</code>. Setting the <code>round</code> argument to 0 would convert the pence unit to a whole number.</p>
@@ -184,7 +281,7 @@
 <div id="fig-division" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="https://www.jessesadler.com/post/debkeepr-intro/img/lsd-division.png" height="400" class="figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure 4: Division in <em>Encyclopedia Britannica</em></figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;4: Division in <em>Encyclopedia Britannica</em></figcaption><p></p>
 </figure>
 </div>
 </div></div><p>These examples replicate answers already provided, but they serve to demonstrate the gains in both speed and accuracy for these common calculations. Further examples, including the use of <code>debkeepr</code> to convert between currencies that may or may not have different bases for the shillings and pence units, can be found in both <a href="https://jessesadler.github.io/debkeepr/articles/debkeepr.html">Getting Started with debkeepr</a> and the <a href="https://jessesadler.github.io/debkeepr/articles/transactions.html">Transactions in Richard Dafforne’s Journal vignette</a>.</p>
@@ -285,7 +382,7 @@
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
 <li id="fn1"><p>For more information about the development of the system of pounds, shillings, and pence and medieval monetary systems more generally see Peter Spufford, <em>Money and its Use in Medieval Europe</em> (Cambridge: Cambridge University Press, 1988).↩︎</p></li>
@@ -330,7 +427,7 @@
 <div id="fig-mercator" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="https://www.jessesadler.com/post/great-circles-sp-sf/img/Mercator-1569.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure 1: World Map by Gerardus Mercator, 1569</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;1: World Map by Gerardus Mercator, 1569</figcaption><p></p>
 </figure>
 </div>
 <p>The Mercator projection was designed with certain uses in mind. Mercator’s emphasis on perpendicular lines of longitude and latitude and the equivalence of straight lines and rhumb lines were meant to simplify navigation and have recently proved useful for <a href="https://en.wikipedia.org/wiki/Web_Mercator">online mapping services</a>. However, the stretching of latitudes towards the poles <a href="https://www.youtube.com/watch?v=OH1bZ0F3zVU">distorts the size of land masses</a>, making those closer to the poles appear larger than those near the equator. The stress on rhumb lines in Mercator’s map also highlights the difference between lines of constant bearing (<a href="https://en.wikipedia.org/wiki/Rhumb_line">rhumb or loxodrome lines</a>) and the shortest distance between two points (<a href="https://en.wikipedia.org/wiki/Great-circle_distance">great circles</a>). Due to Earth’s ellipsoidal nature, the shortest distance between two points is not necessarily a straight line. For instance, to fly from Los Angeles to Amsterdam, one would not want to fly in a straight line of constant bearing at 78 degrees. Instead, you would want to make an arc to the north to take advantage of the ellipsoidal shape of the Earth. By flying along the great circle from Los Angeles to Amsterdam one would travel 1120 kilometers less than flying along the rhumb line.</p>
@@ -809,7 +906,7 @@ First 10 features:
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
 <li id="fn1"><p>As Mercator explained in <a href="https://en.wikipedia.org/wiki/Mercator_1569_world_map#legend6">legend 6</a> the distortion of distance is infinite at the poles such that they cannot actually be represented on the map.↩︎</p></li>
@@ -1241,7 +1338,7 @@ Geodetic CRS:  WGS 84
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
 <li id="fn1"><p>The Simple Features standard was developed after the creation of the <code>sp</code> package, and so <code>sp</code> does not use the standard.↩︎</p></li>
@@ -1972,7 +2069,7 @@ First 10 features:
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
 <li id="fn1"><p><a href="http://onlinelibrary.wiley.com/doi/10.1029/2012EO160003/abstract">Edzer Pebesma, Daniel Nüst, and Roger Bivand, “The R Software Environment in Reproducible Geoscientific Research,” <em>Eos</em> 93 (2012): 163–164.</a>↩︎</p></li>
@@ -2530,7 +2627,7 @@ First 10 features:
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
 <li id="fn1"><p>One example of the interest in network analysis within digital humanities is the newly launched <a href="https://jhnr.uni.lu/index.php/jhnr">Journal of Historical Network Research</a>.↩︎</p></li>
@@ -2806,7 +2903,7 @@ First 10 features:
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
 <li id="fn1"><p>Geocoding can be done with websites such as <a href="http://www.geonames.org">geonames</a> and the service provided by <a href="http://geoservices.tamu.edu/Services/Geocode/">Texas A&amp;M</a>. There are also a number of <a href="http://crln.acrl.org/index.php/crlnews/article/view/16772/18314">options for creating maps on the web</a>.↩︎</p></li>
@@ -3245,7 +3342,7 @@ First 10 features:
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
 <li id="fn1"><p>This post concentrates on the basic aspects of data analysis and visualization using the popular <a href="http://dplyr.tidyverse.org">dplyr</a> and <a href="http://ggplot2.tidyverse.org">ggplot</a> packages for R. In future posts, I will discuss more aspects of R.↩︎</p></li>
@@ -3288,7 +3385,7 @@ First 10 features:
 
 
 
-<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
 <li id="fn1"><p>Markdown is essentially a simpler way to write HTML. It is very approachable, but it still has the basic structure of all markup languages or code in the need to properly structure the markup. If something goes wrong, it is almost always because you mistyped something.↩︎</p></li>
@@ -3315,7 +3412,7 @@ First 10 features:
 
 
 
-<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
 <li id="fn1"><p>For more on how I got interested in digital technologies see the below post <a href="https://jessesadler.com/post/thinking-about-workflow/">Thinking about Workflow: DH 1.0</a>↩︎</p></li>
@@ -3344,7 +3441,7 @@ First 10 features:
 
 
 
-<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
 <li id="fn1"><p>This was with Word 2009. I do not know if new versions are better. I haven’t tried.↩︎</p></li>

@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/post/rtweet/index.html",
       "/post/moving-to-quarto/index.html",
       "/post/debkeepr-intro/index.html",
       "/post/one-year-reflections/index.html",

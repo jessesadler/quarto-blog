@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.38">
+<meta name="generator" content="quarto-1.2.269">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -13,10 +13,15 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -55,7 +60,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -68,7 +73,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -130,40 +135,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <a class="navbar-brand" href="../../index.html">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Jesse Sadler</span>
-  </a>
+    </a>
+  </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../project.html">Projects</a>
+    <a class="nav-link" href="../../project.html">
+ <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../course.html">Courses</a>
+    <a class="nav-link" href="../../course.html">
+ <span class="menu-text">Courses</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../slides.html">Talks</a>
+    <a class="nav-link" href="../../slides.html">
+ <span class="menu-text">Talks</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html">About</a>
+    <a class="nav-link" href="../../about.html">
+ <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/jessesadler"><i class="bi bi-github" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://twitter.com/vivalosburros"><i class="bi bi-twitter" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="../../index.xml"><i class="bi bi-rss" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -175,7 +186,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
-    <nav id="TOC" role="doc-toc">
+    <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
@@ -223,6 +234,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <p class="date">7 February 2018</p>
     </div>
   </div>
+  
     
   </div>
   
@@ -932,26 +944,26 @@ First 10 features:
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1" role="doc-endnote"><p><a href="http://onlinelibrary.wiley.com/doi/10.1029/2012EO160003/abstract">Edzer Pebesma, Daniel Nüst, and Roger Bivand, “The R Software Environment in Reproducible Geoscientific Research,” <em>Eos</em> 93 (2012): 163–164.</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>For a good general introduction to the use and history of GIS with R, see the working book <a href="https://bookdown.org/robinlovelace/geocompr/">Robin Lovelace, Jakub Nowosad, Jannes Muenchow, <em>Geocomputation with R</em></a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3" role="doc-endnote"><p><a href="https://cran.r-project.org/doc/Rnews/Rnews_2005-2.pdf">E. J. Pebesma and R. S. Bivand, “Classes and methods for spatial data in R,” <em>R News</em> 5, no. 2 (2005): 9–13.</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4" role="doc-endnote"><p>For more information on CRSs see <a href="https://geocompr.robinlovelace.net/spatial-class.html#crs-intro">Lovelace, Nowosad, and Muenchow, Geocomputation with R</a> and Bivand, Pebesma, and Gómez-Rubio, 84–91.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5" role="doc-endnote"><p>The distance between degrees of longitude and latitude are only equal at the equator. Lines of longitude get progressively closer together as they approach the poles where they all meet. This variance means you cannot calculate distance between points with longitude and latitude values without the use of complex geometric models.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6" role="doc-endnote"><p>The details of how <code>sp</code> and <code>sf</code> interface with the Proj.4 library are different, but this should not be something that most users will have to worry about. <a href="https://github.com/r-spatial/sf/issues/280">&nbsp;See the discussion in <code>sf</code> issue 280</a>.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn7" role="doc-endnote"><p>See chapter 2 of Bivand, Edzer Pebesma, and Virgilio Gómez-Rubio for a more in depth discussion of <code>Spatial</code> objects.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn8" role="doc-endnote"><p>See the vignette <a href="https://cran.r-project.org/web/packages/sf/vignettes/sf1.html">1. Simple Features for R</a> and the very good discussion of <code>sf</code> objects in chapter 2 of <a href="https://geocompr.robinlovelace.net/spatial-class.html#sf-classes">Lovelace, Nowosad, and Muenchow, <em>Geocomputation with R</em></a>.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn9" role="doc-endnote"><p>On factors see <a href="http://r4ds.had.co.nz/factors.html">chapter 15 of Garrett Grolemund and Hadley Wickham, <em>R for Data Science</em></a> and <a href="https://dx.doi.org/10.7287/peerj.preprints.3163v2">Amelia McNamara and Nicholas J Horton, “Wrangling Categorical Data in R”</a>.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn10" role="doc-endnote"><p>The <code>bbox</code> slot will be created from the information provided by the other two slots.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn11" role="doc-endnote"><p>I could use the <code>geo_data</code> data frame, but this would unnecessarily result in having the coordinates in both the <code>data</code> and <code>coords</code> slots.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn12" role="doc-endnote"><p>You may need to download these maps the first time that you use them.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn13" role="doc-endnote"><p>Instead of choosing your own colors, you could use any of the number of R packages that provide color palettes such as <a href="https://cran.r-project.org/web/packages/RColorBrewer/index.html"><code>RColorBrewer</code></a>, but for this example I will keep it simple and make my own palette.<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn14" role="doc-endnote"><p>Make sure to create the <code>pointsize</code> vector before beginning the chain of <code>plot()</code> functions.<a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn15" role="doc-endnote"><p>I rerun the <code>par()</code> command for the margins to ensure that the margins stay consistent across these plots.<a href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn16" role="doc-endnote"><p>The <code>sf</code> package has the ability to read in and convert a number of spatial data types used in GIS with <code>st_read()</code>. <a href="https://cran.r-project.org/web/packages/sf/vignettes/sf2.html">See the vignette on reading and writing simple features</a>.<a href="#fnref16" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn17" role="doc-endnote"><p>The details of plotting <code>sf</code> objects are covered in a <a href="https://cran.r-project.org/web/packages/sf/vignettes/sf5.html">package vignette</a>.<a href="#fnref17" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p><a href="http://onlinelibrary.wiley.com/doi/10.1029/2012EO160003/abstract">Edzer Pebesma, Daniel Nüst, and Roger Bivand, “The R Software Environment in Reproducible Geoscientific Research,” <em>Eos</em> 93 (2012): 163–164.</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>For a good general introduction to the use and history of GIS with R, see the working book <a href="https://bookdown.org/robinlovelace/geocompr/">Robin Lovelace, Jakub Nowosad, Jannes Muenchow, <em>Geocomputation with R</em></a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><a href="https://cran.r-project.org/doc/Rnews/Rnews_2005-2.pdf">E. J. Pebesma and R. S. Bivand, “Classes and methods for spatial data in R,” <em>R News</em> 5, no. 2 (2005): 9–13.</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>For more information on CRSs see <a href="https://geocompr.robinlovelace.net/spatial-class.html#crs-intro">Lovelace, Nowosad, and Muenchow, Geocomputation with R</a> and Bivand, Pebesma, and Gómez-Rubio, 84–91.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>The distance between degrees of longitude and latitude are only equal at the equator. Lines of longitude get progressively closer together as they approach the poles where they all meet. This variance means you cannot calculate distance between points with longitude and latitude values without the use of complex geometric models.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>The details of how <code>sp</code> and <code>sf</code> interface with the Proj.4 library are different, but this should not be something that most users will have to worry about. <a href="https://github.com/r-spatial/sf/issues/280">&nbsp;See the discussion in <code>sf</code> issue 280</a>.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>See chapter 2 of Bivand, Edzer Pebesma, and Virgilio Gómez-Rubio for a more in depth discussion of <code>Spatial</code> objects.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>See the vignette <a href="https://cran.r-project.org/web/packages/sf/vignettes/sf1.html">1. Simple Features for R</a> and the very good discussion of <code>sf</code> objects in chapter 2 of <a href="https://geocompr.robinlovelace.net/spatial-class.html#sf-classes">Lovelace, Nowosad, and Muenchow, <em>Geocomputation with R</em></a>.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>On factors see <a href="http://r4ds.had.co.nz/factors.html">chapter 15 of Garrett Grolemund and Hadley Wickham, <em>R for Data Science</em></a> and <a href="https://dx.doi.org/10.7287/peerj.preprints.3163v2">Amelia McNamara and Nicholas J Horton, “Wrangling Categorical Data in R”</a>.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>The <code>bbox</code> slot will be created from the information provided by the other two slots.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p>I could use the <code>geo_data</code> data frame, but this would unnecessarily result in having the coordinates in both the <code>data</code> and <code>coords</code> slots.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12"><p>You may need to download these maps the first time that you use them.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn13"><p>Instead of choosing your own colors, you could use any of the number of R packages that provide color palettes such as <a href="https://cran.r-project.org/web/packages/RColorBrewer/index.html"><code>RColorBrewer</code></a>, but for this example I will keep it simple and make my own palette.<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn14"><p>Make sure to create the <code>pointsize</code> vector before beginning the chain of <code>plot()</code> functions.<a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn15"><p>I rerun the <code>par()</code> command for the margins to ensure that the margins stay consistent across these plots.<a href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn16"><p>The <code>sf</code> package has the ability to read in and convert a number of spatial data types used in GIS with <code>st_read()</code>. <a href="https://cran.r-project.org/web/packages/sf/vignettes/sf2.html">See the vignette on reading and writing simple features</a>.<a href="#fnref16" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn17"><p>The details of plotting <code>sf</code> objects are covered in a <a href="https://cran.r-project.org/web/packages/sf/vignettes/sf5.html">package vignette</a>.<a href="#fnref17" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -995,7 +1007,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -1023,31 +1052,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>

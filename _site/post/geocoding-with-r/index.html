@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.38">
+<meta name="generator" content="quarto-1.2.269">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -13,10 +13,15 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -55,7 +60,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -68,7 +73,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -130,40 +135,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <a class="navbar-brand" href="../../index.html">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Jesse Sadler</span>
-  </a>
+    </a>
+  </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../project.html">Projects</a>
+    <a class="nav-link" href="../../project.html">
+ <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../course.html">Courses</a>
+    <a class="nav-link" href="../../course.html">
+ <span class="menu-text">Courses</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../slides.html">Talks</a>
+    <a class="nav-link" href="../../slides.html">
+ <span class="menu-text">Talks</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html">About</a>
+    <a class="nav-link" href="../../about.html">
+ <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/jessesadler"><i class="bi bi-github" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://twitter.com/vivalosburros"><i class="bi bi-twitter" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="../../index.xml"><i class="bi bi-rss" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -175,7 +186,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
-    <nav id="TOC" role="doc-toc">
+    <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
@@ -220,6 +231,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <p class="date">13 October 2017</p>
     </div>
   </div>
+  
     
   </div>
   
@@ -474,22 +486,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1" role="doc-endnote"><p>Geocoding can be done with websites such as <a href="http://www.geonames.org">geonames</a> and the service provided by <a href="http://geoservices.tamu.edu/Services/Geocode/">Texas A&amp;M</a>. There are also a number of <a href="http://crln.acrl.org/index.php/crlnews/article/view/16772/18314">options for creating maps on the web</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>See the Introduction of <a href="https://bookdown.org/robinlovelace/geocompr/">Robin Lovelace, Jakub Nowosad, and Jannes Meunchow, <em>Geocomputation with R</em></a> for a good overview of the GIS capabilities of R.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3" role="doc-endnote"><p><a href="https://www.cdrc.ac.uk/wp-content/uploads/2016/04/AS_EstablishingAFrameworkforOpenGIS.pdf">Alex David Singleton, Seth Spielman, and Chris Brunsdon, “Establishing a Framework for Open Geographic Information Science,”</a> <em>International Journal of Geographical Information Science</em>, 30 (2016): 1507-1521.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4" role="doc-endnote"><p>A full list of geographic packages for R can be found at <a href="https://cran.r-project.org/web/views/Spatial.html">R Packages for the Analysis of Spatial Data</a>. In future posts I will discuss some of these packages and their capabilities.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5" role="doc-endnote"><p>In this command the quotations around “source” and “destination” are necessary. They tell the function that these are strings of characters.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6" role="doc-endnote"><p>It is good practice to stay away from overwriting objects until you know whether the code works. However, if you mess up, it is always possible to recreate the original object by rerunning the code that created it.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn7" role="doc-endnote"><p>For instance, geocoding “Naples” will return the longitude and latitude of Naples, Florida and not Naples, Italy.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn8" role="doc-endnote"><p>If you want to get an idea of how an <code>sf</code> object differs from a normal tibble or data frame, you can print out the <code>locations_sf</code> object. This shows that the longitude and latitude columns have been combined into a special type of column called <code>simple_feature</code> and named “geometry”, while additional information about the CRS is also provided.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn9" role="doc-endnote"><p>For a fuller discussion of <code>ggmap</code>, see <a href="https://journal.r-project.org/archive/2013-1/kahle-wickham.pdf">David Kahle and Hadley Wickham, “ggmap: Spatial Visualization with ggplot2.”</a><a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn10" role="doc-endnote"><p>A zoom level of 1 is the most zoomed out, while 21 is the most zoomed in.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn11" role="doc-endnote"><p><a href="https://www.w3schools.com/colors/default.asp">W3 Schools has a good discussion on the use of rgb and hex colors</a>. For the use of colors with <code>ggplot</code>, see Hadley Wickham, <em>ggplot2: Elegant Graphics for Data Analysis</em>, Second edition (Springer, 2016), 133–145. A full list of the named colors available in R can be found <a href="http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf">here</a><a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn12" role="doc-endnote"><p>For a full discussion of the powers of <code>ggplot</code>, see <a href="http://www.springer.com/us/book/9783319242750">Wickham, <em>ggplot2</em></a>.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn13" role="doc-endnote"><p>Wickham, <em>ggplot</em>, 142–143.<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Geocoding can be done with websites such as <a href="http://www.geonames.org">geonames</a> and the service provided by <a href="http://geoservices.tamu.edu/Services/Geocode/">Texas A&amp;M</a>. There are also a number of <a href="http://crln.acrl.org/index.php/crlnews/article/view/16772/18314">options for creating maps on the web</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>See the Introduction of <a href="https://bookdown.org/robinlovelace/geocompr/">Robin Lovelace, Jakub Nowosad, and Jannes Meunchow, <em>Geocomputation with R</em></a> for a good overview of the GIS capabilities of R.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><a href="https://www.cdrc.ac.uk/wp-content/uploads/2016/04/AS_EstablishingAFrameworkforOpenGIS.pdf">Alex David Singleton, Seth Spielman, and Chris Brunsdon, “Establishing a Framework for Open Geographic Information Science,”</a> <em>International Journal of Geographical Information Science</em>, 30 (2016): 1507-1521.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>A full list of geographic packages for R can be found at <a href="https://cran.r-project.org/web/views/Spatial.html">R Packages for the Analysis of Spatial Data</a>. In future posts I will discuss some of these packages and their capabilities.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>In this command the quotations around “source” and “destination” are necessary. They tell the function that these are strings of characters.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>It is good practice to stay away from overwriting objects until you know whether the code works. However, if you mess up, it is always possible to recreate the original object by rerunning the code that created it.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>For instance, geocoding “Naples” will return the longitude and latitude of Naples, Florida and not Naples, Italy.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>If you want to get an idea of how an <code>sf</code> object differs from a normal tibble or data frame, you can print out the <code>locations_sf</code> object. This shows that the longitude and latitude columns have been combined into a special type of column called <code>simple_feature</code> and named “geometry”, while additional information about the CRS is also provided.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>For a fuller discussion of <code>ggmap</code>, see <a href="https://journal.r-project.org/archive/2013-1/kahle-wickham.pdf">David Kahle and Hadley Wickham, “ggmap: Spatial Visualization with ggplot2.”</a><a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>A zoom level of 1 is the most zoomed out, while 21 is the most zoomed in.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p><a href="https://www.w3schools.com/colors/default.asp">W3 Schools has a good discussion on the use of rgb and hex colors</a>. For the use of colors with <code>ggplot</code>, see Hadley Wickham, <em>ggplot2: Elegant Graphics for Data Analysis</em>, Second edition (Springer, 2016), 133–145. A full list of the named colors available in R can be found <a href="http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf">here</a><a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12"><p>For a full discussion of the powers of <code>ggplot</code>, see <a href="http://www.springer.com/us/book/9783319242750">Wickham, <em>ggplot2</em></a>.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn13"><p>Wickham, <em>ggplot</em>, 142–143.<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -533,7 +545,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -561,31 +590,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>

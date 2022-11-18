@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.38">
+<meta name="generator" content="quarto-1.2.269">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,10 +11,15 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 </style>
 
 
@@ -97,40 +102,46 @@ ul.task-list{list-style: none;}
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <a class="navbar-brand" href="./index.html">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Jesse Sadler</span>
-  </a>
+    </a>
+  </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./project.html">Projects</a>
+    <a class="nav-link" href="./project.html">
+ <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./course.html">Courses</a>
+    <a class="nav-link" href="./course.html">
+ <span class="menu-text">Courses</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./slides.html">Talks</a>
+    <a class="nav-link" href="./slides.html">
+ <span class="menu-text">Talks</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html">About</a>
+    <a class="nav-link" href="./about.html">
+ <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/jessesadler"><i class="bi bi-github" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://twitter.com/vivalosburros"><i class="bi bi-twitter" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="./index.xml"><i class="bi bi-rss" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -144,7 +155,7 @@ ul.task-list{list-style: none;}
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(13)</span></div><div class="category" data-category="debkeepr">debkeepr <span class="quarto-category-count">(1)</span></div><div class="category" data-category="digitalhumanities">digitalhumanities <span class="quarto-category-count">(4)</span></div><div class="category" data-category="network-analysis">network-analysis <span class="quarto-category-count">(1)</span></div><div class="category" data-category="quarto">quarto <span class="quarto-category-count">(1)</span></div><div class="category" data-category="rspatial">rspatial <span class="quarto-category-count">(4)</span></div><div class="category" data-category="rstats">rstats <span class="quarto-category-count">(7)</span></div><div class="category" data-category="tidyverse">tidyverse <span class="quarto-category-count">(1)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(14)</span></div><div class="category" data-category="debkeepr">debkeepr <span class="quarto-category-count">(1)</span></div><div class="category" data-category="digitalhumanities">digitalhumanities <span class="quarto-category-count">(4)</span></div><div class="category" data-category="network-analysis">network-analysis <span class="quarto-category-count">(1)</span></div><div class="category" data-category="quarto">quarto <span class="quarto-category-count">(1)</span></div><div class="category" data-category="rspatial">rspatial <span class="quarto-category-count">(4)</span></div><div class="category" data-category="rstats">rstats <span class="quarto-category-count">(8)</span></div><div class="category" data-category="tidyverse">tidyverse <span class="quarto-category-count">(1)</span></div><div class="category" data-category="twitter">twitter <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content column-page-left" id="quarto-document-content">
 
@@ -158,6 +169,7 @@ ul.task-list{list-style: none;}
 <div class="quarto-title-meta">
 
     
+  
     
   </div>
   
@@ -170,7 +182,42 @@ ul.task-list{list-style: none;}
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-left" data-index="0" data-categories="quarto" data-listing-date-sort="1667620800000" data-listing-file-modified-sort="1667846489119" data-listing-reading-time-sort="3.33">
+<div class="quarto-post image-left" data-index="0" data-categories="rstats,twitter" data-listing-date-sort="1668747600000" data-listing-file-modified-sort="1668800844417" data-listing-reading-time-sort="2.405">
+<div class="thumbnail">
+<p><a href="./post/rtweet/index.html"> <img src="./post/rtweet/twitter-is-fine.jpg" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./post/rtweet/index.html">
+<h3 class="no-anchor listing-title">
+Downloading Twitter data with rtweet
+</h3>
+<div class="listing-subtitle">
+Get your tweets, those you follow, followers, and Twitter lists
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('rstats'); return false;">
+rstats
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('twitter'); return false;">
+twitter
+</div>
+</div>
+<a href="./post/rtweet/index.html">
+<div class="listing-description">
+<p>A short breakdown of how to quickly download Twitter data using the rtweet package developed by rOpenSci.</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./post/rtweet/index.html">
+<div class="listing-date">
+18 November 2022
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-left" data-index="1" data-categories="quarto" data-listing-date-sort="1667620800000" data-listing-file-modified-sort="1667846489119" data-listing-reading-time-sort="3.33">
 <div class="thumbnail">
 <p><a href="./post/moving-to-quarto/index.html"> <img src="./post/moving-to-quarto/quarto.png" class="thumnail-image"> </a></p>
 </div>
@@ -202,7 +249,7 @@ quarto
 </a>
 </div>
 </div>
-<div class="quarto-post image-left" data-index="1" data-categories="rstats,debkeepr" data-listing-date-sort="1537243200000" data-listing-file-modified-sort="1667846489081" data-listing-reading-time-sort="20.665">
+<div class="quarto-post image-left" data-index="2" data-categories="rstats,debkeepr" data-listing-date-sort="1537243200000" data-listing-file-modified-sort="1667846489081" data-listing-reading-time-sort="20.665">
 <div class="thumbnail">
 <p><a href="./post/debkeepr-intro/index.html"> <img src="./post/debkeepr-intro/img/barbary-scratchpad.jpg" class="thumnail-image"> </a></p>
 </div>
@@ -237,7 +284,7 @@ debkeepr
 </a>
 </div>
 </div>
-<div class="quarto-post image-left" data-index="2" data-listing-date-sort="1528257600000" data-listing-file-modified-sort="1667846489123" data-listing-reading-time-sort="2.85">
+<div class="quarto-post image-left" data-index="3" data-listing-date-sort="1528257600000" data-listing-file-modified-sort="1667846489123" data-listing-reading-time-sort="2.85">
 <div class="thumbnail">
 <a href="./post/one-year-reflections/index.html">
 <div class="thumbnail-image">
@@ -266,7 +313,7 @@ Some reflections
 </a>
 </div>
 </div>
-<div class="quarto-post image-left" data-index="3" data-categories="rstats,rspatial" data-listing-date-sort="1522209600000" data-listing-file-modified-sort="1667846489118" data-listing-reading-time-sort="31.825">
+<div class="quarto-post image-left" data-index="4" data-categories="rstats,rspatial" data-listing-date-sort="1522209600000" data-listing-file-modified-sort="1667846489118" data-listing-reading-time-sort="31.825">
 <div class="thumbnail">
 <p><a href="./post/great-circles-sp-sf/index.html"> <img src="./post/great-circles-sp-sf/img/Mercator-1569.png" class="thumnail-image"> </a></p>
 </div>
@@ -301,7 +348,7 @@ rspatial
 </a>
 </div>
 </div>
-<div class="quarto-post image-left" data-index="4" data-categories="rstats,rspatial" data-listing-date-sort="1520827200000" data-listing-file-modified-sort="1667846489126" data-listing-reading-time-sort="18.43">
+<div class="quarto-post image-left" data-index="5" data-categories="rstats,rspatial" data-listing-date-sort="1520827200000" data-listing-file-modified-sort="1667846489126" data-listing-reading-time-sort="18.43">
 <div class="thumbnail">
 <p><a href="./post/simple-feature-objects/index.html"> <img src="./post/simple-feature-objects/img/sf-object.tiff" class="thumnail-image"> </a></p>
 </div>
@@ -336,7 +383,7 @@ rspatial
 </a>
 </div>
 </div>
-<div class="quarto-post image-left" data-index="5" data-categories="rstats,rspatial" data-listing-date-sort="1517979600000" data-listing-file-modified-sort="1667846489113" data-listing-reading-time-sort="48.04">
+<div class="quarto-post image-left" data-index="6" data-categories="rstats,rspatial" data-listing-date-sort="1517979600000" data-listing-file-modified-sort="1667846489113" data-listing-reading-time-sort="48.04">
 <div class="thumbnail">
 <p><a href="./post/gis-with-r-intro/index.html"> <img src="./post/gis-with-r-intro/sa-countries.png" class="thumnail-image"> </a></p>
 </div>
@@ -371,7 +418,7 @@ rspatial
 </a>
 </div>
 </div>
-<div class="quarto-post image-left" data-index="6" data-categories="rstats,network-analysis" data-listing-date-sort="1508904000000" data-listing-file-modified-sort="1667846489122" data-listing-reading-time-sort="30.105">
+<div class="quarto-post image-left" data-index="7" data-categories="rstats,network-analysis" data-listing-date-sort="1508904000000" data-listing-file-modified-sort="1667846489122" data-listing-reading-time-sort="30.105">
 <div class="thumbnail">
 <p><a href="./post/network-analysis-with-r/index.html"> <img src="./post/network-analysis-with-r/igraph-graphopt.png" class="thumnail-image"> </a></p>
 </div>
@@ -406,7 +453,7 @@ network-analysis
 </a>
 </div>
 </div>
-<div class="quarto-post image-left" data-index="7" data-categories="rstats,rspatial" data-listing-date-sort="1507867200000" data-listing-file-modified-sort="1667846489112" data-listing-reading-time-sort="29.205">
+<div class="quarto-post image-left" data-index="8" data-categories="rstats,rspatial" data-listing-date-sort="1507867200000" data-listing-file-modified-sort="1667846489112" data-listing-reading-time-sort="29.205">
 <div class="thumbnail">
 <p><a href="./post/geocoding-with-r/index.html"> <img src="./post/geocoding-with-r/img/data-map3.png" class="thumnail-image"> </a></p>
 </div>
@@ -441,7 +488,7 @@ rspatial
 </a>
 </div>
 </div>
-<div class="quarto-post image-left" data-index="8" data-categories="rstats,digitalhumanities,tidyverse" data-listing-date-sort="1506916800000" data-listing-file-modified-sort="1667846489083" data-listing-reading-time-sort="30.33">
+<div class="quarto-post image-left" data-index="9" data-categories="rstats,digitalhumanities,tidyverse" data-listing-date-sort="1506916800000" data-listing-file-modified-sort="1667846489083" data-listing-reading-time-sort="30.33">
 <div class="thumbnail">
 <p><a href="./post/excel-vs-r/index.html"> <img src="./post/excel-vs-r/correspondent_month.png" class="thumnail-image"> </a></p>
 </div>
@@ -479,7 +526,7 @@ tidyverse
 </a>
 </div>
 </div>
-<div class="quarto-post image-left" data-index="9" data-categories="digitalhumanities" data-listing-date-sort="1503028800000" data-listing-file-modified-sort="1667846489121" data-listing-reading-time-sort="4.78">
+<div class="quarto-post image-left" data-index="10" data-categories="digitalhumanities" data-listing-date-sort="1503028800000" data-listing-file-modified-sort="1667846489121" data-listing-reading-time-sort="4.78">
 <div class="thumbnail">
 <a href="./post/my-approach-to-dh/index.html">
 <div class="thumbnail-image">
@@ -515,7 +562,7 @@ digitalhumanities
 </a>
 </div>
 </div>
-<div class="quarto-post image-left" data-index="10" data-categories="digitalhumanities" data-listing-date-sort="1502856000000" data-listing-file-modified-sort="1667846489122" data-listing-reading-time-sort="5.26">
+<div class="quarto-post image-left" data-index="11" data-categories="digitalhumanities" data-listing-date-sort="1502856000000" data-listing-file-modified-sort="1667846489122" data-listing-reading-time-sort="5.26">
 <div class="thumbnail">
 <a href="./post/new-kinds-of-projects/index.html">
 <div class="thumbnail-image">
@@ -551,7 +598,7 @@ digitalhumanities
 </a>
 </div>
 </div>
-<div class="quarto-post image-left" data-index="11" data-categories="digitalhumanities" data-listing-date-sort="1498104000000" data-listing-file-modified-sort="1667846489127" data-listing-reading-time-sort="3.835">
+<div class="quarto-post image-left" data-index="12" data-categories="digitalhumanities" data-listing-date-sort="1498104000000" data-listing-file-modified-sort="1667846489127" data-listing-reading-time-sort="3.835">
 <div class="thumbnail">
 <a href="./post/thinking-about-workflow/index.html">
 <div class="thumbnail-image">
@@ -587,7 +634,7 @@ digitalhumanities
 </a>
 </div>
 </div>
-<div class="quarto-post image-left" data-index="12" data-listing-date-sort="1496721600000" data-listing-file-modified-sort="1667846489075" data-listing-reading-time-sort="3.445">
+<div class="quarto-post image-left" data-index="13" data-listing-date-sort="1496721600000" data-listing-file-modified-sort="1667846489075" data-listing-reading-time-sort="3.445">
 <div class="thumbnail">
 <a href="./post/by-way-of-introduction/index.html">
 <div class="thumbnail-image">
@@ -662,7 +709,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -690,31 +754,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>
