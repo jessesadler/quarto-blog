@@ -19,6 +19,8 @@ website:
         file: about.qmd
       - icon: github
         href: https://github.com/jessesadler
+      - icon: mastodon
+        href: https://hachyderm.io/@vivalosburros
       - icon: twitter
         href: https://twitter.com/vivalosburros
       - icon: rss
