@@ -15,19 +15,19 @@ Last night, the 17th of November, 2022, I, like so many others, was rather gleef
 
 {{< tweet _inundata 1593421891439513600 >}}
 
-It seemed a good time to heed the warning that so many had put out about downloading your twitter data: your tweets, those you follow, your followers, and maybe the Twitter lists that you have created or followed. I knew that much of this could be done with the [rtweet](https://docs.ropensci.org/rtweet/articles/rtweet.html) package, and I had seen a few people tweet out ways to get the data, in particular, I had saved Amelia McNamara's tweet from a week ago.
+It seemed a good time to heed the warning that so many had put out about downloading your twitter data: your tweets, those you follow, your followers, and maybe the Twitter lists that you have created or followed. I knew that much of this could be done with the [rtweet](https://docs.ropensci.org/rtweet/articles/rtweet.html) package, and I had seen a few people tweet out ways to get the data, in particular, I had saved [Amelia McNamara's](https://twitter.com/AmeliaMN) tweet from [11 November 2022](https://twitter.com/AmeliaMN/status/1591100508298956808).
 
-{{< tweet AmeliaMN 1591100508298956808 >}}
+![](AmeliaMN-2022-11-11.jpeg){fig-alt="@AmeliaMN's instructions for using rtweet."}
 
-I followed her script, played around with the functions in `rtweet` a bit and tried to fit the basics of a script to download most of the important data in one tweet.
+I followed [her script](https://gist.github.com/AmeliaMN/c2e75ca0da51232dd2f8200646fd24c5), played around with the functions in `rtweet` a bit, and tried to fit the basics of a script to download most of the important data in one tweet.
 
 {{< tweet vivalosburros 1593444948841443328 >}}
 
-Below, I will expand on the Tweet to show more fully how to download and save your Twitter data. This closely follows [Amelia's script](https://gist.github.com/AmeliaMN/c2e75ca0da51232dd2f8200646fd24c5) but adds a bit of data.
+Below, I will expand on the Tweet to show more fully how to download and save your Twitter data. This closely follows Amelia's script but adds a bit of data.
 
 ### Getting the data
 
-Let's get the data of the tweets, followers, those followed, and lists of a single user. Here, I use my own account of [@vivalosburros](http://twitter.com/vivalosburros).
+Let's get the data of the tweets, followers, those followed, and lists of a single user. Here, I use my own account of [@vivalosburros](http://twitter.com/vivalosburros). If you want to go even further in moving away from Twitter and use `rtweet` to delete your tweets, see [Julia Silge's post](https://juliasilge.com/blog/delete-tweets/).
 
 ```{r}
 #| label: getting-data
