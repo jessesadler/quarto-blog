@@ -30,8 +30,8 @@ website:
       - href: https://www.quarto.org
         text: Built with Quarto
     right:
-      - icon: twitter
-        href: https://twitter.com/vivalosburros
+      - icon: mastodon
+        href: https://hachyderm.io/@vivalosburros
       - icon: github
         href: https://github.com/jessesadler
 format:
