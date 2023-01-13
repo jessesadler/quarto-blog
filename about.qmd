@@ -4,12 +4,12 @@ image: profile.jpeg
 about:
   template: solana
   links:
-    - icon: twitter
-      text: Twitter
-      href: https://twitter.com/vivalosburros
     - icon: github
       text: Github
       href: https://github.com/jessesadler
+    - icon: mastodon
+      text: Mastodon
+      href: https://hachyderm.io/@vivalosburros
     - icon: card-list
       text: CV
       href: sadler-cv.pdf
