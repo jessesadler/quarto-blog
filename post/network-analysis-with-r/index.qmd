@@ -39,6 +39,7 @@ Compare this to an adjacency matrix with the same data.
 
 ```{r}
 #| label: adjacency-matrix
+#| message: false
 #| echo: false
 library(network)
 net <- network(edge_list, vertex.attr = node_list, matrix.type = "edgelist", ignore.eval = FALSE)
@@ -96,8 +97,7 @@ Creating an edge list is similar to the above, but it is complicated by the need
 #| label: per-route
 per_route <- letters %>%  
   group_by(source, destination) %>%
-  summarise(weight = n()) %>% 
-  ungroup()
+  summarise(weight = n(), .groups = "drop")
 per_route
 ```
 
@@ -283,7 +283,7 @@ Let's see what a basic `ggraph` plot looks like. The plot begins with `ggraph()`
 
 ```{r}
 #| label: ggraph-basic-plot
-ggraph(routes_tidy) + 
+ggraph(routes_tidy, layout = "auto") + 
   geom_edge_link() + 
   geom_node_point() + 
   theme_graph()

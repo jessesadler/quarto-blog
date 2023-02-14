@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.280">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -265,42 +265,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sp)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Spatial classes</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">getClass</span>(<span class="st">"Spatial"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Class "Spatial" [package "sp"]
-
-Slots:
-                              
-Name:         bbox proj4string
-Class:      matrix         CRS
-
-Known Subclasses: 
-Class "SpatialPoints", directly
-Class "SpatialMultiPoints", directly
-Class "SpatialGrid", directly
-Class "SpatialLines", directly
-Class "SpatialPolygons", directly
-Class "SpatialPointsDataFrame", by class "SpatialPoints", distance 2
-Class "SpatialPixels", by class "SpatialPoints", distance 2
-Class "SpatialMultiPointsDataFrame", by class "SpatialMultiPoints", distance 2
-Class "SpatialGridDataFrame", by class "SpatialGrid", distance 2
-Class "SpatialLinesDataFrame", by class "SpatialLines", distance 2
-Class "SpatialPixelsDataFrame", by class "SpatialPoints", distance 3
-Class "SpatialPolygonsDataFrame", by class "SpatialPolygons", distance 2</code></pre>
-</div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">getClass</span>(<span class="st">"Spatial"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Class "Spatial" [package "sp"]</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Slots:</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                               </span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Name:         bbox proj4string</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Class:      matrix         CRS</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Known Subclasses: </span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Class "SpatialPoints", directly</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Class "SpatialMultiPoints", directly</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Class "SpatialGrid", directly</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Class "SpatialLines", directly</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Class "SpatialPolygons", directly</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Class "SpatialPointsDataFrame", by class "SpatialPoints", distance 2</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Class "SpatialPixels", by class "SpatialPoints", distance 2</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Class "SpatialMultiPointsDataFrame", by class "SpatialMultiPoints", distance 2</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Class "SpatialGridDataFrame", by class "SpatialGrid", distance 2</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Class "SpatialLinesDataFrame", by class "SpatialLines", distance 2</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Class "SpatialPixelsDataFrame", by class "SpatialPoints", distance 3</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Class "SpatialPolygonsDataFrame", by class "SpatialPolygons", distance 2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The output lists the different <code>Spatial</code> classes and shows that the basis for all <code>Spatial</code> objects is the <code>bbox</code> and <code>proj4string</code> slots. The <code>proj4string</code> provides the CRS for an object through a Proj.4 definition, while the <code>bbox</code> slot provides a matrix of the minimum and maximum coordinates for the object. The <code>Spatial</code> subclasses add slots to the foundational slots of <code>bbox</code> and <code>proj4string</code> for the type of geometric data — points, lines, polygons, and grid for raster — and whether the object contains attribute data in the form of a data frame. We can see this from the slots in the <code>SpatialPoints</code> and the <code>SpatialPointsDataFrame</code> classes.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># slots for SpatialPoints class</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">slotNames</span>(<span class="st">"SpatialPoints"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "coords"      "bbox"        "proj4string"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># slots for SpatialPointsDataFrame</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">slotNames</span>(<span class="st">"SpatialPointsDataFrame"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "data"        "coords.nrs"  "coords"      "bbox"        "proj4string"</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># slots for SpatialPoints class</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">slotNames</span>(<span class="st">"SpatialPoints"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "coords"      "bbox"        "proj4string"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># slots for SpatialPointsDataFrame</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">slotNames</span>(<span class="st">"SpatialPointsDataFrame"</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "data"        "coords.nrs"  "coords"      "bbox"        "proj4string"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The <code>SpatialPoints</code> class contains a <code>coords</code> slot to store the point coordinates. The <code>SpatialPointsDataFrame</code> class adds a <code>data</code> slot that enables points to be associated with attribute data in a data frame. The non-spatial data of a <code>Spatial*DataFrame</code> object can be accessed with <code>@data</code>. However, these S4-style classes do not fit within the definition of <a href="http://r4ds.had.co.nz/tidy-data.html">tidy data</a> and cannot be manipulated using the <a href="http://r4ds.had.co.nz/transform.html"><code>dplyr</code></a> methods I have discussed in previous posts. Instead, all manipulation of the <code>@data</code> slot is done with base R commands. <code>sp</code> objects also cannot be plotted with <code>ggplot2</code>, but need to use the base or trellis plotting systems, though it is possible to force them into a compatible form with the <a href="https://cran.r-project.org/web/packages/broom/index.html"><code>broom</code></a> package.</p>
 <p>In contrast to the <code>Spatial</code> class, the <code>sf</code> class — yes, the package and class have the same name — is an extension of data frames. Essentially, <code>sf</code> objects can be treated as data frames that also contain spatial data, as opposed to spatial data that may or may not also contain data frames. This enables <code>sf</code> objects to fit within the <a href="http://tidyverse.org">tidyverse</a> workflow, making it possible to <a href="http://strimas.com/r/tidy-sf/">manipulate them with <code>dplyr</code> commands</a>. The <a href="https://edzer.github.io/UseR2017/">tidy</a> nature of <code>sf</code> objects also means that they can can be <a href="http://ggplot2.tidyverse.org/reference/ggsf.html">plotted with <code>ggplot2</code></a>, though currently this capability is only possible with the development version of <code>ggplot2</code>.</p>
@@ -311,88 +306,84 @@ Class "SpatialPolygonsDataFrame", by class "SpatialPolygons", distance 2</code><
 <h2 class="anchored" data-anchor-id="preparing-data">Preparing the data</h2>
 <p>The first thing that we need to do is get information about the number of letters sent from and received in each city and join this non-spatial data with the longitude and latitude information that was created in the <a href="https://jessesadler.com/post/geocoding-with-r/">geocoding with R</a> post. This will provide the necessary components to create spatial points object in both <code>sp</code> and <code>sf</code>. You can find the data and the R script that goes along with this example on <a href="https://github.com/jessesadler/intro-to-r">GitHub</a>. Let’s start by loading the necessary packages and the two files containing data on the letters and the location of the cities in the letters data.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the packages</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sp)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rnaturalearth)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the data</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>letters <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/correspondence-data-1585.csv"</span>)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>locations <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/locations.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the packages</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sp)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rnaturalearth)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the data</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>letters <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/correspondence-data-1585.csv"</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>locations <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/locations.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The <code>letters</code> data frame contains 114 rows of letters with columns representing the writer, source, destination, and date of each letter. This example will only make use of the source and destination of the letters. The <code>locations</code> data frame contains columns for the name, longitude, and latitude of the 13 cities found in the letters data. There are a couple of ways that the data can be prepared, but in this case I want the data for the source and destination of the letters to be in a single data frame in order to minimize the objects that we will be dealing with in the post. The goal is to create a data frame with a column for the name of the city, the number of letters, and whether this information refers to letters sent or letters received. This can be done by separately finding the number of letters sent to each location and the number of letters received in each location and then joining the two data frames together.</p>
 <p>We can get the number of letters sent from and received in each location by using <code>count()</code>, which is a shortcut for <code>group_by() %&gt;% summarise(n = n())</code>. This provides us with a count column, but we also want to structure the data frames for source and destination in the same way. Therefore, I rename the column containing the city information to “place.” Doing this removes information about whether the observation is a source or destination, and so I add in this data with <code>add_column()</code>, creating a “type” column.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Letters per source</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>sources <span class="ot">&lt;-</span> letters <span class="sc">%&gt;%</span> </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(source) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">place =</span> source) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_column</span>(<span class="at">type =</span> <span class="st">"Source"</span>)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Letters per destination</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>destinations <span class="ot">&lt;-</span> letters <span class="sc">%&gt;%</span> </span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(destination) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">place =</span> destination) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_column</span>(<span class="at">type =</span> <span class="st">"Destination"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Letters per source</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>sources <span class="ot">&lt;-</span> letters <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(source) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">place =</span> source) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_column</span>(<span class="at">type =</span> <span class="st">"Source"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Letters per destination</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>destinations <span class="ot">&lt;-</span> letters <span class="sc">%&gt;%</span> </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(destination) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">place =</span> destination) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_column</span>(<span class="at">type =</span> <span class="st">"Destination"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>At this point, you can use either <code>rbind()</code> or <code>full_join()</code> to bind the rows of <code>sources</code> and <code>destinations</code> together to create a <code>letters_data</code> data frame that contains the non-spatial data we will be using. In addition, we need to make a small but important change to the type of data in the “type” column to make it possible to differentiate between the sources and destinations in the base R plots created below. We can transform the “type” column to a factor using <code>mutate()</code> and <code>as_factor()</code> from the <a href="http://forcats.tidyverse.org"><code>forcats</code></a> package. This changes the way that R represents the data behind the scenes such that “source” and “destination” can be represented by numeric integers, which is necessary for working with colors in base R plots.<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bind the rows of the two data frames</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># and change type column to factor</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>letters_data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(sources, destinations) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type =</span> <span class="fu">as_factor</span>(type))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bind the rows of the two data frames</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># and change type column to factor</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>letters_data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(sources, destinations) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type =</span> <span class="fu">as_factor</span>(type))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s look at the result. We can see that the data is in the format that we are looking for and that the “type” column has been correctly transformed into factors.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print letters_data</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>letters_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 14 × 3
-   place          n type       
-   &lt;chr&gt;      &lt;int&gt; &lt;fct&gt;      
- 1 Amsterdam      1 Source     
- 2 Antwerp       76 Source     
- 3 Dordrecht      1 Source     
- 4 Emden          1 Source     
- 5 Haarlem       30 Source     
- 6 Hamburg        1 Source     
- 7 Het Vlie       1 Source     
- 8 Lisse          1 Source     
- 9 Venice         2 Source     
-10 Bremen         6 Destination
-11 Delft         95 Destination
-12 Haarlem        8 Destination
-13 Middelburg     2 Destination
-14 The Hague      3 Destination</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print letters_data</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>letters_data</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 14 × 3</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    place          n type       </span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;      &lt;int&gt; &lt;fct&gt;      </span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Amsterdam      1 Source     </span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 Antwerp       76 Source     </span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Dordrecht      1 Source     </span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 Emden          1 Source     </span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 Haarlem       30 Source     </span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 Hamburg        1 Source     </span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 Het Vlie       1 Source     </span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Lisse          1 Source     </span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Venice         2 Source     </span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Bremen         6 Destination</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11 Delft         95 Destination</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12 Haarlem        8 Destination</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13 Middelburg     2 Destination</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14 The Hague      3 Destination</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Having created the data for the number of letters sent from and received in each location, we now need to add the longitude and latitude of the cities. We can do this with a left join with the <code>locations</code> data frame, using the “place” column as the key to link the two data frames.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Join letters_data to locations</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>geo_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(letters_data, locations, <span class="at">by =</span> <span class="st">"place"</span>)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print data with longitude and latitude columns</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>geo_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 14 × 5
-   place          n type          lon   lat
-   &lt;chr&gt;      &lt;int&gt; &lt;fct&gt;       &lt;dbl&gt; &lt;dbl&gt;
- 1 Amsterdam      1 Source       4.90  52.4
- 2 Antwerp       76 Source       4.40  51.2
- 3 Dordrecht      1 Source       4.69  51.8
- 4 Emden          1 Source       7.21  53.4
- 5 Haarlem       30 Source       4.65  52.4
- 6 Hamburg        1 Source       9.99  53.6
- 7 Het Vlie       1 Source       5.18  53.3
- 8 Lisse          1 Source       4.56  52.3
- 9 Venice         2 Source      12.3   45.4
-10 Bremen         6 Destination  8.80  53.1
-11 Delft         95 Destination  4.36  52.0
-12 Haarlem        8 Destination  4.65  52.4
-13 Middelburg     2 Destination  3.61  51.5
-14 The Hague      3 Destination  4.30  52.1</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Join letters_data to locations</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>geo_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(letters_data, locations, <span class="at">by =</span> <span class="st">"place"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print data with longitude and latitude columns</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>geo_data</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 14 × 5</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    place          n type          lon   lat</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;      &lt;int&gt; &lt;fct&gt;       &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Amsterdam      1 Source       4.90  52.4</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 Antwerp       76 Source       4.40  51.2</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Dordrecht      1 Source       4.69  51.8</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 Emden          1 Source       7.21  53.4</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 Haarlem       30 Source       4.65  52.4</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 Hamburg        1 Source       9.99  53.6</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 Het Vlie       1 Source       5.18  53.3</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Lisse          1 Source       4.56  52.3</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Venice         2 Source      12.3   45.4</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Bremen         6 Destination  8.80  53.1</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11 Delft         95 Destination  4.36  52.0</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12 Haarlem        8 Destination  4.65  52.4</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13 Middelburg     2 Destination  3.61  51.5</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14 The Hague      3 Destination  4.30  52.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The result is a data frame with 14 rows and 5 columns that give the number of letters sent from and received in the different locations and the longitude and latitude of those places. We now have all of the information that we need to transform this data into a spatial object with both <code>sp</code> and <code>sf</code>. We will then be able to map the points on base maps provided by the <code>rnaturalearth</code> package.</p>
 </section>
@@ -400,192 +391,167 @@ Class "SpatialPolygonsDataFrame", by class "SpatialPolygons", distance 2</code><
 <h2 class="anchored" data-anchor-id="sp">Spatial data with <code>sp</code></h2>
 <p>The creation of a <code>Spatial</code> object involves providing data for the slots expected for each subclass. Creating a <code>SpatialPoints</code> object requires data for the <code>coords</code> and <code>proj4string</code> slots.<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> The information for the <code>coords</code> slot can be filled by a data frame of the longitude and latitude values from <code>geo_data</code>. This can be done by creating a new data frame that only contains the “lon” and “lat” columns of <code>geo_data</code>. As noted above, the CRS for our data is implicitly longitude and latitude values on the WGS84 ellipsoid, which we can identify through the <code>CRS()</code> function containing a proj.4 argument. We can either specify the specific projection and datum arguments with <code>+proj=longlat +datum=WGS84</code> or use the EPSG code with <code>+init=epsg:4326</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data frame of only longitude and latitude values</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>coords <span class="ot">&lt;-</span> <span class="fu">select</span>(geo_data, lon, lat)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create SpatialPoints object with coords and CRS</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>points_sp <span class="ot">&lt;-</span> <span class="fu">SpatialPoints</span>(<span class="at">coords =</span> coords,</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>                           <span class="at">proj4string =</span> <span class="fu">CRS</span>(<span class="st">"+proj=longlat +datum=WGS84"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data frame of only longitude and latitude values</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>coords <span class="ot">&lt;-</span> <span class="fu">select</span>(geo_data, lon, lat)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create SpatialPoints object with coords and CRS</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>points_sp <span class="ot">&lt;-</span> <span class="fu">SpatialPoints</span>(<span class="at">coords =</span> coords,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                           <span class="at">proj4string =</span> <span class="fu">CRS</span>(<span class="st">"+proj=longlat +datum=WGS84"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Printing out our newly created <code>SpatialPoints</code> object does not make for particularly exciting reading. We see the coordinates, which are now in matrix form, and the CRS of the object. We can get a better insight into the structure of the object with the <code>str()</code> command, even if the output is a bit off-putting at first. This shows the three slots for the <code>SpatialPoints</code> object and the values contained within the slots.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print SpatialPoints object</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>points_sp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>SpatialPoints:
-            lon      lat
- [1,]  4.895168 52.37022
- [2,]  4.402464 51.21945
- [3,]  4.690093 51.81330
- [4,]  7.206010 53.35940
- [5,]  4.646219 52.38739
- [6,]  9.993682 53.55108
- [7,]  5.183333 53.30000
- [8,]  4.557483 52.25793
- [9,] 12.315515 45.44085
-[10,]  8.801694 53.07930
-[11,]  4.357068 52.01158
-[12,]  4.646219 52.38739
-[13,]  3.610998 51.49880
-[14,]  4.300700 52.07050
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
-+no_defs </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Structure of SpatialPoints object</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(points_sp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Formal class 'SpatialPoints' [package "sp"] with 3 slots
-  ..@ coords     : num [1:14, 1:2] 4.9 4.4 4.69 7.21 4.65 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : NULL
-  .. .. ..$ : chr [1:2] "lon" "lat"
-  ..@ bbox       : num [1:2, 1:2] 3.61 45.44 12.32 53.55
-  .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr [1:2] "lon" "lat"
-  .. .. ..$ : chr [1:2] "min" "max"
-  ..@ proj4string:Formal class 'CRS' [package "sp"] with 1 slot
-  .. .. ..@ projargs: chr "+proj=longlat +datum=WGS84 +no_defs"
-  .. .. ..$ comment: chr "GEOGCRS[\"unknown\",\n    DATUM[\"World Geodetic System 1984\",\n        ELLIPSOID[\"WGS 84\",6378137,298.25722"| __truncated__</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print SpatialPoints object</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>points_sp</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; SpatialPoints:</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             lon      lat</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1,]  4.895168 52.37022</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [2,]  4.402464 51.21945</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [3,]  4.690093 51.81330</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [4,]  7.206010 53.35940</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [5,]  4.646219 52.38739</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [6,]  9.993682 53.55108</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [7,]  5.183333 53.30000</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [8,]  4.557483 52.25793</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9,] 12.315515 45.44085</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [10,]  8.801694 53.07930</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [11,]  4.357068 52.01158</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [12,]  4.646219 52.38739</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13,]  3.610998 51.49880</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [14,]  4.300700 52.07050</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +no_defs</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Structure of SpatialPoints object</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(points_sp)</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Formal class 'SpatialPoints' [package "sp"] with 3 slots</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..@ coords     : num [1:14, 1:2] 4.9 4.4 4.69 7.21 4.65 ...</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. ..- attr(*, "dimnames")=List of 2</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. .. ..$ : NULL</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. .. ..$ : chr [1:2] "lon" "lat"</span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..@ bbox       : num [1:2, 1:2] 3.61 45.44 12.32 53.55</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. ..- attr(*, "dimnames")=List of 2</span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. .. ..$ : chr [1:2] "lon" "lat"</span></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. .. ..$ : chr [1:2] "min" "max"</span></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..@ proj4string:Formal class 'CRS' [package "sp"] with 1 slot</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. .. ..@ projargs: chr "+proj=longlat +datum=WGS84 +no_defs"</span></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. .. ..$ comment: chr "GEOGCRS[\"unknown\",\n    DATUM[\"World Geodetic System 1984\",\n        ELLIPSOID[\"WGS 84\",6378137,298.25722"| __truncated__</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We have now successfully created a <code>Spatial</code> object. However, <code>points_sp</code> does not contain any of the non-spatial data that was created in preparing the data. We can attach this non-spatial data to the <code>Spatial</code> data by creating a <code>SpatialPointsDataFrame</code> object. This is done in the same manner as a <code>SpatialPoints</code> object but also includes filling the <code>data</code> slot with the <code>letters_data</code> data frame.<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a> Because the data in both the <code>coords</code> and <code>data</code> slots derived from the same source, the coordinates and non-spatial data will be correctly aligned by row number.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create SpatialPointsDataFrame object</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>points_spdf <span class="ot">&lt;-</span> <span class="fu">SpatialPointsDataFrame</span>(<span class="at">coords =</span> coords,</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">data =</span> letters_data,  </span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">proj4string =</span> <span class="fu">CRS</span>(<span class="st">"+proj=longlat +datum=WGS84"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create SpatialPointsDataFrame object</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>points_spdf <span class="ot">&lt;-</span> <span class="fu">SpatialPointsDataFrame</span>(<span class="at">coords =</span> coords,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">data =</span> letters_data,  </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">proj4string =</span> <span class="fu">CRS</span>(<span class="st">"+proj=longlat +datum=WGS84"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Printing out <code>points_spdf</code> shows a result not dramatically different from printing out the <code>geo_data</code> data frame. However, inspecting the structure of the object shows that it has a very different composition.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out SpatialPointsDataFrame</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>points_spdf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>            coordinates      place  n        type
-1  (4.895168, 52.37022)  Amsterdam  1      Source
-2  (4.402464, 51.21945)    Antwerp 76      Source
-3   (4.690093, 51.8133)  Dordrecht  1      Source
-4    (7.20601, 53.3594)      Emden  1      Source
-5  (4.646219, 52.38739)    Haarlem 30      Source
-6  (9.993682, 53.55108)    Hamburg  1      Source
-7      (5.183333, 53.3)   Het Vlie  1      Source
-8  (4.557483, 52.25793)      Lisse  1      Source
-9  (12.31552, 45.44085)     Venice  2      Source
-10  (8.801694, 53.0793)     Bremen  6 Destination
-11 (4.357068, 52.01158)      Delft 95 Destination
-12 (4.646219, 52.38739)    Haarlem  8 Destination
-13  (3.610998, 51.4988) Middelburg  2 Destination
-14    (4.3007, 52.0705)  The Hague  3 Destination</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Structure of SpatialPointsDataFrame object</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(points_spdf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Formal class 'SpatialPointsDataFrame' [package "sp"] with 5 slots
-  ..@ data       : tibble [14 × 3] (S3: tbl_df/tbl/data.frame)
-  .. ..$ place: chr [1:14] "Amsterdam" "Antwerp" "Dordrecht" "Emden" ...
-  .. ..$ n    : int [1:14] 1 76 1 1 30 1 1 1 2 6 ...
-  .. ..$ type : Factor w/ 2 levels "Source","Destination": 1 1 1 1 1 1 1 1 1 2 ...
-  ..@ coords.nrs : num(0) 
-  ..@ coords     : num [1:14, 1:2] 4.9 4.4 4.69 7.21 4.65 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : NULL
-  .. .. ..$ : chr [1:2] "lon" "lat"
-  ..@ bbox       : num [1:2, 1:2] 3.61 45.44 12.32 53.55
-  .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr [1:2] "lon" "lat"
-  .. .. ..$ : chr [1:2] "min" "max"
-  ..@ proj4string:Formal class 'CRS' [package "sp"] with 1 slot
-  .. .. ..@ projargs: chr "+proj=longlat +datum=WGS84 +no_defs"
-  .. .. ..$ comment: chr "GEOGCRS[\"unknown\",\n    DATUM[\"World Geodetic System 1984\",\n        ELLIPSOID[\"WGS 84\",6378137,298.25722"| __truncated__</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out SpatialPointsDataFrame</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>points_spdf</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             coordinates      place  n        type</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  (4.895168, 52.37022)  Amsterdam  1      Source</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  (4.402464, 51.21945)    Antwerp 76      Source</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3   (4.690093, 51.8133)  Dordrecht  1      Source</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4    (7.20601, 53.3594)      Emden  1      Source</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  (4.646219, 52.38739)    Haarlem 30      Source</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  (9.993682, 53.55108)    Hamburg  1      Source</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7      (5.183333, 53.3)   Het Vlie  1      Source</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8  (4.557483, 52.25793)      Lisse  1      Source</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9  (12.31552, 45.44085)     Venice  2      Source</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  (8.801694, 53.0793)     Bremen  6 Destination</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11 (4.357068, 52.01158)      Delft 95 Destination</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12 (4.646219, 52.38739)    Haarlem  8 Destination</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13  (3.610998, 51.4988) Middelburg  2 Destination</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14    (4.3007, 52.0705)  The Hague  3 Destination</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Structure of SpatialPointsDataFrame object</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(points_spdf)</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Formal class 'SpatialPointsDataFrame' [package "sp"] with 5 slots</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..@ data       : tibble [14 × 3] (S3: tbl_df/tbl/data.frame)</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. ..$ place: chr [1:14] "Amsterdam" "Antwerp" "Dordrecht" "Emden" ...</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. ..$ n    : int [1:14] 1 76 1 1 30 1 1 1 2 6 ...</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. ..$ type : Factor w/ 2 levels "Source","Destination": 1 1 1 1 1 1 1 1 1 2 ...</span></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..@ coords.nrs : num(0) </span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..@ coords     : num [1:14, 1:2] 4.9 4.4 4.69 7.21 4.65 ...</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. ..- attr(*, "dimnames")=List of 2</span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. .. ..$ : NULL</span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. .. ..$ : chr [1:2] "lon" "lat"</span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..@ bbox       : num [1:2, 1:2] 3.61 45.44 12.32 53.55</span></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. ..- attr(*, "dimnames")=List of 2</span></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. .. ..$ : chr [1:2] "lon" "lat"</span></span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. .. ..$ : chr [1:2] "min" "max"</span></span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..@ proj4string:Formal class 'CRS' [package "sp"] with 1 slot</span></span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. .. ..@ projargs: chr "+proj=longlat +datum=WGS84 +no_defs"</span></span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. .. ..$ comment: chr "GEOGCRS[\"unknown\",\n    DATUM[\"World Geodetic System 1984\",\n        ELLIPSOID[\"WGS 84\",6378137,298.25722"| __truncated__</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The nature of a <code>SpatialPointsDataFrame</code> object means that they cannot be manipulated in the same way as a normal data frame. You can access the data frame as you would any of the other slots in a <code>Spatial</code> object with the <code>points_spdf@data</code> notation. However, if you want to make changes to the <code>points_spdf</code> through an aspect of the <code>data</code> slot, you cannot use <code>dplyr</code> commands. Instead, you need to use base R methods, which can be a bit more convoluted. For instance, if you want to get the observations of places in which Daniel either received or was sent a certain number of letters you would use <code>@data</code> to access the data frame, <code>[]</code> to subset, and <code>$</code> to access the column that you want to subset. You can see an example of this below, creating a <code>SpatialPointsDataFrame</code> that contains the three locations in which “n” is greater than 10 and simply printing out the result to demonstrate the workflow.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Access the data frame of a SpatialPointsDataFrame</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>points_spdf<span class="sc">@</span>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 14 × 3
-   place          n type       
-   &lt;chr&gt;      &lt;int&gt; &lt;fct&gt;      
- 1 Amsterdam      1 Source     
- 2 Antwerp       76 Source     
- 3 Dordrecht      1 Source     
- 4 Emden          1 Source     
- 5 Haarlem       30 Source     
- 6 Hamburg        1 Source     
- 7 Het Vlie       1 Source     
- 8 Lisse          1 Source     
- 9 Venice         2 Source     
-10 Bremen         6 Destination
-11 Delft         95 Destination
-12 Haarlem        8 Destination
-13 Middelburg     2 Destination
-14 The Hague      3 Destination</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of subsetting `points_spdf` to return locations with "n" greater than 10</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>points_spdf[points_spdf<span class="sc">@</span>data<span class="sc">$</span>n <span class="sc">&gt;</span> <span class="dv">10</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>           coordinates   place  n        type
-1 (4.402464, 51.21945) Antwerp 76      Source
-2 (4.646219, 52.38739) Haarlem 30      Source
-3 (4.357068, 52.01158)   Delft 95 Destination</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Access the data frame of a SpatialPointsDataFrame</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>points_spdf<span class="sc">@</span>data</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 14 × 3</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    place          n type       </span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;      &lt;int&gt; &lt;fct&gt;      </span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Amsterdam      1 Source     </span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 Antwerp       76 Source     </span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Dordrecht      1 Source     </span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 Emden          1 Source     </span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 Haarlem       30 Source     </span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 Hamburg        1 Source     </span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 Het Vlie       1 Source     </span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Lisse          1 Source     </span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Venice         2 Source     </span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Bremen         6 Destination</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11 Delft         95 Destination</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12 Haarlem        8 Destination</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13 Middelburg     2 Destination</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14 The Hague      3 Destination</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of subsetting `points_spdf` to return locations with "n" greater than 10</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>points_spdf[points_spdf<span class="sc">@</span>data<span class="sc">$</span>n <span class="sc">&gt;</span> <span class="dv">10</span>, ]</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            coordinates   place  n        type</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 (4.402464, 51.21945) Antwerp 76      Source</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 (4.646219, 52.38739) Haarlem 30      Source</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 (4.357068, 52.01158)   Delft 95 Destination</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To make a map with the <code>SpatialPoints</code> objects of the correspondence of Daniel, we need to get a background map of western Europe to provide geographical context. There are a number of R packages that provide access to various maps which can be read in as <code>Spatial</code> data. Here, I will make use of the <code>rnaturalearth</code> package to get access to a map of the coastlines of the world and another for the countries in the world.<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a> This will create two different kinds of <code>Spatial</code> objects. Because both maps contain non-spatial attribute data, they will be of class <code>SpatialLinesDataFrame</code> and <code>SpatialpolygonsDataFrame</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get coastal and country world maps as Spatial objects</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>coast_sp <span class="ot">&lt;-</span> <span class="fu">ne_coastline</span>(<span class="at">scale =</span> <span class="st">"medium"</span>)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>countries_sp <span class="ot">&lt;-</span> <span class="fu">ne_countries</span>(<span class="at">scale =</span> <span class="st">"medium"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get coastal and country world maps as Spatial objects</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>coast_sp <span class="ot">&lt;-</span> <span class="fu">ne_coastline</span>(<span class="at">scale =</span> <span class="st">"medium"</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>countries_sp <span class="ot">&lt;-</span> <span class="fu">ne_countries</span>(<span class="at">scale =</span> <span class="st">"medium"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Not only are <code>coast_sp</code> and <code>countries_sp</code> useful for mapping the points data, they also provide an opportunity to look at the structure of more complex <code>Spatial</code> objects. Printing out either object fills up the entire console with an overflow of information. Instead, we can get an idea of the structure of the two objects with the <code>str()</code> command. To ensure that we do not overloaded with information with this command, I will only show the first two levels, which shows information about the slots but not on the data within the slots.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Structure of SpatialLinesDataFrame</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(coast_sp, <span class="at">max.level =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Formal class 'SpatialLinesDataFrame' [package "sp"] with 4 slots
-  ..@ data       :'data.frame': 1428 obs. of  2 variables:
-  ..@ lines      :List of 1428
-  ..@ bbox       : num [1:2, 1:2] -180 -85.2 180 83.6
-  .. ..- attr(*, "dimnames")=List of 2
-  ..@ proj4string:Formal class 'CRS' [package "sp"] with 1 slot</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Structure of SpatialPolygonsDataFrame</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(countries_sp, <span class="at">max.level =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Formal class 'SpatialPolygonsDataFrame' [package "sp"] with 5 slots
-  ..@ data       :'data.frame': 241 obs. of  63 variables:
-  ..@ polygons   :List of 241
-  ..@ plotOrder  : int [1:241] 12 184 39 227 42 33 16 87 113 9 ...
-  ..@ bbox       : num [1:2, 1:2] -180 -90 180 83.6
-  .. ..- attr(*, "dimnames")=List of 2
-  ..@ proj4string:Formal class 'CRS' [package "sp"] with 1 slot
-  ..$ comment: chr "TRUE"</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Structure of SpatialLinesDataFrame</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(coast_sp, <span class="at">max.level =</span> <span class="dv">2</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Formal class 'SpatialLinesDataFrame' [package "sp"] with 4 slots</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..@ data       :'data.frame':  1428 obs. of  2 variables:</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..@ lines      :List of 1428</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..@ bbox       : num [1:2, 1:2] -180 -85.2 180 83.6</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. ..- attr(*, "dimnames")=List of 2</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..@ proj4string:Formal class 'CRS' [package "sp"] with 1 slot</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Structure of SpatialPolygonsDataFrame</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(countries_sp, <span class="at">max.level =</span> <span class="dv">2</span>)</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Formal class 'SpatialPolygonsDataFrame' [package "sp"] with 5 slots</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..@ data       :'data.frame':  241 obs. of  63 variables:</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..@ polygons   :List of 241</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..@ plotOrder  : int [1:241] 12 184 39 227 42 33 16 87 113 9 ...</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..@ bbox       : num [1:2, 1:2] -180 -90 180 83.6</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .. ..- attr(*, "dimnames")=List of 2</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..@ proj4string:Formal class 'CRS' [package "sp"] with 1 slot</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..$ comment: chr "TRUE"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The output from <code>str()</code> shows that <code>coast_sp</code> and <code>countries_sp</code> are mainly distinguished by the presence of a <code>lines</code> or a <code>polygons</code> slot. Both of the objects contain data frames, but they are very different. The data frame in <code>coast_sp</code> only contains two columns, but <code>countries_sp</code> has 63 columns. This is because the countries map from <code>rnaturalearth</code> contains a variety of population, economic, and labeling data. We do not need to deal with the <code>data</code> slots from either of these objects, but they do provide a good example of what these kind of <code>Spatial</code> objects look like.</p>
 <p>The last thing that we should do before plotting the points on our background maps is to make sure that our objects all have the same CRS. If <code>points_spdf</code> and <code>coast_sp</code> have different CRSs, the points will not be correctly plotted. We can check this with either the <code>proj4string()</code> function or printing out the <code>proj4string</code> slot. Checking this shows that all of the <code>Spatial</code> objects are using geographic coordinates on the WSG84 ellipsoid, enabling us to move forward with plotting.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check CRS of Spatial objects</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>coast_sp<span class="sc">@</span>proj4string</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Coordinate Reference System:
-Deprecated Proj.4 representation:
- +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in wkt(x): CRS object has no comment</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">proj4string</span>(countries_sp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">proj4string</span>(points_spdf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in proj4string(points_spdf): CRS object has comment, which is lost in output; in tests, see
-https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "+proj=longlat +datum=WGS84 +no_defs"</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check CRS of Spatial objects</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>coast_sp<span class="sc">@</span>proj4string</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coordinate Reference System:</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Deprecated Proj.4 representation:</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">proj4string</span>(countries_sp)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">proj4string</span>(points_spdf)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "+proj=longlat +datum=WGS84 +no_defs"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="mapping-sp" class="level2">
@@ -598,21 +564,21 @@ https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html</code></p
 <p>Modifying the color and size of these circles is a bit trickier. The color of the circles can be adjusted with the <code>col</code> parameter according to the information in <code>points_spdf$type</code>. We are able to map the colors of the points to the “type” variable, because we earlier changed the column to be factors instead of characters. If this had not been done, the <code>plot()</code> command would fail. The default colors for the first two levels of factors are black and red, which <a href="https://bookdown.org/rdpeng/exdata/plotting-and-color-in-r.html">are not particularly pleasant to look at</a>. However, we can create a new color palette with the <code>palette()</code> function. Here, I am using the named colors “darkorchid” and “darkorange”, while also adding some transparency to the points with the <code>alpha()</code> function from <code>ggplot2</code> since some of the points overlap.<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a> You can get a list of all of the named colors in R with <code>colors()</code>. The palette has to be created before beginning to make the plot, and this will change the color palette for all further base plots. You can return to the default palette with <code>palette("default")</code>.</p>
 <p>The <code>cex</code> parameter is used to modify the size of the points that will be plotted. We can set the size of the points to <code>points_spdf$n</code>, but first we need to make some modifications. We do not want the point sizes to be the actual value in the “n” column. A point with <code>cex = 95</code> — the maximum number of letters in the data — would create a point larger then the plot. Therefore, we need to adjust the minimum and maximum size of the points according to some formula. This could be done in a variety of ways, but here I choose the formula <code>sqrt(points_spdf$n)/2 + 0.25</code>, which reduces the minimum <code>cex</code> to 0.75 and the maximum to a bit over 5. The other additions that I make are to add a box around the plot with <code>box()</code> and a title with <code>title()</code> in separate commands. These two commands decorate the plot and provides and example of the way that layers can be added to a base plot. Let’s see how this looks.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new color palette to distinguish source and destination</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">palette</span>(<span class="fu">alpha</span>(<span class="fu">c</span>(<span class="st">"darkorchid"</span>, <span class="st">"darkorange"</span>), <span class="fl">0.7</span>))</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Set margins for bottom, left, top, and right of plot</span></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>))</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot points</span></span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(points_spdf,</span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">20</span>,</span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> points_spdf<span class="sc">$</span>type,</span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex =</span> <span class="fu">sqrt</span>(points_spdf<span class="sc">$</span>n)<span class="sc">/</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">0.25</span>)</span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a box around the plot</span></span>
-<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>()</span>
-<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a title</span></span>
-<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="at">main =</span> <span class="st">"Correspondence of Daniel van der Meulen, 1585"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new color palette to distinguish source and destination</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">palette</span>(<span class="fu">alpha</span>(<span class="fu">c</span>(<span class="st">"darkorchid"</span>, <span class="st">"darkorange"</span>), <span class="fl">0.7</span>))</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Set margins for bottom, left, top, and right of plot</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>))</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot points</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(points_spdf,</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">20</span>,</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> points_spdf<span class="sc">$</span>type,</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex =</span> <span class="fu">sqrt</span>(points_spdf<span class="sc">$</span>n)<span class="sc">/</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">0.25</span>)</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a box around the plot</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>()</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a title</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="at">main =</span> <span class="st">"Correspondence of Daniel van der Meulen, 1585"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/points-spdf-plot-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -622,83 +588,80 @@ https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html</code></p
 <p>Creating a legend for the distinction between sources and destinations uses data from the levels of the factors in the type column, which can be represented by <code>levels(points_spdf$type)</code>. We can map the colors to the levels with a vector containing the two levels, and here I use the shortcut of <code>1:2</code> to represent the two colors in the palette we created above. The <code>pch</code> parameter provides a symbol to represent the colors. In this case, I decided to use a filled square. The <code>pt.cex</code> parameter is used to increase the size of the colored squares, which we need to use because the <code>cex</code> parameter within <code>legend()</code> determines the size of the entire legend.</p>
 <p>The legend to relate the size of the points to the number of letters sent from or received in each location is a bit more difficult to create, as we do not yet have all the necessary components for the legend. A legend for the size of the points will possess three or four points of different sizes and the number of letters they represent. <code>ggplot2</code> does this creation automatically, but with base plots you have to choose the number and size of the points yourself. This means we need to make our own data for the legend, which I do here by creating a <code>pointsize</code> vector that will be used to show the size of points representing 1, 50, and 100 letters.<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a> Once this is done, the creation of the legend is fairly straightforward. The key is to remember to make the point sizes for our vector of numbers equal to the points on the map by applying the same formula and using the same <code>pch</code>. A title for the legend makes it clearer that the map represents letters.<a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pointsize vector for legend</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>pointsize <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">50</span>, <span class="dv">100</span>)</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>))</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot points</span></span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(points_spdf,</span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">20</span>,</span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> points_spdf<span class="sc">$</span>type,</span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex =</span> <span class="fu">sqrt</span>(points_spdf<span class="sc">$</span>n)<span class="sc">/</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">0.25</span>)</span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot coastlines background map</span></span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(coast_sp,</span>
-<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"black"</span>,</span>
-<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a box around the plot</span></span>
-<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>()</span>
-<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Legend for colors</span></span>
-<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>, <span class="at">legend =</span> <span class="fu">levels</span>(points_spdf<span class="sc">$</span>type),</span>
-<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">pt.cex =</span> <span class="dv">2</span>,</span>
-<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,</span>
-<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">15</span>)</span>
-<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a><span class="co"># legend for size of points</span></span>
-<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"right"</span>, <span class="at">legend =</span> pointsize,</span>
-<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">pt.cex =</span> (<span class="fu">sqrt</span>(pointsize)<span class="sc">/</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">0.25</span>),</span>
-<span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"black"</span>,</span>
-<span id="cb42-27"><a href="#cb42-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">20</span>,</span>
-<span id="cb42-28"><a href="#cb42-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Letters"</span>)</span>
-<span id="cb42-29"><a href="#cb42-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-30"><a href="#cb42-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Title for the map</span></span>
-<span id="cb42-31"><a href="#cb42-31" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="at">main =</span> <span class="st">"Correspondence of Daniel van der Meulen, 1585"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pointsize vector for legend</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>pointsize <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">50</span>, <span class="dv">100</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>))</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot points</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(points_spdf,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">20</span>,</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> points_spdf<span class="sc">$</span>type,</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex =</span> <span class="fu">sqrt</span>(points_spdf<span class="sc">$</span>n)<span class="sc">/</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">0.25</span>)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot coastlines background map</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(coast_sp,</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"black"</span>,</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a box around the plot</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>()</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Legend for colors</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>, <span class="at">legend =</span> <span class="fu">levels</span>(points_spdf<span class="sc">$</span>type),</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">pt.cex =</span> <span class="dv">2</span>,</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">15</span>)</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="co"># legend for size of points</span></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"right"</span>, <span class="at">legend =</span> pointsize,</span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">pt.cex =</span> (<span class="fu">sqrt</span>(pointsize)<span class="sc">/</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">0.25</span>),</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"black"</span>,</span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">20</span>,</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Letters"</span>)</span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Title for the map</span></span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="at">main =</span> <span class="st">"Correspondence of Daniel van der Meulen, 1585"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/coast-sp-plot-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>The resulting map is maybe a bit sparse, but it provides all the necessary information on the locations and magnitude of Daniel’s correspondence in 1585. One change that we might want to make is to color in the land to distinguish more clearly between land and water and to add some color to the plot. This cannot be done with our <code>SpatialLines</code> of the coastlines, which does not have a geometric interior that could be filled. Instead we need to use a <code>SpatialPolygons</code> object such as <code>countries_sp</code>. To make this second map we can reuse many of the parameters from our first map, but we do need to make one significant change to the plotting workflow. Because we want to fill in the land area of the map, we need to plot the background map before plotting the points. Otherwise the background map will cover the points. However, this disturbs the automatic subsetting of the world map that occurred in the first plot. We can get around this by changing the bounding box of <code>countries_sp</code> (<code>countries_sp@bbox</code>) to match that of <code>points_spdf</code> with the <code>bbox()</code> function.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make bounding box for countries_sp match</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="co"># bounding box of points_spdf</span></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>countries_sp<span class="sc">@</span>bbox <span class="ot">&lt;-</span> <span class="fu">bbox</span>(points_spdf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make bounding box for countries_sp match</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># bounding box of points_spdf</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>countries_sp<span class="sc">@</span>bbox <span class="ot">&lt;-</span> <span class="fu">bbox</span>(points_spdf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Once the countries map is properly limited to the extent of the points, we can reuse most of the parameters from the first map. The only difference from the previous plot other than placing the background map first in the plotting order is the choice of colors for <code>countries_sp</code>. For a <code>SpatialPolygons</code> object the <code>col</code> parameter adjusts the fill color for the polygons, and the <code>border</code> parameter modifies the color of the lines of the polygons. Using a map with modern country boundaries is clearly anachronistic for plotting letters from 1585, but the boundaries do help to contextualize the locations. If you want to obscure the country borders completely, you can make the <code>col</code> and <code>border</code> parameters the same color. In this case, I will use the <code>gray()</code> function, which enables you to choose a gray level from 0 to 1 with 0 representing black and 1 for white.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>))</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot countries map and color with grays</span></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(countries_sp,</span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">gray</span>(<span class="fl">0.8</span>),</span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">border =</span> <span class="fu">gray</span>(<span class="fl">0.7</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in wkt(obj): CRS object has no comment</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot points</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(points_spdf,</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">20</span>,</span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> points_spdf<span class="sc">$</span>type, </span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex =</span> <span class="fu">sqrt</span>(points_spdf<span class="sc">$</span>n)<span class="sc">/</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">0.25</span>,</span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a box around the plot</span></span>
-<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>()</span>
-<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Legend for colors</span></span>
-<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>,</span>
-<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">levels</span>(points_spdf<span class="sc">$</span>type),</span>
-<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">pt.cex =</span> <span class="dv">2</span>,</span>
-<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,</span>
-<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">15</span>)</span>
-<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a><span class="co"># legend for size of points</span></span>
-<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"right"</span>,</span>
-<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> pointsize,</span>
-<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">pt.cex =</span> (<span class="fu">sqrt</span>(pointsize)<span class="sc">/</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">0.25</span>),</span>
-<span id="cb46-20"><a href="#cb46-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"black"</span>,</span>
-<span id="cb46-21"><a href="#cb46-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">20</span>,</span>
-<span id="cb46-22"><a href="#cb46-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Letters"</span>)</span>
-<span id="cb46-23"><a href="#cb46-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-24"><a href="#cb46-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Title for the map</span></span>
-<span id="cb46-25"><a href="#cb46-25" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="at">main =</span> <span class="st">"Correspondence of Daniel van der Meulen, 1585"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>))</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot countries map and color with grays</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(countries_sp,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">gray</span>(<span class="fl">0.8</span>),</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">border =</span> <span class="fu">gray</span>(<span class="fl">0.7</span>))</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot points</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(points_spdf,</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">20</span>,</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> points_spdf<span class="sc">$</span>type, </span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex =</span> <span class="fu">sqrt</span>(points_spdf<span class="sc">$</span>n)<span class="sc">/</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">0.25</span>,</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a box around the plot</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>()</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Legend for colors</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>,</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">levels</span>(points_spdf<span class="sc">$</span>type),</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">pt.cex =</span> <span class="dv">2</span>,</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">15</span>)</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="co"># legend for size of points</span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"right"</span>,</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> pointsize,</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">pt.cex =</span> (<span class="fu">sqrt</span>(pointsize)<span class="sc">/</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">0.25</span>),</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"black"</span>,</span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">20</span>,</span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Letters"</span>)</span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Title for the map</span></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="at">main =</span> <span class="st">"Correspondence of Daniel van der Meulen, 1585"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/countries-sp-plot-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -709,158 +672,136 @@ https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html</code></p
 <h2 class="anchored" data-anchor-id="sf">Spatial data with <code>sf</code></h2>
 <p>As I noted above, an <code>sf</code> object is a data-frame-like object that contains a special geometry column that is of class <code>sfc</code>. The geometry column stores the spatial forms of data such as the CRS, coordinates, and type of geometric object. The creation of an <code>sf</code> object with a geometry column of class <code>sfc_POINT</code> is similar to creating a <code>SpatialPointsDataFrame</code>, but it can be done in a single step with a data frame that contains longitude and latitude columns. The <code>st_as_sf()</code> function uses a vector of the coordinate columns for the <code>coords</code> argument and either a EPSG code or a Proj.4 definition for the <code>crs</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create sf object with geo_data data frame and CRS</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>points_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(geo_data, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"lon"</span>, <span class="st">"lat"</span>), <span class="at">crs =</span> <span class="dv">4326</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create sf object with geo_data data frame and CRS</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>points_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(geo_data, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"lon"</span>, <span class="st">"lat"</span>), <span class="at">crs =</span> <span class="dv">4326</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The <code>class()</code> function shows that <code>points_sf</code> is an <code>sf</code> object that is an extension of a <code>data.frame</code>, and in this case is an extension of <code>tbl_df</code>, because <code>geo_data</code> is a <a href="http://r4ds.had.co.nz/tibbles.html">tibble</a>. Printing <code>points_sf</code> results in an output similar to that of a tibble or data frame with additional information about the spatial aspects of the data provided by the “geometry” column. The information about the geometry shows the type of geometrical object, dimension, bounding box, and the CRS in both EPSG and proj.4 format when possible.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Getting the class of an sf object shows that it is based on tibble and data frame.</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(points_sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "sf"         "tbl_df"     "tbl"        "data.frame"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Printing out an sf object is similar to tibble or data frame</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>points_sf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Simple feature collection with 14 features and 3 fields
-Geometry type: POINT
-Dimension:     XY
-Bounding box:  xmin: 3.610998 ymin: 45.44085 xmax: 12.31552 ymax: 53.55108
-Geodetic CRS:  WGS 84
-# A tibble: 14 × 4
-   place          n type                   geometry
- * &lt;chr&gt;      &lt;int&gt; &lt;fct&gt;               &lt;POINT [°]&gt;
- 1 Amsterdam      1 Source      (4.895168 52.37022)
- 2 Antwerp       76 Source      (4.402464 51.21945)
- 3 Dordrecht      1 Source       (4.690093 51.8133)
- 4 Emden          1 Source        (7.20601 53.3594)
- 5 Haarlem       30 Source      (4.646219 52.38739)
- 6 Hamburg        1 Source      (9.993682 53.55108)
- 7 Het Vlie       1 Source          (5.183333 53.3)
- 8 Lisse          1 Source      (4.557483 52.25793)
- 9 Venice         2 Source      (12.31552 45.44085)
-10 Bremen         6 Destination  (8.801694 53.0793)
-11 Delft         95 Destination (4.357068 52.01158)
-12 Haarlem        8 Destination (4.646219 52.38739)
-13 Middelburg     2 Destination  (3.610998 51.4988)
-14 The Hague      3 Destination    (4.3007 52.0705)</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Getting the class of an sf object shows that it is based on tibble and data frame.</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(points_sf)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "sf"         "tbl_df"     "tbl"        "data.frame"</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Printing out an sf object is similar to tibble or data frame</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>points_sf</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Simple feature collection with 14 features and 3 fields</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Geometry type: POINT</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Dimension:     XY</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Bounding box:  xmin: 3.610998 ymin: 45.44085 xmax: 12.31552 ymax: 53.55108</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 14 × 4</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    place          n type                   geometry</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  * &lt;chr&gt;      &lt;int&gt; &lt;fct&gt;               &lt;POINT [°]&gt;</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Amsterdam      1 Source      (4.895168 52.37022)</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 Antwerp       76 Source      (4.402464 51.21945)</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Dordrecht      1 Source       (4.690093 51.8133)</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 Emden          1 Source        (7.20601 53.3594)</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 Haarlem       30 Source      (4.646219 52.38739)</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 Hamburg        1 Source      (9.993682 53.55108)</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 Het Vlie       1 Source          (5.183333 53.3)</span></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Lisse          1 Source      (4.557483 52.25793)</span></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Venice         2 Source      (12.31552 45.44085)</span></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Bremen         6 Destination  (8.801694 53.0793)</span></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11 Delft         95 Destination (4.357068 52.01158)</span></span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12 Haarlem        8 Destination (4.646219 52.38739)</span></span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13 Middelburg     2 Destination  (3.610998 51.4988)</span></span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14 The Hague      3 Destination    (4.3007 52.0705)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You can inspect the class of the geometry column itself by using <code>$</code> to subset the geometry column. Or you can directly access information about the spatial data in the “geometry” column with the <code>st_geometry()</code> function.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Class of the geometry or sfc column</span></span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(points_sf<span class="sc">$</span>geometry)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "sfc_POINT" "sfc"      </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the geometry of an sf object</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="co"># to see coordinates, type of feature, and CRS</span></span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="fu">st_geometry</span>(points_sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Geometry set for 14 features 
-Geometry type: POINT
-Dimension:     XY
-Bounding box:  xmin: 3.610998 ymin: 45.44085 xmax: 12.31552 ymax: 53.55108
-Geodetic CRS:  WGS 84
-First 5 geometries:</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>POINT (4.895168 52.37022)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>POINT (4.402464 51.21945)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>POINT (4.690093 51.8133)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>POINT (7.20601 53.3594)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>POINT (4.646219 52.38739)</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Class of the geometry or sfc column</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(points_sf<span class="sc">$</span>geometry)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "sfc_POINT" "sfc"</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the geometry of an sf object</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co"># to see coordinates, type of feature, and CRS</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="fu">st_geometry</span>(points_sf)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Geometry set for 14 features </span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Geometry type: POINT</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Dimension:     XY</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Bounding box:  xmin: 3.610998 ymin: 45.44085 xmax: 12.31552 ymax: 53.55108</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; First 5 geometries:</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; POINT (4.895168 52.37022)</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; POINT (4.402464 51.21945)</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; POINT (4.690093 51.8133)</span></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; POINT (7.20601 53.3594)</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; POINT (4.646219 52.38739)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Having already loaded the Natural Earth coastline and countries maps as <code>Spatial</code> objects, there are two possibilities for getting the same data as <code>sf</code> objects. The <code>sf</code> package provides a method for converting from <code>Spatial</code> classes to <code>sf</code> with the <code>st_as_sf()</code> function that was used above to create an <code>sf</code> object from a data frame. It is useful to know that you can easily convert an object from <code>Spatial</code> to <code>sf</code> and back, but you will obviously not always have <code>Spatial</code> objects already created. The <code>rnaturalearth</code> package enables you to create <code>sf</code> objects with the <code>returnclass = "sf"</code> argument. Here, I will use the latter method.<a href="#fn16" class="footnote-ref" id="fnref16" role="doc-noteref"><sup>16</sup></a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get coastal and country world maps as sf objects</span></span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>coast_sf <span class="ot">&lt;-</span> <span class="fu">ne_coastline</span>(<span class="at">scale =</span> <span class="st">"medium"</span>, <span class="at">returnclass =</span> <span class="st">"sf"</span>)</span>
-<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>countries_sf <span class="ot">&lt;-</span> <span class="fu">ne_countries</span>(<span class="at">scale =</span> <span class="st">"medium"</span>, <span class="at">returnclass =</span> <span class="st">"sf"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get coastal and country world maps as sf objects</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>coast_sf <span class="ot">&lt;-</span> <span class="fu">ne_coastline</span>(<span class="at">scale =</span> <span class="st">"medium"</span>, <span class="at">returnclass =</span> <span class="st">"sf"</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>countries_sf <span class="ot">&lt;-</span> <span class="fu">ne_countries</span>(<span class="at">scale =</span> <span class="st">"medium"</span>, <span class="at">returnclass =</span> <span class="st">"sf"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The data-frame-like nature of <code>sf</code> objects makes working with spatial data more transparent and in-line with other data workflows compared to the <code>sp</code> package. For starters, it is more reasonable to print out <code>sf</code> objects to the console, though the size of <code>coast_sf</code> and <code>countries_sf</code> makes this less than ideal. However, a big advantage of <code>sf</code> over <code>sp</code> is that you can easily peruse the contents of an object with the <code>View()</code> command or clicking on the object in the Environment pane in RStudio. With the <code>View()</code> command an <code>sf</code> object looks like any other data frame instead of a list of lists like a <code>Spatial</code> object. This makes it much easier to get an overview of the data that you are working with. Let’s print out the first six rows, or features in the <code>sf</code> vocabulary, of <code>coast_sf</code> with the <code>head()</code> function to give an idea of what the object looks like. The structure of the output is similar to that of <code>points_sf</code> with a data frame containing a geometry column and information about the geometry of the object. In this case, we can see that <code>coast_sf</code> is of class <code>MULTILINESTRING</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print first six rows of coast_sf</span></span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(coast_sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Simple feature collection with 6 features and 2 fields
-Geometry type: MULTILINESTRING
-Dimension:     XY
-Bounding box:  xmin: -81.42168 ymin: -17.16387 xmax: 180 ymax: 24.94111
-CRS:           +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0
-  scalerank featurecla                       geometry
-0         0  Coastline MULTILINESTRING ((180 -16.1...
-1         0  Coastline MULTILINESTRING ((177.2575 ...
-2         0  Coastline MULTILINESTRING ((127.3727 ...
-3         0  Coastline MULTILINESTRING ((-81.32231...
-4         0  Coastline MULTILINESTRING ((-80.79941...
-5         0  Coastline MULTILINESTRING ((-80.62568...</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print first six rows of coast_sf</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(coast_sf)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Simple feature collection with 6 features and 2 fields</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Geometry type: MULTILINESTRING</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Dimension:     XY</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Bounding box:  xmin: -81.42168 ymin: -17.16387 xmax: 180 ymax: 24.94111</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; CRS:           +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   scalerank featurecla                       geometry</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 0         0  Coastline MULTILINESTRING ((180 -16.1...</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1         0  Coastline MULTILINESTRING ((177.2575 ...</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2         0  Coastline MULTILINESTRING ((127.3727 ...</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3         0  Coastline MULTILINESTRING ((-81.32231...</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4         0  Coastline MULTILINESTRING ((-80.79941...</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5         0  Coastline MULTILINESTRING ((-80.62568...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Unlike <code>Spatial</code> objects that use slots to distinguish the classes, all <code>sf</code> objects can generally be treated as data frames when wrangling the data. The only difference in the structure of <code>points_sf</code> compared to <code>coast_sf</code> or <code>countries_sf</code> is the class of the geometry column. This makes it possible to use workflows from the tidyverse. For instance, returning the subset of locations from <code>points_sf</code> that have a “n” greater than 10, as I showed above with <code>points_spdf</code>, can be done with <code>dplyr</code>’s <code>filter()</code> function.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset of locations with "n" greater than 10</span></span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(points_sf, n <span class="sc">&gt;</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Simple feature collection with 3 features and 3 fields
-Geometry type: POINT
-Dimension:     XY
-Bounding box:  xmin: 4.357068 ymin: 51.21945 xmax: 4.646219 ymax: 52.38739
-Geodetic CRS:  WGS 84
-# A tibble: 3 × 4
-  place       n type                   geometry
-* &lt;chr&gt;   &lt;int&gt; &lt;fct&gt;               &lt;POINT [°]&gt;
-1 Antwerp    76 Source      (4.402464 51.21945)
-2 Haarlem    30 Source      (4.646219 52.38739)
-3 Delft      95 Destination (4.357068 52.01158)</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset of locations with "n" greater than 10</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(points_sf, n <span class="sc">&gt;</span> <span class="dv">10</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Simple feature collection with 3 features and 3 fields</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Geometry type: POINT</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Dimension:     XY</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Bounding box:  xmin: 4.357068 ymin: 51.21945 xmax: 4.646219 ymax: 52.38739</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 × 4</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   place       n type                   geometry</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; * &lt;chr&gt;   &lt;int&gt; &lt;fct&gt;               &lt;POINT [°]&gt;</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Antwerp    76 Source      (4.402464 51.21945)</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Haarlem    30 Source      (4.646219 52.38739)</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Delft      95 Destination (4.357068 52.01158)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The advantages of using <code>dplyr</code> to manipulate spatial objects is more apparent when working with complex objects such as <code>countries_sf</code> and using the pipe (<code>%&gt;%</code>) to link commands. For example, if you want to look at the countries in South America, you can much more easily navigate the 241 rows and 63 columns of non-spatial data in the <code>sf</code> version of the countries world map than the <code>sp</code> version. Printing out the names of the columns with <code>colnames()</code> shows that we can filter countries in South America through the “continent” column. We can simplify the non-spatial data by selecting only the “name” column to identify the countries. Even more impressively, it is possible to combine data wrangling commands with spatial transformations such as changing the CRS of the object with <code>st_transform()</code>. As a demonstration, I can change the CRS of the subset of <code>countries_sf</code> to use the <a href="https://en.wikipedia.org/wiki/Mollweide_projection">Mollweide projection</a>, which prioritizes accuracy of area over shape and angle. The result of the pipeline of commands is a legible <code>sf</code> object with 13 rows for the countries in South America with a new CRS. Note that because there is no EPSG code for the Mollweide projection the <code>epsg</code> of the new object is <code>NA</code>, but the <code>proj4string</code> is changed to <code>+proj=moll</code>. Notice too that the coordinates have been changed from degrees to meters.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># South American countries with new CRS</span></span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>countries_sf <span class="sc">%&gt;%</span> </span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(continent <span class="sc">==</span> <span class="st">"South America"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name) <span class="sc">%&gt;%</span> </span>
-<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="st">"+proj=moll +datum=WGS84"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Simple feature collection with 13 features and 1 field
-Geometry type: MULTIPOLYGON
-Dimension:     XY
-Bounding box:  xmin: -10204810 ymin: -6475765 xmax: -3470373 ymax: 1532816
-CRS:           +proj=moll +datum=WGS84
-First 10 features:
-           name                       geometry
-1     Argentina MULTIPOLYGON (((-4588849 -6...
-2       Bolivia MULTIPOLYGON (((-5605494 -2...
-3        Brazil MULTIPOLYGON (((-4505022 -3...
-4         Chile MULTIPOLYGON (((-4714647 -6...
-5      Colombia MULTIPOLYGON (((-7824020 31...
-6       Ecuador MULTIPOLYGON (((-8024339 -3...
-7  Falkland Is. MULTIPOLYGON (((-4403206 -6...
-8        Guyana MULTIPOLYGON (((-5715634 68...
-9          Peru MULTIPOLYGON (((-7000354 -5...
-10     Paraguay MULTIPOLYGON (((-5605494 -2...</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># South American countries with new CRS</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>countries_sf <span class="sc">%&gt;%</span> </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(continent <span class="sc">==</span> <span class="st">"South America"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="st">"+proj=moll +datum=WGS84"</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Simple feature collection with 13 features and 1 field</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Geometry type: MULTIPOLYGON</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Dimension:     XY</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Bounding box:  xmin: -10204810 ymin: -6475765 xmax: -3470373 ymax: 1532816</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; CRS:           +proj=moll +datum=WGS84</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; First 10 features:</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            name                       geometry</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     Argentina MULTIPOLYGON (((-4588849 -6...</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2       Bolivia MULTIPOLYGON (((-5605494 -2...</span></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3        Brazil MULTIPOLYGON (((-4505022 -3...</span></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4         Chile MULTIPOLYGON (((-4714647 -6...</span></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5      Colombia MULTIPOLYGON (((-7824020 31...</span></span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6       Ecuador MULTIPOLYGON (((-8024339 -3...</span></span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7  Falkland Is. MULTIPOLYGON (((-4403206 -6...</span></span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8        Guyana MULTIPOLYGON (((-5715634 68...</span></span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9          Peru MULTIPOLYGON (((-7000354 -5...</span></span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10     Paraguay MULTIPOLYGON (((-5605494 -2...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can even visualize this transformation of <code>countries_sf</code> by piping directly to a base <code>plot()</code> command. Like <code>sp</code>, <code>sf</code> has its own plotting methods, which differ slightly from the base plotting system.<a href="#fn17" class="footnote-ref" id="fnref17" role="doc-noteref"><sup>17</sup></a> The changes to the defaults that I make here are to remove the automatically created legend of country names with <code>key.pos = NULL</code> and provide a title for the plot. I also add graticules, or grid lines along longitude and latitude, to more clearly show the effects of the change in projection. Before making the map, we need to return the color palette to its default settings to prevent the borders of the countries from being drawn in dark orchid.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Return to default palette</span></span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="fu">palette</span>(<span class="st">"default"</span>)</span>
-<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Map of South American countries</span></span>
-<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>countries_sf <span class="sc">%&gt;%</span> </span>
-<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(continent <span class="sc">==</span> <span class="st">"South America"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name) <span class="sc">%&gt;%</span> </span>
-<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="st">"+proj=moll +datum=WGS84"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb68-9"><a href="#cb68-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">key.pos =</span> <span class="cn">NULL</span>, <span class="at">graticule =</span> <span class="cn">TRUE</span>, <span class="at">main =</span> <span class="st">"South America"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Return to default palette</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">palette</span>(<span class="st">"default"</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Map of South American countries</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>countries_sf <span class="sc">%&gt;%</span> </span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(continent <span class="sc">==</span> <span class="st">"South America"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="st">"+proj=moll +datum=WGS84"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">key.pos =</span> <span class="cn">NULL</span>, <span class="at">graticule =</span> <span class="cn">TRUE</span>, <span class="at">main =</span> <span class="st">"South America"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/sa-countries-plot-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -873,61 +814,65 @@ First 10 features:
 <p>There are some oddities in using <code>geom_sf()</code> compared to other geoms due to the character of <code>geom_sf()</code>. By its nature, <code>geom_sf()</code> is unlike other geoms in that it can be used to create points, lines, or polygons depending on the contents of the <code>sf</code> object. This variability results in the need to declare the geometrical object used in a <code>show.legend</code> argument for the legend to be properly formatted. Another difference that I have found from other geoms is that <code>geom_sf()</code> does not properly identify <code>sf</code> objects unless you explicitly identify them with <code>data = sf_object</code>. While these issues are something to be aware of, they do not substantively affect the the plots that we can create.</p>
 <p>Let’s start by creating a simple plot using <code>ggplot2</code> with <code>points_sf</code> and <code>coast_sf</code>. Note the explicit vocabulary to identify the <code>sf</code> objects as the data and the use of <code>show.legend = "point"</code> for the legend. Otherwise the plot recreates the basic structure of the above base R plots by mapping the aesthetics of <code>color</code> to the “type” variable and <code>size</code> to “n”. Some transparency is added to all of the points with the <code>alpha</code> argument. The last change is to subset the geographic region of the plot, and thus of <code>coast_sf</code> to a chosen bounding box with <code>coord_sf()</code>. You can experiment with different values for <code>xlim</code> and <code>ylim</code> to see what works best.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> coast_sf) <span class="sc">+</span> </span>
-<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> points_sf,</span>
-<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">color =</span> type, <span class="at">size =</span> n),</span>
-<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">alpha =</span> <span class="fl">0.7</span>,</span>
-<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.legend =</span> <span class="st">"point"</span>) <span class="sc">+</span></span>
-<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">14</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">44</span>, <span class="dv">55</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> coast_sf) <span class="sc">+</span> </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> points_sf,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">color =</span> type, <span class="at">size =</span> n),</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">alpha =</span> <span class="fl">0.7</span>,</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.legend =</span> <span class="st">"point"</span>) <span class="sc">+</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">14</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">44</span>, <span class="dv">55</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/ggplot-demo-plot-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>The map created by <code>ggplot2</code> shows the same information as the base plots. It includes legends by default so that we do not need to build them up from scratch, though with <code>geom_sf()</code> we do need to use <code>show.legend = "point"</code> to format the legends properly. The aesthetics of this map are quite different from the base plots and serves to show the defaults that come with the use of <code>geom_sf()</code> in <code>ggplot2</code>. The defaults for <code>geom_sf()</code> use the iconic <code>ggplot</code> gray background, but instead of the usual white grid lines, graticules for the longitude and latitude are shown. Notice that the tick marks for the plot are correctly labeled in units of degrees longitude and latitude and that the axes are not labeled, as the context makes clear that the x-axis is latitude and the y-axis is longitude — at least if you remember which one is which.</p>
 <p>The basic structure of what we want is present in the above map, but we can improve upon it by adding some information and making aesthetic changes to the map. We can simplify the map and make it more similar to the above base R plots by removing the graticules, which can be done by passing <code>NA</code> to the datum argument within the <code>coord_sf()</code> function. On the other hand, it is possible to add information to the plot by labeling the points with <code>geom_text_repel()</code> from the <a href="https://cran.r-project.org/web/packages/ggrepel/index.html"><code>ggrepel</code></a> package, which will ensure that the labels for the points do not overlap. <code>geom_text_repel()</code> does not work with <code>sf</code> objects, but because we have made no geographic transformations to the data, we can use the data from the <code>locations</code> data frame to map the names of the locations to the longitude and latitude values.</p>
-<p>Further changes to the non-data aspects of the map can be made through the <a href="http://r4ds.had.co.nz/graphics-for-communication.html">theme system used by <code>ggplot2</code></a>. We can alter the look of the map by choosing a different built in theme, changing individual elements of the aesthetics, or a combination of the two. You can play around with the theming system to create the look you want. In this case, I will make changes to the theme and to individual aspects of the plot. Changing the theme to <code>theme_minimal()</code> changes the background to white, but it also adds axes labels, which we will want to remove. The labels for the axes, legends, and plot as a whole can be modified within the <code>labs()</code> function. To remove the labeling of the axes for the plot I set the <code>x</code> and <code>y</code> labels to <code>NULL</code>. I also change the labels for the legends to give a more descriptive name to the size legend and use title case for the color legend. The last change I make is to increase the size of the points within the color legend with the <code>guides()</code> function, increasing the size of the points to 6.</p>
+<p>Further changes to the non-data aspects of the map can be made through the <a href="http://r4ds.had.co.nz/graphics-for-communication.html">theme system used by <code>ggplot2</code></a>. We can alter the look of the map by choosing a different built in theme, changing individual elements of the aesthetics, or a combination of the two. You can play around with the theming system to create the look you want. In this case, I will make changes to the theme and to individual aspects of the plot. Changing the theme to <code>theme_light()</code> changes the background to white, but it also adds axes labels, which we will want to remove. The labels for the axes, legends, and plot as a whole can be modified within the <code>labs()</code> function. To remove the labeling of the axes for the plot I set the <code>x</code> and <code>y</code> labels to <code>NULL</code>. I also change the labels for the legends to give a more descriptive name to the size legend and use title case for the color legend. The last change I make is to increase the size of the points within the color legend with the <code>guides()</code> function, increasing the size of the points to 6.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load ggrepel package</span></span>
-<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
-<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> coast_sf) <span class="sc">+</span> </span>
-<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> points_sf, </span>
-<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">color =</span> type, <span class="at">size =</span> n), </span>
-<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">alpha =</span> <span class="fl">0.7</span>, </span>
-<span id="cb70-9"><a href="#cb70-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.legend =</span> <span class="st">"point"</span>) <span class="sc">+</span></span>
-<span id="cb70-10"><a href="#cb70-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">14</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">44</span>, <span class="dv">55</span>),</span>
-<span id="cb70-11"><a href="#cb70-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">datum =</span> <span class="cn">NA</span>) <span class="sc">+</span> <span class="co"># removes graticules</span></span>
-<span id="cb70-12"><a href="#cb70-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">data =</span> locations, </span>
-<span id="cb70-13"><a href="#cb70-13" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">aes</span>(<span class="at">x =</span> lon, <span class="at">y =</span> lat, <span class="at">label =</span> place)) <span class="sc">+</span></span>
-<span id="cb70-14"><a href="#cb70-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Correspondence of Daniel van der Meulen, 1585"</span>,</span>
-<span id="cb70-15"><a href="#cb70-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">size =</span> <span class="st">"Letters"</span>,</span>
-<span id="cb70-16"><a href="#cb70-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Type"</span>) <span class="sc">+</span></span>
-<span id="cb70-17"><a href="#cb70-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">6</span>))) <span class="sc">+</span></span>
-<span id="cb70-18"><a href="#cb70-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load ggrepel package</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> coast_sf) <span class="sc">+</span> </span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> points_sf, </span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">color =</span> type, <span class="at">size =</span> n), </span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">alpha =</span> <span class="fl">0.7</span>, </span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.legend =</span> <span class="st">"point"</span>) <span class="sc">+</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">14</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">44</span>, <span class="dv">55</span>),</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">datum =</span> <span class="cn">NA</span>) <span class="sc">+</span> <span class="co"># removes graticules</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">data =</span> locations, </span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">aes</span>(<span class="at">x =</span> lon, <span class="at">y =</span> lat, <span class="at">label =</span> place)) <span class="sc">+</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Correspondence of Daniel van der Meulen, 1585"</span>,</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">size =</span> <span class="st">"Letters"</span>,</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Type"</span>,</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">6</span>))) <span class="sc">+</span></span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/ggplot-coastline-plot-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>The result is a map that is much cleaner, and because of the points are labeled, more informative. We can reuse the thematic tweaks to create a plot with the countries background map to make it possible to fill in the land area as we did above. I will use the same gray scale for the colors to fill the polygons and for the lines of the polygons. The other change that I make in this plot is to use the <code>theme_bw()</code>, which adds a border around the plot.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> countries_sf,</span>
-<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">fill =</span> <span class="fu">gray</span>(<span class="fl">0.8</span>), <span class="at">color =</span> <span class="fu">gray</span>(<span class="fl">0.7</span>)) <span class="sc">+</span> </span>
-<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> points_sf, </span>
-<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">color =</span> type, <span class="at">size =</span> n), </span>
-<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">alpha =</span> <span class="fl">0.7</span>, </span>
-<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.legend =</span> <span class="st">"point"</span>) <span class="sc">+</span></span>
-<span id="cb71-8"><a href="#cb71-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">14</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">44</span>, <span class="dv">55</span>),</span>
-<span id="cb71-9"><a href="#cb71-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">datum =</span> <span class="cn">NA</span>) <span class="sc">+</span> <span class="co"># removes graticules</span></span>
-<span id="cb71-10"><a href="#cb71-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">data =</span> locations, </span>
-<span id="cb71-11"><a href="#cb71-11" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">aes</span>(<span class="at">x =</span> lon, <span class="at">y =</span> lat, <span class="at">label =</span> place)) <span class="sc">+</span></span>
-<span id="cb71-12"><a href="#cb71-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Correspondence of Daniel van der Meulen, 1585"</span>,</span>
-<span id="cb71-13"><a href="#cb71-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">size =</span> <span class="st">"Letters"</span>,</span>
-<span id="cb71-14"><a href="#cb71-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Type"</span>) <span class="sc">+</span></span>
-<span id="cb71-15"><a href="#cb71-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">6</span>))) <span class="sc">+</span></span>
-<span id="cb71-16"><a href="#cb71-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> countries_sf,</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">fill =</span> <span class="fu">gray</span>(<span class="fl">0.8</span>), <span class="at">color =</span> <span class="fu">gray</span>(<span class="fl">0.7</span>)) <span class="sc">+</span> </span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> points_sf, </span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">color =</span> type, <span class="at">size =</span> n), </span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">alpha =</span> <span class="fl">0.7</span>, </span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.legend =</span> <span class="st">"point"</span>) <span class="sc">+</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">14</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">44</span>, <span class="dv">55</span>),</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">datum =</span> <span class="cn">NA</span>) <span class="sc">+</span> <span class="co"># removes graticules</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">data =</span> locations, </span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">aes</span>(<span class="at">x =</span> lon, <span class="at">y =</span> lat, <span class="at">label =</span> place)) <span class="sc">+</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Correspondence of Daniel van der Meulen, 1585"</span>,</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">size =</span> <span class="st">"Letters"</span>,</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Type"</span>,</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">6</span>))) <span class="sc">+</span></span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/ggplot-countries-plot-1.png" class="img-fluid" width="672"></p>
 </div>

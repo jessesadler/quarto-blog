@@ -181,22 +181,22 @@ per_source
 ```
 
 ## Visualizing the data with `ggplot2`
-While it is nice to have the two above sets of information presented in tables, it is also possible to visualize the newly created data with `ggplot`. The structure of `ggplot` functions is a bit different than that of `dplyr`. Like `dplyr` the functions are linked together, but the linking is done with the `+` symbol instead of `%>%`. With `ggplot` the three main functions are `ggplot()`, one or more `geom_*` function, which informs the type of graphical element to draw, and one or more `aes()` function that sets the aesthetic values of the graph. The designation of the data to use and the `aes()` functions can be placed within either the `ggplot()` function, indicating that they apply to all of the geoms, or they can be placed within individual `geom_*` functions in which case they will only be used for that geom. All this is to say that there are a variety of ways to produce the same visuals. The below code adds an extra function to label the axes with `labs()`.
+While it is nice to have the two above sets of information presented in tables, it is also possible to visualize the newly created data with `ggplot`. The structure of `ggplot` functions is a bit different than that of `dplyr`. Like `dplyr` the functions are linked together, but the linking is done with the `+` symbol instead of `%>%`. With `ggplot2` the three main functions are `ggplot()`, one or more `geom_*` function, which informs the type of graphical element to draw, and one or more `aes()` function that sets the aesthetic values of the graph. The designation of the data to use and the `aes()` functions can be placed within either the `ggplot()` function, indicating that they apply to all of the geoms, or they can be placed within individual `geom_*` functions in which case they will only be used for that geom. All this is to say that there are a variety of ways to produce the same visuals. The below code adds an extra function to label the axes with `labs()` and uses `fct_reorder()` from the [`forcats` package](https://forcats.tidyverse.org/index.html) to convert the source cities into a factor so that the bars are organized by height.
 
 ```{r}
 #| label: per-source-plot
 ggplot(data = per_source) +
-  geom_bar(aes(x = source, y = count), stat = "identity") +
+  geom_bar(aes(x = fct_reorder(source, count), y = count), stat = "identity") +
   labs(x = NULL, y = "Letters written")
 ```
 
-One part of the above code that might be a bit difficult to figure out is `stat = "identity"`. This needs to be called, because the code to create the `per_source` data frame actually did more work than necessary. `stat = "identity"` tells `geom_bar()` to set the height of the bars to the exact number in the count column. However, with `geom_bar()` only the x-axis needs to be specified. The y value is then calculated automatically based on the x value. Therefore, the below code, which uses the original `letters` data frame, could produce the exact same graph. Because of this, it is little trouble to change the variable for the x-axis to writers and get a completely new graph. Notice the change in the data and the deletion of the y variable and `stat`. One problem with the correspondents data is the length of the names. Therefore, this command makes changes to the `theme()` function. The arguments in the function are used to place the correspondent names at a ninety degree angle so that they do not overlap.
+One part of the above code that might be a bit difficult to figure out is `stat = "identity"`. This needs to be called, because the code to create the `per_source` data frame actually did more work than necessary. `stat = "identity"` tells `geom_bar()` to set the height of the bars to the exact number in the count column. However, with `geom_bar()` only the x-axis needs to be specified. The y value is then calculated automatically based on the x value. Therefore, the below code, which uses the original `letters` data frame, could produce the exact same graph. Because of this, it is little trouble to change the variable for the x-axis to writers and get a completely new graph. Notice the change in the data and the deletion of the y variable and `stat`. The data for the x-axis is again converted to a factor, but this time with `fct_infreq()` to automatically create and order the factor by the frequency of observations. One problem with the correspondents data is the length of the names. Therefore, this command makes changes to the `theme()` function. The arguments in the function are used to place the correspondent names at a ninety degree angle so that they do not overlap.
 
 ```{r}
 #| label: per-correspondent-plot
 #| fig.asp: 1
 ggplot(data = letters) +
-  geom_bar(aes(x = writer)) +
+  geom_bar(aes(x = fct_infreq(writer))) +
   labs(x = NULL, y = "Letters written") +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
 ```

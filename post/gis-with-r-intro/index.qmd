@@ -442,7 +442,7 @@ The map created by `ggplot2` shows the same information as the base plots. It in
 
 The basic structure of what we want is present in the above map, but we can improve upon it by adding some information and making aesthetic changes to the map. We can simplify the map and make it more similar to the above base R plots by removing the graticules, which can be done by passing `NA` to the datum argument within the `coord_sf()` function. On the other hand, it is possible to add information to the plot by labeling the points with `geom_text_repel()` from the [`ggrepel`](https://cran.r-project.org/web/packages/ggrepel/index.html) package, which will ensure that the labels for the points do not overlap. `geom_text_repel()` does not work with `sf` objects, but because we have made no geographic transformations to the data, we can use the data from the `locations` data frame to map the names of the locations to the longitude and latitude values.
 
-Further changes to the non-data aspects of the map can be made through the [theme system used by `ggplot2`](http://r4ds.had.co.nz/graphics-for-communication.html). We can alter the look of the map by choosing a different built in theme, changing individual elements of the aesthetics, or a combination of the two. You can play around with the theming system to create the look you want. In this case, I will make changes to the theme and to individual aspects of the plot. Changing the theme to `theme_minimal()` changes the background to white, but it also adds axes labels, which we will want to remove. The labels for the axes, legends, and plot as a whole can be modified within the `labs()` function. To remove the labeling of the axes for the plot I set the `x` and `y` labels to `NULL`. I also change the labels for the legends to give a more descriptive name to the size legend and use title case for the color legend. The last change I make is to increase the size of the points within the color legend with the `guides()` function, increasing the size of the points to 6.
+Further changes to the non-data aspects of the map can be made through the [theme system used by `ggplot2`](http://r4ds.had.co.nz/graphics-for-communication.html). We can alter the look of the map by choosing a different built in theme, changing individual elements of the aesthetics, or a combination of the two. You can play around with the theming system to create the look you want. In this case, I will make changes to the theme and to individual aspects of the plot. Changing the theme to `theme_light()` changes the background to white, but it also adds axes labels, which we will want to remove. The labels for the axes, legends, and plot as a whole can be modified within the `labs()` function. To remove the labeling of the axes for the plot I set the `x` and `y` labels to `NULL`. I also change the labels for the legends to give a more descriptive name to the size legend and use title case for the color legend. The last change I make is to increase the size of the points within the color legend with the `guides()` function, increasing the size of the points to 6.
 
 ```{r}
 #| label: ggplot-coastline-plot
@@ -461,9 +461,11 @@ ggplot() +
                   aes(x = lon, y = lat, label = place)) +
   labs(title = "Correspondence of Daniel van der Meulen, 1585",
        size = "Letters",
-       color = "Type") +
+       color = "Type",
+       x = NULL,
+       y = NULL) +
   guides(color = guide_legend(override.aes = list(size = 6))) +
-  theme_void()
+  theme_light()
 ```
 
 The result is a map that is much cleaner, and because of the points are labeled, more informative. We can reuse the thematic tweaks to create a plot with the countries background map to make it possible to fill in the land area as we did above. I will use the same gray scale for the colors to fill the polygons and for the lines of the polygons. The other change that I make in this plot is to use the `theme_bw()`, which adds a border around the plot.
@@ -483,9 +485,11 @@ ggplot() +
                   aes(x = lon, y = lat, label = place)) +
   labs(title = "Correspondence of Daniel van der Meulen, 1585",
        size = "Letters",
-       color = "Type") +
+       color = "Type",
+       x = NULL,
+       y = NULL) +
   guides(color = guide_legend(override.aes = list(size = 6))) +
-  theme_void()
+  theme_light()
 ```
 
 ## Conclusion {#conclusion}

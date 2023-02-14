@@ -12,5 +12,11 @@ toc: true
 toc-title: Table of contents
 toc-location: left
 
+# knitr options
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: "#>"
+
 # Date format
 date-format: "D MMMM YYYY"
