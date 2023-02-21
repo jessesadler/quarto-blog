@@ -1,36 +1,40 @@
 /*-- scss:defaults --*/
 
-//** Link colors
-$link-color: #ff9600 !default;
-$link-decoration: none;
+// Colors
+$orange:       #ff9600 !default;
+$light-orange: #ffaa00 !default;
+$teal:         #00AFD4 !default;
 
-$link-hover-color: #ffaa00 !default;
-$link-hover-decoration: underline;
+// Navbar
+$primary:   $orange !default; // Navbar and link-color
+$navbar-hl: $teal !default;
 
-$navbar-hl: #00AFD4 !default;
+// Links
+$link-decoration:       none !default;
+$link-hover-color:      $light-orange !default;
+$link-hover-decoration: underline !default;
+
+//** Table of contents
+$toc-color:     $teal !default;
+$toc-font-size: 1rem !default;
 
 //** Fonts
-$font-size-base: 1rem !default;
 
 //** import google fonts
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro');
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
 
 
 //** use Avenir Next font if available
-$font-family-sans-serif:  "Avenir Next", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+$font-family-sans-serif: Avenir, "Nunito Sans", sans-serif !default;
+$font-family-monospace:  "Source Code Pro", monospace !default;
 
-$font-family-monospace: "Source Code Pro", monospace !default;
 
 /*-- scss:rules --*/
 
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 600;
+//** Article subtitle: Lighten color of subtitle
+.lead {
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: #6c757d;
 }
-
-// litera is serif by default: revert to san-serif
-p {
-  font-family: $font-family-sans-serif;
-}
-
-

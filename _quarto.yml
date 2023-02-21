@@ -8,7 +8,6 @@ website:
   favicon: favicon.ico
   navbar:
     title: "Jesse Sadler"
-    background: "#ff9600"
     pinned: true
     right:
       - file: project.qmd
@@ -36,6 +35,8 @@ website:
         href: https://github.com/jessesadler
 format:
   html:
-    theme: [litera, styles.scss]
+    theme:
+      - default
+      - styles.scss
     highlight-style: ayu
     include-in-header: plausible.html
