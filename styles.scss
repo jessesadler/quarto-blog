@@ -42,3 +42,86 @@ $font-family-monospace:  "Source Code Pro", monospace !default;
   font-weight: 300;
   color: #6c757d;
 }
+
+// Title block: Category styling
+.quarto-title {
+  .quarto-categories {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 0.5em;
+    column-gap: 0.4em;
+    padding-bottom: 0.5em;
+    margin-top: 0.75em;
+
+    .quarto-category {
+      padding: 0.25em 0.75em;
+      font-size: 0.65em;
+      font-family: Monospace; // monospace
+      text-transform: lowercase; // lowercase
+      border: solid 1px;
+      border-radius: $border-radius;
+      opacity: 0.6;
+
+      a {
+        color: inherit;
+      }
+    }
+  }
+}
+
+/*-- scss:mixins --*/
+
+// Listing page: Category styling in post listing
+@mixin listing-category {
+  display: flex;
+  flex-wrap: wrap;
+  padding-bottom: 5px;
+
+  .listing-category {
+    color: listing-override-value($theme-name, "category-color", $text-muted);
+
+    $val: listing-override-value($theme-name, "category-border", null);
+    @if $val != null {
+      border: $val;
+    } @else {
+      border: solid 1px $border-color;
+    }
+
+    border-radius: $border-radius;
+    font-size: 0.65em;
+    text-transform: lowercase;  // lowercase
+    font-family: Monospace; // monospace
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-top: 0.15em;
+    padding-bottom: 0.15em;
+    cursor: pointer;
+    margin-right: 4px;
+    margin-bottom: 4px;
+  }
+}
+
+// Listing page: Category styling for right sidebar
+#quarto-margin-sidebar {
+  .quarto-listing-category {
+    padding-top: 0;
+    font-size: 1rem;
+  }
+  .quarto-listing-category-title {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.25rem;
+    font-family: Monospace;
+  }
+}
+
+.quarto-listing-category {
+  .category {
+    cursor: pointer;
+    font-size: 0.85em;
+    font-family: Monospace;
+  }
+  .category.active {
+    font-weight: 600;
+  }
+}
