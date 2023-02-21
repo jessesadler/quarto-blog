@@ -5,8 +5,9 @@ $orange:       #ff9600 !default;
 $light-orange: #ffaa00 !default;
 $teal:         #00AFD4 !default;
 
-// Navbar
 $primary:   $orange !default; // Navbar and link-color
+
+// Navbar
 $navbar-hl: $teal !default;
 
 // Links
@@ -14,21 +15,24 @@ $link-decoration:       none !default;
 $link-hover-color:      $light-orange !default;
 $link-hover-decoration: underline !default;
 
-//** Table of contents
+// Table of contents
 $toc-color:     $teal !default;
 $toc-font-size: 1rem !default;
 
-//** Fonts
+// Code
+$code-color:    $teal !default;
+$code-bg:       #f8f9fa !default; // lighten background for code
+$code-block-bg: #f8f9fa !default;
 
-//** import google fonts
+// Fonts
+
+// import google fonts
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital@0;1&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
 
-
-//** use Avenir Next font if available
+//** use Avenir font if available
 $font-family-sans-serif: Avenir, "Nunito Sans", sans-serif !default;
 $font-family-monospace:  "Source Code Pro", monospace !default;
-
 
 /*-- scss:rules --*/
 
