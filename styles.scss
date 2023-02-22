@@ -69,6 +69,22 @@ $font-family-monospace:  "Source Code Pro", monospace !default;
   }
 }
 
+// Listing page: Category styling for right sidebar
+#quarto-margin-sidebar {
+  .quarto-listing-category {
+    padding-top: 0;
+    font-family: Monospace;
+    font-size: 0.85rem;
+  }
+  .quarto-listing-category-title {
+    cursor: pointer;
+    font-weight: 600;
+    font-family: Monospace;
+    font-size: 1rem;
+  }
+}
+
+
 /*-- scss:mixins --*/
 
 // Listing page: Category styling in post listing
@@ -101,27 +117,3 @@ $font-family-monospace:  "Source Code Pro", monospace !default;
   }
 }
 
-// Listing page: Category styling for right sidebar
-#quarto-margin-sidebar {
-  .quarto-listing-category {
-    padding-top: 0;
-    font-size: 1rem;
-  }
-  .quarto-listing-category-title {
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 1.25rem;
-    font-family: Monospace;
-  }
-}
-
-.quarto-listing-category {
-  .category {
-    cursor: pointer;
-    font-size: 0.85em;
-    font-family: Monospace;
-  }
-  .category.active {
-    font-weight: 600;
-  }
-}
