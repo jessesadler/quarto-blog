@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.2.335">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
 <meta name="dcterms.date" content="2018-03-12">
 <meta name="description" content="Exploration of the implementation of simple features standard by the sf package for R">
-
 <title>A Rogue Historian - An Exploration of Simple Features for R</title>
 <style>
 code{white-space: pre-wrap;}
@@ -87,7 +84,6 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
-
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -103,8 +99,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -122,19 +117,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit"
   }
-}</script>
-<!-- plausible -->
-<script defer="" data-domain="jessesadler.com" src="https://plausible.io/js/script.js"></script>
-
-
+}</script><!-- plausible --><script defer="" data-domain="jessesadler.com" src="https://plausible.io/js/script.js"></script>
 </head>
-
 <body class="floating nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
-      <div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Jesse Sadler</span>
@@ -145,7 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
+<li class="nav-item">
     <a class="nav-link" href="../../project.html">
  <span class="menu-text">Projects</span></a>
   </li>  
@@ -182,41 +170,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
  <span class="menu-text"></span></a>
   </li>  
 </ul>
-              <div id="quarto-search" class="" title="Search"></div>
+<div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
-    </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
-    <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sfg" id="toc-sfg" class="nav-link active" data-scroll-target="#sfg"><code>sfg</code> objects</a>
+<li>
+<a href="#sfg" id="toc-sfg" class="nav-link active" data-scroll-target="#sfg"><code>sfg</code> objects</a>
   <ul class="collapse">
-  <li><a href="#geometry-types" id="toc-geometry-types" class="nav-link" data-scroll-target="#geometry-types">Geometry types</a></li>
+<li><a href="#geometry-types" id="toc-geometry-types" class="nav-link" data-scroll-target="#geometry-types">Geometry types</a></li>
   <li><a href="#creating-geometry-types" id="toc-creating-geometry-types" class="nav-link" data-scroll-target="#creating-geometry-types">Creating geometry types</a></li>
-  </ul></li>
-  <li><a href="#sfc" id="toc-sfc" class="nav-link" data-scroll-target="#sfc"><code>sfc</code> objects</a>
+  </ul>
+</li>
+  <li>
+<a href="#sfc" id="toc-sfc" class="nav-link" data-scroll-target="#sfc"><code>sfc</code> objects</a>
   <ul class="collapse">
-  <li><a href="#sfc-subclasses" id="toc-sfc-subclasses" class="nav-link" data-scroll-target="#sfc-subclasses"><code>sfc</code> subclasses</a></li>
-  </ul></li>
+<li><a href="#sfc-subclasses" id="toc-sfc-subclasses" class="nav-link" data-scroll-target="#sfc-subclasses"><code>sfc</code> subclasses</a></li>
+  </ul>
+</li>
   <li><a href="#sf" id="toc-sf" class="nav-link" data-scroll-target="#sf"><code>sf</code> objects</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Wrapping up</a></li>
-  </ul>
-</nav>
-</nav>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  </ul></nav>
+</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">An Exploration of Simple Features for R</h1>
 <p class="subtitle lead">Building sfg, sfc, and sf objects from the sf package</p>
   <div class="quarto-categories">
@@ -246,125 +227,134 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </div>
   
 
-</header>
-
-<p>The <a href="https://jessesadler.com/post/gis-with-r-intro/">previous post</a> provided an introduction to the <a href="https://cran.r-project.org/web/packages/sp/index.html"><code>sp</code></a> and <a href="https://cran.r-project.org/web/packages/sf/index.html"><code>sf</code></a> packages and how they represent spatial data in R. There I discussed the creation of <code>Spatial</code> and <code>sf</code> objects from data with longitude and latitude values and the process of making maps with the two packages. In this post I will provide further background for the <code>sf</code> package by going into the details of the structure of <code>sf</code> objects and explaining how the package implements the <a href="http://www.opengeospatial.org/standards/sfa">Simple Features open standard</a>. It is certainly not necessary to know the ins and outs of <code>sf</code> objects and the Simple Features standard to use the package — it has taken me long enough to get my head around much of this — but a better knowledge of the structure and vocabulary of <code>sf</code> objects is helpful for understanding the effects of the plethora of <code>sf</code> functions. There are a variety of good resources that discuss the structure of <code>sf</code> objects. The most comprehensive are the <a href="https://cran.r-project.org/web/packages/sf/vignettes/sf1.html">package vignette Simple Features for R</a> and the overview in Chapter 2 of the working book <a href="https://geocompr.robinlovelace.net/spatial-class.html#sf-classes">&nbsp;<em>Geocomputation with R</em> by Robin Lovelace, Jakub Nowosad, and Jannes Muenchow</a>. This post is based on these sources, as well as my own sleuthing through the code for the <code>sf</code> package.</p>
+</header><p>The <a href="https://jessesadler.com/post/gis-with-r-intro/">previous post</a> provided an introduction to the <a href="https://cran.r-project.org/web/packages/sp/index.html"><code>sp</code></a> and <a href="https://cran.r-project.org/web/packages/sf/index.html"><code>sf</code></a> packages and how they represent spatial data in R. There I discussed the creation of <code>Spatial</code> and <code>sf</code> objects from data with longitude and latitude values and the process of making maps with the two packages. In this post I will provide further background for the <code>sf</code> package by going into the details of the structure of <code>sf</code> objects and explaining how the package implements the <a href="http://www.opengeospatial.org/standards/sfa">Simple Features open standard</a>. It is certainly not necessary to know the ins and outs of <code>sf</code> objects and the Simple Features standard to use the package — it has taken me long enough to get my head around much of this — but a better knowledge of the structure and vocabulary of <code>sf</code> objects is helpful for understanding the effects of the plethora of <code>sf</code> functions. There are a variety of good resources that discuss the structure of <code>sf</code> objects. The most comprehensive are the <a href="https://cran.r-project.org/web/packages/sf/vignettes/sf1.html">package vignette Simple Features for R</a> and the overview in Chapter 2 of the working book <a href="https://geocompr.robinlovelace.net/spatial-class.html#sf-classes">&nbsp;<em>Geocomputation with R</em> by Robin Lovelace, Jakub Nowosad, and Jannes Muenchow</a>. This post is based on these sources, as well as my own sleuthing through the code for the <code>sf</code> package.</p>
 <p>Before diving in, let’s take a step back to provide some background to the package. The <code>sf</code> package implements the <a href="https://en.wikipedia.org/wiki/Simple_Features">Simple Features standard</a> in R. The Simple Features standard is widely used by GIS software such as <a href="http://postgis.net/">PostGIS</a>, <a href="http://geojson.org/">GeoJSON</a>, and <a href="http://www.esri.com/">ArcGIS</a> to represent geographic vector data. The <code>sf</code> package is designed to bring spatial analysis in R in line with these other systems.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> The standard defines a simple feature as a representation of a real world object by a point or points that may or may not be connected by straight line segments to form lines or polygons. A simple feature can contain both a geometry that includes points, any connecting lines, and a coordinate reference system to identify its location of Earth and attributes to describe the object, such as a name, values, color, etc. The <code>sf</code> package takes advantage of the wide use of Simple Features by linking directly to the <a href="http://gdal.org">GDAL</a>, <a href="http://trac.osgeo.org/geos">GEOS</a>, and <a href="http://proj4.org">PROJ</a> libraries that provide the back end for reading spatial data, making geographic calculations, and handling coordinate reference systems.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> You can see this from the message when you load the <code>sf</code> package, so let’s do that now.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Linking to GEOS 3.11.0, GDAL 3.5.3, PROJ 9.1.0; sf_use_s2() is TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Linking to GEOS 3.11.0, GDAL 3.5.3, PROJ 9.1.0; sf_use_s2() is TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>With this general definition of Simple Features in mind, we can look at how the <code>sf</code> package implements the standard through the <code>sf</code> class of object.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> At its most basic, an <code>sf</code> object is a collection of simple features that includes attributes and geometries in the form of a data frame. In other words, it is a data frame (or tibble) with rows of features, columns of attributes, and a special geometry column that contains the spatial aspects of the features. The special geometry column is itself a <a href="http://colinfay.me/intro-to-r/lists-and-data-frames.html">list</a> of class <code>sfc</code>, which is made up of individual objects of class <code>sfg</code>. While it is possible to have multiple geometry columns, <code>sf</code> objects usually only have a single geometry column. We can break down the components of an <code>sf</code> object by looking at the printed output of an <code>sf</code> object.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
 <p><img src="img/sf-object.tiff" id="sf-object" class="img-fluid"></p>
 <ul>
-<li><code>sf</code> object: collection of simple features represented by a data frame</li>
+<li>
+<code>sf</code> object: collection of simple features represented by a data frame</li>
 <li>feature: a single simple feature with attributes and geometry represented by a row in the data frame</li>
 <li>attributes: non-geometry variables or columns in the data frame</li>
-<li><code>sfg</code> object: geometry of a single feature</li>
-<li><code>sfc</code> object: geometry column with the spatial attributes of the object printed above the data frame</li>
+<li>
+<code>sfg</code> object: geometry of a single feature</li>
+<li>
+<code>sfc</code> object: geometry column with the spatial attributes of the object printed above the data frame</li>
 </ul>
 <p>This terminology covers the basics for <code>sf</code> objects and provides the majority of information you need to work with them. The most likely way to create an <code>sf</code> object is convert another type of spatial object or a data frame with coordinates to an <code>sf</code> object. Rarely is there a reason to create an <code>sf</code> object from scratch. However, we can learn more about the nature of <code>sf</code> objects by delving further into their structure and explicating how <code>sfg</code> and <code>sfc</code> objects combine to store spatial data. The rest of the post will do this by creating an <code>sf</code> object step by step from a single <code>sfg</code> object, to a combination of <code>sfg</code> objects in an <code>sfc</code> object, and finally the addition of attributes to produce a full <code>sf</code> object.</p>
-<section id="sfg" class="level2">
-<h2 class="anchored" data-anchor-id="sfg"><code>sfg</code> objects</h2>
+<section id="sfg" class="level2"><h2 class="anchored" data-anchor-id="sfg">
+<code>sfg</code> objects</h2>
 <p><code>sfg</code> objects represent the geometry of a single feature and contain information about the feature’s coordinates, dimension, and type of geometry. The coordinates are the values of the point or points in the feature, which can have two-, three-, or four dimensions. The vast majority of data is two dimensional, possessing and X and Y coordinates, but the Simple Features standard also possesses a Z coordinate for elevation and an M coordinate for information about the measurement of a point that is rarely used. The geometry type indicates the shape of the feature, whether it consists of a point, multiple points, a line, multiple lines, a polygon, multiple polygons, or some combination of these. There are seventeen different possible types of geometries, but the vast majority of data will use the seven main types discussed here.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
-<section id="geometry-types" class="level3">
-<h3 class="anchored" data-anchor-id="geometry-types">Geometry types</h3>
+<section id="geometry-types" class="level3"><h3 class="anchored" data-anchor-id="geometry-types">Geometry types</h3>
 <ul>
-<li><code>POINT</code> – a single point</li>
-<li><code>MULTIPOINT</code> – multiple points
+<li>
+<code>POINT</code> – a single point</li>
+<li>
+<code>MULTIPOINT</code> – multiple points
 <ul>
-<li><code>LINESTRING</code> – sequence of two or more points connected by straight lines</li>
-<li><code>MULTILINESTRING</code> – multiple lines</li>
-<li><code>POLYGON</code> – a closed ring with zero or more interior holes</li>
-<li><code>MULTIPOLYGON</code> - multiple polygons</li>
-<li><code>GEOMETRYCOLLECTION</code> – any combination of the above types</li>
-</ul></li>
+<li>
+<code>LINESTRING</code> – sequence of two or more points connected by straight lines</li>
+<li>
+<code>MULTILINESTRING</code> – multiple lines</li>
+<li>
+<code>POLYGON</code> – a closed ring with zero or more interior holes</li>
+<li>
+<code>MULTIPOLYGON</code> - multiple polygons</li>
+<li>
+<code>GEOMETRYCOLLECTION</code> – any combination of the above types</li>
+</ul>
+</li>
 </ul>
 <p>Within the Simple Features standard the geometry of a feature is encoded using <a href="https://cran.r-project.org/web/packages/sf/vignettes/sf1.html#wkb">well-known binary</a> (WKB) that can also be represented in a more human readable form of well-known text (WKT). The <code>sf</code> package can convert between <code>sfg</code> and WKB or WKT very quickly, but <code>sfg</code> objects are created and stored in R as vectors, matrices, or lists of matrices depending on the geometry type.</p>
-</section>
-<section id="creating-geometry-types" class="level3">
-<h3 class="anchored" data-anchor-id="creating-geometry-types">Creating geometry types</h3>
+</section><section id="creating-geometry-types" class="level3"><h3 class="anchored" data-anchor-id="creating-geometry-types">Creating geometry types</h3>
 <ul>
-<li><code>POINT</code> – a vector</li>
-<li><code>MULTIPOINT</code> and <code>LINESTRING</code> – a matrix with each row representing a point</li>
-<li><code>MULTILINESTRING</code> and <code>POLYGON</code> – a list of matrices</li>
-<li><code>MULTIPOLYGON</code> - a list of lists of matrices</li>
-<li><code>GEOMETRYCOLLECTION</code> – list that combines any of the above</li>
+<li>
+<code>POINT</code> – a vector</li>
+<li>
+<code>MULTIPOINT</code> and <code>LINESTRING</code> – a matrix with each row representing a point</li>
+<li>
+<code>MULTILINESTRING</code> and <code>POLYGON</code> – a list of matrices</li>
+<li>
+<code>MULTIPOLYGON</code> - a list of lists of matrices</li>
+<li>
+<code>GEOMETRYCOLLECTION</code> – list that combines any of the above</li>
 </ul>
-<p>An <code>sfg</code> object of each of the seven main geometry types can be created through separate functions: <code>st_point()</code>, <code>st_multipoint()</code>, <code>st_linestring()</code>, etc. The functions all have two arguments: an R object of the proper class to create the specified geometry type and identification of dimensions as either XYZ or XYM if the data has three dimensions. In this post I will create POINT, MULTIPOINT, and LINESTRING geometry types, which are the most likely to be used when creating an <code>sf</code> object from scratch and provide the basis for the remaining types. You can see how to create the remaining types in the package <a href="https://cran.r-project.org/web/packages/sf/vignettes/sf1.html">vignette</a> and <a href="https://geocompr.robinlovelace.net/spatial-class.html#sf-classes"><em>Geocomputation with R</em></a>. Let’s start by creating two points using vectors of longitude and latitude values for points in Los Angeles and Amsterdam.</p>
+<p>An <code>sfg</code> object of each of the seven main geometry types can be created through separate functions: <code><a href="https://r-spatial.github.io/sf/reference/st.html">st_point()</a></code>, <code><a href="https://r-spatial.github.io/sf/reference/st.html">st_multipoint()</a></code>, <code><a href="https://r-spatial.github.io/sf/reference/st.html">st_linestring()</a></code>, etc. The functions all have two arguments: an R object of the proper class to create the specified geometry type and identification of dimensions as either XYZ or XYM if the data has three dimensions. In this post I will create POINT, MULTIPOINT, and LINESTRING geometry types, which are the most likely to be used when creating an <code>sf</code> object from scratch and provide the basis for the remaining types. You can see how to create the remaining types in the package <a href="https://cran.r-project.org/web/packages/sf/vignettes/sf1.html">vignette</a> and <a href="https://geocompr.robinlovelace.net/spatial-class.html#sf-classes"><em>Geocomputation with R</em></a>. Let’s start by creating two points using vectors of longitude and latitude values for points in Los Angeles and Amsterdam.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an sfg object with coordinates of Los Angeles and Amsterdam</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>la_sfg <span class="ot">&lt;-</span> <span class="fu">st_point</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="fl">118.2615805</span>, <span class="fl">34.1168926</span>))</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>amsterdam_sfg <span class="ot">&lt;-</span> <span class="fu">st_point</span>(<span class="fu">c</span>(<span class="fl">4.8979755</span>, <span class="fl">52.3745403</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Create an sfg object with coordinates of Los Angeles and Amsterdam</span></span>
+<span><span class="va">la_sfg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st.html">st_point</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">118.2615805</span>, <span class="fl">34.1168926</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">amsterdam_sfg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st.html">st_point</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4.8979755</span>, <span class="fl">52.3745403</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The relative simplicity of the command to create an <code>sfg</code> POINT underlines the simplicity of <code>sfg</code> objects as a whole. We can see this by taking a closer look at the information contained in these objects.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print sfg POINT objects</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>la_sfg</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; POINT (-118.2616 34.11689)</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>amsterdam_sfg</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; POINT (4.897976 52.37454)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Print sfg POINT objects</span></span>
+<span><span class="va">la_sfg</span></span>
+<span><span class="co">#&gt; POINT (-118.2616 34.11689)</span></span>
+<span><span class="va">amsterdam_sfg</span></span>
+<span><span class="co">#&gt; POINT (4.897976 52.37454)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The printing method for all <code>sfg</code> objects uses the well-known text style with the geometry type printed in capital letters followed by the coordinates, using commas and parentheses to distinguish between the different elements for each feature.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Structure of a sfg POINT object</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(la_sfg)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  'XY' num [1:2] -118.3 34.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Structure of a sfg POINT object</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">la_sfg</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  'XY' num [1:2] -118.3 34.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>If we look a bit further into the structure of an <code>sfg</code> object, we can see that it consists of three classes corresponding to the dimensions, geometry type, and the <code>sfg</code> class itself. In addition, the object possesses coordinates, which is a vector of length two. The coordinates can also be represented by a matrix with two columns and one row. In fact, all <code>sfg</code> objects can be represented as a matrix of coordinates, though more complex geometry types contain additional columns to keep track of pieces that make up the feature or features.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Coordinates of a sfg object</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">st_coordinates</span>(la_sfg)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           X        Y</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 -118.2616 34.11689</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Coordinates of a sfg object</span></span>
+<span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_coordinates.html">st_coordinates</a></span><span class="op">(</span><span class="va">la_sfg</span><span class="op">)</span></span>
+<span><span class="co">#&gt;           X        Y</span></span>
+<span><span class="co">#&gt; 1 -118.2616 34.11689</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Points are the building block for all other geometry types. We can see this by creating a MULTIPOINT and LINESTRING simple feature, which are both formed by a matrix of points. The matrix can be created by using <code>rbind()</code> to bind the coordinate vectors together into rows.</p>
+<p>Points are the building block for all other geometry types. We can see this by creating a MULTIPOINT and LINESTRING simple feature, which are both formed by a matrix of points. The matrix can be created by using <code><a href="https://rdrr.io/r/base/cbind.html">rbind()</a></code> to bind the coordinate vectors together into rows.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Matrix of points</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="fl">118.2615805</span>, <span class="fl">34.1168926</span>), <span class="fu">c</span>(<span class="fl">4.8979755</span>, <span class="fl">52.3745403</span>))</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             [,1]     [,2]</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] -118.261580 34.11689</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,]    4.897976 52.37454</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create MULTIPOINT and LINESTRING sfg objects through matrix of points</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>multipoint_sfg <span class="ot">&lt;-</span> <span class="fu">st_multipoint</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="fl">118.2615805</span>, <span class="fl">34.1168926</span>), <span class="fu">c</span>(<span class="fl">4.8979755</span>, <span class="fl">52.3745403</span>)))</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>linestring_sfg <span class="ot">&lt;-</span> <span class="fu">st_linestring</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="fl">118.2615805</span>, <span class="fl">34.1168926</span>), <span class="fu">c</span>(<span class="fl">4.8979755</span>, <span class="fl">52.3745403</span>)))</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Print objects</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>multipoint_sfg</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MULTIPOINT ((-118.2616 34.11689), (4.897976 52.37454))</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>linestring_sfg</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; LINESTRING (-118.2616 34.11689, 4.897976 52.37454)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Matrix of points</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">118.2615805</span>, <span class="fl">34.1168926</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4.8979755</span>, <span class="fl">52.3745403</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;             [,1]     [,2]</span></span>
+<span><span class="co">#&gt; [1,] -118.261580 34.11689</span></span>
+<span><span class="co">#&gt; [2,]    4.897976 52.37454</span></span>
+<span></span>
+<span><span class="co"># Create MULTIPOINT and LINESTRING sfg objects through matrix of points</span></span>
+<span><span class="va">multipoint_sfg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st.html">st_multipoint</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">118.2615805</span>, <span class="fl">34.1168926</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4.8979755</span>, <span class="fl">52.3745403</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">linestring_sfg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st.html">st_linestring</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">118.2615805</span>, <span class="fl">34.1168926</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4.8979755</span>, <span class="fl">52.3745403</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Print objects</span></span>
+<span><span class="va">multipoint_sfg</span></span>
+<span><span class="co">#&gt; MULTIPOINT ((-118.2616 34.11689), (4.897976 52.37454))</span></span>
+<span><span class="va">linestring_sfg</span></span>
+<span><span class="co">#&gt; LINESTRING (-118.2616 34.11689, 4.897976 52.37454)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Printing the two new <code>sfg</code> objects shows their basic similarity. They were created by the same matrix and thus have the same coordinates. The only difference is that one is of class MULTIPOINT and the other is of class LINESTRING. In other words, the geometry of <code>multipoint_sfg</code> consists of points, and the geometry of <code>linestring_sfg</code> is a straight line between the same two points. We can see this by plotting the objects next to each other.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>),</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(multipoint_sfg, <span class="at">main =</span> <span class="st">"MULTIPOINT"</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(linestring_sfg, <span class="at">main =</span> <span class="st">"LINESTRING"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>    mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">multipoint_sfg</span>, main <span class="op">=</span> <span class="st">"MULTIPOINT"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">linestring_sfg</span>, main <span class="op">=</span> <span class="st">"LINESTRING"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/multipoint-linestring-plot-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>As important as what type of information is contained in <code>sfg</code> objects is, what is missing is equally significant in understanding their role within <code>sf</code> objects. <code>sfg</code> objects consist of a dimension, geometry type, and coordinates, but though they possess spatial aspects, they are not not geospatial. <code>sfg</code> objects do not possess a <a href="https://jessesadler.com/post/gis-with-r-intro/#crs">coordinate reference system (CRS)</a>. There is nothing within the structure of an <code>sfg</code> object to indicate that the X and Y values of the coordinates correspond to longitude and latitude values, much less to the datum of the coordinates. Calculating the distance between <code>la_sfg</code> and <code>amsterdam_sfg</code> demonstrates the non-geospatial nature of <code>sfg</code> objects. The calculation cannot take into account the ellipsoidal nature of the Earth, nor that the distance between degrees of longitude decrease as they move towards the poles. Thus, the calculation for <code>st_distance()</code> has no direct real-world meaning. In fact, the <code>st_distance()</code> function with <code>sfg</code> objects returns the same value as the base R <code>dist()</code> function from the <code>stats</code> package.</p>
+<p>As important as what type of information is contained in <code>sfg</code> objects is, what is missing is equally significant in understanding their role within <code>sf</code> objects. <code>sfg</code> objects consist of a dimension, geometry type, and coordinates, but though they possess spatial aspects, they are not not geospatial. <code>sfg</code> objects do not possess a <a href="https://jessesadler.com/post/gis-with-r-intro/#crs">coordinate reference system (CRS)</a>. There is nothing within the structure of an <code>sfg</code> object to indicate that the X and Y values of the coordinates correspond to longitude and latitude values, much less to the datum of the coordinates. Calculating the distance between <code>la_sfg</code> and <code>amsterdam_sfg</code> demonstrates the non-geospatial nature of <code>sfg</code> objects. The calculation cannot take into account the ellipsoidal nature of the Earth, nor that the distance between degrees of longitude decrease as they move towards the poles. Thus, the calculation for <code><a href="https://r-spatial.github.io/sf/reference/geos_measures.html">st_distance()</a></code> has no direct real-world meaning. In fact, the <code><a href="https://r-spatial.github.io/sf/reference/geos_measures.html">st_distance()</a></code> function with <code>sfg</code> objects returns the same value as the base R <code><a href="https://rdrr.io/r/stats/dist.html">dist()</a></code> function from the <code>stats</code> package.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Distance on sfg objects does not have real-world meaning</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">st_distance</span>(la_sfg, amsterdam_sfg)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          [,1]</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] 124.5055</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># st_distance and stats::dist the same for sfg objects</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">dist</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="fl">118.2615805</span>, <span class="fl">34.1168926</span>), <span class="fu">c</span>(<span class="fl">4.8979755</span>, <span class="fl">52.3745403</span>)))</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          1</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 124.5055</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Distance on sfg objects does not have real-world meaning</span></span>
+<span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html">st_distance</a></span><span class="op">(</span><span class="va">la_sfg</span>, <span class="va">amsterdam_sfg</span><span class="op">)</span></span>
+<span><span class="co">#&gt;          [,1]</span></span>
+<span><span class="co">#&gt; [1,] 124.5055</span></span>
+<span></span>
+<span><span class="co"># st_distance and stats::dist the same for sfg objects</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">118.2615805</span>, <span class="fl">34.1168926</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4.8979755</span>, <span class="fl">52.3745403</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;          1</span></span>
+<span><span class="co">#&gt; 2 124.5055</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-</section>
-<section id="sfc" class="level2">
-<h2 class="anchored" data-anchor-id="sfc"><code>sfc</code> objects</h2>
+</section></section><section id="sfc" class="level2"><h2 class="anchored" data-anchor-id="sfc">
+<code>sfc</code> objects</h2>
 <p>The spatial aspects of an <code>sf</code> object are contained in an object of class <code>sfc</code>. The documentation for the <code>sf</code> package often refers to an <code>sfc</code> object as a simple feature geometry list column, which is the role that they play within <code>sf</code> objects. However, as a stand-alone object, an object of class <code>sfc</code> is a list of one or more <code>sfg</code> objects with attributes — in the <a href="http://colinfay.me/r-language-definition/objects.html#attributes">R sense of attributes</a> — that enable the object to have a coordinate reference system. When an <code>sfc</code> object is printed to the console, it is referred to as a geometry set. The <code>sfc</code> class possesses seven subclasses, one for an <code>sfc</code> object composed of each of the six main geometry types and an addition subclass for an <code>sfc</code> object that contains a combination of geometry types.</p>
-<section id="sfc-subclasses" class="level3">
-<h3 class="anchored" data-anchor-id="sfc-subclasses"><code>sfc</code> subclasses</h3>
+<section id="sfc-subclasses" class="level3"><h3 class="anchored" data-anchor-id="sfc-subclasses">
+<code>sfc</code> subclasses</h3>
 <ul>
 <li><code>sfc_POINT</code></li>
 <li><code>sfc_MULTIPOINT</code></li>
@@ -374,232 +364,231 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>sfc_MULTIPOLYGON</code></li>
 <li><code>sfc_GEOMETRY</code></li>
 </ul>
-<p>The <code>st_sfc()</code> function to create an <code>sfc</code> object takes any number of <code>sfg</code> objects and a CRS in the form of either an <a href="http://www.epsg.org">EPSG code</a> or a <code>proj4string</code> from the <a href="http://proj4.org">PROJ library</a>. Internally, the <code>crs</code> argument uses the <code>st_crs()</code> function to look up either the EPSG code or <code>proj4string</code> and, if possible, set the corresponding value for the undefined <code>epsg</code> or <code>proj4string</code> through external calls to the <a href="http://gdal.org">GDAL</a> and PROJ libraries. The default CRS for an <code>sfc</code> object is <code>NA</code> or not available. Let’s create an <code>sfc</code> object from one of the above <code>sfg</code> objects with the default CRS to see how an <code>sfc</code> object differs from an <code>sfg</code> object even when it contains the geometry of only one feature.</p>
+<p>The <code><a href="https://r-spatial.github.io/sf/reference/sfc.html">st_sfc()</a></code> function to create an <code>sfc</code> object takes any number of <code>sfg</code> objects and a CRS in the form of either an <a href="http://www.epsg.org">EPSG code</a> or a <code>proj4string</code> from the <a href="http://proj4.org">PROJ library</a>. Internally, the <code>crs</code> argument uses the <code><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs()</a></code> function to look up either the EPSG code or <code>proj4string</code> and, if possible, set the corresponding value for the undefined <code>epsg</code> or <code>proj4string</code> through external calls to the <a href="http://gdal.org">GDAL</a> and PROJ libraries. The default CRS for an <code>sfc</code> object is <code>NA</code> or not available. Let’s create an <code>sfc</code> object from one of the above <code>sfg</code> objects with the default CRS to see how an <code>sfc</code> object differs from an <code>sfg</code> object even when it contains the geometry of only one feature.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create sfc object with default crs</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">st_sfc</span>(multipoint_sfg)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Geometry set for 1 feature </span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Geometry type: MULTIPOINT</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Dimension:     XY</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Bounding box:  xmin: -118.2616 ymin: 34.11689 xmax: 4.897976 ymax: 52.37454</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; CRS:           NA</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MULTIPOINT ((-118.2616 34.11689), (4.897976 52....</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Create sfc object with default crs</span></span>
+<span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/sfc.html">st_sfc</a></span><span class="op">(</span><span class="va">multipoint_sfg</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Geometry set for 1 feature </span></span>
+<span><span class="co">#&gt; Geometry type: MULTIPOINT</span></span>
+<span><span class="co">#&gt; Dimension:     XY</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: -118.2616 ymin: 34.11689 xmax: 4.897976 ymax: 52.37454</span></span>
+<span><span class="co">#&gt; CRS:           NA</span></span>
+<span><span class="co">#&gt; MULTIPOINT ((-118.2616 34.11689), (4.897976 52....</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The <code>sfc</code> print method reveals the information contained in the <code>sfg</code> object or objects used to create it, including the geometry type or <code>sfc</code> subclass, dimensions, and the coordinates printed in the same well-known text format used by the <code>sfg</code> print method.<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> However, the <code>sfc</code> print method also reveals the addition of the <code>crs</code> attribute by printing out the <code>epsg</code> and <code>proj4string</code> values. Thus, even though in this case the geospatial aspect of the <code>sfc</code> object is left undefined, the object can be considered geospatial. Let’s further investigate the structure of an <code>sfc</code> object by creating an <code>sfc</code> object with multiple <code>sfg</code> objects and use the <a href="https://en.wikipedia.org/wiki/World_Geodetic_System#WGS84">EPSG code 4326</a> to identify longitude and latitude coordinates on the WGS84 ellipsoid for the CRS. Notice in the print out of the object that the <code>proj4string</code> is identified, though it was not included in the arguments.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create sfc object with multiple sfg objects</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>points_sfc <span class="ot">&lt;-</span> <span class="fu">st_sfc</span>(la_sfg, amsterdam_sfg, <span class="at">crs =</span> <span class="dv">4326</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>points_sfc</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Geometry set for 2 features </span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Geometry type: POINT</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Dimension:     XY</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Bounding box:  xmin: -118.2616 ymin: 34.11689 xmax: 4.897976 ymax: 52.37454</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; POINT (-118.2616 34.11689)</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; POINT (4.897976 52.37454)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Create sfc object with multiple sfg objects</span></span>
+<span><span class="va">points_sfc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/sfc.html">st_sfc</a></span><span class="op">(</span><span class="va">la_sfg</span>, <span class="va">amsterdam_sfg</span>, crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span></span>
+<span><span class="va">points_sfc</span></span>
+<span><span class="co">#&gt; Geometry set for 2 features </span></span>
+<span><span class="co">#&gt; Geometry type: POINT</span></span>
+<span><span class="co">#&gt; Dimension:     XY</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: -118.2616 ymin: 34.11689 xmax: 4.897976 ymax: 52.37454</span></span>
+<span><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
+<span><span class="co">#&gt; POINT (-118.2616 34.11689)</span></span>
+<span><span class="co">#&gt; POINT (4.897976 52.37454)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can see that an <code>sfc</code> object is a list and treated as such in R by running <code>View(points_sfc)</code>, which will give an output similar to any other list object. However, <code>points_sfc</code> is different from a normal list in that an <code>sfc</code> object possesses five attributes that give <code>sfc</code> objects their geospatial nature.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Attributes of sfc object</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">attributes</span>(points_sfc)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $class</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "sfc_POINT" "sfc"      </span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $precision</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $bbox</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        xmin        ymin        xmax        ymax </span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -118.261580   34.116893    4.897976   52.374540 </span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $crs</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coordinate Reference System:</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   User input: EPSG:4326 </span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   wkt:</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; GEOGCRS["WGS 84",</span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     ENSEMBLE["World Geodetic System 1984 ensemble",</span></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (Transit)"],</span></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (G730)"],</span></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (G873)"],</span></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (G1150)"],</span></span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (G1674)"],</span></span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (G1762)"],</span></span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (G2139)"],</span></span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         ELLIPSOID["WGS 84",6378137,298.257223563,</span></span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             LENGTHUNIT["metre",1]],</span></span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         ENSEMBLEACCURACY[2.0]],</span></span>
-<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     PRIMEM["Greenwich",0,</span></span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         ANGLEUNIT["degree",0.0174532925199433]],</span></span>
-<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     CS[ellipsoidal,2],</span></span>
-<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         AXIS["geodetic latitude (Lat)",north,</span></span>
-<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             ORDER[1],</span></span>
-<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             ANGLEUNIT["degree",0.0174532925199433]],</span></span>
-<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         AXIS["geodetic longitude (Lon)",east,</span></span>
-<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             ORDER[2],</span></span>
-<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             ANGLEUNIT["degree",0.0174532925199433]],</span></span>
-<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     USAGE[</span></span>
-<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         SCOPE["Horizontal component of 3D system."],</span></span>
-<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         AREA["World."],</span></span>
-<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         BBOX[-90,-180,90,180]],</span></span>
-<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     ID["EPSG",4326]]</span></span>
-<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $n_empty</span></span>
-<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Attributes of sfc object</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">points_sfc</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $class</span></span>
+<span><span class="co">#&gt; [1] "sfc_POINT" "sfc"      </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $precision</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $bbox</span></span>
+<span><span class="co">#&gt;        xmin        ymin        xmax        ymax </span></span>
+<span><span class="co">#&gt; -118.261580   34.116893    4.897976   52.374540 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $crs</span></span>
+<span><span class="co">#&gt; Coordinate Reference System:</span></span>
+<span><span class="co">#&gt;   User input: EPSG:4326 </span></span>
+<span><span class="co">#&gt;   wkt:</span></span>
+<span><span class="co">#&gt; GEOGCRS["WGS 84",</span></span>
+<span><span class="co">#&gt;     ENSEMBLE["World Geodetic System 1984 ensemble",</span></span>
+<span><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (Transit)"],</span></span>
+<span><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (G730)"],</span></span>
+<span><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (G873)"],</span></span>
+<span><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (G1150)"],</span></span>
+<span><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (G1674)"],</span></span>
+<span><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (G1762)"],</span></span>
+<span><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (G2139)"],</span></span>
+<span><span class="co">#&gt;         ELLIPSOID["WGS 84",6378137,298.257223563,</span></span>
+<span><span class="co">#&gt;             LENGTHUNIT["metre",1]],</span></span>
+<span><span class="co">#&gt;         ENSEMBLEACCURACY[2.0]],</span></span>
+<span><span class="co">#&gt;     PRIMEM["Greenwich",0,</span></span>
+<span><span class="co">#&gt;         ANGLEUNIT["degree",0.0174532925199433]],</span></span>
+<span><span class="co">#&gt;     CS[ellipsoidal,2],</span></span>
+<span><span class="co">#&gt;         AXIS["geodetic latitude (Lat)",north,</span></span>
+<span><span class="co">#&gt;             ORDER[1],</span></span>
+<span><span class="co">#&gt;             ANGLEUNIT["degree",0.0174532925199433]],</span></span>
+<span><span class="co">#&gt;         AXIS["geodetic longitude (Lon)",east,</span></span>
+<span><span class="co">#&gt;             ORDER[2],</span></span>
+<span><span class="co">#&gt;             ANGLEUNIT["degree",0.0174532925199433]],</span></span>
+<span><span class="co">#&gt;     USAGE[</span></span>
+<span><span class="co">#&gt;         SCOPE["Horizontal component of 3D system."],</span></span>
+<span><span class="co">#&gt;         AREA["World."],</span></span>
+<span><span class="co">#&gt;         BBOX[-90,-180,90,180]],</span></span>
+<span><span class="co">#&gt;     ID["EPSG",4326]]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $n_empty</span></span>
+<span><span class="co">#&gt; [1] 0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Here, we can clearly see that <code>points_sfc</code> is of class <code>sfc</code> and subclass <code>sfc_POINT</code> since it only contains geometries of type POINT. The <code>precision</code> attribute corresponds to the precision element of the Simple Features standard and is used in certain geometric calculations. <code>bbox</code> is a calculation of the minimum and maximum values of the X and Y coordinates within the <code>sfc</code> object, and <code>n_empty</code> notes the number of empty <code>sfg</code> objects in the list. The <code>crs</code> attribute is the most interesting for our purposes and consists of a <code>crs</code> object, which itself is a list of length two containing a <code>proj4string</code> and an <code>epsg</code> value if one exists. Because the <code>crs</code> is an attribute of <code>sfc</code> objects, all geometries within an <code>sfc</code> object by definition possess the same CRS. We can inspect the contents of the <code>crs</code> attribute for <code>points_sfc</code> with the <code>st_crs()</code> function even if it does not provide us with any additional information.</p>
+<p>Here, we can clearly see that <code>points_sfc</code> is of class <code>sfc</code> and subclass <code>sfc_POINT</code> since it only contains geometries of type POINT. The <code>precision</code> attribute corresponds to the precision element of the Simple Features standard and is used in certain geometric calculations. <code>bbox</code> is a calculation of the minimum and maximum values of the X and Y coordinates within the <code>sfc</code> object, and <code>n_empty</code> notes the number of empty <code>sfg</code> objects in the list. The <code>crs</code> attribute is the most interesting for our purposes and consists of a <code>crs</code> object, which itself is a list of length two containing a <code>proj4string</code> and an <code>epsg</code> value if one exists. Because the <code>crs</code> is an attribute of <code>sfc</code> objects, all geometries within an <code>sfc</code> object by definition possess the same CRS. We can inspect the contents of the <code>crs</code> attribute for <code>points_sfc</code> with the <code><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs()</a></code> function even if it does not provide us with any additional information.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># crs attribute is of class crs</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">st_crs</span>(points_sfc))</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "crs"</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Access crs attribute of sfc object</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(points_sfc)</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coordinate Reference System:</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   User input: EPSG:4326 </span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   wkt:</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; GEOGCRS["WGS 84",</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     ENSEMBLE["World Geodetic System 1984 ensemble",</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (Transit)"],</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (G730)"],</span></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (G873)"],</span></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (G1150)"],</span></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (G1674)"],</span></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (G1762)"],</span></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (G2139)"],</span></span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         ELLIPSOID["WGS 84",6378137,298.257223563,</span></span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             LENGTHUNIT["metre",1]],</span></span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         ENSEMBLEACCURACY[2.0]],</span></span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     PRIMEM["Greenwich",0,</span></span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         ANGLEUNIT["degree",0.0174532925199433]],</span></span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     CS[ellipsoidal,2],</span></span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         AXIS["geodetic latitude (Lat)",north,</span></span>
-<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             ORDER[1],</span></span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             ANGLEUNIT["degree",0.0174532925199433]],</span></span>
-<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         AXIS["geodetic longitude (Lon)",east,</span></span>
-<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             ORDER[2],</span></span>
-<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             ANGLEUNIT["degree",0.0174532925199433]],</span></span>
-<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     USAGE[</span></span>
-<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         SCOPE["Horizontal component of 3D system."],</span></span>
-<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         AREA["World."],</span></span>
-<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         BBOX[-90,-180,90,180]],</span></span>
-<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     ID["EPSG",4326]]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># crs attribute is of class crs</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">points_sfc</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "crs"</span></span>
+<span></span>
+<span><span class="co"># Access crs attribute of sfc object</span></span>
+<span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">points_sfc</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Coordinate Reference System:</span></span>
+<span><span class="co">#&gt;   User input: EPSG:4326 </span></span>
+<span><span class="co">#&gt;   wkt:</span></span>
+<span><span class="co">#&gt; GEOGCRS["WGS 84",</span></span>
+<span><span class="co">#&gt;     ENSEMBLE["World Geodetic System 1984 ensemble",</span></span>
+<span><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (Transit)"],</span></span>
+<span><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (G730)"],</span></span>
+<span><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (G873)"],</span></span>
+<span><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (G1150)"],</span></span>
+<span><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (G1674)"],</span></span>
+<span><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (G1762)"],</span></span>
+<span><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (G2139)"],</span></span>
+<span><span class="co">#&gt;         ELLIPSOID["WGS 84",6378137,298.257223563,</span></span>
+<span><span class="co">#&gt;             LENGTHUNIT["metre",1]],</span></span>
+<span><span class="co">#&gt;         ENSEMBLEACCURACY[2.0]],</span></span>
+<span><span class="co">#&gt;     PRIMEM["Greenwich",0,</span></span>
+<span><span class="co">#&gt;         ANGLEUNIT["degree",0.0174532925199433]],</span></span>
+<span><span class="co">#&gt;     CS[ellipsoidal,2],</span></span>
+<span><span class="co">#&gt;         AXIS["geodetic latitude (Lat)",north,</span></span>
+<span><span class="co">#&gt;             ORDER[1],</span></span>
+<span><span class="co">#&gt;             ANGLEUNIT["degree",0.0174532925199433]],</span></span>
+<span><span class="co">#&gt;         AXIS["geodetic longitude (Lon)",east,</span></span>
+<span><span class="co">#&gt;             ORDER[2],</span></span>
+<span><span class="co">#&gt;             ANGLEUNIT["degree",0.0174532925199433]],</span></span>
+<span><span class="co">#&gt;     USAGE[</span></span>
+<span><span class="co">#&gt;         SCOPE["Horizontal component of 3D system."],</span></span>
+<span><span class="co">#&gt;         AREA["World."],</span></span>
+<span><span class="co">#&gt;         BBOX[-90,-180,90,180]],</span></span>
+<span><span class="co">#&gt;     ID["EPSG",4326]]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We can confirm the spatial nature of <code>points_sfc</code> by again using the <code>st_distance()</code> function. Beginning with <a href="https://github.com/r-spatial/sf/blob/master/NEWS.md">version 0.6</a> of the <code>sf</code> package, <code>st_distance()</code> uses the <a href="https://cran.r-project.org/web/packages/lwgeom/index.html"><code>lwgeom</code></a> package, which in turn links to geometric functions from the <a href="https://github.com/postgis/postgis/tree/svn-trunk/liblwgeom">liblwgeom</a> library used by PostGIS, to make geometric calculations on longitude and latitude values. Therefore, you may need to install the <code>lwgeom</code> package for the <code>st_distance()</code> function to work properly.</p>
+<p>We can confirm the spatial nature of <code>points_sfc</code> by again using the <code><a href="https://r-spatial.github.io/sf/reference/geos_measures.html">st_distance()</a></code> function. Beginning with <a href="https://github.com/r-spatial/sf/blob/master/NEWS.md">version 0.6</a> of the <code>sf</code> package, <code><a href="https://r-spatial.github.io/sf/reference/geos_measures.html">st_distance()</a></code> uses the <a href="https://cran.r-project.org/web/packages/lwgeom/index.html"><code>lwgeom</code></a> package, which in turn links to geometric functions from the <a href="https://github.com/postgis/postgis/tree/svn-trunk/liblwgeom">liblwgeom</a> library used by PostGIS, to make geometric calculations on longitude and latitude values. Therefore, you may need to install the <code>lwgeom</code> package for the <code><a href="https://r-spatial.github.io/sf/reference/geos_measures.html">st_distance()</a></code> function to work properly.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Geographic distance with sfc object</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">st_distance</span>(points_sfc)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Units: [m]</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         [,1]    [,2]</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,]       0 8933585</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] 8933585       0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Geographic distance with sfc object</span></span>
+<span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html">st_distance</a></span><span class="op">(</span><span class="va">points_sfc</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Units: [m]</span></span>
+<span><span class="co">#&gt;         [,1]    [,2]</span></span>
+<span><span class="co">#&gt; [1,]       0 8933585</span></span>
+<span><span class="co">#&gt; [2,] 8933585       0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>With an <code>sfc</code> object that uses longitude and latitude coordinates and a set <code>crs</code> the <code>st_distance()</code> function uses complex geometric calculations on the chosen ellipsoid to accurately calculate the distance between features. By default the function returns a dense matrix of the distance between all of the features — or <code>sfg</code> objects — contained in the <code>sfc</code> object along with the units of the values from the <a href="https://cran.r-project.org/package=units"><code>units</code></a> package. Here, we can see that the points in Los Angeles and Amsterdam are 8,955,120 meters apart from each other. You can even convert to miles or kilometers with the <code>units</code> package, but the most significant aspect of this command is how it differs from the above use of <code>st_distance()</code> with <code>sfg</code> objects. We now have usable geographical information about the two points we created.</p>
-</section>
-</section>
-<section id="sf" class="level2">
-<h2 class="anchored" data-anchor-id="sf"><code>sf</code> objects</h2>
+<p>With an <code>sfc</code> object that uses longitude and latitude coordinates and a set <code>crs</code> the <code><a href="https://r-spatial.github.io/sf/reference/geos_measures.html">st_distance()</a></code> function uses complex geometric calculations on the chosen ellipsoid to accurately calculate the distance between features. By default the function returns a dense matrix of the distance between all of the features — or <code>sfg</code> objects — contained in the <code>sfc</code> object along with the units of the values from the <a href="https://cran.r-project.org/package=units"><code>units</code></a> package. Here, we can see that the points in Los Angeles and Amsterdam are 8,955,120 meters apart from each other. You can even convert to miles or kilometers with the <code>units</code> package, but the most significant aspect of this command is how it differs from the above use of <code><a href="https://r-spatial.github.io/sf/reference/geos_measures.html">st_distance()</a></code> with <code>sfg</code> objects. We now have usable geographical information about the two points we created.</p>
+</section></section><section id="sf" class="level2"><h2 class="anchored" data-anchor-id="sf">
+<code>sf</code> objects</h2>
 <p>Now that we have a set of geometries containing a coordinate reference system in the form of an <code>sfc</code> object, we can connect <code>points_sfc</code> to a data frame of attributes to create an <code>sf</code> object. First though, we need a data frame of attributes that provides information about the two points.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame of attributes for the two points</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">name =</span> <span class="fu">c</span>(<span class="st">"Los Angeles"</span>, <span class="st">"Amsterdam"</span>),</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">language =</span> <span class="fu">c</span>(<span class="st">"English"</span>, <span class="st">"Dutch"</span>),</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">weather =</span> <span class="fu">c</span>(<span class="st">"sunny"</span>, <span class="st">"rainy/cold"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Create a data frame of attributes for the two points</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Los Angeles"</span>, <span class="st">"Amsterdam"</span><span class="op">)</span>,</span>
+<span>                   language <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"English"</span>, <span class="st">"Dutch"</span><span class="op">)</span>,</span>
+<span>                   weather <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"sunny"</span>, <span class="st">"rainy/cold"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The <code>st_sf()</code> function can either join a data frame to an <code>sfc</code> object of the same length or take a data frame that already contains an <code>sfc</code> list column to create an <code>sf</code> object. When joining a data frame to an <code>sfc</code> object you can name the geometry list column. Otherwise the column will be named after the <code>sfc</code> object. It is also worth pointing out that the methodology used by <code>st_sf</code> converts a tibble to a data frame, and so the output of the function will always be an object of classes <code>sf</code> and <code>data.frame</code>. Here I want to show two different ways to make an <code>sf</code> object with the <code>data</code> data frame and <code>points_sfc</code>, first by combining the two objects into a single data frame before executing the <code>sf_sf()</code> function and then letting the <code>sf_sf()</code> function do the joining. In the first method, the use of <code>cbind()</code> automatically names the geometry list column as “geometry.”</p>
+<p>The <code><a href="https://r-spatial.github.io/sf/reference/sf.html">st_sf()</a></code> function can either join a data frame to an <code>sfc</code> object of the same length or take a data frame that already contains an <code>sfc</code> list column to create an <code>sf</code> object. When joining a data frame to an <code>sfc</code> object you can name the geometry list column. Otherwise the column will be named after the <code>sfc</code> object. It is also worth pointing out that the methodology used by <code>st_sf</code> converts a tibble to a data frame, and so the output of the function will always be an object of classes <code>sf</code> and <code>data.frame</code>. Here I want to show two different ways to make an <code>sf</code> object with the <code>data</code> data frame and <code>points_sfc</code>, first by combining the two objects into a single data frame before executing the <code>sf_sf()</code> function and then letting the <code>sf_sf()</code> function do the joining. In the first method, the use of <code><a href="https://rdrr.io/r/base/cbind.html">cbind()</a></code> automatically names the geometry list column as “geometry.”</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data frame with list column then make sf object</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">st_sf</span>(<span class="fu">cbind</span>(data, points_sfc))</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Simple feature collection with 2 features and 3 fields</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Geometry type: POINT</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Dimension:     XY</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Bounding box:  xmin: -118.2616 ymin: 34.11689 xmax: 4.897976 ymax: 52.37454</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          name language    weather                   geometry</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Los Angeles  English      sunny POINT (-118.2616 34.11689)</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2   Amsterdam    Dutch rainy/cold  POINT (4.897976 52.37454)</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Make sf object from separate data frame and sfc objects</span></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="fu">st_sf</span>(data, <span class="at">geometry =</span> points_sfc)</span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Simple feature collection with 2 features and 3 fields</span></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Geometry type: POINT</span></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Dimension:     XY</span></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Bounding box:  xmin: -118.2616 ymin: 34.11689 xmax: 4.897976 ymax: 52.37454</span></span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          name language    weather                   geometry</span></span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Los Angeles  English      sunny POINT (-118.2616 34.11689)</span></span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2   Amsterdam    Dutch rainy/cold  POINT (4.897976 52.37454)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Create data frame with list column then make sf object</span></span>
+<span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/sf.html">st_sf</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">data</span>, <span class="va">points_sfc</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Simple feature collection with 2 features and 3 fields</span></span>
+<span><span class="co">#&gt; Geometry type: POINT</span></span>
+<span><span class="co">#&gt; Dimension:     XY</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: -118.2616 ymin: 34.11689 xmax: 4.897976 ymax: 52.37454</span></span>
+<span><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
+<span><span class="co">#&gt;          name language    weather                   geometry</span></span>
+<span><span class="co">#&gt; 1 Los Angeles  English      sunny POINT (-118.2616 34.11689)</span></span>
+<span><span class="co">#&gt; 2   Amsterdam    Dutch rainy/cold  POINT (4.897976 52.37454)</span></span>
+<span></span>
+<span><span class="co"># Make sf object from separate data frame and sfc objects</span></span>
+<span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/sf.html">st_sf</a></span><span class="op">(</span><span class="va">data</span>, geometry <span class="op">=</span> <span class="va">points_sfc</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Simple feature collection with 2 features and 3 fields</span></span>
+<span><span class="co">#&gt; Geometry type: POINT</span></span>
+<span><span class="co">#&gt; Dimension:     XY</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: -118.2616 ymin: 34.11689 xmax: 4.897976 ymax: 52.37454</span></span>
+<span><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
+<span><span class="co">#&gt;          name language    weather                   geometry</span></span>
+<span><span class="co">#&gt; 1 Los Angeles  English      sunny POINT (-118.2616 34.11689)</span></span>
+<span><span class="co">#&gt; 2   Amsterdam    Dutch rainy/cold  POINT (4.897976 52.37454)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>I think that the latter method is preferable, but the former method demonstrates part of the internal process of <code>st_sf()</code> when using the latter method. In either case, both methods produce the same result, and we are presented with the same print method for an <code>sf</code> object that we saw at the beginning of the post. As I noted above, the result of <code>st_sf()</code> is an object of classes <code>sf</code> and <code>data.frame</code>, showing that <code>sf</code> objects are an extension of data frames. Let’s confirm that by creating an <code>sf</code> object and checking its class.</p>
+<p>I think that the latter method is preferable, but the former method demonstrates part of the internal process of <code><a href="https://r-spatial.github.io/sf/reference/sf.html">st_sf()</a></code> when using the latter method. In either case, both methods produce the same result, and we are presented with the same print method for an <code>sf</code> object that we saw at the beginning of the post. As I noted above, the result of <code><a href="https://r-spatial.github.io/sf/reference/sf.html">st_sf()</a></code> is an object of classes <code>sf</code> and <code>data.frame</code>, showing that <code>sf</code> objects are an extension of data frames. Let’s confirm that by creating an <code>sf</code> object and checking its class.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create sf object by combining data frame with sfc object and name sfc column geometry</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>points_sf <span class="ot">&lt;-</span> <span class="fu">st_sf</span>(data, <span class="at">geometry =</span> points_sfc)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Class of new sf object</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(points_sf)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "sf"         "data.frame"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Create sf object by combining data frame with sfc object and name sfc column geometry</span></span>
+<span><span class="va">points_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/sf.html">st_sf</a></span><span class="op">(</span><span class="va">data</span>, geometry <span class="op">=</span> <span class="va">points_sfc</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Class of new sf object</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">points_sf</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "sf"         "data.frame"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The creation of <code>points_sf</code> does not alter the geometry or geographical information contained in <code>points_sfc</code> in any way. To confirm this we can show that the geometry of <code>points_sf</code> — accessed via the <code>st_geometry()</code> function — is equivalent to <code>points_sfc</code>.</p>
+<p>The creation of <code>points_sf</code> does not alter the geometry or geographical information contained in <code>points_sfc</code> in any way. To confirm this we can show that the geometry of <code>points_sf</code> — accessed via the <code><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry()</a></code> function — is equivalent to <code>points_sfc</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Geometry of points_sf is equivalent to points_sfc</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(<span class="fu">st_geometry</span>(points_sf), points_sfc)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Geometry of points_sf is equivalent to points_sfc</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="va">points_sf</span><span class="op">)</span>, <span class="va">points_sfc</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In many ways an <code>sf</code> object can be treated as if it were a data frame, and this is one of the main advantages of working with <code>sf</code> objects over <code>Spatial</code> objects from the <code>sp</code> package. As I noted in my <a href="https://jessesadler.com/post/gis-with-r-intro/#sf">previous post</a>, you can manipulate <code>sf</code> objects using <a href="http://dplyr.tidyverse.org/"><code>dplyr</code></a> commands. However, internally <code>sf</code> objects are different from data frames in that the geometry column is designed to be sticky. In addition to the usual attributes associated with a data frame of column names, row names, and class, <code>sf</code> objects also possess an <code>sf_column</code> attribute, which is a vector of the names of the one or more geometry columns in the <code>sf</code> object.<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> The <code>sf_column</code> attribute helps to implement the stickiness of geometry columns. The geometry column is kept in all subsetting of an <code>sf</code> object. For example, using <code>dplyr</code>’s <code>select()</code> function with a single column name returns an <code>sf</code> object with two columns, the selected column and the geometry column.<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Stickiness of geometry column</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">select</span>(points_sf, name)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Simple feature collection with 2 features and 1 field</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Geometry type: POINT</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Dimension:     XY</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Bounding box:  xmin: -118.2616 ymin: 34.11689 xmax: 4.897976 ymax: 52.37454</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          name                   geometry</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Los Angeles POINT (-118.2616 34.11689)</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2   Amsterdam  POINT (4.897976 52.37454)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Stickiness of geometry column</span></span>
+<span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">points_sf</span>, <span class="va">name</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Simple feature collection with 2 features and 1 field</span></span>
+<span><span class="co">#&gt; Geometry type: POINT</span></span>
+<span><span class="co">#&gt; Dimension:     XY</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: -118.2616 ymin: 34.11689 xmax: 4.897976 ymax: 52.37454</span></span>
+<span><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
+<span><span class="co">#&gt;          name                   geometry</span></span>
+<span><span class="co">#&gt; 1 Los Angeles POINT (-118.2616 34.11689)</span></span>
+<span><span class="co">#&gt; 2   Amsterdam  POINT (4.897976 52.37454)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>If you want to remove the geometry column and transform an <code>sf</code> object to a data frame of tibble, you can use <code>as_tibble()</code> or <code>as.data.frame()</code> in a pipe before <code>select()</code>. More directly, you can remove the geometry column and convert an <code>sf</code> object to a tibble or data frame by setting the geometry to <code>NULL</code>. By converting from an <code>sf</code> object to a data frame, we have come full circle in the creation of an <code>sf</code> object from scratch.</p>
+<p>If you want to remove the geometry column and transform an <code>sf</code> object to a data frame of tibble, you can use <code>as_tibble()</code> or <code><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame()</a></code> in a pipe before <code>select()</code>. More directly, you can remove the geometry column and convert an <code>sf</code> object to a tibble or data frame by setting the geometry to <code>NULL</code>. By converting from an <code>sf</code> object to a data frame, we have come full circle in the creation of an <code>sf</code> object from scratch.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Return sf object to a data frame by setting geometry to NULL</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">st_set_geometry</span>(points_sf, <span class="cn">NULL</span>)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          name language    weather</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Los Angeles  English      sunny</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2   Amsterdam    Dutch rainy/cold</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Class</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">st_set_geometry</span>(points_sf, <span class="cn">NULL</span>))</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "data.frame"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Return sf object to a data frame by setting geometry to NULL</span></span>
+<span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_set_geometry</a></span><span class="op">(</span><span class="va">points_sf</span>, <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="co">#&gt;          name language    weather</span></span>
+<span><span class="co">#&gt; 1 Los Angeles  English      sunny</span></span>
+<span><span class="co">#&gt; 2   Amsterdam    Dutch rainy/cold</span></span>
+<span></span>
+<span><span class="co"># Class</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_set_geometry</a></span><span class="op">(</span><span class="va">points_sf</span>, <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "data.frame"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="conclusion" class="level2">
-<h2 class="anchored" data-anchor-id="conclusion">Wrapping up</h2>
+</section><section id="conclusion" class="level2"><h2 class="anchored" data-anchor-id="conclusion">Wrapping up</h2>
 <p>The <code>sf</code> package is quickly becoming the default GIS package for use in R. It has done this by balancing the use of the Simple Features standard, enabling it to link directly to powerful GIS libraries such as PostGIS, GEOS, and GDAL, and an implementation that uses native R objects and fits within the <a href="http://tidyverse.org">tidyverse</a> set of packages and methods. Investigating the structure of <code>sf</code> objects and how they are made through <code>sfg</code> objects, a <code>sfc</code> list column, and a data frame provides insight into how a data-frame-like object is able to possess spatial data.</p>
 <p>We can summarize the role of <code>sfg</code>, <code>sfc</code>, and <code>sf</code> objects in the following fashion.</p>
 <ul>
-<li><code>sfg</code>: geometry
+<li>
+<code>sfg</code>: geometry
 <ul>
 <li>geometry of a single feature</li>
 <li>vector, matrix, or list of matrices of coordinates with defined dimension and type of geometry</li>
 <li>seven main geometry types</li>
-</ul></li>
-<li><code>sfc</code>: geospatial geometry
+</ul>
+</li>
+<li>
+<code>sfc</code>: geospatial geometry
 <ul>
 <li>list of <code>sfg</code> objects</li>
 <li>coordinate reference system through <code>crs</code> attribute</li>
 <li>seven subclasses based on geometries</li>
-</ul></li>
-<li><code>sf</code>: geospatial geometry with attributes
+</ul>
+</li>
+<li>
+<code>sf</code>: geospatial geometry with attributes
 <ul>
-<li>data frame with geometry column of class <code>sfc</code></li>
+<li>data frame with geometry column of class <code>sfc</code>
+</li>
 <li>sticky geometry column through <code>sf_column</code> attribute</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 
 
-</section>
-
-
-<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-
+</section><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 <ol>
 <li id="fn1"><p>The Simple Features standard was developed after the creation of the <code>sp</code> package, and so <code>sp</code> does not use the standard.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>Before <code>sf</code>, the primary interfaces to GDAL and GEOS were through the separate <a href="https://cran.r-project.org/web/packages/rgdal/index.html"><code>rgdal</code></a> and <a href="https://cran.r-project.org/web/packages/rgeos/index.html"><code>rgeos</code></a> packages.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
@@ -607,13 +596,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li id="fn4"><p>See <a href="https://jessesadler.com/post/gis-with-r-intro/">Introduction to GIS with R</a> for the code that created this object. See also the similar image in the <a href="https://cran.r-project.org/web/packages/sf/vignettes/sf1.html#sf-objects-with-simple-features">package vignette</a>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5"><p>The <code>sf</code> package prints the geometry types in capital letters.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn6"><p>See the <a href="http://www.opengeospatial.org/standards/sfa">Implementation Standard for Geographic information - Simple feature access, pg 61</a> for examples of the well-known text style.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn7"><p>See <code>help("st_coordinates")</code> for details.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>See <code><a href="https://r-spatial.github.io/sf/reference/st_coordinates.html">help("st_coordinates")</a></code> for details.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn8"><p>If you have more than five features, the print command will only print the first five geometries. You can alter this with an explicit print command with a defined “n” for the number of geometries you want to print.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn9"><p>An <code>sf</code> object also contains an <code>agr</code> attribute that can categorize the non-geometry columns as either “constant”, “aggregate”, or “identity” values.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn10"><p>Since I have not loaded the <code>dplyr</code> package in this post, I am using the <code>::</code> method to call a function from a package that is not loaded.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section></div></main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</ol></section></div></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -747,18 +734,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
       <ul class="footer-items list-unstyled">
-    <li class="nav-item">
+<li class="nav-item">
     <a class="nav-link" href="https://www.quarto.org">Built with Quarto</a>
   </li>  
 </ul>
-    </div>   
+</div>   
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
-    <li class="nav-item compact">
+<li class="nav-item compact">
     <a class="nav-link" href="https://hachyderm.io/@vivalosburros">
       <i class="bi bi-mastodon" role="img">
 </i> 
@@ -771,10 +757,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </a>
   </li>  
 </ul>
-    </div>
+</div>
   </div>
 </footer>
-
 
 
 </body></html>

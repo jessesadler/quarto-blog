@@ -40,3 +40,4 @@ format:
       - styles.scss
     highlight-style: ayu
     include-in-header: plausible.html
+    code-link: true
