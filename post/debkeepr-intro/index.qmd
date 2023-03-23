@@ -9,14 +9,22 @@ categories:
   - debkeepr
 ---
 
-After an extensive period of iteration and a long but rewarding process of learning about package development, I am pleased to announce the release of my first R package. The package is called [debkeepr](http://jessesadler.github.io/debkeepr/), and it derives directly from my historical [research on early modern merchants](https://www.jessesadler.com/project/df-inheritance/). `debkeepr` provides an interface for working with non-decimal currencies that use the tripartite system of pounds, shillings, and pence that was used throughout Europe in the medieval and early modern periods. The package includes functions to apply arithmetic and financial operations to single or multiple values and to analyze account books that use [double-entry bookkeeping](https://en.wikipedia.org/wiki/Double-entry_bookkeeping_system) with the latter providing the basis for the name of `debkeepr`. In a later post I plan to write about the package development process, but here I want to discuss the motivation behind the creation of the package and provide some examples for how `debkeepr` can help those who encounter non-decimal currencies in their research.
+**Note**: The API for `debkeepr` described in this post has been **deprecated**. For the new API, see the [`debkeepr` website](https://jessesadler.github.io/debkeepr/) and the [blog post](/post/debkeepr-cran) announcing [`debkeepr`'s release on CRAN ](https://cran.r-project.org/package=debkeepr).
 
-You can install `debkeepr` from GitHub right now with [devtools](https://github.com/hadley/devtools), and I am planning to submit the package to CRAN soon. Feedback is always welcome and any bug reports or feature requests can be made on [GitHub](https://github.com/jessesadler/debkeepr/issues).
+You can now install the released version of `debkeepr` from CRAN or the development version on GitHub:
 
 ```r
-# install.packages("devtools")
-devtools::install_github("jessesadler/debkeepr")
+# Install CRAN release
+install.packages("debkeepr")
+
+# Install development version
+# install.packages("pak")
+pak::pak("jessesadler/debkeepr")
 ```
+
+- - - - -
+
+After an extensive period of iteration and a long but rewarding process of learning about package development, I am pleased to announce the release of my first R package. The package is called [debkeepr](http://jessesadler.github.io/debkeepr/), and it derives directly from my historical [research on early modern merchants](https://www.jessesadler.com/project/df-inheritance/). `debkeepr` provides an interface for working with non-decimal currencies that use the tripartite system of pounds, shillings, and pence that was used throughout Europe in the medieval and early modern periods. The package includes functions to apply arithmetic and financial operations to single or multiple values and to analyze account books that use [double-entry bookkeeping](https://en.wikipedia.org/wiki/Double-entry_bookkeeping_system) with the latter providing the basis for the name of `debkeepr`. In this post I want to discuss the motivation behind the creation of the package and provide some examples for how `debkeepr` can help those who encounter non-decimal currencies in their research.
 
 ## Pounds, shillings, and pence: lsd monetary systems
 
@@ -136,7 +144,7 @@ These examples replicate answers already provided, but they serve to demonstrate
 
 ## Analysis of account books
 
-As a way of providing example data of pounds, shillings, and pence values in a data frame, `debkeepr` includes data from the example journal and ledger in Dafforne’s *Merchant’s Mirrour* from 1660. `dafforne_transactions` has 177 transactions between 46 accounts from the journal. Each transaction has a creditor and debtor account, showing where each transactional value came from and where it went to, the date of the transaction, and the value in pounds sterling contained in an `lsd` list column. Extra details include the pages on which the transaction can be found in Dafforne’s journal and ledger and a short description of the transaction. A PDF copy of the journal is [available for download](https://github.com/jessesadler/debkeepr/blob/master/data-raw/dafforne-journal.pdf) if you want to see what the original source looks like. The [raw data](https://github.com/jessesadler/debkeepr/tree/master/data-raw) from which `dafforne_transactions` derives also demonstrates the process of entering pounds, shillings, and pence units into three separate columns to create the data base and then using `deb_lsd_gather()` to transform these variables into an `lsd` list column.
+As a way of providing example data of pounds, shillings, and pence values in a data frame, `debkeepr` includes data from the example journal and ledger in Dafforne’s *Merchant’s Mirrour* from 1660. `dafforne_transactions` has 177 transactions between 46 accounts from the journal. Each transaction has a creditor and debtor account, showing where each transactional value came from and where it went to, the date of the transaction, and the value in pounds sterling contained in an `lsd` list column. Extra details include the pages on which the transaction can be found in Dafforne’s journal and ledger and a short description of the transaction. A PDF copy of the journal is [available for download](https://github.com/jessesadler/debkeepr/blob/master/data-raw/dafforne-journal.pdf) if you want to see what the original source looks like. The [raw data](https://github.com/jessesadler/debkeepr/tree/main/data-raw) from which `dafforne_transactions` derives also demonstrates the process of entering pounds, shillings, and pence units into three separate columns to create the data base and then using `deb_lsd_gather()` to transform these variables into an `lsd` list column.
 
 ```r
 # Transactions from the Dafforne's example journal
