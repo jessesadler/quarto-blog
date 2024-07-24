@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.335">
+<meta name="generator" content="quarto-1.5.55">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="dcterms.date" content="2018-02-07">
 <meta name="description" content="Introduction to GIS with R through the sp and sf packages">
-<title>A Rogue Historian - Introduction to GIS with R</title>
+<title>Introduction to GIS with R – A Rogue Historian</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -16,11 +16,12 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -31,7 +32,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -45,43 +46,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -105,7 +76,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -114,68 +91,72 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script><!-- plausible --><script defer="" data-domain="jessesadler.com" src="https://plausible.io/js/script.js"></script>
 </head>
 <body class="floating nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Jesse Sadler</span>
     </a>
   </div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
 <li class="nav-item">
-    <a class="nav-link" href="../../project.html">
- <span class="menu-text">Projects</span></a>
+    <a class="nav-link" href="../../project.html"> 
+<span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../course.html">
- <span class="menu-text">Courses</span></a>
+    <a class="nav-link" href="../../course.html"> 
+<span class="menu-text">Courses</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../slides.html">
- <span class="menu-text">Talks</span></a>
+    <a class="nav-link" href="../../slides.html"> 
+<span class="menu-text">Talks</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html">
- <span class="menu-text">About</span></a>
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/jessesadler"><i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/jessesadler"> <i class="bi bi-github" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://hachyderm.io/@vivalosburros"><i class="bi bi-mastodon" role="img">
+    <a class="nav-link" href="https://hachyderm.io/@vivalosburros"> <i class="bi bi-mastodon" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com/vivalosburros"><i class="bi bi-twitter" role="img">
+    <a class="nav-link" href="https://twitter.com/vivalosburros"> <i class="bi bi-twitter" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="../../index.xml"><i class="bi bi-rss" role="img">
+    <a class="nav-link" href="../../index.xml"> <i class="bi bi-rss" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
 </ul>
-<div id="quarto-search" class="" title="Search"></div>
-          </div> <!-- /navcollapse -->
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
 <li><a href="#crs" id="toc-crs" class="nav-link active" data-scroll-target="#crs">Spatial data and coordinate reference systems</a></li>
@@ -188,7 +169,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   <li><a href="#gis-resources" id="toc-gis-resources" class="nav-link" data-scroll-target="#gis-resources">Additional resources for GIS with R</a></li>
   </ul></nav>
-</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
@@ -221,12 +204,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </div>
   
 
+
 </header><p>The geographic visualization of data makes up one of the major branches of the Digital Humanities toolkit. There are a plethora of tools that can visualize geographic information from full-scale GIS applications such as <a href="https://www.esri.com">ArcGIS</a> and <a href="https://qgis.org">QGIS</a> to web-based tools like <a href="http://maps.google.com">Google maps</a> to any number of programing languages. There are advantages and disadvantages to these different types of tools. Using a command-line interface <a href="https://jessesadler.com/post/excel-vs-r/">has a steep learning curve</a>, but it has the benefit of enabling approaches to analysis and visualization that are customizable, transparent, and reproducible.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> My own interest in coding and <a href="https://www.r-project.org">R</a> began with my desire to dip my toes into <a href="https://en.wikipedia.org/wiki/Geographic_information_system">geographic information systems (GIS)</a> and create maps of an early modern correspondence network. The goal of this post is to introduce the basic landscape of working with spatial data in R from the perspective of a non-specialist. Since the early 2000s, an active community of R developers has built a wide variety of packages to enable R to interface with geographic data. The extent of the geographic capabilities of R is readily apparent from the many packages listed in the <a href="https://cran.r-project.org/web/views/Spatial.html">CRAN task view for spatial data</a>.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 <p>In my previous post on <a href="https://jessesadler.com/post/geocoding-with-r/">geocoding with R</a> I showed the use of the <a href="https://cran.r-project.org/web/packages/ggmap/index.html"><code>ggmap</code></a> package to geocode data and create maps using the <a href="http://ggplot2.tidyverse.org"><code>ggplot2</code></a> system. This post will build off of the location data obtained there to introduce the two main R packages that have standardized the use of spatial data in R. The<a href="https://cran.r-project.org/web/packages/sp/index.html"><code>sp</code></a> and <a href="https://cran.r-project.org/web/packages/sf/index.html"><code>sf</code></a> packages use different methodologies for integrating spatial data into R. The <code>sp</code> package introduced a coherent set of classes and methods for handling spatial data in 2005.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> The package remains the backbone of many packages that provide GIS capabilities in R. The <code>sf</code> package implements the <a href="https://cran.r-project.org/web/packages/sf/vignettes/sf1.html">simple features</a> open standard for the representation of geographic vector data in R. The package first appeared on <a href="http://cran.r-project.org">CRAN</a> at the end of 2016 and is under very active development. The <code>sf</code> package is <a href="https://www.r-consortium.org/blog/2017/01/03/simple-features-now-on-cran">meant to supersede <code>sp</code></a>, implementing ways to store spatial data in R that <a href="https://edzer.github.io/UseR2017/" title="Edzer Pebesma, Spatial Data in R: New Directions">integrate with the tidyverse workflow</a> of the <a href="http://tidyverse.org">packages developed by Hadley Wickham and others</a>.</p>
 <p>There are a number of good resources on working with spatial data in R. The best sources for information about the <code>sp</code> and <code>sf</code> packages that I have found are Roger Bivand, Edzer Pebesma, and Virgilio Gómez-Rubio, <em>Applied Spatial Data Analysis with R</em> (2013) and the working book <a href="https://bookdown.org/robinlovelace/geocompr/">Robin Lovelace, Jakub Nowosad, Jannes Muenchow, <em>Geocomputation with R</em></a>, which concentrate on <code>sp</code> and <code>sf</code> respectively. The <a href="https://cran.r-project.org/web/packages/sf/">vignettes</a> for <code>sf</code> are also very helpful. The perspective that I adopt in this post is slightly different from these resources. In addition to more explicitly comparing <code>sp</code> and <code>sf</code>, this post approaches the two packages from the starting point of working with geocoded data with longitude and latitude values that must be transformed into spatial data. It takes the point of view of someone getting into GIS and does not assume that you are working with data that is already in a spatial format. In other words, this post provides information that I wish I knew as I learned to work with spatial data in R. Therefore, I begin the post with a general overview of spatial data and how <code>sp</code> and <code>sf</code> implement the representation of spatial data in R. The second half of the post uses an example of mapping the locations of letters sent to a Dutch merchant in 1585 to show how to create, work with, and plot <code>sp</code> and <code>sf</code> objects. I highlight the differences between the two packages and ultimately discuss some reasons why the R spatial community is moving towards the use of the <code>sf</code> package.</p>
 <section id="crs" class="level2"><h2 class="anchored" data-anchor-id="crs">Spatial data and coordinate reference systems</h2>
 <p>The distinguishing feature of spatial data is that it represents actual locations on Earth. To represent the geographic placement of an object you need two pieces of information: the coordinates of the object and a system of reference for how the coordinates relate to a physical location on Earth. The non-spherical shape of the Earth, which bulges at the equator, complicates the creation and use of a coordinate reference system or CRS and plethora of complex models have been created in attempts to accurately represent the Earth’s surface. A CRS consists of one such ellipsoid or geometric model of the shape of the Earth and a datum, which identifies the origin and orientation of the coordinate axes on the ellipsoid, as well as the units of measurement.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> There are two types of CRSs: geographic and projected. Geographic reference systems represent points on an globe, using units of degrees longitude and latitude that correspond to angles measured from the center of the Earth as calculated using the given ellipsoid. A projected reference system uses a geometric model to project a 3-dimensional ellipsoid onto a 2-dimensional plane. A projection is necessary to create any 2-dimensional map, but it <a href="https://www.vox.com/world/2016/12/2/13817712/map-projection-mercator-globe">results in the distortion</a> of aspects of the Earth’s surface such as <a href="http://axismaps.github.io/thematic-cartography/articles/projections.html">area, direction, distance, and shape</a>. Despite the necessary distortion, projected reference systems are useful for geographic analysis, because they use linear units of measurement such as meters instead of degrees.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
-<p>Between the variety of ellipsoidal models, the vast array of global and local datums, and the various kinds of projections, there are innumerable CRSs to choose from. The <code>sp</code> and <code>sf</code> packages implement two different ways to identify a specific CRS and to transform objects from one CRS to another: the <a href="http://proj4.org">Proj.4 library</a> and <a href="http://www.epsg.org">EPSG codes</a>. The Proj.4 library uses an identification system of <code>+parameter=value</code> to define a CRS. The library uses a <a href="http://proj4.org/parameters.html#parameter-list">wide range of parameters</a> to specify a CRS, but the most important are <code>+proj</code> and <code>+datum</code> for the projection and datum to be used. The Proj.4 parameters provides the basis for how <code>sp</code> and <code>sf</code> identify CRSs, but CRSs can also be identified through EPSG codes.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> The EPSG library supplies codes for well-known CRSs, and thus provides an easier method to identify a subset of the CRSs available through the Proj.4 library. You can access a data frame of over 5,000 EPSG codes available in R through the <a href="https://cran.r-project.org/web/packages/rgdal/index.html"><code>rgdal</code></a> package with the command <code><a href="http://rgdal.r-forge.r-project.org/reference/make_EPSG.html">rgdal::make_EPSG()</a></code>. If you plan to deal with spatial data on a regular basis it is probably worth being familiar with widely used EPSG code such as 4326, which is geographic reference system that uses units of longitude and latitude on the <a href="https://en.wikipedia.org/wiki/World_Geodetic_System#WGS84">&nbsp;World Geodetic System 1984 (WGS84) ellipsoid</a>. Two useful resources for looking up and obtaining information about specific EPSG codes are <a href="https://epsg.io">EPSG.io</a> and <a href="http://spatialreference.org">SpatialReference.org</a>.</p>
+<p>Between the variety of ellipsoidal models, the vast array of global and local datums, and the various kinds of projections, there are innumerable CRSs to choose from. The <code>sp</code> and <code>sf</code> packages implement two different ways to identify a specific CRS and to transform objects from one CRS to another: the <a href="http://proj4.org">Proj.4 library</a> and <a href="http://www.epsg.org">EPSG codes</a>. The Proj.4 library uses an identification system of <code>+parameter=value</code> to define a CRS. The library uses a <a href="http://proj4.org/parameters.html#parameter-list">wide range of parameters</a> to specify a CRS, but the most important are <code>+proj</code> and <code>+datum</code> for the projection and datum to be used. The Proj.4 parameters provides the basis for how <code>sp</code> and <code>sf</code> identify CRSs, but CRSs can also be identified through EPSG codes.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> The EPSG library supplies codes for well-known CRSs, and thus provides an easier method to identify a subset of the CRSs available through the Proj.4 library. You can access a data frame of over 5,000 EPSG codes available in R through the <a href="https://cran.r-project.org/web/packages/rgdal/index.html"><code>rgdal</code></a> package with the command <code>rgdal::make_EPSG()</code>. If you plan to deal with spatial data on a regular basis it is probably worth being familiar with widely used EPSG code such as 4326, which is geographic reference system that uses units of longitude and latitude on the <a href="https://en.wikipedia.org/wiki/World_Geodetic_System#WGS84">&nbsp;World Geodetic System 1984 (WGS84) ellipsoid</a>. Two useful resources for looking up and obtaining information about specific EPSG codes are <a href="https://epsg.io">EPSG.io</a> and <a href="http://spatialreference.org">SpatialReference.org</a>.</p>
 <p>Spatial data with a defined CRS can represent either vector or raster data. Vector data is based on points — which can be connected to form lines and polygons — that are located within a coordinate reference system. Raster data, on the other hand, consists of values within a grid system. For example, a road map is a vector data and a map using satellite imagery is raster data made up of pixels on a grid. <code>sp</code> has capabilities to work with both vector and raster data, while <code>sf</code> and the simple features standard on which it is based only deals with vector data. This post will only discuss vector data, which is more widely used in the Humanities and Social Sciences.</p>
 </section><section id="overview-spsf" class="level2"><h2 class="anchored" data-anchor-id="overview-spsf">Overview of <code>sp</code> and <code>sf</code> packages</h2>
 <p>The complexity that comes with the identification and translation between the thousands of different coordinate reference systems makes it impossible for standard R objects such as data frames to properly represent spatial data. In addition, the best way to represent coordinates — in one or two columns — and the representation of more complex objects such as lines and polygons create problems for how to store spatial data. These shortcomings can be seen with geocoded data that contains longitude and latitude values in a data frame like that I created in <a href="https://jessesadler.com/post/geocoding-with-r/">geocoding with R</a>. Most geocoded data created through <a href="https://gis.stackexchange.com/questions/48949/epsg-3857-or-4326-for-googlemaps-openstreetmap-and-leaflet">Google Maps or other geocoding sites&nbsp;</a> provides coordinates in longitude and latitude values using the WGS84 ellipsoid and thus contains a CRS equivalent to the Proj.4 argument <code>+proj=longlat +datum=WGS84</code> or EPSG 4326. However, this information about the CRS is implicit and not contained anywhere within the data frame itself.</p>
@@ -237,7 +221,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/edzer/sp/">sp</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Spatial classes</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/methods/getClass.html">getClass</a></span><span class="op">(</span><span class="st">"Spatial"</span><span class="op">)</span></span>
+<span><span class="fu">getClass</span><span class="op">(</span><span class="st">"Spatial"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Class "Spatial" [package "sp"]</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Slots:</span></span>
@@ -262,11 +246,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The output lists the different <code>Spatial</code> classes and shows that the basis for all <code>Spatial</code> objects is the <code>bbox</code> and <code>proj4string</code> slots. The <code>proj4string</code> provides the CRS for an object through a Proj.4 definition, while the <code>bbox</code> slot provides a matrix of the minimum and maximum coordinates for the object. The <code>Spatial</code> subclasses add slots to the foundational slots of <code>bbox</code> and <code>proj4string</code> for the type of geometric data — points, lines, polygons, and grid for raster — and whether the object contains attribute data in the form of a data frame. We can see this from the slots in the <code>SpatialPoints</code> and the <code>SpatialPointsDataFrame</code> classes.</p>
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># slots for SpatialPoints class</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/methods/slot.html">slotNames</a></span><span class="op">(</span><span class="st">"SpatialPoints"</span><span class="op">)</span></span>
+<span><span class="fu">slotNames</span><span class="op">(</span><span class="st">"SpatialPoints"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "coords"      "bbox"        "proj4string"</span></span>
 <span></span>
 <span><span class="co"># slots for SpatialPointsDataFrame</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/methods/slot.html">slotNames</a></span><span class="op">(</span><span class="st">"SpatialPointsDataFrame"</span><span class="op">)</span></span>
+<span><span class="fu">slotNames</span><span class="op">(</span><span class="st">"SpatialPointsDataFrame"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "data"        "coords.nrs"  "coords"      "bbox"        "proj4string"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The <code>SpatialPoints</code> class contains a <code>coords</code> slot to store the point coordinates. The <code>SpatialPointsDataFrame</code> class adds a <code>data</code> slot that enables points to be associated with attribute data in a data frame. The non-spatial data of a <code>Spatial*DataFrame</code> object can be accessed with <code>@data</code>. However, these S4-style classes do not fit within the definition of <a href="http://r4ds.had.co.nz/tidy-data.html">tidy data</a> and cannot be manipulated using the <a href="http://r4ds.had.co.nz/transform.html"><code>dplyr</code></a> methods I have discussed in previous posts. Instead, all manipulation of the <code>@data</code> slot is done with base R commands. <code>sp</code> objects also cannot be plotted with <code>ggplot2</code>, but need to use the base or trellis plotting systems, though it is possible to force them into a compatible form with the <a href="https://cran.r-project.org/web/packages/broom/index.html"><code>broom</code></a> package.</p>
@@ -358,14 +342,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The result is a data frame with 14 rows and 5 columns that give the number of letters sent from and received in the different locations and the longitude and latitude of those places. We now have all of the information that we need to transform this data into a spatial object with both <code>sp</code> and <code>sf</code>. We will then be able to map the points on base maps provided by the <code>rnaturalearth</code> package.</p>
 </section><section id="sp" class="level2"><h2 class="anchored" data-anchor-id="sp">Spatial data with <code>sp</code>
 </h2>
-<p>The creation of a <code>Spatial</code> object involves providing data for the slots expected for each subclass. Creating a <code>SpatialPoints</code> object requires data for the <code>coords</code> and <code>proj4string</code> slots.<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> The information for the <code>coords</code> slot can be filled by a data frame of the longitude and latitude values from <code>geo_data</code>. This can be done by creating a new data frame that only contains the “lon” and “lat” columns of <code>geo_data</code>. As noted above, the CRS for our data is implicitly longitude and latitude values on the WGS84 ellipsoid, which we can identify through the <code><a href="https://rdrr.io/pkg/sp/man/CRS-class.html">CRS()</a></code> function containing a proj.4 argument. We can either specify the specific projection and datum arguments with <code>+proj=longlat +datum=WGS84</code> or use the EPSG code with <code>+init=epsg:4326</code>.</p>
+<p>The creation of a <code>Spatial</code> object involves providing data for the slots expected for each subclass. Creating a <code>SpatialPoints</code> object requires data for the <code>coords</code> and <code>proj4string</code> slots.<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> The information for the <code>coords</code> slot can be filled by a data frame of the longitude and latitude values from <code>geo_data</code>. This can be done by creating a new data frame that only contains the “lon” and “lat” columns of <code>geo_data</code>. As noted above, the CRS for our data is implicitly longitude and latitude values on the WGS84 ellipsoid, which we can identify through the <code>CRS()</code> function containing a proj.4 argument. We can either specify the specific projection and datum arguments with <code>+proj=longlat +datum=WGS84</code> or use the EPSG code with <code>+init=epsg:4326</code>.</p>
 <div class="cell">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Create data frame of only longitude and latitude values</span></span>
 <span><span class="va">coords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">geo_data</span>, <span class="va">lon</span>, <span class="va">lat</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Create SpatialPoints object with coords and CRS</span></span>
-<span><span class="va">points_sp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sp/man/SpatialPoints.html">SpatialPoints</a></span><span class="op">(</span>coords <span class="op">=</span> <span class="va">coords</span>,</span>
-<span>                           proj4string <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/sp/man/CRS-class.html">CRS</a></span><span class="op">(</span><span class="st">"+proj=longlat +datum=WGS84"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">points_sp</span> <span class="op">&lt;-</span> <span class="fu">SpatialPoints</span><span class="op">(</span>coords <span class="op">=</span> <span class="va">coords</span>,</span>
+<span>                           proj4string <span class="op">=</span> <span class="fu">CRS</span><span class="op">(</span><span class="st">"+proj=longlat +datum=WGS84"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Printing out our newly created <code>SpatialPoints</code> object does not make for particularly exciting reading. We see the coordinates, which are now in matrix form, and the CRS of the object. We can get a better insight into the structure of the object with the <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> command, even if the output is a bit off-putting at first. This shows the three slots for the <code>SpatialPoints</code> object and the values contained within the slots.</p>
 <div class="cell">
@@ -408,9 +392,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We have now successfully created a <code>Spatial</code> object. However, <code>points_sp</code> does not contain any of the non-spatial data that was created in preparing the data. We can attach this non-spatial data to the <code>Spatial</code> data by creating a <code>SpatialPointsDataFrame</code> object. This is done in the same manner as a <code>SpatialPoints</code> object but also includes filling the <code>data</code> slot with the <code>letters_data</code> data frame.<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a> Because the data in both the <code>coords</code> and <code>data</code> slots derived from the same source, the coordinates and non-spatial data will be correctly aligned by row number.</p>
 <div class="cell">
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Create SpatialPointsDataFrame object</span></span>
-<span><span class="va">points_spdf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sp/man/SpatialPoints.html">SpatialPointsDataFrame</a></span><span class="op">(</span>coords <span class="op">=</span> <span class="va">coords</span>,</span>
+<span><span class="va">points_spdf</span> <span class="op">&lt;-</span> <span class="fu">SpatialPointsDataFrame</span><span class="op">(</span>coords <span class="op">=</span> <span class="va">coords</span>,</span>
 <span>                                      data <span class="op">=</span> <span class="va">letters_data</span>,  </span>
-<span>                                      proj4string <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/sp/man/CRS-class.html">CRS</a></span><span class="op">(</span><span class="st">"+proj=longlat +datum=WGS84"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>                                      proj4string <span class="op">=</span> <span class="fu">CRS</span><span class="op">(</span><span class="st">"+proj=longlat +datum=WGS84"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Printing out <code>points_spdf</code> shows a result not dramatically different from printing out the <code>geo_data</code> data frame. However, inspecting the structure of the object shows that it has a very different composition.</p>
 <div class="cell">
@@ -484,8 +468,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>To make a map with the <code>SpatialPoints</code> objects of the correspondence of Daniel, we need to get a background map of western Europe to provide geographical context. There are a number of R packages that provide access to various maps which can be read in as <code>Spatial</code> data. Here, I will make use of the <code>rnaturalearth</code> package to get access to a map of the coastlines of the world and another for the countries in the world.<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a> This will create two different kinds of <code>Spatial</code> objects. Because both maps contain non-spatial attribute data, they will be of class <code>SpatialLinesDataFrame</code> and <code>SpatialpolygonsDataFrame</code>.</p>
 <div class="cell">
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Get coastal and country world maps as Spatial objects</span></span>
-<span><span class="va">coast_sp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/rnaturalearth/reference/ne_coastline.html">ne_coastline</a></span><span class="op">(</span>scale <span class="op">=</span> <span class="st">"medium"</span><span class="op">)</span></span>
-<span><span class="va">countries_sp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/rnaturalearth/reference/ne_countries.html">ne_countries</a></span><span class="op">(</span>scale <span class="op">=</span> <span class="st">"medium"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">coast_sp</span> <span class="op">&lt;-</span> <span class="fu">ne_coastline</span><span class="op">(</span>scale <span class="op">=</span> <span class="st">"medium"</span><span class="op">)</span></span>
+<span><span class="va">countries_sp</span> <span class="op">&lt;-</span> <span class="fu">ne_countries</span><span class="op">(</span>scale <span class="op">=</span> <span class="st">"medium"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Not only are <code>coast_sp</code> and <code>countries_sp</code> useful for mapping the points data, they also provide an opportunity to look at the structure of more complex <code>Spatial</code> objects. Printing out either object fills up the entire console with an overflow of information. Instead, we can get an idea of the structure of the two objects with the <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> command. To ensure that we do not overloaded with information with this command, I will only show the first two levels, which shows information about the slots but not on the data within the slots.</p>
 <div class="cell">
@@ -510,21 +494,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt;   ..$ comment: chr "TRUE"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The output from <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> shows that <code>coast_sp</code> and <code>countries_sp</code> are mainly distinguished by the presence of a <code>lines</code> or a <code>polygons</code> slot. Both of the objects contain data frames, but they are very different. The data frame in <code>coast_sp</code> only contains two columns, but <code>countries_sp</code> has 63 columns. This is because the countries map from <code>rnaturalearth</code> contains a variety of population, economic, and labeling data. We do not need to deal with the <code>data</code> slots from either of these objects, but they do provide a good example of what these kind of <code>Spatial</code> objects look like.</p>
-<p>The last thing that we should do before plotting the points on our background maps is to make sure that our objects all have the same CRS. If <code>points_spdf</code> and <code>coast_sp</code> have different CRSs, the points will not be correctly plotted. We can check this with either the <code><a href="https://rdrr.io/pkg/sp/man/is.projected.html">proj4string()</a></code> function or printing out the <code>proj4string</code> slot. Checking this shows that all of the <code>Spatial</code> objects are using geographic coordinates on the WSG84 ellipsoid, enabling us to move forward with plotting.</p>
+<p>The last thing that we should do before plotting the points on our background maps is to make sure that our objects all have the same CRS. If <code>points_spdf</code> and <code>coast_sp</code> have different CRSs, the points will not be correctly plotted. We can check this with either the <code>proj4string()</code> function or printing out the <code>proj4string</code> slot. Checking this shows that all of the <code>Spatial</code> objects are using geographic coordinates on the WSG84 ellipsoid, enabling us to move forward with plotting.</p>
 <div class="cell">
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Check CRS of Spatial objects</span></span>
 <span><span class="va">coast_sp</span><span class="op">@</span><span class="va">proj4string</span></span>
 <span><span class="co">#&gt; Coordinate Reference System:</span></span>
 <span><span class="co">#&gt; Deprecated Proj.4 representation:</span></span>
 <span><span class="co">#&gt;  +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/sp/man/is.projected.html">proj4string</a></span><span class="op">(</span><span class="va">countries_sp</span><span class="op">)</span></span>
+<span><span class="fu">proj4string</span><span class="op">(</span><span class="va">countries_sp</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/sp/man/is.projected.html">proj4string</a></span><span class="op">(</span><span class="va">points_spdf</span><span class="op">)</span></span>
+<span><span class="fu">proj4string</span><span class="op">(</span><span class="va">points_spdf</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "+proj=longlat +datum=WGS84 +no_defs"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="mapping-sp" class="level2"><h2 class="anchored" data-anchor-id="mapping-sp">Mapping with <code>sp</code>
 </h2>
-<p>Just as <code>Spatial</code> objects cannot be manipulated with <code>dplyr</code> commands, they cannot be plotted using <code>ggplot2</code>. <code>Spatial</code> objects can be plotted using the base R plot system or with its own plotting method that uses the Trellis plotting system with the <code><a href="https://rdrr.io/pkg/sp/man/spplot.html">spplot()</a></code> command. Here, I will stick to the base plotting methods, but if you want to look at <code><a href="https://rdrr.io/pkg/sp/man/spplot.html">spplot()</a></code> methods, Edzer Pebesma has created a good <a href="https://edzer.github.io/sp/">gallery of sp plots</a>. For a more in depth discussion on both plotting methods see Chapter 3 of Bivand, Pebesma, and Gómez-Rubio, <em>Applied Spatial Data Analysis with R</em>. I will discuss creating a map with the base R plotting system in some detail, because the commands are not particularly intuitive, and I have found it more difficult to find good information about making base plots compared to the use of <code>ggplot2</code>.</p>
+<p>Just as <code>Spatial</code> objects cannot be manipulated with <code>dplyr</code> commands, they cannot be plotted using <code>ggplot2</code>. <code>Spatial</code> objects can be plotted using the base R plot system or with its own plotting method that uses the Trellis plotting system with the <code>spplot()</code> command. Here, I will stick to the base plotting methods, but if you want to look at <code>spplot()</code> methods, Edzer Pebesma has created a good <a href="https://edzer.github.io/sp/">gallery of sp plots</a>. For a more in depth discussion on both plotting methods see Chapter 3 of Bivand, Pebesma, and Gómez-Rubio, <em>Applied Spatial Data Analysis with R</em>. I will discuss creating a map with the base R plotting system in some detail, because the commands are not particularly intuitive, and I have found it more difficult to find good information about making base plots compared to the use of <code>ggplot2</code>.</p>
 <p>The plotting method for base R uses incremental commands to add different layers, allowing you to plot multiple types of data and add annotations such as legends and titles. The process can be somewhat tedious, and if you decide to change an aspect of the plot you need to rerun the entire string of commands. The necessity of building up every level of the plot with explicit commands has advantages and disadvantages when compared to <code>ggplot2</code>, which automates certain aspects of plot creation. For instance, base plots do not automate the creation of legends in the same way that <code>ggplot2</code> does. This makes the creation of legends more difficult, but because you have to construct each piece of the legend, its production can be more transparent than with <code>ggplot2</code>.</p>
 <p>Base plotting methods enable you to manipulate a <a href="http://colinfay.me/intro-to-r/graphical-procedures.html">wide variety of parameters</a> about your plots. You can see the whole list with <code><a href="https://rdrr.io/r/graphics/par.html">?par</a></code>. For this post, I will concentrate on some of the more widely used parameters to plot the points data we have created above on two different background maps. With these maps I want to visualize three different types of data: the location of the points represented in <code>points_spdf@coords</code>, whether the point represents a source or destination of the letters from the “type” column, and a representation of the amount of letters sent or received in the location from the “n” column. The latter two types of data can be represented through color and the size of the points respectively. Let’s see how this works in practice.</p>
 <p>Even before beginning to plot our <code>Spatial</code> objects, I want to set up the plotting environment by modifying the default margins to a smaller size that will work for all of these plots. The margins of a plot are identified by the <code>mar</code> or <code>mai</code> arguments within <code><a href="https://rdrr.io/r/graphics/par.html">par()</a></code>. Here, I will use <code>mar</code>, which provides the margins in units of lines. To change the margins we need to pass a vector of values for the bottom, left, top, and right margins. In this case, I will use <code>par(mar = c(1, 1, 3, 1))&nbsp;</code> to give some minimal margins and some room for a title at the top of the plot.</p>
@@ -548,7 +532,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co"># Add a title</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/title.html">title</a></span><span class="op">(</span>main <span class="op">=</span> <span class="st">"Correspondence of Daniel van der Meulen, 1585"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/points-spdf-plot-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/points-spdf-plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Ok, we have points, but we do not have a map. We can add a background map with a separate call to the <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function that contains <code>add = TRUE</code>. One nice aspect of using the base plotting methods with <code>Spatial</code> objects is that even though the coastline map we are using is a world map, adding it to our previous plot properly scales the map to the geographical extent of the data from the first plotting function. The only other change is to make the color of the coastlines black with the <code>col</code> parameter. This needs to be done, because we changed the color palette above. If we did not make this change, the coastlines would be drawn in dark orchid.</p>
@@ -588,14 +575,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co"># Title for the map</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/title.html">title</a></span><span class="op">(</span>main <span class="op">=</span> <span class="st">"Correspondence of Daniel van der Meulen, 1585"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/coast-sp-plot-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/coast-sp-plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
 </div>
-<p>The resulting map is maybe a bit sparse, but it provides all the necessary information on the locations and magnitude of Daniel’s correspondence in 1585. One change that we might want to make is to color in the land to distinguish more clearly between land and water and to add some color to the plot. This cannot be done with our <code>SpatialLines</code> of the coastlines, which does not have a geometric interior that could be filled. Instead we need to use a <code>SpatialPolygons</code> object such as <code>countries_sp</code>. To make this second map we can reuse many of the parameters from our first map, but we do need to make one significant change to the plotting workflow. Because we want to fill in the land area of the map, we need to plot the background map before plotting the points. Otherwise the background map will cover the points. However, this disturbs the automatic subsetting of the world map that occurred in the first plot. We can get around this by changing the bounding box of <code>countries_sp</code> (<code>countries_sp@bbox</code>) to match that of <code>points_spdf</code> with the <code><a href="https://rdrr.io/pkg/sp/man/bbox.html">bbox()</a></code> function.</p>
+</div>
+<p>The resulting map is maybe a bit sparse, but it provides all the necessary information on the locations and magnitude of Daniel’s correspondence in 1585. One change that we might want to make is to color in the land to distinguish more clearly between land and water and to add some color to the plot. This cannot be done with our <code>SpatialLines</code> of the coastlines, which does not have a geometric interior that could be filled. Instead we need to use a <code>SpatialPolygons</code> object such as <code>countries_sp</code>. To make this second map we can reuse many of the parameters from our first map, but we do need to make one significant change to the plotting workflow. Because we want to fill in the land area of the map, we need to plot the background map before plotting the points. Otherwise the background map will cover the points. However, this disturbs the automatic subsetting of the world map that occurred in the first plot. We can get around this by changing the bounding box of <code>countries_sp</code> (<code>countries_sp@bbox</code>) to match that of <code>points_spdf</code> with the <code>bbox()</code> function.</p>
 <div class="cell">
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Make bounding box for countries_sp match</span></span>
 <span><span class="co"># bounding box of points_spdf</span></span>
-<span><span class="va">countries_sp</span><span class="op">@</span><span class="va">bbox</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sp/man/bbox.html">bbox</a></span><span class="op">(</span><span class="va">points_spdf</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">countries_sp</span><span class="op">@</span><span class="va">bbox</span> <span class="op">&lt;-</span> <span class="fu">bbox</span><span class="op">(</span><span class="va">points_spdf</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Once the countries map is properly limited to the extent of the points, we can reuse most of the parameters from the first map. The only difference from the previous plot other than placing the background map first in the plotting order is the choice of colors for <code>countries_sp</code>. For a <code>SpatialPolygons</code> object the <code>col</code> parameter adjusts the fill color for the polygons, and the <code>border</code> parameter modifies the color of the lines of the polygons. Using a map with modern country boundaries is clearly anachronistic for plotting letters from 1585, but the boundaries do help to contextualize the locations. If you want to obscure the country borders completely, you can make the <code>col</code> and <code>border</code> parameters the same color. In this case, I will use the <code><a href="https://rdrr.io/r/grDevices/gray.html">gray()</a></code> function, which enables you to choose a gray level from 0 to 1 with 0 representing black and 1 for white.</p>
 <div class="cell">
@@ -631,16 +621,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co"># Title for the map</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/title.html">title</a></span><span class="op">(</span>main <span class="op">=</span> <span class="st">"Correspondence of Daniel van der Meulen, 1585"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/countries-sp-plot-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/countries-sp-plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>The above maps along with the creation of <code>Spatial</code> objects and the use of maps from outside sources demonstrates the value of the <code>sp</code> package. The above examples only show the basics of working with different kinds of <code>Spatial</code> objects and does not take advantage of any of the spatial transformations or calculations that using <code>sp</code> enables. However, the R GIS community is increasingly moving towards the <code>sf</code> package. The <code>sf</code> package provides almost all of the <a href="https://github.com/r-spatial/sf/wiki/migrating">capabilities of <code>sp</code></a>, but it uses objects that are easier to work with than the S4-style classes of <code>sp</code>. The next section will replicate the workflow of creating and mapping spatial points data using <code>sf</code> methods, which will serve to illuminate the differences between the two packages.</p>
 </section><section id="sf" class="level2"><h2 class="anchored" data-anchor-id="sf">Spatial data with <code>sf</code>
 </h2>
-<p>As I noted above, an <code>sf</code> object is a data-frame-like object that contains a special geometry column that is of class <code>sfc</code>. The geometry column stores the spatial forms of data such as the CRS, coordinates, and type of geometric object. The creation of an <code>sf</code> object with a geometry column of class <code>sfc_POINT</code> is similar to creating a <code>SpatialPointsDataFrame</code>, but it can be done in a single step with a data frame that contains longitude and latitude columns. The <code><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf()</a></code> function uses a vector of the coordinate columns for the <code>coords</code> argument and either a EPSG code or a Proj.4 definition for the <code>crs</code>.</p>
+<p>As I noted above, an <code>sf</code> object is a data-frame-like object that contains a special geometry column that is of class <code>sfc</code>. The geometry column stores the spatial forms of data such as the CRS, coordinates, and type of geometric object. The creation of an <code>sf</code> object with a geometry column of class <code>sfc_POINT</code> is similar to creating a <code>SpatialPointsDataFrame</code>, but it can be done in a single step with a data frame that contains longitude and latitude columns. The <code>st_as_sf()</code> function uses a vector of the coordinate columns for the <code>coords</code> argument and either a EPSG code or a Proj.4 definition for the <code>crs</code>.</p>
 <div class="cell">
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Create sf object with geo_data data frame and CRS</span></span>
-<span><span class="va">points_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf</a></span><span class="op">(</span><span class="va">geo_data</span>, coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lon"</span>, <span class="st">"lat"</span><span class="op">)</span>, crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">points_sf</span> <span class="op">&lt;-</span> <span class="fu">st_as_sf</span><span class="op">(</span><span class="va">geo_data</span>, coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lon"</span>, <span class="st">"lat"</span><span class="op">)</span>, crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The <code><a href="https://rdrr.io/r/base/class.html">class()</a></code> function shows that <code>points_sf</code> is an <code>sf</code> object that is an extension of a <code>data.frame</code>, and in this case is an extension of <code>tbl_df</code>, because <code>geo_data</code> is a <a href="http://r4ds.had.co.nz/tibbles.html">tibble</a>. Printing <code>points_sf</code> results in an output similar to that of a tibble or data frame with additional information about the spatial aspects of the data provided by the “geometry” column. The information about the geometry shows the type of geometrical object, dimension, bounding box, and the CRS in both EPSG and proj.4 format when possible.</p>
 <div class="cell">
@@ -673,7 +666,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 13 Middelburg     2 Destination  (3.610998 51.4988)</span></span>
 <span><span class="co">#&gt; 14 The Hague      3 Destination    (4.3007 52.0705)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>You can inspect the class of the geometry column itself by using <code>$</code> to subset the geometry column. Or you can directly access information about the spatial data in the “geometry” column with the <code><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry()</a></code> function.</p>
+<p>You can inspect the class of the geometry column itself by using <code>$</code> to subset the geometry column. Or you can directly access information about the spatial data in the “geometry” column with the <code>st_geometry()</code> function.</p>
 <div class="cell">
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Class of the geometry or sfc column</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">points_sf</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span>
@@ -681,7 +674,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span></span>
 <span><span class="co"># Retrieve the geometry of an sf object</span></span>
 <span><span class="co"># to see coordinates, type of feature, and CRS</span></span>
-<span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="va">points_sf</span><span class="op">)</span></span>
+<span><span class="fu">st_geometry</span><span class="op">(</span><span class="va">points_sf</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Geometry set for 14 features </span></span>
 <span><span class="co">#&gt; Geometry type: POINT</span></span>
 <span><span class="co">#&gt; Dimension:     XY</span></span>
@@ -694,11 +687,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; POINT (7.20601 53.3594)</span></span>
 <span><span class="co">#&gt; POINT (4.646219 52.38739)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Having already loaded the Natural Earth coastline and countries maps as <code>Spatial</code> objects, there are two possibilities for getting the same data as <code>sf</code> objects. The <code>sf</code> package provides a method for converting from <code>Spatial</code> classes to <code>sf</code> with the <code><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf()</a></code> function that was used above to create an <code>sf</code> object from a data frame. It is useful to know that you can easily convert an object from <code>Spatial</code> to <code>sf</code> and back, but you will obviously not always have <code>Spatial</code> objects already created. The <code>rnaturalearth</code> package enables you to create <code>sf</code> objects with the <code>returnclass = "sf"</code> argument. Here, I will use the latter method.<a href="#fn16" class="footnote-ref" id="fnref16" role="doc-noteref"><sup>16</sup></a></p>
+<p>Having already loaded the Natural Earth coastline and countries maps as <code>Spatial</code> objects, there are two possibilities for getting the same data as <code>sf</code> objects. The <code>sf</code> package provides a method for converting from <code>Spatial</code> classes to <code>sf</code> with the <code>st_as_sf()</code> function that was used above to create an <code>sf</code> object from a data frame. It is useful to know that you can easily convert an object from <code>Spatial</code> to <code>sf</code> and back, but you will obviously not always have <code>Spatial</code> objects already created. The <code>rnaturalearth</code> package enables you to create <code>sf</code> objects with the <code>returnclass = "sf"</code> argument. Here, I will use the latter method.<a href="#fn16" class="footnote-ref" id="fnref16" role="doc-noteref"><sup>16</sup></a></p>
 <div class="cell">
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Get coastal and country world maps as sf objects</span></span>
-<span><span class="va">coast_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/rnaturalearth/reference/ne_coastline.html">ne_coastline</a></span><span class="op">(</span>scale <span class="op">=</span> <span class="st">"medium"</span>, returnclass <span class="op">=</span> <span class="st">"sf"</span><span class="op">)</span></span>
-<span><span class="va">countries_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/rnaturalearth/reference/ne_countries.html">ne_countries</a></span><span class="op">(</span>scale <span class="op">=</span> <span class="st">"medium"</span>, returnclass <span class="op">=</span> <span class="st">"sf"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">coast_sf</span> <span class="op">&lt;-</span> <span class="fu">ne_coastline</span><span class="op">(</span>scale <span class="op">=</span> <span class="st">"medium"</span>, returnclass <span class="op">=</span> <span class="st">"sf"</span><span class="op">)</span></span>
+<span><span class="va">countries_sf</span> <span class="op">&lt;-</span> <span class="fu">ne_countries</span><span class="op">(</span>scale <span class="op">=</span> <span class="st">"medium"</span>, returnclass <span class="op">=</span> <span class="st">"sf"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The data-frame-like nature of <code>sf</code> objects makes working with spatial data more transparent and in-line with other data workflows compared to the <code>sp</code> package. For starters, it is more reasonable to print out <code>sf</code> objects to the console, though the size of <code>coast_sf</code> and <code>countries_sf</code> makes this less than ideal. However, a big advantage of <code>sf</code> over <code>sp</code> is that you can easily peruse the contents of an object with the <code><a href="https://rdrr.io/r/utils/View.html">View()</a></code> command or clicking on the object in the Environment pane in RStudio. With the <code><a href="https://rdrr.io/r/utils/View.html">View()</a></code> command an <code>sf</code> object looks like any other data frame instead of a list of lists like a <code>Spatial</code> object. This makes it much easier to get an overview of the data that you are working with. Let’s print out the first six rows, or features in the <code>sf</code> vocabulary, of <code>coast_sf</code> with the <code><a href="https://rdrr.io/r/utils/head.html">head()</a></code> function to give an idea of what the object looks like. The structure of the output is similar to that of <code>points_sf</code> with a data frame containing a geometry column and information about the geometry of the object. In this case, we can see that <code>coast_sf</code> is of class <code>MULTILINESTRING</code>.</p>
 <div class="cell">
@@ -733,13 +726,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 2 Haarlem    30 Source      (4.646219 52.38739)</span></span>
 <span><span class="co">#&gt; 3 Delft      95 Destination (4.357068 52.01158)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The advantages of using <code>dplyr</code> to manipulate spatial objects is more apparent when working with complex objects such as <code>countries_sf</code> and using the pipe (<code>%&gt;%</code>) to link commands. For example, if you want to look at the countries in South America, you can much more easily navigate the 241 rows and 63 columns of non-spatial data in the <code>sf</code> version of the countries world map than the <code>sp</code> version. Printing out the names of the columns with <code><a href="https://rdrr.io/r/base/colnames.html">colnames()</a></code> shows that we can filter countries in South America through the “continent” column. We can simplify the non-spatial data by selecting only the “name” column to identify the countries. Even more impressively, it is possible to combine data wrangling commands with spatial transformations such as changing the CRS of the object with <code><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform()</a></code>. As a demonstration, I can change the CRS of the subset of <code>countries_sf</code> to use the <a href="https://en.wikipedia.org/wiki/Mollweide_projection">Mollweide projection</a>, which prioritizes accuracy of area over shape and angle. The result of the pipeline of commands is a legible <code>sf</code> object with 13 rows for the countries in South America with a new CRS. Note that because there is no EPSG code for the Mollweide projection the <code>epsg</code> of the new object is <code>NA</code>, but the <code>proj4string</code> is changed to <code>+proj=moll</code>. Notice too that the coordinates have been changed from degrees to meters.</p>
+<p>The advantages of using <code>dplyr</code> to manipulate spatial objects is more apparent when working with complex objects such as <code>countries_sf</code> and using the pipe (<code>%&gt;%</code>) to link commands. For example, if you want to look at the countries in South America, you can much more easily navigate the 241 rows and 63 columns of non-spatial data in the <code>sf</code> version of the countries world map than the <code>sp</code> version. Printing out the names of the columns with <code><a href="https://rdrr.io/r/base/colnames.html">colnames()</a></code> shows that we can filter countries in South America through the “continent” column. We can simplify the non-spatial data by selecting only the “name” column to identify the countries. Even more impressively, it is possible to combine data wrangling commands with spatial transformations such as changing the CRS of the object with <code>st_transform()</code>. As a demonstration, I can change the CRS of the subset of <code>countries_sf</code> to use the <a href="https://en.wikipedia.org/wiki/Mollweide_projection">Mollweide projection</a>, which prioritizes accuracy of area over shape and angle. The result of the pipeline of commands is a legible <code>sf</code> object with 13 rows for the countries in South America with a new CRS. Note that because there is no EPSG code for the Mollweide projection the <code>epsg</code> of the new object is <code>NA</code>, but the <code>proj4string</code> is changed to <code>+proj=moll</code>. Notice too that the coordinates have been changed from degrees to meters.</p>
 <div class="cell">
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># South American countries with new CRS</span></span>
 <span><span class="va">countries_sf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">continent</span> <span class="op">==</span> <span class="st">"South America"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">name</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span>crs <span class="op">=</span> <span class="st">"+proj=moll +datum=WGS84"</span><span class="op">)</span></span>
+<span>  <span class="fu">st_transform</span><span class="op">(</span>crs <span class="op">=</span> <span class="st">"+proj=moll +datum=WGS84"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Simple feature collection with 13 features and 1 field</span></span>
 <span><span class="co">#&gt; Geometry type: MULTIPOLYGON</span></span>
 <span><span class="co">#&gt; Dimension:     XY</span></span>
@@ -767,10 +760,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="va">countries_sf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">continent</span> <span class="op">==</span> <span class="st">"South America"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">name</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span>crs <span class="op">=</span> <span class="st">"+proj=moll +datum=WGS84"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">st_transform</span><span class="op">(</span>crs <span class="op">=</span> <span class="st">"+proj=moll +datum=WGS84"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>key.pos <span class="op">=</span> <span class="cn">NULL</span>, graticule <span class="op">=</span> <span class="cn">TRUE</span>, main <span class="op">=</span> <span class="st">"South America"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/sa-countries-plot-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/sa-countries-plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section><section id="mapping-sf" class="level2"><h2 class="anchored" data-anchor-id="mapping-sf">Mapping with <code>sf</code> and <code>ggplot2</code>
@@ -788,15 +784,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>          show.legend <span class="op">=</span> <span class="st">"point"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">coord_sf</a></span><span class="op">(</span>xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">14</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">44</span>, <span class="fl">55</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/ggplot-demo-plot-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/ggplot-demo-plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>The map created by <code>ggplot2</code> shows the same information as the base plots. It includes legends by default so that we do not need to build them up from scratch, though with <code><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf()</a></code> we do need to use <code>show.legend = "point"</code> to format the legends properly. The aesthetics of this map are quite different from the base plots and serves to show the defaults that come with the use of <code><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf()</a></code> in <code>ggplot2</code>. The defaults for <code><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf()</a></code> use the iconic <code>ggplot</code> gray background, but instead of the usual white grid lines, graticules for the longitude and latitude are shown. Notice that the tick marks for the plot are correctly labeled in units of degrees longitude and latitude and that the axes are not labeled, as the context makes clear that the x-axis is latitude and the y-axis is longitude — at least if you remember which one is which.</p>
-<p>The basic structure of what we want is present in the above map, but we can improve upon it by adding some information and making aesthetic changes to the map. We can simplify the map and make it more similar to the above base R plots by removing the graticules, which can be done by passing <code>NA</code> to the datum argument within the <code><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">coord_sf()</a></code> function. On the other hand, it is possible to add information to the plot by labeling the points with <code><a href="https://rdrr.io/pkg/ggrepel/man/geom_text_repel.html">geom_text_repel()</a></code> from the <a href="https://cran.r-project.org/web/packages/ggrepel/index.html"><code>ggrepel</code></a> package, which will ensure that the labels for the points do not overlap. <code><a href="https://rdrr.io/pkg/ggrepel/man/geom_text_repel.html">geom_text_repel()</a></code> does not work with <code>sf</code> objects, but because we have made no geographic transformations to the data, we can use the data from the <code>locations</code> data frame to map the names of the locations to the longitude and latitude values.</p>
+<p>The basic structure of what we want is present in the above map, but we can improve upon it by adding some information and making aesthetic changes to the map. We can simplify the map and make it more similar to the above base R plots by removing the graticules, which can be done by passing <code>NA</code> to the datum argument within the <code><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">coord_sf()</a></code> function. On the other hand, it is possible to add information to the plot by labeling the points with <code>geom_text_repel()</code> from the <a href="https://cran.r-project.org/web/packages/ggrepel/index.html"><code>ggrepel</code></a> package, which will ensure that the labels for the points do not overlap. <code>geom_text_repel()</code> does not work with <code>sf</code> objects, but because we have made no geographic transformations to the data, we can use the data from the <code>locations</code> data frame to map the names of the locations to the longitude and latitude values.</p>
 <p>Further changes to the non-data aspects of the map can be made through the <a href="http://r4ds.had.co.nz/graphics-for-communication.html">theme system used by <code>ggplot2</code></a>. We can alter the look of the map by choosing a different built in theme, changing individual elements of the aesthetics, or a combination of the two. You can play around with the theming system to create the look you want. In this case, I will make changes to the theme and to individual aspects of the plot. Changing the theme to <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light()</a></code> changes the background to white, but it also adds axes labels, which we will want to remove. The labels for the axes, legends, and plot as a whole can be modified within the <code><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs()</a></code> function. To remove the labeling of the axes for the plot I set the <code>x</code> and <code>y</code> labels to <code>NULL</code>. I also change the labels for the legends to give a more descriptive name to the size legend and use title case for the color legend. The last change I make is to increase the size of the points within the color legend with the <code><a href="https://ggplot2.tidyverse.org/reference/guides.html">guides()</a></code> function, increasing the size of the points to 6.</p>
 <div class="cell">
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load ggrepel package</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/slowkow/ggrepel">ggrepel</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggrepel.slowkow.com/">ggrepel</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">coast_sf</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -806,7 +805,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>          show.legend <span class="op">=</span> <span class="st">"point"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">coord_sf</a></span><span class="op">(</span>xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">14</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">44</span>, <span class="fl">55</span><span class="op">)</span>,</span>
 <span>           datum <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span> <span class="co"># removes graticules</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/ggrepel/man/geom_text_repel.html">geom_text_repel</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">locations</span>, </span>
+<span>  <span class="fu">geom_text_repel</span><span class="op">(</span>data <span class="op">=</span> <span class="va">locations</span>, </span>
 <span>                  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">lon</span>, y <span class="op">=</span> <span class="va">lat</span>, label <span class="op">=</span> <span class="va">place</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Correspondence of Daniel van der Meulen, 1585"</span>,</span>
 <span>       size <span class="op">=</span> <span class="st">"Letters"</span>,</span>
@@ -816,7 +815,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html">guides</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_legend.html">guide_legend</a></span><span class="op">(</span>override.aes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">6</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/ggplot-coastline-plot-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/ggplot-coastline-plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>The result is a map that is much cleaner, and because of the points are labeled, more informative. We can reuse the thematic tweaks to create a plot with the countries background map to make it possible to fill in the land area as we did above. I will use the same gray scale for the colors to fill the polygons and for the lines of the polygons. The other change that I make in this plot is to use the <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw()</a></code>, which adds a border around the plot.</p>
@@ -830,7 +832,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>          show.legend <span class="op">=</span> <span class="st">"point"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">coord_sf</a></span><span class="op">(</span>xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">14</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">44</span>, <span class="fl">55</span><span class="op">)</span>,</span>
 <span>           datum <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span> <span class="co"># removes graticules</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/ggrepel/man/geom_text_repel.html">geom_text_repel</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">locations</span>, </span>
+<span>  <span class="fu">geom_text_repel</span><span class="op">(</span>data <span class="op">=</span> <span class="va">locations</span>, </span>
 <span>                  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">lon</span>, y <span class="op">=</span> <span class="va">lat</span>, label <span class="op">=</span> <span class="va">place</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Correspondence of Daniel van der Meulen, 1585"</span>,</span>
 <span>       size <span class="op">=</span> <span class="st">"Letters"</span>,</span>
@@ -840,7 +842,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html">guides</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_legend.html">guide_legend</a></span><span class="op">(</span>override.aes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">6</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/ggplot-countries-plot-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/ggplot-countries-plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section><section id="conclusion" class="level2"><h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
@@ -872,7 +877,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li id="fn13"><p>Instead of choosing your own colors, you could use any of the number of R packages that provide color palettes such as <a href="https://cran.r-project.org/web/packages/RColorBrewer/index.html"><code>RColorBrewer</code></a>, but for this example I will keep it simple and make my own palette.<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn14"><p>Make sure to create the <code>pointsize</code> vector before beginning the chain of <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> functions.<a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn15"><p>I rerun the <code><a href="https://rdrr.io/r/graphics/par.html">par()</a></code> command for the margins to ensure that the margins stay consistent across these plots.<a href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn16"><p>The <code>sf</code> package has the ability to read in and convert a number of spatial data types used in GIS with <code><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read()</a></code>. <a href="https://cran.r-project.org/web/packages/sf/vignettes/sf2.html">See the vignette on reading and writing simple features</a>.<a href="#fnref16" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn16"><p>The <code>sf</code> package has the ability to read in and convert a number of spatial data types used in GIS with <code>st_read()</code>. <a href="https://cran.r-project.org/web/packages/sf/vignettes/sf2.html">See the vignette on reading and writing simple features</a>.<a href="#fnref16" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn17"><p>The details of plotting <code>sf</code> objects are covered in a <a href="https://cran.r-project.org/web/packages/sf/vignettes/sf5.html">package vignette</a>.<a href="#fnref17" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol></section></div></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -901,12 +906,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
     }
-  });
-  clipboard.on('success', function(e) {
+    return false;
+  }
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -938,11 +946,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/www\.jessesadler\.com");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -952,8 +999,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -965,9 +1021,245 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -1012,10 +1304,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-left">
       <ul class="footer-items list-unstyled">
 <li class="nav-item">
-    <a class="nav-link" href="https://www.quarto.org">Built with Quarto</a>
+    <a class="nav-link" href="https://www.quarto.org">
+<p>Built with Quarto</p>
+</a>
   </li>  
 </ul>
 </div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
 <li class="nav-item compact">

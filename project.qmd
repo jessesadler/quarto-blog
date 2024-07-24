@@ -1,5 +1,5 @@
 ---
-title: "Projects"
+title: "Digital Humanities Projects"
 listing:
   contents: project
   sort: "title desc"

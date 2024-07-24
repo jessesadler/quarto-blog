@@ -1,13 +1,14 @@
 ---
-title: "Courses"
+title: "Courses I have taught"
 listing:
   contents: course
   sort: "date desc"
   type: grid
-  fields: [title, subtitle, image]
+  fields: [title, image]
   categories: false
   sort-ui: false
   filter-ui: false
+  image-height: 200px
 page-layout: full
 title-block-banner: false
 ---

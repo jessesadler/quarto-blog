@@ -1,0 +1,41 @@
+---
+date: "2024-05-18"
+title: "Digital History for Public History"
+subtitle: "Taught: Spring 2024"
+image: "img/vt5454.png"
+---
+
+[Course website and syllabus](https://jessesadler.github.io/vt5454-s24/)
+
+This course is designed to introduce students to some of the tools of Digital Humanities/History with an emphasis on using open source technology that puts you in control. The course focuses on methodologies. It begins with the basics of organizing primary and secondary sources and your notes on them. We will then give an introduction to data analysis and visualization using the R programming language, culminating in the creation of your own website. Along the way we will be learning the basics of using the command line and learn about git and using GitHub for publishing websites and to become acquainted with the practices of reproducible research.
+
+## Learning goals
+
+- Develop an expanded awareness of the open source tools available for conducting historical research and making that research widely available to the public.
+- Be comfortable writing in plain text and using Markdown.
+- Understand the uses and drawbacks of spreadsheets and how to organize rectangular data.
+- Be comfortable with the basics of the command line.
+- Be able to import, explore, wrangle, and visualize data in R.
+- Be able to write R scripts and document your code in quarto documents.
+- Gain familiarity with the tidyverse packages in R.
+- Gain experience with the possibilities for text, network, and spatial analysis available through various R packages.
+- Be comfortable with using git and GitHub for your own work or collaboration with others.
+- Create a website using open source tools.
+
+## Schedule
+
+1. Introduction
+2. Digital History and Public History
+3. Organizing resources
+4. Plain text and markdown
+5. Data and an intro to the command line
+6. Intro to R and RStudio
+7. Data wrangling
+8. Visualization with ggplot2
+9. Version control with Git and GitHub
+10. Making documents and websites with Quarto
+11. Review and website workshop
+12. Spatial analysis
+13. Network analysis
+14. Web design and visualization
+15. Conclusion

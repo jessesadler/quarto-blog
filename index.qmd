@@ -1,5 +1,5 @@
 ---
-title: "Blog"
+title: "A Rogue Historian"
 listing:
   contents: post
   sort: "date desc"

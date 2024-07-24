@@ -2,7 +2,7 @@
 title: "Jesse Sadler"
 image: profile.jpeg
 about:
-  template: solana
+  template: trestles
   links:
     - icon: github
       text: Github
@@ -15,4 +15,6 @@ about:
       href: sadler-cv.pdf
 ---
 
-I am an early modern historian interested in the social and familial basis of politics, religion, and early modern capitalism. I received a Ph.D. in European History from UCLA in 2015 and have taught courses on cultural and intellectual history of early modern Europe and the Atlantic. My research makes use of the tools of Digital Humanities, particularly through the R programming language. I am interested in making the tools of Data Science and Digital Humanities more widely accessible to help build open and reproducible research across a wide array of fields. Take a look at my [CV](sadler-cv.pdf) if you are interested.
+I am a Digital Humanities Trainer and Project Consultant at the University Library at Virginia Tech. I am trained as a historian and received my Ph.D. in European History from UCLA. My historical research focuses on social and familial basis of politics, religion, and early modern capitalism. I have written on sibling relationships and inheritance in mercantile families from Antwerp during the Dutch Revolt.
+
+I am interested in making the tools of Data Science and Digital Humanities more widely accessible to help build open and reproducible research across the Humanities. I am particularly invested in the use of R, but I also dabble with Python and have interest in continuing to expand my digital skills. I am a [Carpentries](https://carpentries.org) instructor and maintainer of the [R for Social Scientists lesson](https://datacarpentry.org/r-socialsci/).

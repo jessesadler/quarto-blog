@@ -10,8 +10,10 @@ website:
     title: "Jesse Sadler"
     pinned: true
     right:
-      - file: project.qmd
-      - file: course.qmd
+      - text: Projects
+        file: project.qmd
+      - text: Courses
+        file: course.qmd
       - text: "Talks"
         file: slides.qmd
       - text: "About"

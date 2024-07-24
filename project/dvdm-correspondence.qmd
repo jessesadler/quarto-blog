@@ -4,10 +4,7 @@ description: "A digital humanities project of an early modern merchant's corresp
 # date: "2017-05-27"
 ---
 
-![](img/ggmap-light-2017-06-06.png){#fig-ggmap}
-
-{{< figure src="/img/ggmap-light-2017-06-06.png" height="400" >}}
-
+![](img/ggmap-light-2017-06-06.png){height=400}
 
 ### Visualizations
 - [Shiny version of the leaflet map that includes real-time filtering of dates](https://jessesadler.shinyapps.io/dvdm-correspondence/)

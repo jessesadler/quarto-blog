@@ -1,0 +1,11 @@
+---
+date: "2024-05-17"
+title: "Ancient History"
+subtitle: "Taught: Spring 2024"
+---
+
+![](img/Iliad.jpg)
+
+History 1024: Ancient History introduces students to the civilizations and peoples of the western ancient world, incorporating the peoples of the Mediterranean, the Near East, and outlying regions from the development of cities and invention of writing in Mesopotamia around 3,000 BCE to the fall of the western Roman Empire in the 5th century CE. The course examines the development and interactions of cultures and empires centered on the Mediterranean and radiating out across the Afro-Eurasian landmasses. Through lectures, textbook and primary sources readings, and online exhibits and resources, this class will focus on political, social, and cultural concepts such as political legitimacy, identity, and the development of social hierarchies. At all points emphasis will be placed on historical thinking and trying to better understand past cultures rather than memorization of facts, figures, and dates.
+
+#### [Syllabus PDF](syllabus/Sadler-1024-Syllabus-S24.pdf)
